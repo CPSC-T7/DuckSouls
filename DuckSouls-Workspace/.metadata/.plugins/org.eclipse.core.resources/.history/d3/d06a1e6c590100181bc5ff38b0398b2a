@@ -1,0 +1,26 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		System.out.println("======== Duck Souls ========");
+		
+		
+		
+		System.out.println("Execution Starting...");
+		
+		// TODO: init
+		
+		System.out.println("Game Starting...");
+		
+		// TODO
+		
+		System.out.println("Game Ending...");
+		
+		// TODO: Cleanup
+		
+		System.out.println("Execution Finished.");
+
+	}
+
+}
