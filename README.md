@@ -4,7 +4,7 @@
 **PLEASE! Remember not to directly commit to the _master_ branch!**
 When working on a subsystem, commit all changes to a branch dedicated to said subsystem's development. When the subsystem is complete, open a pull request and the subsystem will be looked over, tested, and then merged with the master branch.
 
-##Setup
+## Setup
 
 ### If you are using Eclipse (Recommended)
 1. Clone the repository (Preferably the branch you are working on, _not_ master)
