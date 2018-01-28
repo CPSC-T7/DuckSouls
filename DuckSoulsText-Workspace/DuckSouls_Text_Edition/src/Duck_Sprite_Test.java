@@ -8,6 +8,7 @@ public class Duck_Sprite_Test {
 	private static int yPosition = 40;
 	private static String xPadding = multiString("  ", xPosition);
 	private static String yPadding = multiString("\n", yPosition);
+	private static String direction = "Left";
 	
 
 	
@@ -21,7 +22,7 @@ public class Duck_Sprite_Test {
 	public static void main(String[] args) throws IOException, InterruptedException 
 	{
 		System.out.print(getSprite(xPosition, yPosition, "duckOne"));
-		duckAnimation(1, xPosition, yPosition);
+		duckAnimation(2, xPosition, yPosition);
 	}
 	
 	/**
@@ -40,7 +41,7 @@ public class Duck_Sprite_Test {
 		//Better way to store/move sprites?
 		
 		//Standing Duck
-		String duckOne = yPadding +
+		String duckOne_Left = yPadding +
 				xPadding +  "         __\r\n" + 
 				xPadding +  "       _0 0|\r\n" + 
 				xPadding +  "       --  |\r\n" + 
@@ -50,8 +51,18 @@ public class Duck_Sprite_Test {
 				xPadding +  "             ||\r\n" + 
 				xPadding +  "            --";
 		
-		//Duck Dance (Frame 1)
-		String duckTwo = yPadding +
+		String duckOne_Right = yPadding +
+				xPadding +  "                __\r\n" + 
+				xPadding +  "               |0 0_\r\n" + 
+				xPadding +  "               |  --\r\n" + 
+				xPadding +  "        \\------|  |\r\n" + 
+				xPadding +  "        \\\\        |\r\n" + 
+				xPadding +  "         \\\\______/\r\n" + 
+				xPadding +  "             ||\r\n" + 
+				xPadding +  "              --";
+		
+		//Duck Dance (Mix with standing duck)
+		String duckTwo_Left = yPadding +
 				xPadding +  "          __\r\n" + 
 				xPadding +  "        _0 0|\r\n" + 
 				xPadding +  "        --  /\r\n" + 
@@ -61,8 +72,18 @@ public class Duck_Sprite_Test {
 				xPadding +  "             ||\r\n" + 
 				xPadding +  "            --";
 		
-		//Duck Dance (Frame 2)
-		String duckThree = yPadding +
+		String duckTwo_Right = yPadding +
+				xPadding +  "               __\r\n" + 
+				xPadding +  "              |0 0_\r\n" + 
+				xPadding +  "              \\  --\r\n" + 
+				xPadding +  "        \\------\\  \\\r\n" + 
+				xPadding +  "        \\\\        |\r\n" + 
+				xPadding +  "         \\\\______/\r\n" + 
+				xPadding +  "             ||\r\n" + 
+				xPadding +  "              --";
+		
+		//Duck Quack
+		String duckThree_Left = yPadding +
 				xPadding +  "         __\r\n" + 
 				xPadding +  "Quak*  _0 0|\r\n" +
 				xPadding +  "       --  |\r\n" + 
@@ -72,8 +93,18 @@ public class Duck_Sprite_Test {
 				xPadding +  "             ||\r\n" + 
 				xPadding +  "            --";
 		
+		String duckThree_Right = yPadding +
+				xPadding +  "                __\r\n" + 
+				xPadding +  "               |0 0_  *Quak\r\n" + 
+				xPadding +  "               |  --\r\n" + 
+				xPadding +  "        \\------|  |\r\n" + 
+				xPadding +  "        \\\\        |\r\n" + 
+				xPadding +  "         \\\\______/\r\n" + 
+				xPadding +  "             ||\r\n" + 
+				xPadding +  "              --";	
+		
 		//Duck Run (Frame 1)
-		String duckFour = yPadding +
+		String duckFour_Left = yPadding +
 				xPadding +  "       __\r\n" + 
 				xPadding +  "     _0 0\\\r\n" + 
 				xPadding +  "     --   \\\r\n" + 
@@ -83,8 +114,18 @@ public class Duck_Sprite_Test {
 				xPadding +  "             /|\r\n" + 
 				xPadding +  "            `-";
 		
+		String duckFour_Right = yPadding +
+				xPadding +  "                  __\r\n" + 
+				xPadding +  "                 /0 0_\r\n" + 
+				xPadding +  "                /   --\r\n" + 
+				xPadding +  "       \\-------/   /\r\n" + 
+				xPadding +  "        \\\\        |\r\n" + 
+				xPadding +  "         \\\\______/\r\n" + 
+				xPadding +  "             |\\\r\n" + 
+				xPadding +  "              -`";
+		
 		//Duck Run (Frame 2)
-		String duckFive = yPadding +
+		String duckFive_Left = yPadding +
 				xPadding +  "       __\r\n" + 
 				xPadding +  "     _0 0\\\r\n" + 
 				xPadding +  "     --   \\\r\n" + 
@@ -92,28 +133,61 @@ public class Duck_Sprite_Test {
 				xPadding +  "        |        //\r\n" + 
 				xPadding +  "         \\______//\r\n" + 
 				xPadding +  "             |/\r\n" + 
-				xPadding +  "             `";	
+				xPadding +  "             `";
+		
+		String duckFive_Right = yPadding +
+				xPadding +  "                  __\r\n" + 
+				xPadding +  "                 /0 0_\r\n" + 
+				xPadding +  "                /   --\r\n" + 
+				xPadding +  "       \\-------/   /\r\n" + 
+				xPadding +  "        \\\\        |\r\n" + 
+				xPadding +  "         \\\\______/\r\n" + 
+				xPadding +  "             \\|\r\n" + 
+				xPadding +  "              `-";
 		
 		//Select the sprite frame to return based on method argument "duckSprite"
-		switch(duckSprite) 
-		{
-			case("duckOne"):
-				return duckOne;
-		
-			case("duckTwo"):
-				return duckTwo;
+		if (direction == "Left") {
+			switch(duckSprite) 
+			{
+				case("duckOne"):
+					return duckOne_Left;
 			
-			case("duckThree"):
-				return duckThree;
+				case("duckTwo"):
+					return duckTwo_Left;
+				
+				case("duckThree"):
+					return duckThree_Left;
+				
+				case("duckFour"):
+					return duckFour_Left;
+				
+				case("duckFive"):
+					return duckFive_Left;
+				
+				default:
+					return("Error: no sprite found.");
+			}
+		}else {
+			switch(duckSprite) 
+			{
+				case("duckOne"):
+					return duckOne_Right;
 			
-			case("duckFour"):
-				return duckFour;
-			
-			case("duckFive"):
-				return duckFive;
-			
-			default:
-				return("Error: no sprite found.");
+				case("duckTwo"):
+					return duckTwo_Right;
+				
+				case("duckThree"):
+					return duckThree_Right;
+				
+				case("duckFour"):
+					return duckFour_Right;
+				
+				case("duckFive"):
+					return duckFive_Right;
+				
+				default:
+					return("Error: no sprite found.");
+			}
 		}
 	}
 	
@@ -142,6 +216,9 @@ public class Duck_Sprite_Test {
 			duckRun(5, +1, 0);
 			duckStand(2);
 			duckRun(20, +1, +1);
+			duckDance(1);
+			duckQuack();
+
 		}
 	}
 	
@@ -180,7 +257,11 @@ public class Duck_Sprite_Test {
 	 */
 	public static void duckRun(int numTimes, int xDirection, int yDirection) throws IOException, InterruptedException 
 	{
-		
+		if (xDirection == 1) {
+			direction = "Right";
+		}else {
+			direction = "Left";
+		}
 		for (int i = 0; i < numTimes; i++) {
 			clearConsole();
 			System.out.print(getSprite(xPosition, yPosition, "duckFour"));
