@@ -21,25 +21,67 @@ public class DuckSouls {
 	 * @param args Not used.
 	 */
 	public static void main(String[] args) {
+		
 
 		System.out.println("======== Duck Souls ========");
 		
-		System.out.println("Execution Starting...");
+		
+		System.out.println("Initialization Starting...");
+		initialize();
+		System.out.println("Initialization Done.");
+		
+		
+		System.out.println("Game Loop Starting...");
+		loop();
+		System.out.println("Game Loop Done.");
+		
+		
+		System.out.println("Game Ending...");
+		end();
+		System.out.println("Game Ending Done.");
+		
+		
+		System.out.println("Cleanup Starting...");
+		cleanup();
+		System.out.println("Cleanup Done.");
+		
+
+	}
+	
+	/**
+	 * Calls the init methods of all game components.
+	 */
+	private static void initialize() {
 		
 		// TODO: Initialization
 		
-		System.out.println("Game Starting...");
+	}
+	
+	/**
+	 * Calls the loop methods of all game components.
+	 */
+	private static void loop() {
 		
 		// TODO: Main Game Loop
 		
-		System.out.println("Game Ending...");
+	}
+	
+	/**
+	 * Calls the end methods of all game components.
+	 */
+	private static void end() {
 		
 		// TODO: Game Ending
 		
-		System.out.println("Execution Finished.");
+	}
+	
+	/**
+	 * Calls the cleanup methods of all game components.
+	 */
+	private static void cleanup() {
 		
 		// TODO: Cleanup
-
+		
 	}
 
 }

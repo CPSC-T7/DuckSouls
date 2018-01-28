@@ -1,0 +1,40 @@
+
+public class ClassTemplate {
+	
+	/**
+	 * Calls the init methods of all game components.
+	 */
+	private static void initialize() {
+		
+		// TODO: Initialization
+		
+	}
+	
+	/**
+	 * Calls the loop methods of all game components.
+	 */
+	private static void loop() {
+		
+		// TODO: Main Game Loop
+		
+	}
+	
+	/**
+	 * Calls the end methods of all game components.
+	 */
+	private static void end() {
+		
+		// TODO: Game Ending
+		
+	}
+	
+	/**
+	 * Calls the cleanup methods of all game components.
+	 */
+	private static void cleanup() {
+		
+		// TODO: Cleanup
+		
+	}
+
+}
