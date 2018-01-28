@@ -8,7 +8,7 @@ public class Utilities {
 	 * @throws InterruptedException
 	 * @throws IOException
 	 */
-	public void clearConsole() throws IOException, InterruptedException
+	public static void clearConsole() throws IOException, InterruptedException
 	{
 	    try
 	    {
