@@ -7,7 +7,7 @@ import java.awt.Point;
  * 
  * @author Matthew Allwright
  * @requires java.awt.Point
- * @version 0.1.0
+ * @version 0.2.2
  *
  */
 public class TextRoom {
@@ -93,6 +93,9 @@ public class TextRoom {
 
 	// METHODS
 
+	/**
+	 * Generates and appends a tile array to the instance.
+	 */
 	private void genTileArray() {
 
 		this.tileArray = new String[this.width + 2][this.height + 2];
@@ -136,6 +139,12 @@ public class TextRoom {
 
 	}
 
+	/**
+	 * Sets a tile at a point in the tile array to a specific character.
+	 * 
+	 * @param pos A java.awt.Point specifying the tile to change.
+	 * @param ch The character to set the tile to.
+	 */
 	private void setTile(Point pos, char ch) {
 
 		String paddingChar = " ";
@@ -150,6 +159,9 @@ public class TextRoom {
 
 	}
 	
+	/**
+	 * Draws the room to the console
+	 */
 	public void draw() {
 
 		for (int y = 0; y < this.height + 2; y++) {
