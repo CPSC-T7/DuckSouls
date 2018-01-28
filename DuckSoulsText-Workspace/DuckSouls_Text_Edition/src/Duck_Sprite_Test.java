@@ -5,7 +5,7 @@ public class Duck_Sprite_Test {
 	
 	//Duck position on X and Y planes.
 	private static int xPosition = 60;
-	private static int yPosition = 40;
+	private static int yPosition = 30;
 	private static String xPadding = multiString("  ", xPosition);
 	private static String yPadding = multiString("\n", yPosition);
 	private static String direction = "Left";
@@ -41,16 +41,17 @@ public class Duck_Sprite_Test {
 		//Better way to store/move sprites?
 		
 		String duckSouls = 
-				"▓█████▄  █    ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████ \r\n" + 
-				"▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ▒██    ▒ ▒██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n" + 
-				"░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░    ░ ▓██▄   ▒██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n" + 
-				"░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄      ▒   ██▒▒██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n" + 
-				"░▒████▓ ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄   ▒██████▒▒░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒\r\n" + 
-				" ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░\r\n" + 
-				" ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░   ░ ░▒  ░ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░ ▒  ░░ ░▒  ░ ░\r\n" + 
-				" ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n" + 
-				"   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n" + 
-				" ░               ░                                                    ";
+				"\t\t   ███▄█  █   ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████ \r\n" + 
+				"\t\t ██▀  ██ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ░██    ▒ ░██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n" + 
+				"\t\t██    ██░██  ▒██░▒▓█    ▄ ░███▄░    ░ ▓██▄   ░██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n" + 
+				"\t\t ██   ██░░█  ░██░▒▓▓▄ ▄██░░██ █▄      ▒   ██░░██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n" + 
+				"\t\t░▒██████░░█████▓ ▒ ▓███▀ ░▒██▒ █▄   ▒██████▒░░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒\r\n" + 
+				"\t\t ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░\r\n" + 
+				"\t\t ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░   ░ ░▒  ░ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░ ▒  ░░ ░▒  ░ ░\r\n" + 
+				"\t\t ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n" + 
+				"\t\t   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n" + 
+				"\t\t ░               ░                                                              \r\n" +
+				"\t\t\t\t\t\t Maximize Window";
 		
 		//Standing Duck
 		String duckOne_Left = yPadding +
@@ -221,12 +222,12 @@ public class Duck_Sprite_Test {
 		for (int i=0; i < numTimes; i++) {
 			
 			System.out.print(getSprite(xPosition, yPosition, "duckSouls"));
-			
-			/**
+			Thread.sleep(3000);
+			Utilities.clearConsole();
 			duckStand(2);
 			duckQuack();
 			duckStand(1);
-			duckRun(20, -1, -1);
+			duckRun(12, -1, -1);
 			duckQuack();
 			duckDance(5);
 			duckStand(2);
@@ -235,10 +236,9 @@ public class Duck_Sprite_Test {
 			duckRun(5, -1, 0);
 			duckRun(5, +1, 0);
 			duckStand(2);
-			duckRun(20, +1, +1);
+			duckRun(12, +1, +1);
 			duckDance(1);
 			duckQuack();
-			*/
 		}
 	}
 	
@@ -250,7 +250,7 @@ public class Duck_Sprite_Test {
 	 */
 	public static void duckStand(int seconds) throws IOException, InterruptedException 
 	{
-		clearConsole();
+		Utilities.clearConsole();
 		System.out.print(getSprite(xPosition, yPosition, "duckOne"));
 		Thread.sleep(seconds*1000);
 	}
@@ -262,10 +262,10 @@ public class Duck_Sprite_Test {
 	 */
 	public static void duckQuack() throws IOException, InterruptedException 
 	{
-		clearConsole();
+		Utilities.clearConsole();
 		System.out.print(getSprite(xPosition, yPosition, "duckThree"));
 		Thread.sleep(600);
-		clearConsole();
+		Utilities.clearConsole();
 		System.out.print(getSprite(xPosition, yPosition, "duckOne"));
 	}
 	
@@ -283,17 +283,17 @@ public class Duck_Sprite_Test {
 			direction = "Left";
 		}
 		for (int i = 0; i < numTimes; i++) {
-			clearConsole();
+			Utilities.clearConsole();
 			System.out.print(getSprite(xPosition, yPosition, "duckFour"));
 			Thread.sleep(50);
 			xPosition += xDirection;
 			yPosition += yDirection;
-			clearConsole();
+			Utilities.clearConsole();
 			System.out.print(getSprite(xPosition, yPosition, "duckFive"));
 			Thread.sleep(50);
 			xPosition += xDirection;
 			yPosition += yDirection;
-			clearConsole();
+			Utilities.clearConsole();
 		}		
 		System.out.print(getSprite(xPosition, yPosition, "duckOne"));
 	}
@@ -308,13 +308,13 @@ public class Duck_Sprite_Test {
 	{
 		
 		for (int i = 0; i <= numTimes; i++) {
-				clearConsole();
+				Utilities.clearConsole();
 				System.out.print(getSprite(xPosition, yPosition, "duckOne"));
 				Thread.sleep(100);
-				clearConsole();
+				Utilities.clearConsole();
 				System.out.print(getSprite(xPosition, yPosition, "duckTwo"));
 				Thread.sleep(100);
-				clearConsole();
+				Utilities.clearConsole();
 			}
 		System.out.print(getSprite(xPosition, yPosition, "duckOne"));
 	}
@@ -340,33 +340,5 @@ public class Duck_Sprite_Test {
 	    }
 	    String newString = stringArray.toString();
 	    return(newString);
-	}
-	
-	/**
-	 * Clear the console screen of text.
-	 * 
-	 * @throws InterruptedException
-	 * @throws IOException
-	 */
-	public static void clearConsole() throws IOException, InterruptedException
-	{
-	    try
-	    {
-	        final String os = System.getProperty("os.name");
-
-	        if (os.contains("Windows"))
-	        {
-	        	 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-	        }
-	        else
-	        {
-	            Runtime.getRuntime().exec("clear");
-	        }
-	    }
-	    catch (Exception e) {
-			//If console doesn't clear print this error
-	    	System.out.println("Console failed to clear.");
-	    	Thread.sleep(3000);
-	    }
 	}
 }
