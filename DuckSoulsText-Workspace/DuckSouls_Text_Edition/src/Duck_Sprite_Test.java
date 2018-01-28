@@ -21,8 +21,8 @@ public class Duck_Sprite_Test {
 	 */
 	public static void main(String[] args) throws IOException, InterruptedException 
 	{
-		System.out.print(getSprite(xPosition, yPosition, "duckOne"));
-		duckAnimation(2, xPosition, yPosition);
+		//System.out.print(getSprite(xPosition, yPosition, "duckOne"));
+		duckAnimation(1, xPosition, yPosition);
 	}
 	
 	/**
@@ -39,6 +39,18 @@ public class Duck_Sprite_Test {
 		yPadding = multiString("\n", yPos);
 		
 		//Better way to store/move sprites?
+		
+		String duckSouls = 
+				"▓█████▄  █    ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████ \r\n" + 
+				"▒██▀ ██▌ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ▒██    ▒ ▒██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n" + 
+				"░██   █▌▓██  ▒██░▒▓█    ▄ ▓███▄░    ░ ▓██▄   ▒██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n" + 
+				"░▓█▄   ▌▓▓█  ░██░▒▓▓▄ ▄██▒▓██ █▄      ▒   ██▒▒██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n" + 
+				"░▒████▓ ▒▒█████▓ ▒ ▓███▀ ░▒██▒ █▄   ▒██████▒▒░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒\r\n" + 
+				" ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░\r\n" + 
+				" ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░   ░ ░▒  ░ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░ ▒  ░░ ░▒  ░ ░\r\n" + 
+				" ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n" + 
+				"   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n" + 
+				" ░               ░                                                    ";
 		
 		//Standing Duck
 		String duckOne_Left = yPadding +
@@ -145,6 +157,11 @@ public class Duck_Sprite_Test {
 				xPadding +  "             \\|\r\n" + 
 				xPadding +  "              `-";
 		
+		//Select title sprite (Test)
+		if (duckSprite == "duckSouls") {
+			return duckSouls;
+		}
+		
 		//Select the sprite frame to return based on method argument "duckSprite"
 		if (direction == "Left") {
 			switch(duckSprite) 
@@ -203,6 +220,9 @@ public class Duck_Sprite_Test {
 	{
 		for (int i=0; i < numTimes; i++) {
 			
+			System.out.print(getSprite(xPosition, yPosition, "duckSouls"));
+			
+			/**
 			duckStand(2);
 			duckQuack();
 			duckStand(1);
@@ -218,7 +238,7 @@ public class Duck_Sprite_Test {
 			duckRun(20, +1, +1);
 			duckDance(1);
 			duckQuack();
-
+			*/
 		}
 	}
 	
