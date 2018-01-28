@@ -93,55 +93,40 @@ public class TextRoom {
 
 	// METHODS
 
-	public void draw() {
-
-		for (int i = 0; i < this.width + 2; i++) {
-			for (int j = 0; j < this.height + 2; j++) {
-
-				System.out.print(this.tileArray[i][j]);
-
-			}
-
-			System.out.println();
-
-		}
-
-	}
-
 	private void genTileArray() {
 
-		this.tileArray = new String[this.width + 2][height + 2];
+		this.tileArray = new String[this.width + 2][this.height + 2];
 
-		for (int i = 0; i < this.width + 2; i++) {
-			for (int j = 0; j < this.height + 2; j++) {
+		for (int x = 0; x < this.width + 2; x++) {
+			for (int y = 0; y < this.height + 2; y++) {
 
-				if (i == 0 && j == 0) {
+				if (x == 0 && y == 0) {
 
-					this.tileArray[i][j] = "╔";
+					this.tileArray[x][y] = "╔";
 
-				} else if (i == this.width + 1 && j == 0) {
+				} else if (x == this.width + 1 && y == 0) {
 
-					this.tileArray[i][j] = "╚";
+					this.tileArray[x][y] = "╗";
 
-				} else if (i == 0 && j == this.height + 1) {
+				} else if (x == 0 && y == this.height + 1) {
 
-					this.tileArray[i][j] = "╗";
+					this.tileArray[x][y] = "╚";
 
-				} else if (i == this.width + 1 && j == this.height + 1) {
+				} else if (x == this.width + 1 && y == this.height + 1) {
 
-					this.tileArray[i][j] = "╝";
+					this.tileArray[x][y] = "╝";
 
-				} else if (i == 0 || i == this.width + 1) {
+				} else if (x == 0 || x == this.width + 1) {
 
-					this.tileArray[i][j] = "═══";
+					this.tileArray[x][y] = "║";
 
-				} else if (j == 0 || j == this.height + 1) {
+				} else if (y == 0 || y == this.height + 1) {
 
-					this.tileArray[i][j] = "║";
+					this.tileArray[x][y] = "═══";
 
 				} else {
 
-					this.tileArray[i][j] = " . ";
+					this.tileArray[x][y] = " . ";
 
 				}
 
@@ -161,7 +146,22 @@ public class TextRoom {
 			paddingChar = "═";
 		}
 
-		this.tileArray[pos.y][pos.x] = paddingChar + ch + paddingChar;
+		this.tileArray[pos.x][pos.y] = paddingChar + ch + paddingChar;
+
+	}
+	
+	public void draw() {
+
+		for (int y = 0; y < this.height + 2; y++) {
+			for (int x = 0; x < this.width + 2; x++) {
+
+				System.out.print(this.tileArray[x][y]);
+
+			}
+
+			System.out.println();
+
+		}
 
 	}
 
