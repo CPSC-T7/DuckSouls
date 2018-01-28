@@ -1,37 +1,75 @@
+import java.io.IOException;
 
 public class Text_Animation_Test {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		loading();
 	}
 	
-	public static void loading() throws InterruptedException {
-		String duckOne = "  ^\r\n" + 
-				"_0 0\r\n" + 
-				"-- |\r\n" + 
-				" |  ------/\r\n" + 
-				" |       //\r\n" + 
-				"  \\_____//\r\n" + 
-				"     ||\r\n" + 
-				"    --\r\n" + 
-				"";
-		String duckTwo = "  ^\r\n" + 
-				"_0 0\r\n" + 
-				"-- |\r\n" + 
-				" |  ------/\r\n" + 
-				" |        /\r\n" + 
-				"  \\______/\r\n" + 
-				"      |\r\n" + 
-				"     --\r\n" + 
-				"";
-		
-		for (int i=0; i < 100; i++) {
+	public static void loading() throws IOException, InterruptedException {
+		String duckOne = "         __\r\n" + 
+				"       _0 0|\r\n" + 
+				"       --  |\r\n" + 
+				"        |  |------/\r\n" + 
+				"        |        //\r\n" + 
+				"         \\______//\r\n" + 
+				"             ||\r\n" + 
+				"            --";
+		String duckTwo = "          __\r\n" + 
+				"        _0 0|\r\n" + 
+				"        --  /\r\n" + 
+				"        /  /------/\r\n" + 
+				"        |        //\r\n" + 
+				"         \\______//\r\n" + 
+				"             ||\r\n" + 
+				"            --";
+		String duckThree = "         __\r\n" + 
+				"Quak*  _0 0|\r\n" +
+				"       --  |\r\n" + 
+				"        |  |------/\r\n" + 
+				"        |        //\r\n" + 
+				"         \\______//\r\n" + 
+				"             ||\r\n" + 
+				"            --";
+		String duckFour = "       __\r\n" + 
+				"     _0 0\\\r\n" + 
+				"     --   \\\r\n" + 
+				"       \\   \\-------/\r\n" + 
+				"        |        //\r\n" + 
+				"         \\______//\r\n" + 
+				"             /|\r\n" + 
+				"            `-";
+		String duckFive = "       __\r\n" + 
+				"     _0 0\\\r\n" + 
+				"     --   \\\r\n" + 
+				"       \\   \\-------/\r\n" + 
+				"        |        //\r\n" + 
+				"         \\______//\r\n" + 
+				"             |/\r\n" + 
+				"             `";
+		for (int i=0; i < 400; i++) {
+			for (int b=0; b<4; b++) {
+				System.out.print(duckOne);
+				Thread.sleep(100);
+				clearConsole();
+				System.out.print(duckTwo);
+				Thread.sleep(100);
+				clearConsole();
+			}
+			System.out.print(duckThree);
+			Thread.sleep(300);
+			clearConsole();
 			System.out.print(duckOne);
-			Thread.sleep(100);
+			Thread.sleep(500);
 			clearConsole();
-			System.out.print(duckTwo);
-			Thread.sleep(100);
-			clearConsole();
+			for (int b=0; b<10; b++) {
+				System.out.print(duckFour);
+				Thread.sleep(50);
+				clearConsole();
+				System.out.print(duckFive);
+				Thread.sleep(50);
+				clearConsole();
+			}
 		}
 	}
 	
@@ -43,7 +81,7 @@ public class Text_Animation_Test {
 
 	        if (os.contains("Windows"))
 	        {
-	            Runtime.getRuntime().exec("clear");
+	        	 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 	        }
 	        else
 	        {
@@ -52,6 +90,7 @@ public class Text_Animation_Test {
 	    }
 	    catch (final Exception e)
 	    {
+	    	System.out.println("Oof, ouch");
 	        //  Handle any exceptions.
 	    }
 	}
