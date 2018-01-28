@@ -1,0 +1,18 @@
+import java.awt.Point;
+
+public class TestRunner {
+
+	public static void main(String[] args) {
+
+		Point[] doors = new Point[2];
+
+		doors[0] = new Point(0, 1);
+		doors[1] = new Point(3, 3);
+
+		TextRoom r = new TextRoom(5, 8, doors);
+
+		r.draw();
+
+	}
+
+}
