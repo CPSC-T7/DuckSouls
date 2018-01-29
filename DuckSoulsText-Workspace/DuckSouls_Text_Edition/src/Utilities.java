@@ -17,6 +17,7 @@ public class Utilities {
 	 */
 	public static void clearConsole() throws IOException, InterruptedException
 	{
+		
 	    try
 	    {
 	    	//Get the operating system name
@@ -30,7 +31,9 @@ public class Utilities {
 	        //If other: use terminal command
 	        else
 	        {
-	            Runtime.getRuntime().exec("clear");
+	            //Runtime.getRuntime().exec("clear");
+	            System.out.println("\033[H\033[2J");
+	            System.out.flush();
 	        }
 	    }
 	    
@@ -41,6 +44,7 @@ public class Utilities {
 	    	Thread.sleep(3000);
 	    	System.exit(0);
 	    }
+	    
 	    
 	}//End of clearConsole
 	
