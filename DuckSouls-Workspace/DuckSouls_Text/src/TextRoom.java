@@ -151,8 +151,6 @@ public class TextRoom {
 
 		if (pos.x == 0 || pos.x == this.width + 1) {
 			paddingChar = "";
-		} else if (pos.y == 0 || pos.y == this.width + 1) {
-			paddingChar = "═";
 		}
 
 		this.tileArray[pos.x][pos.y] = paddingChar + ch + paddingChar;
