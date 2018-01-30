@@ -4,6 +4,7 @@ import java.io.IOException;
 /**
  * 
  * @author Wylee McAndrews
+ * @author Rahmanta Satriana
  * @author add name if modified
  */
 public class Battle_World_Test {

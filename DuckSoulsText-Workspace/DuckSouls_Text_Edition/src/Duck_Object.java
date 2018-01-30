@@ -7,6 +7,7 @@ import java.util.Scanner;
  * 
  * @author Wylee McAndrews
  * @author add name if modified
+ * @author Rahmanta Satriana
  */
 public class Duck_Object {
 	
@@ -288,15 +289,28 @@ public class Duck_Object {
 	 */
 	public void playerMove(Enemy_Object enemy) throws IOException, InterruptedException {
 		
-		String move = scanner.nextLine();
-		move = move.toLowerCase();
+		boolean selection;
+		selection = true;
 		
-		if (move.contains("quack")) {
-			quack(enemy);
-		}else if (move.contains("attack")) {
-			attack(enemy);
-		}else if (move.contains("taunt")) {
-			taunt(enemy);
+		while (selection) {
+			String move = scanner.nextLine();
+			move = move.toLowerCase();
+		
+			if (move.contains("quack")) {
+				quack(enemy);
+				selection = false;
+			}else if (move.contains("attack")) {
+				attack(enemy);
+				selection = false;
+			}else if (move.contains("taunt")) {
+				taunt(enemy);
+				selection = false;
+			}else if (move.contains("fly")) {
+				fly(enemy);
+				selection = false;
+			}else {
+				System.out.println("That is not a valid command.");
+			}
 		}
 	}
 	
@@ -374,6 +388,10 @@ public class Duck_Object {
 		peck(enemy);
 		run(12, -1, 0, enemy);
 		run(0, +1, 0, enemy);
+		
+	}
+	
+	public void fly(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 	}
 	

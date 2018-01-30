@@ -10,6 +10,7 @@ import java.util.Scanner;
  * enemy attacks are created.
  * 
  * @author Wylee McAndrews
+ * @author Rahmanta Satriana
  * @author add name if modified
  *
  */
@@ -18,12 +19,20 @@ public class Enemy_Object {
 	//Public Variables
 	
 	//Player HP
-	public int healthPoints;
+	//public int healthPoints;
 	//Current Sprite
 	public String sprite = "duck";
 	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
 	public int xPosition = 35;
-	public int yPosition = 0	;	
+	public int yPosition = 0	;
+	//Enemy Stats
+	public int healthPoints = 20;
+	public int manaPoints = 15;
+	public int attack = 5;
+	public int defend = 5;
+	public int speed = 5;
+	public int accuracy = 70;
+	public int criticalHit = 16;
 	
 	
 	//Private Variables
