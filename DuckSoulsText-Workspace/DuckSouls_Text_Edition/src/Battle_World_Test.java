@@ -44,7 +44,7 @@ public class Battle_World_Test {
 	{
 		while(true) {
 			drawSprites();
-			Thread.sleep(10);
+			Utilities.waitMilliseconds(10);
 			
 			Player.playerMove(Enemy);
 			
