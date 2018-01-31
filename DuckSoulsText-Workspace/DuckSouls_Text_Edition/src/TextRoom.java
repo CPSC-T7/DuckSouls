@@ -7,40 +7,33 @@ import java.awt.Point;
  * 
  * @author Matthew Allwright
  * @requires java.awt.Point
- * @version 0.2.2
+ * @version 1.0.0
  *
  */
 public class TextRoom {
-	
+
 	// ENUMERATORS
-	
+
 	public static enum Tile {
-		
+
+		// Doors
+
+		DOOR_H(" D "), DOOR_V("D"),
+
 		// Walls
 
-		DOOR_H		(" D "),
-		DOOR_V		("D"),
-		
-		WALL_H		("═══"),
-		WALL_V		("║"),
-		WALL_TL		("╔"),
-		WALL_TR		("╗"),
-		WALL_BL		("╚"),
-		WALL_BR		("╝"),
-		
+		WALL_H("═══"), WALL_V("║"), WALL_TL("╔"), WALL_TR("╗"), WALL_BL("╚"), WALL_BR("╝"),
+
 		// Not-Walls
-		
-		PLAYER		(" @ "),
-		EMPTY		(" . "),
-		FISH		(" F "),
-		CURRENCY	(" $ ");
-		
+
+		PLAYER(" @ "), EMPTY(" . "), FISH(" F "), CURRENCY(" $ ");
+
 		private String STR;
-		
+
 		Tile(String STR) {
 			this.STR = STR;
 		}
-		
+
 	}
 
 	// INSTANCE VARIABLES
@@ -126,35 +119,35 @@ public class TextRoom {
 	private void genTileArray() {
 
 		this.tileArray = new Tile[this.width + 2][this.height + 2];
-		
+
 		for (int x = 0; x < this.width + 2; x++) {
 			for (int y = 0; y < this.height + 2; y++) {
 
-				if (x == 0 && y == 0) {
+				if (x == 0 && y == 0) { // Top Left
 
 					this.tileArray[x][y] = Tile.WALL_TL;
 
-				} else if (x == this.width + 1 && y == 0) {
+				} else if (x == this.width + 1 && y == 0) { // Top Right
 
 					this.tileArray[x][y] = Tile.WALL_TR;
 
-				} else if (x == 0 && y == this.height + 1) {
+				} else if (x == 0 && y == this.height + 1) { // Bottom Left
 
 					this.tileArray[x][y] = Tile.WALL_BL;
 
-				} else if (x == this.width + 1 && y == this.height + 1) {
+				} else if (x == this.width + 1 && y == this.height + 1) { // Bottom Right
 
 					this.tileArray[x][y] = Tile.WALL_BR;
 
-				} else if (x == 0 || x == this.width + 1) {
+				} else if (x == 0 || x == this.width + 1) { // Left & Right Walls
 
 					this.tileArray[x][y] = Tile.WALL_V;
 
-				} else if (y == 0 || y == this.height + 1) {
+				} else if (y == 0 || y == this.height + 1) { // Top & Bottom Walls
 
 					this.tileArray[x][y] = Tile.WALL_H;
 
-				} else {
+				} else { // Centre Tiles
 
 					this.tileArray[x][y] = Tile.EMPTY;
 
@@ -169,29 +162,37 @@ public class TextRoom {
 	/**
 	 * Sets a tile at a point in the tile array to a specific character.
 	 * 
-	 * @param pos A java.awt.Point specifying the tile to change.
-	 * @param ch The character to set the tile to.
+	 * @param pos
+	 *            A java.awt.Point specifying the tile to change.
+	 * @param ch
+	 *            The character to set the tile to.
 	 */
 	private void setTile(Point pos, Tile tile) {
 
 		this.tileArray[pos.x][pos.y] = tile;
 
 	}
-	
+
+	/**
+	 * Takes an array of points and places a door at every point.
+	 * 
+	 * @param doors
+	 *            The array of points to place doors at.
+	 */
 	private void addDoors(Point[] doors) {
-		
+
 		for (Point pos : doors) {
 
-			if(pos.x == 0 || pos.x == this.width + 1) {
+			if (pos.x == 0 || pos.x == this.width + 1) {
 				this.setTile(pos, Tile.DOOR_V);
 			} else {
 				this.setTile(pos, Tile.DOOR_H);
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	/**
 	 * Draws the room to the console
 	 */
