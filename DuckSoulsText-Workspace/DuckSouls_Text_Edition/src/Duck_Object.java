@@ -21,6 +21,24 @@ public class Duck_Object {
 	
 	
 	//Private Variables
+	
+	//Player Stats, it's fixed for DEMO 1
+	final private double HEALTH_POINTS = 20;
+	final private double MANA_POINTS = 15;
+	final private double ATTACK_POINTS = 5;
+	final private double DEFENCE_POINTS = 5;
+	final private double SPEED_POINTS = 5;
+	final private double ACCURACY_POINTS = 70;
+	final private double CRITICAL_HIT_POINTS = 16;
+		
+		
+	private double healthPoints = 20;
+	private double manaPoints = 15;
+	private double attackPoints = 5;
+	private double defencePoints = 5;
+	private double speedPoints = 5;
+	private double accuracyPoints = 70;
+	private double criticalHitPoints = 16;	
 
 	// x/y padding: Converts x/y position into spaces/tabs
 	private String xPadding = Utilities.multiplyString("  ", xPosition);
@@ -333,6 +351,9 @@ public class Duck_Object {
 		System.out.print(getSprite("fightBanner"));
 		System.out.print(enemy.getSprite(enemy.enemySprite()));
 		System.out.print(getSprite("duck"));
+		Thread.sleep(500);
+		System.out.println("That move did absolutely nothing!");
+		Thread.sleep(1500);
 		Utilities.clearConsole();
 	}
 	
@@ -384,6 +405,10 @@ public class Duck_Object {
 	 * @throws InterruptedException
 	 */
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
+		
+		double damage;
+		damage = (attackPoints * 1.5) - enemy.getDefence();
+		
 		run(12, +1, 0, enemy);
 		peck(enemy);
 		run(12, -1, 0, enemy);
@@ -449,5 +474,17 @@ public class Duck_Object {
 				Utilities.clearConsole();
 				
 		}
+	}
+	
+	private void resetStats() {
+		
+		healthPoints = HEALTH_POINTS + 0;
+		manaPoints = MANA_POINTS + 0;
+		attackPoints = ATTACK_POINTS + 0;
+		defencePoints = DEFENCE_POINTS + 0;
+		speedPoints = SPEED_POINTS + 0;
+		accuracyPoints = ACCURACY_POINTS + 0;
+		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
+		
 	}
 }

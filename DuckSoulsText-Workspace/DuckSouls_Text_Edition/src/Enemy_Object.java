@@ -26,13 +26,22 @@ public class Enemy_Object {
 	public int xPosition = 35;
 	public int yPosition = 0	;
 	//Enemy Stats
-	public int healthPoints = 20;
-	public int manaPoints = 15;
-	public int attack = 5;
-	public int defend = 5;
-	public int speed = 5;
-	public int accuracy = 70;
-	public int criticalHit = 16;
+	final private double HEALTH_POINTS = 20;
+	final private double MANA_POINTS = 15;
+	final private double ATTACK_POINTS = 5;
+	final private double DEFENCE_POINTS = 5;
+	final private double SPEED_POINTS = 5;
+	final private double ACCURACY_POINTS = 70;
+	final private double CRITICAL_HIT_POINTS = 16;
+		
+		
+	private double healthPoints = 20;
+	private double manaPoints = 15;
+	private double attackPoints = 5;
+	private double defencePoints = 5;
+	private double speedPoints = 5;
+	private double accuracyPoints = 70;
+	private double criticalHitPoints = 16;	
 	
 	
 	//Private Variables
@@ -256,6 +265,12 @@ public class Enemy_Object {
 		Utilities.clearConsole();
 		System.out.print(getSprite("duck"));
 		Thread.sleep(seconds*1000);
+	}
+	
+	public double getDefence() {
+		
+		return defencePoints;
+		
 	}
 
 }
