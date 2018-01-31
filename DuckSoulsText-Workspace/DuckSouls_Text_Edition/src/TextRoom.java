@@ -16,10 +16,30 @@ public class TextRoom {
 	
 	public static enum Tile {
 		
-		CHARACTER,
-		DOOR,
-		FISH,
-		CURRENCY
+		// Walls
+
+		DOOR_H		(" D "),
+		DOOR_V		("D"),
+		
+		WALL_H		("═══"),
+		WALL_V		("║"),
+		WALL_TL		("╔"),
+		WALL_TR		("╗"),
+		WALL_BL		("╚"),
+		WALL_BR		("╝"),
+		
+		// Not-Walls
+		
+		PLAYER		(" @ "),
+		EMPTY		(" . "),
+		FISH		(" F "),
+		CURRENCY	(" $ ");
+		
+		private String STR;
+		
+		Tile(String STR) {
+			this.STR = STR;
+		}
 		
 	}
 
@@ -27,7 +47,7 @@ public class TextRoom {
 
 	private int width, height;
 	private final int DEFAULT_WIDTH = 8, DEFAULT_HEIGHT = 8;
-	private String[][] tileArray_Chars, tileArray_Objs;
+	private Tile[][] tileArray;
 
 	// CONSTRUCTORS
 
@@ -105,39 +125,38 @@ public class TextRoom {
 	 */
 	private void genTileArray() {
 
-		this.tileArray_Chars = new String[this.width + 2][this.height + 2];
-		this.tileArray_Objs = new String[this.width + 2][this.height + 2];
-
+		this.tileArray = new Tile[this.width + 2][this.height + 2];
+		
 		for (int x = 0; x < this.width + 2; x++) {
 			for (int y = 0; y < this.height + 2; y++) {
 
 				if (x == 0 && y == 0) {
 
-					this.tileArray_Chars[x][y] = "╔";
+					this.tileArray[x][y] = Tile.WALL_TL;
 
 				} else if (x == this.width + 1 && y == 0) {
 
-					this.tileArray_Chars[x][y] = "╗";
+					this.tileArray[x][y] = Tile.WALL_TR;
 
 				} else if (x == 0 && y == this.height + 1) {
 
-					this.tileArray_Chars[x][y] = "╚";
+					this.tileArray[x][y] = Tile.WALL_BL;
 
 				} else if (x == this.width + 1 && y == this.height + 1) {
 
-					this.tileArray_Chars[x][y] = "╝";
+					this.tileArray[x][y] = Tile.WALL_BR;
 
 				} else if (x == 0 || x == this.width + 1) {
 
-					this.tileArray_Chars[x][y] = "║";
+					this.tileArray[x][y] = Tile.WALL_V;
 
 				} else if (y == 0 || y == this.height + 1) {
 
-					this.tileArray_Chars[x][y] = "═══";
+					this.tileArray[x][y] = Tile.WALL_H;
 
 				} else {
 
-					this.tileArray_Chars[x][y] = " . ";
+					this.tileArray[x][y] = Tile.EMPTY;
 
 				}
 
@@ -153,22 +172,22 @@ public class TextRoom {
 	 * @param pos A java.awt.Point specifying the tile to change.
 	 * @param ch The character to set the tile to.
 	 */
-	private void setTile(Point pos, char ch) {
+	private void setTile(Point pos, Tile tile) {
 
-		String paddingChar = " ";
-
-		if (pos.x == 0 || pos.x == this.width + 1) {
-			paddingChar = "";
-		}
-
-		this.tileArray_Chars[pos.x][pos.y] = paddingChar + ch + paddingChar;
+		this.tileArray[pos.x][pos.y] = tile;
 
 	}
 	
 	private void addDoors(Point[] doors) {
 		
 		for (Point pos : doors) {
-			this.setTile(pos, 'D');
+
+			if(pos.x == 0 || pos.x == this.width + 1) {
+				this.setTile(pos, Tile.DOOR_V);
+			} else {
+				this.setTile(pos, Tile.DOOR_H);
+			}
+			
 		}
 		
 	}
@@ -181,7 +200,7 @@ public class TextRoom {
 		for (int y = 0; y < this.height + 2; y++) {
 			for (int x = 0; x < this.width + 2; x++) {
 
-				System.out.print(this.tileArray_Chars[x][y]);
+				System.out.print(this.tileArray[x][y].STR);
 
 			}
 
