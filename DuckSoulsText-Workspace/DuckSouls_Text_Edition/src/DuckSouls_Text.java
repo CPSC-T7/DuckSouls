@@ -11,7 +11,7 @@
  * @author Colin Yeung
  *
  */
-public class DuckSouls {
+public class DuckSouls_Text {
 
 	/**
 	 * Plays DuckSouls.
