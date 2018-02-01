@@ -73,4 +73,22 @@ public class Utilities {
 	    
 	}//End of multiplyString
 	
+	/**
+	 * Timer method used as an alternative to Thread.sleep()
+	 * Gives a more accurately timed delay across systems.
+	 * 
+	 * @param stopTime
+	 * 				Stop after this long (Milliseconds)
+	 */
+	public static void waitMilliseconds(long stopTime) 
+	{
+		long startTime = System.currentTimeMillis();
+		while (true) 
+		{
+			long currentTime = System.currentTimeMillis();
+			if (currentTime - startTime >= stopTime)
+				break;
+		}
+	}
+	
 }//End of Utilities

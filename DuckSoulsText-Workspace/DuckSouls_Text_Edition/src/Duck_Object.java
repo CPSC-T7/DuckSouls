@@ -313,7 +313,7 @@ public class Duck_Object {
 		System.out.print(getSprite("fightBanner"));
 		System.out.print(enemy.getSprite(enemy.enemySprite()));
 		System.out.print(getSprite("quack"));
-		Thread.sleep(1000);
+		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
 		
 		System.out.print(getSprite("fightBanner"));
@@ -346,7 +346,7 @@ public class Duck_Object {
 			System.out.print(getSprite("fightBanner"));
 			System.out.print(enemy.getSprite(enemy.enemySprite()));
 			System.out.print(getSprite("run_1"));
-			Thread.sleep(50);
+			Utilities.waitMilliseconds(10);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
@@ -354,7 +354,7 @@ public class Duck_Object {
 			System.out.print(getSprite("fightBanner"));
 			System.out.print(enemy.getSprite(enemy.enemySprite()));
 			System.out.print(getSprite("run_2"));
-			Thread.sleep(50);
+			Utilities.waitMilliseconds(10);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
@@ -370,9 +370,9 @@ public class Duck_Object {
 	 * @throws InterruptedException
 	 */
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
-		run(12, +1, 0, enemy);
+		run(13, +1, 0, enemy);
 		peck(enemy);
-		run(12, -1, 0, enemy);
+		run(13, -1, 0, enemy);
 		run(0, +1, 0, enemy);
 		
 	}
@@ -392,13 +392,13 @@ public class Duck_Object {
 			System.out.print(getSprite("fightBanner"));
 			System.out.print(enemy.getSprite(enemy.enemySprite()));
 			System.out.print(getSprite("attack1"));
-			Thread.sleep(100);
+			Utilities.waitMilliseconds(100);
 			Utilities.clearConsole();
 			
 			System.out.print(getSprite("fightBanner"));
 			System.out.print(enemy.getSprite(enemy.enemySprite()));
 			System.out.print(getSprite("attack2"));
-			Thread.sleep(100);
+			Utilities.waitMilliseconds(100);
 			Utilities.clearConsole();
 			
 		}
@@ -421,13 +421,13 @@ public class Duck_Object {
 				System.out.print(getSprite("fightBanner"));
 				System.out.print(enemy.getSprite(enemy.enemySprite()));
 				System.out.print(getSprite("duck"));
-				Thread.sleep(100);
+				Utilities.waitMilliseconds(100);
 				Utilities.clearConsole();
 				
 				System.out.print(getSprite("fightBanner"));
 				System.out.print(enemy.getSprite(enemy.enemySprite()));
 				System.out.print(getSprite("taunt"));
-				Thread.sleep(100);
+				Utilities.waitMilliseconds(100);
 				Utilities.clearConsole();
 				
 		}
