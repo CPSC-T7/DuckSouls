@@ -14,7 +14,7 @@ public class Duck_Object {
 	//Public Variables
 
 	//Current Sprite
-	public String sprite = "duck";
+	public String sprite = "stand";
 	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
 	public int xPosition = 0;
 	public int yPosition = 0;	
@@ -44,9 +44,10 @@ public class Duck_Object {
 	}
 	
 	/**
+	 * Gets the required sprite from a text file.
 	 * 
 	 * @param duckSprite
-	 * @return
+	 * 					The sprite to print.
 	 * @throws FileNotFoundException 
 	 */
 	public void getSprite(String duckSprite) throws FileNotFoundException 
@@ -55,9 +56,7 @@ public class Duck_Object {
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
 		
-		//Better way to store/move sprites?
-		
-		//Attack Banner
+		//Attack Banner (Will be replaced with stats)
 		String fightBanner = 
 				" +-----------------------------------------------+ \r\n" + 
 				"    _______ _________ _______          _________  \r\n" + 
@@ -79,7 +78,8 @@ public class Duck_Object {
 			case("fightBanner"):
 				System.out.println(fightBanner);
 				break;
-			case("duck"):
+				
+			case("stand"):
 				Utilities.printSprite("Duck/Stand/duckStand_" + direction, xPadding, yPadding);
 				break;
 		
@@ -111,9 +111,11 @@ public class Duck_Object {
 				System.out.println("Error: No move found.");
 				break;
 		}
-	}
+		
+	}//End of getSprite
 	
 	/**
+	 * Gets information on which move to make from the user.
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -130,7 +132,8 @@ public class Duck_Object {
 		}else if (move.contains("taunt")) {
 			taunt(enemy);
 		}
-	}
+		
+	}//End of playerMove
 	
 	
 	/**
@@ -143,16 +146,17 @@ public class Duck_Object {
 		Utilities.clearConsole();
 		
 		getSprite("fightBanner");
-		System.out.print(enemy.getSprite(enemy.enemySprite()));
+		enemy.getSprite("stand");
 		getSprite("quack");
 		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
 		
 		getSprite("fightBanner");
-		System.out.print(enemy.getSprite(enemy.enemySprite()));
-		getSprite("duck");
+		enemy.getSprite("stand");
+		getSprite("attack");
 		Utilities.clearConsole();
-	}
+		
+	}//End of quack
 	
 	/**
 	 * 
@@ -176,7 +180,7 @@ public class Duck_Object {
 			Utilities.clearConsole();
 			
 			getSprite("fightBanner");
-			System.out.print(enemy.getSprite(enemy.enemySprite()));
+			enemy.getSprite("stand");
 			getSprite("run_1");
 			Utilities.waitMilliseconds(10);
 			xPosition += xDirection;
@@ -184,14 +188,15 @@ public class Duck_Object {
 			Utilities.clearConsole();
 			
 			getSprite("fightBanner");
-			System.out.print(enemy.getSprite(enemy.enemySprite()));
+			enemy.getSprite("stand");
 			getSprite("run_2");
 			Utilities.waitMilliseconds(10);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
-		}		
-	}
+		}
+		
+	}//End of run
 	
 	/**
 	 * 
@@ -201,11 +206,11 @@ public class Duck_Object {
 	 */
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
 		run(13, +1, 0, enemy);
-		peck(enemy);
+		peck(enemy, 1);
 		run(13, -1, 0, enemy);
 		run(0, +1, 0, enemy);
 		
-	}
+	}//End of attack
 	
 	/**
 	 * 
@@ -213,26 +218,27 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void peck(Enemy_Object enemy) throws IOException, InterruptedException {
+	public void peck(Enemy_Object enemy, int numTimes) throws IOException, InterruptedException {
 		
-		for (int i = 0; i <= 1; i++) {
+		for (int i = 0; i < numTimes; i++) {
 			
 			Utilities.clearConsole();
 			
 			getSprite("fightBanner");
-			System.out.print(enemy.getSprite(enemy.enemySprite()));
+			enemy.getSprite("stand");
 			getSprite("attack1");
-			Utilities.waitMilliseconds(100);
+			Utilities.waitMilliseconds(200);
 			Utilities.clearConsole();
 			
 			getSprite("fightBanner");
-			System.out.print(enemy.getSprite(enemy.enemySprite()));
+			enemy.getSprite("hurt");
 			getSprite("attack2");
-			Utilities.waitMilliseconds(100);
+			Utilities.waitMilliseconds(400);
 			Utilities.clearConsole();
 			
 		}
-	}
+		
+	}//End of peck
 	
 	/**
 	 * 
@@ -249,17 +255,18 @@ public class Duck_Object {
 				Utilities.clearConsole();
 				
 				getSprite("fightBanner");
-				System.out.print(enemy.getSprite(enemy.enemySprite()));
-				getSprite("duck");
+				enemy.getSprite("stand");
+				getSprite("stand");
 				Utilities.waitMilliseconds(100);
 				Utilities.clearConsole();
 				
 				getSprite("fightBanner");
-				System.out.print(enemy.getSprite(enemy.enemySprite()));
+				enemy.getSprite("stand");
 				getSprite("taunt");
 				Utilities.waitMilliseconds(100);
 				Utilities.clearConsole();
 				
 		}
-	}
+		
+	}//End of taunt
 }

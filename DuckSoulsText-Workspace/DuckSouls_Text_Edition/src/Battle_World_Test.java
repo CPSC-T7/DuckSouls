@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Battle_World_Test {
 	
 	private static Duck_Object Player = new Duck_Object();
-	private static Enemy_Object Enemy = new Enemy_Object();
+	private static Enemy_Object Enemy = new Enemy_Object("Rat");
 	
 	//Attack Banner
 	static String fightBanner = 
@@ -36,8 +36,8 @@ public class Battle_World_Test {
 	public static void drawSprites() throws FileNotFoundException
 	{
 		System.out.print(fightBanner);
-		System.out.print(Enemy.getSprite(Enemy.enemySprite()));
-		Player.getSprite(Player.sprite);
+		Enemy.getSprite("stand");
+		Player.getSprite("stand");
 		
 		
 	}
@@ -48,6 +48,10 @@ public class Battle_World_Test {
 			Utilities.waitMilliseconds(10);
 			
 			Player.playerMove(Enemy);
+			drawSprites();
+			Utilities.waitMilliseconds(1000);
+			Enemy.enemyMove(Player, "test");
+			drawSprites();
 			
 			Utilities.clearConsole();
 			
