@@ -36,7 +36,7 @@ public class Title_Screen {
 	{
 		System.out.print(duckSouls);
 		System.out.println("\t\t\t\t\t\t\t\t     Press Enter To Start");
-		System.out.print(duck.getSprite("duck") + "\n");
+		duck.getSprite("duck" + "\n");
 		String userStart = scanner.nextLine();
 		
 	}

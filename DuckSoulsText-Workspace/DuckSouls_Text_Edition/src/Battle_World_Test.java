@@ -1,4 +1,5 @@
 //IOException for use with CMD in Windows
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -32,11 +33,11 @@ public class Battle_World_Test {
 		battleLoop();
 	}
 	
-	public static void drawSprites()
+	public static void drawSprites() throws FileNotFoundException
 	{
 		System.out.print(fightBanner);
 		System.out.print(Enemy.getSprite(Enemy.enemySprite()));
-		System.out.print(Player.getSprite(Player.sprite));
+		Player.getSprite(Player.sprite);
 		
 		
 	}
