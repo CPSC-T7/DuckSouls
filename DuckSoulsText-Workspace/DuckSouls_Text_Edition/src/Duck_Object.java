@@ -80,31 +80,31 @@ public class Duck_Object {
 				System.out.println(fightBanner);
 				break;
 			case("duck"):
-				Utilities.printSprite("Stand/duckStand_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Stand/duckStand_" + direction, xPadding, yPadding);
 				break;
 		
 			case("taunt"):
-				Utilities.printSprite("Taunt/duckDance_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Taunt/duckDance_" + direction, xPadding, yPadding);
 				break;
 			
 			case("attack1"):
-				Utilities.printSprite("Attack/duckAttack_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Attack/duckAttack_One_" + direction, xPadding, yPadding);
 				break;
 				
 			case("attack2"):
-				Utilities.printSprite("Attack/duckAttack_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Attack/duckAttack_Two_" + direction, xPadding, yPadding);
 				break;
 			
 			case("quack"):
-				Utilities.printSprite("Quack/duckQuack_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
 				break;
 			
 			case("run_1"):
-				Utilities.printSprite("Run/duckRun_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Run/duckRun_One_" + direction, xPadding, yPadding);
 				break;
 			
 			case("run_2"):
-				Utilities.printSprite("Run/duckRun_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Run/duckRun_Two_" + direction, xPadding, yPadding);
 				break;
 			
 			default:
