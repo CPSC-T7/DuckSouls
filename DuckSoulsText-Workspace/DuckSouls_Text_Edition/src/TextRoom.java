@@ -18,20 +18,23 @@ public class TextRoom {
 
 		// Doors
 
-		DOOR_H(" D "), DOOR_V("D"),
+		DOOR_H(" D ", true), DOOR_V("D", true),
 
 		// Walls
 
-		WALL_H("═══"), WALL_V("║"), WALL_TL("╔"), WALL_TR("╗"), WALL_BL("╚"), WALL_BR("╝"),
+		WALL_H("═══", false), WALL_V("║", false), WALL_TL("╔", false), WALL_TR("╗", false), WALL_BL("╚",
+				false), WALL_BR("╝", false),
 
 		// Not-Walls
 
-		PLAYER(" @ "), EMPTY(" . "), FISH(" F "), CURRENCY(" $ ");
+		PLAYER(" @ ", false), EMPTY(" . ", true), FISH(" F ", true), CURRENCY(" $ ", true);
 
 		private String STR;
+		private boolean CAN_WALK_ON;
 
-		Tile(String STR) {
+		Tile(String STR, boolean CAN_WALK_ON) {
 			this.STR = STR;
+			this.CAN_WALK_ON = CAN_WALK_ON;
 		}
 
 	}
@@ -167,7 +170,7 @@ public class TextRoom {
 	 * @param ch
 	 *            The character to set the tile to.
 	 */
-	private void setTile(Point pos, Tile tile) {
+	public void setTile(Point pos, Tile tile) {
 
 		this.tileArray[pos.x][pos.y] = tile;
 
@@ -207,6 +210,43 @@ public class TextRoom {
 
 			System.out.println();
 
+		}
+
+	}
+
+	/**
+	 * Gets the tile at a specific point in a room.
+	 * 
+	 * @param pos
+	 *            The position to look at.
+	 * @return The tile at pos.
+	 */
+	public Tile tileAt(Point pos) {
+		return this.tileArray[pos.x][pos.y];
+	}
+
+	/**
+	 * Moves a tile from one point to another, throwing a tantrum, I mean error, if
+	 * the ending tile cannot be moved to (walls or player).
+	 * 
+	 * @param toMove
+	 *            Point of the tile that should be moved.
+	 * @param moveTo
+	 *            Point of the tile that will be moved to.
+	 */
+	public void moveTile(Point toMove, Point moveTo) {
+
+		Tile temp = this.tileAt(toMove), landedOnTile = this.tileAt(moveTo);
+
+		if (this.tileAt(moveTo).CAN_WALK_ON) {
+			this.setTile(toMove, Tile.EMPTY);
+			this.setTile(moveTo, temp);
+
+			// TODO: Add step-on methods. https://www.ntu.edu.sg/home/ehchua/programming/java/JavaEnum.html <- Section 2.2
+			
+		} else {
+			throw new Error("Cannot move tile " + this.tileAt(toMove).toString() + " from point " + toMove.toString()
+					+ " to point " + moveTo.toString() + ". There's a " + this.tileAt(moveTo).toString() + " there!");
 		}
 
 	}

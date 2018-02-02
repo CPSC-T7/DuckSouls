@@ -13,7 +13,13 @@ public class TestRunner {
 
 		TextRoom r = new TextRoom(5, 8, doors);
 		
+		r.setTile(new Point(3, 3), TextRoom.Tile.PLAYER);
+		
 		r.draw();
+		
+		r.moveTile(new Point(3, 3), new Point(0, 0));
+		
+		System.out.println("foo");
 
 	}
 
