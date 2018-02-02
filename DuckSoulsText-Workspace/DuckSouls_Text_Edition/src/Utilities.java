@@ -1,17 +1,12 @@
 
 //IOException for use with CMD in Windows
-<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-=======
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
->>>>>>> ee5b4de2916ed0f48571b36826ae9b5c7c4b3937
 
 /**
  * Utilities that will be used throughout the program. Basic tasks that are
@@ -92,31 +87,42 @@ public class Utilities {
 			if (currentTime - startTime >= stopTime)
 				break;
 		}
-	}//End of waitMilliSeconds
+	}// End of waitMilliSeconds
 	
 	/**
-	 * Reads and prints a sprite from it's text file, with added
-	 * X and Y padding.
+	 * Reads and prints a sprite from it's text file, with added X and Y padding.
 	 * 
 	 * @param sprite
-	 * 				The file path and name of the sprite to print.
+	 *            The file path and name of the sprite to print.
 	 * @param xPadding
-	 * 				The X padding to add to the left side of each line.
+	 *            The X padding to add to the left side of each line.
 	 * @param yPadding
-	 * 				The Y padding to add to the top line of the sprite.
+	 *            The Y padding to add to the top line of the sprite.
 	 * @throws FileNotFoundException
-	 * 				If the file is not found.
+	 *             If the file is not found.
 	 */
-	public static void printSprite(String sprite, String xPadding, String yPadding) throws FileNotFoundException
-	{
-		File duck = new File("TextSprites/" + sprite + ".txt");
-		Scanner readFile = new Scanner(duck);
-		System.out.print(yPadding);
-		while(readFile.hasNext()) {
-			String line = readFile.nextLine();
-			System.out.println(xPadding + line);
+	public static void printSprite(String sprite, String xPadding, String yPadding) {
+		
+		String fileName = "TextSprites/" + sprite + ".txt";
+		
+		try {
+			
+			File spriteFile = new File(fileName);
+			Scanner readFile = new Scanner(spriteFile);
+			System.out.print(yPadding);
+			
+			while (readFile.hasNext()) {
+				String line = readFile.nextLine();
+				System.out.println(xPadding + line);
+			}
+			
+		} catch (FileNotFoundException e) {
+			
+			System.out.println("File [" + fileName + "] not found.");
+			
 		}
-	}//End of printSprite
+		
+	}// End of printSprite
 	
 	/**
 	 * Reads lines from a text file into a String array.
@@ -125,10 +131,10 @@ public class Utilities {
 	 *            The file to read from.
 	 * @return A String array of all the lines in the file.
 	 */
-	public static String[] readLines(String fileName){
+	public static String[] readLines(String fileName) {
 		
 		try {
-		
+			
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
@@ -143,13 +149,13 @@ public class Utilities {
 			
 			bufferedReader.close();
 			return lines.toArray(new String[lines.size()]);
-		
+			
 		} catch (FileNotFoundException e) {
 			
 			System.out.println("File [" + fileName + "] not found.");
 			
 		} catch (IOException e) {
-
+			
 			System.out.println("Cannot read file [" + fileName + "], IO Exception.");
 			
 		}

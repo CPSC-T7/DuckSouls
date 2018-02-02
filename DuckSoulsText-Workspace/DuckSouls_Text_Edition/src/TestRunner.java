@@ -15,9 +15,9 @@ public class TestRunner {
 		
 		TextRoom r = new TextRoom("../TextRooms/testRoom.txt");
 		
-		r.draw();
+		//r.draw();
 		
-		//r.moveLoop();
+		r.moveLoop();
 
 	}
 

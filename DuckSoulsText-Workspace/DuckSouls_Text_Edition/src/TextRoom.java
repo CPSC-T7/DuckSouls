@@ -11,7 +11,7 @@ import javax.rmi.CORBA.Util;
  * 
  * @author Matthew Allwright
  * @requires java.awt.Point
- * @version 1.3.0
+ * @version 1.5.0
  *
  */
 public class TextRoom {
@@ -153,14 +153,18 @@ public class TextRoom {
 		
 	}
 	
+	/**
+	 * Creates a room from a specified file.
+	 * 
+	 * @param fileName
+	 *            The file containing the data for the room.
+	 */
 	TextRoom(String fileName) {
 		
 		String[] lines = Utilities.readLines(fileName);
 		
 		this.width = lines[0].split(",").length - 2;
 		this.height = lines.length - 2;
-		
-		System.out.println(this.width + " " + this.height);
 		
 		String[][] textTileArray = new String[this.width + 2][this.height + 2];
 		this.genTileArray();
@@ -174,8 +178,6 @@ public class TextRoom {
 		for (int x = 0; x < this.width + 2; x++) {
 			for (int y = 0; y < this.height + 2; y++) {
 				
-				System.out.print(textTileArray[x][y]);
-				
 				switch (textTileArray[y][x]) {
 					
 					case "D":
@@ -184,6 +186,7 @@ public class TextRoom {
 					
 					case "@":
 						this.tileArray[x][y] = Tile.PLAYER;
+						this.plyrPoint = new Point(x, y);
 						break;
 					
 					case ".":
@@ -338,8 +341,16 @@ public class TextRoom {
 			}
 			
 		} else {
-			throw new Error("Cannot move tile " + this.tileAt(toMove).toString() + " from point " + toMove.toString()
+			
+			/*
+			System.out.println("Cannot move tile " + this.tileAt(toMove).toString() + " from point " + toMove.toString()
 					+ " to point " + moveTo.toString() + ". There's a " + this.tileAt(moveTo).toString() + " there!");
+			*/
+			
+			System.out.println("You can't walk there!");
+			
+			Utilities.waitMilliseconds(1000);
+			
 		}
 		
 	}
@@ -382,6 +393,7 @@ public class TextRoom {
 				
 				default:
 					System.out.println("...What?");
+					Utilities.waitMilliseconds(1000);
 					break;
 				
 			}
