@@ -11,9 +11,13 @@ public class TestRunner {
 		doors[2] = new Point(4, 0);
 		doors[3] = new Point(9, 2);
 
-		TextRoom r = new TextRoom(8, 8, doors, new Point(3, 3));
+		//TextRoom r = new TextRoom(8, 8, doors, new Point(3, 3));
 		
-		r.moveLoop();
+		TextRoom r = new TextRoom("../TextRooms/testRoom.txt");
+		
+		r.draw();
+		
+		//r.moveLoop();
 
 	}
 

@@ -1,5 +1,8 @@
 import java.awt.Point;
+import java.io.IOException;
 import java.util.Scanner;
+
+import javax.rmi.CORBA.Util;
 
 //TODO: Fill in JavaDocs
 
@@ -50,8 +53,9 @@ public class TextRoom {
 	
 	// INSTANCE VARIABLES
 	
-	private int			width, height;
 	private final int	DEFAULT_WIDTH	= 8, DEFAULT_HEIGHT = 8;
+	
+	private int			width, height;
 	private Tile[][]	tileArray;
 	private Point		plyrPoint;
 	
@@ -146,6 +150,57 @@ public class TextRoom {
 		
 		this.addDoors(doors);
 		this.setTile(this.plyrPoint, Tile.PLAYER);
+		
+	}
+	
+	TextRoom(String fileName) {
+		
+		String[] lines = Utilities.readLines(fileName);
+		
+		this.width = lines[0].split(",").length - 2;
+		this.height = lines.length - 2;
+		
+		System.out.println(this.width + " " + this.height);
+		
+		String[][] textTileArray = new String[this.width + 2][this.height + 2];
+		this.genTileArray();
+		
+		for (int i = 0; i < this.height + 2; i++) {
+			
+			textTileArray[i] = lines[i].split(",");
+			
+		}
+		
+		for (int x = 0; x < this.width + 2; x++) {
+			for (int y = 0; y < this.height + 2; y++) {
+				
+				System.out.print(textTileArray[x][y]);
+				
+				switch (textTileArray[y][x]) {
+					
+					case "D":
+						this.tileArray[x][y] = Tile.DOOR;
+						break;
+					
+					case "@":
+						this.tileArray[x][y] = Tile.PLAYER;
+						break;
+					
+					case ".":
+						this.tileArray[x][y] = Tile.PATH;
+						break;
+					
+					case " ":
+						this.tileArray[x][y] = Tile.EMPTY;
+						break;
+					
+				}
+				
+			}
+			
+			System.out.println();
+			
+		}
 		
 	}
 	
