@@ -2,6 +2,31 @@ public class Items {
 
 // ATTRIBUTES
 
+
+
+
+// CONSTRUCTOR
+
+	public Items(){
+			for (Consumable item : Consumable.values()){
+			System.out.println(item);
+	}
+	}
+// ENUMERATORS 
+
+	//(name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,length_of_effect,price)
+
+	public enum Consumable {
+
+		BUGS_0("Bugs",false,true,0,0,0,0,0,0,0,0,0),
+		ET_1("Useless Game Cartridge",false,true,0,0,0,0,0,0,0,0,0),
+		FISH_2("Smelly Fish",false,true,0,0,0,0,0,0,0,0,0),
+		FOOD_3 ("Rotten Food",false,true,0,0,0,0,0,0,0,0,0),	
+		CRUTON_4("Soggy Cruton",false,true,0,0,0,0,0,0,0,0,0),
+		ROIDS_5("Suspicious Liquid",false,true,0,0,0,0,0,0,0,0,0),
+		WAX_6("Dr.Quakenstein's Wonderous Wing Wax!",false,true,0,0,0,0,0,0,0,0,0);
+	
+
 	private String ITEM_NAME;
 
 	private boolean CAN_EQUIP;
@@ -18,9 +43,7 @@ public class Items {
 	private int EFFECT_LENGTH;
 
 
-// CONSTRUCTOR
-
-	public Items(String ITEM_NAME, boolean CAN_EQUIP, boolean CAN_CONSUME, int HEALTH_DAM, int MANA_DAM,
+	Consumable(String ITEM_NAME, boolean CAN_EQUIP, boolean CAN_CONSUME, int HEALTH_DAM, int MANA_DAM,
 					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int EFFECT_LENGTH, int PRICE) {
 
 		this.ITEM_NAME = ITEM_NAME;
@@ -37,21 +60,8 @@ public class Items {
 		this.CRIT_CHANCE = CRIT_CHANCE;
 		this.EFFECT_LENGTH = EFFECT_LENGTH;
 		this.PRICE = PRICE;		
-	} // End of constructor
+	}
 
-
-// ENUMERATORS 
-
-	//(name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,length_of_effect,price)
-
-	public enum Consumable {
-
-		BUGS("Bugs",false,true,10,0,0,0,0,0,5),
-		ET("Useless Game Cartridge",false,true,0,0,0,0,0,0,75),
-		FISH("Smelly Fish",false,true,75,0,15),
-		FOOD ("Rotten Food",false,true,25,-10,15),	
-		ROIDS("Suspicious Liquid",false,true,0,0,0,20,20,5,10),
-		WAX  ("Dr.Quakenstein's Wonderous Wing Wax!",false,true,75,0,15);
 	}
 
 	public enum Weapon {
@@ -64,7 +74,7 @@ public class Items {
 		
 		SWORD_SHIELD,
 		BIG_SWORD,
-		CLEAVERS,
+		DUAL_WIELD,
 
 		STAFF;
 	}
@@ -75,20 +85,27 @@ public class Items {
 	}
 
 // METHODS
+/*
+	public static void main(String[] args) {
 
+		Items test = new Items();
+
+		}
+	}
+*/
 	/** Create all game item objects
 		Call once from main method during game initialization*/
-	public void setupItems() {
+	/*public static void setupItems() {
 		
-		//loop through enumerators initializing each object
+		int placeholder = 1;
 	}
 	
-	public void useItem(Item item) {
-
+	public void useItem() {
+		int placeholder = 2;
 		//check character inventory number? maybe this step should be done before calling useItem --> method in inventory class
 		
 		//update HP/MP/Stats
 		
 		//call method from inventory class to update held item count
-	}
-}// End of Class
+	}*/
+}
