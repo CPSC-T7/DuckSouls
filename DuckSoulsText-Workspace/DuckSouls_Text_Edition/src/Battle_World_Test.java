@@ -41,17 +41,22 @@ public class Battle_World_Test {
 		
 		
 	}
-	public static void battleLoop() throws IOException, InterruptedException 
-	{
-		while(true) {
+	public static void battleLoop() throws IOException, InterruptedException {
+		
+		boolean inBattle;
+		inBattle = true;
+		
+		while(inBattle) {
 			drawSprites();
 			Thread.sleep(10);
 			
-			Player.playerMove(Enemy);
+			inBattle = Player.playerMove(Enemy);
 			
 			Utilities.clearConsole();
 			
 		}
+		
+		System.out.println("The battle has ended.");
 		
 	}
 

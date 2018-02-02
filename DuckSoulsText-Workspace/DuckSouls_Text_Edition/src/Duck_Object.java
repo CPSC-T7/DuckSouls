@@ -39,6 +39,9 @@ public class Duck_Object {
 	private double speedPoints = 5;
 	private double accuracyPoints = 70;
 	private double criticalHitPoints = 16;	
+	
+	private int experience = 0;
+	private int money = 0;
 
 	// x/y padding: Converts x/y position into spaces/tabs
 	private String xPadding = Utilities.multiplyString("  ", xPosition);
@@ -305,13 +308,14 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void playerMove(Enemy_Object enemy) throws IOException, InterruptedException {
+	public boolean playerMove(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 		boolean selection;
 		selection = true;
+		String move = "";
 		
 		while (selection) {
-			String move = scanner.nextLine();
+			move = scanner.nextLine();
 			move = move.toLowerCase();
 		
 			if (move.contains("quack")) {
@@ -324,12 +328,15 @@ public class Duck_Object {
 				taunt(enemy);
 				selection = false;
 			}else if (move.contains("fly")) {
-				fly(enemy);
 				selection = false;
 			}else {
 				System.out.println("That is not a valid command.");
 			}
 		}
+		
+		boolean inBattle = finishBattle(enemy, move);
+		
+		return inBattle;
 	}
 	
 	
@@ -338,19 +345,23 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void quack(Enemy_Object enemy) throws IOException, InterruptedException 
-	{
+	public void quack(Enemy_Object enemy) throws IOException, InterruptedException {
+		
+
+		
 		Utilities.clearConsole();
 		
 		System.out.print(getSprite("fightBanner"));
 		System.out.print(enemy.getSprite(enemy.enemySprite()));
 		System.out.print(getSprite("quack"));
+		System.out.println("You quacked at the enemy...");
 		Thread.sleep(1000);
 		Utilities.clearConsole();
 		
 		System.out.print(getSprite("fightBanner"));
 		System.out.print(enemy.getSprite(enemy.enemySprite()));
 		System.out.print(getSprite("duck"));
+		System.out.println("You quacked at the enemy...");
 		Thread.sleep(500);
 		System.out.println("That move did absolutely nothing!");
 		Thread.sleep(1500);
@@ -407,18 +418,26 @@ public class Duck_Object {
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 		double damage;
-		damage = (attackPoints * 1.5) - enemy.getDefence();
+		damage = (attackPoints * 2.5) - enemy.getDefence();
+		double enemyHealth = enemy.getHealth();
+		double newHealth = enemyHealth - damage;
+		enemy.setHealth(Math.round(newHealth));
+		
+		System.out.println("You attacked the enemy...");
+		Thread.sleep(500);
 		
 		run(12, +1, 0, enemy);
 		peck(enemy);
 		run(12, -1, 0, enemy);
 		run(0, +1, 0, enemy);
 		
-	}
-	
-	public void fly(Enemy_Object enemy) throws IOException, InterruptedException {
+		System.out.print("You dealt ");
+		System.out.print(Math.round(damage));
+		System.out.println(" damage to the enemy!");
+		Thread.sleep(2500);
 		
 	}
+
 	
 	/**
 	 * 
@@ -453,8 +472,12 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void taunt(Enemy_Object enemy) throws IOException, InterruptedException 
-	{
+	public void taunt(Enemy_Object enemy) throws IOException, InterruptedException  {
+		
+		double enemyAttack = enemy.getAttack();
+		double enemyDefence = enemy.getDefence();
+		enemy.setAttack(enemyAttack + 5);
+		enemy.setDefence(enemyDefence - 5);
 		
 		for (int i = 0; i <= 2; i++) 
 		{
@@ -464,16 +487,22 @@ public class Duck_Object {
 				System.out.print(getSprite("fightBanner"));
 				System.out.print(enemy.getSprite(enemy.enemySprite()));
 				System.out.print(getSprite("duck"));
+				System.out.println("You taunted the enemy...");
 				Thread.sleep(100);
 				Utilities.clearConsole();
 				
 				System.out.print(getSprite("fightBanner"));
 				System.out.print(enemy.getSprite(enemy.enemySprite()));
 				System.out.print(getSprite("taunt"));
+				System.out.println("You taunted the enemy...");
 				Thread.sleep(100);
 				Utilities.clearConsole();
 				
 		}
+		
+		System.out.println("The enemy's attack has increased!");
+		System.out.println("The enemy's defence has decreased!");
+		Thread.sleep(2500);
 	}
 	
 	private void resetStats() {
@@ -487,4 +516,28 @@ public class Duck_Object {
 		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
 		
 	}
+
+	private boolean finishBattle(Enemy_Object enemy, String move) {
+		
+		double enemyHealth = enemy.getHealth();
+		
+		if (move.equals("fly")) {
+			System.out.println("You flew away from battle...");
+			resetStats();
+			return false;
+		}
+		
+		else if (enemyHealth <= 0) {
+			System.out.println("You have beaten the enemy!");
+			resetStats();
+			return false;
+		}
+		
+		else {
+			return true;
+		}
+		
+		
+	}
+	
 }

@@ -35,7 +35,7 @@ public class Enemy_Object {
 	final private double CRITICAL_HIT_POINTS = 16;
 		
 		
-	private double healthPoints = 20;
+	private double healthPoints = 10;
 	private double manaPoints = 15;
 	private double attackPoints = 5;
 	private double defencePoints = 5;
@@ -268,9 +268,61 @@ public class Enemy_Object {
 	}
 	
 	public double getDefence() {
-		
 		return defencePoints;
-		
+	}
+	
+	public double getCriticalHit() {
+		return criticalHitPoints;
+	}
+
+
+	public double getAttack() {
+		return attackPoints;
+	}
+
+	public double getHealth() {
+		return healthPoints;
+	}
+	public double getMana() {
+		return manaPoints;
+	}
+	
+	public double getSpeed() {
+		return speedPoints;
+	}
+	
+	public double getAccuracy() {	
+		return accuracyPoints;	
+	}
+	
+	
+	
+	public void setDefence(double newValue) {
+		defencePoints = newValue;
+	}
+	
+	public void setCriticalHit(double newValue) {
+		criticalHitPoints = newValue;	
+	}
+
+	public void setAttack(double newValue) {
+		attackPoints = newValue;
+	}
+
+	public void setHealth(double newValue) {
+		healthPoints = newValue;
+	}
+
+	public void setMana(double newValue) {
+		manaPoints = newValue;
+	}
+	
+	public void setSpeed(double newValue) {
+		speedPoints = newValue;
+	}
+	
+	public void setAccuracy(double newValue) {	
+		accuracyPoints = newValue;	
 	}
 
 }
