@@ -1,5 +1,8 @@
 //IOException for use with CMD in Windows
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**Utilities that will be used throughout the program.
  * Basic tasks that are repeated more than once.
@@ -89,6 +92,30 @@ public class Utilities {
 			if (currentTime - startTime >= stopTime)
 				break;
 		}
-	}
+	}//End of waitMilliSeconds
+	
+	/**
+	 * Reads and prints a sprite from it's text file, with added
+	 * X and Y padding.
+	 * 
+	 * @param sprite
+	 * 				The file path and name of the sprite to print.
+	 * @param xPadding
+	 * 				The X padding to add to the left side of each line.
+	 * @param yPadding
+	 * 				The Y padding to add to the top line of the sprite.
+	 * @throws FileNotFoundException
+	 * 				If the file is not found.
+	 */
+	public static void printSprite(String sprite, String xPadding, String yPadding) throws FileNotFoundException
+	{
+		File duck = new File("TextSprites/" + sprite + ".txt");
+		Scanner readFile = new Scanner(duck);
+		System.out.print(yPadding);
+		while(readFile.hasNext()) {
+			String line = readFile.nextLine();
+			System.out.println(xPadding + line);
+		}
+	}//End of printSprite
 	
 }//End of Utilities

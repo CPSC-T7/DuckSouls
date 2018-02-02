@@ -1,9 +1,0 @@
-yPadding +
-				xPadding +  "       __\r\n" + 
-				xPadding +  "     _0 0\\\r\n" + 
-				xPadding +  "     --   \\\r\n" + 
-				xPadding +  "       \\   \\-------/\r\n" + 
-				xPadding +  "        |        //\r\n" + 
-				xPadding +  "         \\______//\r\n" + 
-				xPadding +  "             /|\r\n" + 
-				xPadding +  "            `-"

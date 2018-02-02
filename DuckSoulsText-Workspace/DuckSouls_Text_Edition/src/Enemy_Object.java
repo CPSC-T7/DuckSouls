@@ -1,13 +1,10 @@
 //IOException for use with CMD in Windows
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 
 /**
- * SUPER SUPER SUPER EARLY ENEMY OBJECT:
- * Pretty much a direct copy of the duck sprite.
- * Only used as a placeholder until further enemies and
- * enemy attacks are created.
  * 
  * @author Wylee McAndrews
  * @author add name if modified
@@ -15,238 +12,236 @@ import java.util.Scanner;
  */
 public class Enemy_Object {
 	
-	//Public Variables
+	/**		Public Variables	*/
 	
-	//Player HP
-	public int healthPoints;
-	//Current Sprite
-	public String sprite = "duck";
-	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
+	// x/y position: Where the enemy is drawn on the screen (0,0 = topmost left)
 	public int xPosition = 35;
-	public int yPosition = 0	;	
+	public int yPosition = 0;	
 	
+	/**		Private Variables	*/
 	
-	//Private Variables
-
+	private String enemyType;		//The type of enemy (Will be added via a constructor)
+	
 	// x/y padding: Converts x/y position into spaces/tabs
 	private String xPadding = Utilities.multiplyString("  ", xPosition);
 	private String yPadding = Utilities.multiplyString("\n", yPosition);
-	//The direction that the sprite is facing
-	private static String direction = "Left";
-	//Get user input
-	private static Scanner scanner = new Scanner(System.in);
+	
+	private static String direction = "Left";		//The direction that the sprite is facing
 	
 	/**
+	 * Object constructor:
+	 * Define character type when a new Enemy_Object is created. (i.e Rat, Fish, etc)
+	 * Modifiable with different characteristics (attacks, stats, etc)
+	 * 
+	 * @param enemy
+	 * 			The type of enemy to display (Will affect sprite used & move type)
+	 */
+	public Enemy_Object(String enemy) {
+		enemyType = enemy;
+	}
+	
+	
+	/**
+	 * Main class.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 	}
 	
-	/**
-	 * 
-	 * @return sprite
-	 */
-	public String enemySprite() {
-		return sprite;
-	}
 	
 	/**
-	 * 
-	 * @param duckSprite
-	 * @return
+	 * Prints the required sprite from a text file.
+	 *  
+	 * @param enemySprite
+	 * 					The type of sprite to print.
+	 * @throws FileNotFoundException 
 	 */
-	public String getSprite(String duckSprite) 
+	public void getSprite(String enemySprite) throws FileNotFoundException 
 	{
-		//update x position on screen
+		//Update position on screen using newlines and spaces
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
 		
-		//Better way to store/move sprites?
-		
-		//standing Duck
-		String duck_Left = yPadding +
-				xPadding +  "         __\r\n" + 
-				xPadding +  "       _0 0|\r\n" + 
-				xPadding +  "       --  |\r\n" + 
-				xPadding +  "        |  |------/\r\n" + 
-				xPadding +  "        |        //\r\n" + 
-				xPadding +  "         \\______//\r\n" + 
-				xPadding +  "             ||\r\n" + 
-				xPadding +  "            --\n";
-		
-		String duck_Right = yPadding +
-				xPadding +  "                __\r\n" + 
-				xPadding +  "               |0 0_\r\n" + 
-				xPadding +  "               |  --\r\n" + 
-				xPadding +  "        \\------|  |\r\n" + 
-				xPadding +  "        \\\\        |\r\n" + 
-				xPadding +  "         \\\\______/\r\n" + 
-				xPadding +  "             ||\r\n" + 
-				xPadding +  "              --\n";
-		
-		//Duck taunt (Mix with ing duck)
-		String taunt_Left = yPadding +
-				xPadding +  "          __\r\n" + 
-				xPadding +  "        _0 0|\r\n" + 
-				xPadding +  "        --  /\r\n" + 
-				xPadding +  "        /  /------/\r\n" + 
-				xPadding +  "        |        //\r\n" + 
-				xPadding +  "         \\______//\r\n" + 
-				xPadding +  "             ||\r\n" + 
-				xPadding +  "            --\n";
-		
-		String taunt_Right = yPadding +
-				xPadding +  "               __\r\n" + 
-				xPadding +  "              |0 0_\r\n" + 
-				xPadding +  "              \\  --\r\n" + 
-				xPadding +  "        \\------\\  \\\r\n" + 
-				xPadding +  "        \\\\        |\r\n" + 
-				xPadding +  "         \\\\______/\r\n" + 
-				xPadding +  "             ||\r\n" + 
-				xPadding +  "              --\n";
-		
-		//Duck Quack
-		String quack_Left = yPadding +
-				xPadding +  "         __\r\n" + 
-				xPadding +  "Quak*  _0 0|\r\n" +
-				xPadding +  "       --  |\r\n" + 
-				xPadding +  "        |  |------/\r\n" + 
-				xPadding +  "        |        //\r\n" + 
-				xPadding +  "         \\______//\r\n" + 
-				xPadding +  "             ||\r\n" + 
-				xPadding +  "            --\n";
-		
-		String quack_Right = yPadding +
-				xPadding +  "                __\r\n" + 
-				xPadding +  "               |0 0_  *Quak\r\n" + 
-				xPadding +  "               |  --\r\n" + 
-				xPadding +  "        \\------|  |\r\n" + 
-				xPadding +  "        \\\\        |\r\n" + 
-				xPadding +  "         \\\\______/\r\n" + 
-				xPadding +  "             ||\r\n" + 
-				xPadding +  "              --\n";	
-		
-		//Duck Run (Frame 1)
-		String run_Left_1 = yPadding +
-				xPadding +  "       __\r\n" + 
-				xPadding +  "     _0 0\\\r\n" + 
-				xPadding +  "     --   \\\r\n" + 
-				xPadding +  "       \\   \\-------/\r\n" + 
-				xPadding +  "        |        //\r\n" + 
-				xPadding +  "         \\______//\r\n" + 
-				xPadding +  "             /|\r\n" + 
-				xPadding +  "            `-\n";
-		
-		//Duck Run (Frame 2)
-		String run_Left_2 = yPadding +
-				xPadding +  "       __\r\n" + 
-				xPadding +  "     _0 0\\\r\n" + 
-				xPadding +  "     --   \\\r\n" + 
-				xPadding +  "       \\   \\-------/\r\n" + 
-				xPadding +  "        |        //\r\n" + 
-				xPadding +  "         \\______//\r\n" + 
-				xPadding +  "             |/\r\n" + 
-				xPadding +  "             `\n";
-		
-		//Duck Run Right (Frame 1)
-		String run_Right_1 = yPadding +
-				xPadding +  "                  __\r\n" + 
-				xPadding +  "                 /0 0_\r\n" + 
-				xPadding +  "                /   --\r\n" + 
-				xPadding +  "       \\-------/   /\r\n" + 
-				xPadding +  "        \\\\        |\r\n" + 
-				xPadding +  "         \\\\______/\r\n" + 
-				xPadding +  "             |\\\r\n" + 
-				xPadding +  "              -`\n";
-		
-		//Duck Run Right (Frame 2)
-		String run_Right_2 = yPadding +
-				xPadding +  "                  __\r\n" + 
-				xPadding +  "                 /0 0_\r\n" + 
-				xPadding +  "                /   --\r\n" + 
-				xPadding +  "       \\-------/   /\r\n" + 
-				xPadding +  "        \\\\        |\r\n" + 
-				xPadding +  "         \\\\______/\r\n" + 
-				xPadding +  "             \\|\r\n" + 
-				xPadding +  "              `-\n";
-		
-		//Select the sprite frame to return based on method argument "duckSprite"
-		if (direction == "Left") {
-			switch(duckSprite) 
-			{
-				case("duck"):
-					return duck_Left;
+		//Select the sprite frame to print based on the argument "enemySprite"
+		//Uses 'enemyType' string to decide which folder to choose.
+		switch(enemySprite) 
+		{
+			//Fight banner to be replaced with stats
+			case("fight"):
+				Utilities.printSprite("UI/Banner/fight", "", "");;
+				break;
 			
-				case("taunt"):
-					return taunt_Left;
-				
-				case("quack"):
-					return quack_Left;
-				
-				case("run_1"):
-					return run_Left_1;
-				
-				case("run_2"):
-					return run_Left_2;
-				
-				default:
-					return("Error: no sprite found.");
-			}
-		}else {
-			switch(duckSprite) 
-			{
-				case("duck"):
-					return duck_Right;
+			case("stand"):
+				Utilities.printSprite(enemyType + "/Stand/stand_" + direction, xPadding, yPadding);
+				break;
 			
-				case("taunt"):
-					return taunt_Right;
+			case("taunt1"):
+				Utilities.printSprite(enemyType + "/Taunt/taunt_One_" + direction, xPadding, yPadding);
+				break;
 				
-				case("quack"):
-					return quack_Right;
+			case("taunt2"):
+				Utilities.printSprite(enemyType + "/Taunt/taunt_Two_" + direction, xPadding, yPadding);
+				break;
+		
+			case("hurt"):
+				Utilities.printSprite(enemyType + "/Hurt/hurt_" + direction, xPadding, yPadding);
+				break;
+			
+			case("attack1"):
+				Utilities.printSprite(enemyType + "/Attack/attack_One", xPadding, yPadding);
+				break;
 				
-				case("run_1"):
-					return run_Right_1;
+			case("attack2"):
+				Utilities.printSprite(enemyType + "/Attack/attack_Two", xPadding, yPadding);
+				break;
 				
-				case("run_2"):
-					return run_Right_2;
-				
-				default:
-					return("Error: no sprite found.");
-			}
+			case("attack3"):
+				Utilities.printSprite(enemyType + "/Attack/attack_Three", xPadding, yPadding);
+				break;
+			
+			case("run_1"):
+				Utilities.printSprite(enemyType + "/Run/run_One_" + direction, xPadding, yPadding);
+				break;
+			
+			case("run_2"):
+				Utilities.printSprite(enemyType + "/Run/run_Two_" + direction, xPadding, yPadding);
+				break;
+			
+			default:
+				System.out.println("Error: No move found.");
+				break;
 		}
-	}
+	} 
 	
 	/**
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void enemyMove(Enemy_Object enemy) throws IOException, InterruptedException {
+	public void enemyMove(Duck_Object player, String move) throws IOException, InterruptedException {
 		
-		String move = scanner.nextLine();
 		move = move.toLowerCase();
 		
-		if (move.contains("example attack")) {
-			System.out.println("This would make an enemy attack");
-		}else if (move.contains("example defend")) {
-			System.out.println("This would make an enemy defend");
+		if (move.contains("taunt")) {
+			taunt(player);
+		}else if (move.contains("attack")) {
+			attack(player);
 		}
-	}
+		
+	}//End of enemyMove
 	
+	/**
+	 * @throws InterruptedException 
+	 * @throws IOException 
+	 * 
+	 */
+	public void swipe(Duck_Object player) throws IOException, InterruptedException {
+		
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack1");
+		player.getSprite("stand");
+		Utilities.waitMilliseconds(300);
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack2");
+		player.getSprite("hurt");
+		Utilities.waitMilliseconds(100);
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack3");
+		player.getSprite("hurt");
+		Utilities.waitMilliseconds(100);
+		Utilities.clearConsole();
+		
+	}//End of swipe
 	
 	/**
 	 * 
-	 * @param seconds
+	 * @param numTimes
+	 * @param xDirection
+	 * @param yDirection
+	 * @param enemy
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void stand(int seconds) throws IOException, InterruptedException 
+	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player) throws IOException, InterruptedException 
 	{
+		if (xDirection == 1) {
+			direction = "Right";
+		}else {
+			direction = "Left";
+		}
+		
+		for (int i = 0; i < numTimes; i++) {
+			
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("run_1");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(20);
+			xPosition += xDirection;
+			yPosition += yDirection;
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("run_2");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(20);
+			xPosition += xDirection;
+			yPosition += yDirection;
+			Utilities.clearConsole();
+		}
+		
+	}//End of run
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws IOException 
+	 * 
+	 */
+	public void attack(Duck_Object player) throws IOException, InterruptedException 
+	{
+		run(13, -1, 0, player);
+		swipe(player);
+		run(13, +1, 0, player);
+		run(0, -1, 0, player);
+	}//End of attack
+	
+	/**
+	 * 
+	 * @param player
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	public void taunt(Duck_Object player) throws IOException, InterruptedException
+	{
+		getSprite("fight");
+		getSprite("stand");
+		player.getSprite("stand");
+		Utilities.waitMilliseconds(400);
 		Utilities.clearConsole();
-		System.out.print(getSprite("duck"));
-		Thread.sleep(seconds*1000);
+		
+		for(int i = 0; i <= 3; i++)
+		{	
+			getSprite("fight");
+			getSprite("taunt1");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(50);
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("taunt2");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(50	);
+			Utilities.clearConsole();
+		}
 	}
-
+	
 }
