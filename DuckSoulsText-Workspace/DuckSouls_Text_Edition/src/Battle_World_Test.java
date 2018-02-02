@@ -26,7 +26,7 @@ public class Battle_World_Test {
 	
 	public static void drawSprites() throws FileNotFoundException
 	{
-		Enemy.getSprite("fight");s
+		Enemy.getSprite("fight");
 		Enemy.getSprite("stand");
 		Player.getSprite("stand");
 	}
