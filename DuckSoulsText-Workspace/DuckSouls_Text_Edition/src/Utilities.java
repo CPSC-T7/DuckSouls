@@ -15,7 +15,7 @@ public class Utilities {
 	 * @throws InterruptedException
 	 * @throws IOException
 	 */
-	public static void clearConsole() throws IOException, InterruptedException
+	public static void clearConsole()
 	{
 		
 	    try
@@ -41,7 +41,7 @@ public class Utilities {
 	    catch (Exception e) {
 			//If console doesn't clear print this error
 	    	System.out.println("Console failed to clear.");
-	    	Thread.sleep(3000);
+	    	waitMilliseconds(3000);
 	    	System.exit(0);
 	    }
 	    

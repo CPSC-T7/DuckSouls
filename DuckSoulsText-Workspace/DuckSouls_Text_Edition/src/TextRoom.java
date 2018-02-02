@@ -19,22 +19,22 @@ public class TextRoom {
 		
 		// Doors
 		
-		DOOR_H(" D ", true),
-		DOOR_V("D", true),
+		DOOR(" D ", true),
 		
 		// Walls
 		
 		WALL_H("═══", false),
-		WALL_V("║", false),
-		WALL_TL("╔", false),
-		WALL_TR("╗", false),
-		WALL_BL("╚", false),
-		WALL_BR("╝", false),
+		WALL_V(" ║ ", false),
+		WALL_TL(" ╔═", false),
+		WALL_TR("═╗ ", false),
+		WALL_BL(" ╚═", false),
+		WALL_BR("═╝ ", false),
 		
 		// Not-Walls
 		
 		PLAYER(" @ ", false),
-		EMPTY(" . ", true),
+		PATH(" . ", true),
+		EMPTY("   ", true),
 		FISH(" F ", true),
 		CURRENCY(" $ ", true);
 		
@@ -221,11 +221,7 @@ public class TextRoom {
 		
 		for (Point pos : doors) {
 			
-			if (pos.x == 0 || pos.x == this.width + 1) {
-				this.setTile(pos, Tile.DOOR_V);
-			} else {
-				this.setTile(pos, Tile.DOOR_H);
-			}
+			this.setTile(pos, Tile.DOOR);
 			
 		}
 		
@@ -275,7 +271,7 @@ public class TextRoom {
 		
 		if (this.tileAt(moveTo).CAN_WALK_ON) {
 			
-			this.setTile(toMove, Tile.EMPTY);
+			this.setTile(toMove, Tile.PATH);
 			this.setTile(moveTo, temp);
 			
 			// TODO: Add step-on methods.
@@ -300,6 +296,8 @@ public class TextRoom {
 		
 		while (true) {
 			
+			Utilities.clearConsole();
+			
 			this.draw();
 			System.out.print("\nAction \t: ");
 			
@@ -307,7 +305,7 @@ public class TextRoom {
 			
 			switch (input) {
 				
-				case "N":
+				case "W":
 				case "NORTH":
 					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x, this.plyrPoint.y - 1));
 					break;
@@ -317,12 +315,12 @@ public class TextRoom {
 					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x, this.plyrPoint.y + 1));
 					break;
 				
-				case "W":
+				case "A":
 				case "WEST":
 					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x - 1, this.plyrPoint.y));
 					break;
 				
-				case "E":
+				case "D":
 				case "EAST":
 					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x + 1, this.plyrPoint.y));
 					break;
