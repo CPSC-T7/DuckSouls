@@ -99,7 +99,7 @@ public class Utilities {
 	 * X and Y padding.
 	 * 
 	 * @param sprite
-	 * 				The filepath and name of the sprite to print.
+	 * 				The file path and name of the sprite to print.
 	 * @param xPadding
 	 * 				The X padding to add to the left side of each line.
 	 * @param yPadding

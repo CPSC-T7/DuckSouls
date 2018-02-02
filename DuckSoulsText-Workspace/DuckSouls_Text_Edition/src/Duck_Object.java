@@ -36,14 +36,6 @@ public class Duck_Object {
 	}
 	
 	/**
-	 * 
-	 * @return sprite
-	 */
-	public String playerSprite() {
-		return sprite;
-	}
-	
-	/**
 	 * Gets the required sprite from a text file.
 	 * 
 	 * @param duckSprite
@@ -56,27 +48,11 @@ public class Duck_Object {
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
 		
-		//Attack Banner (Will be replaced with stats)
-		String fightBanner = 
-				" +-----------------------------------------------+ \r\n" + 
-				"    _______ _________ _______          _________  \r\n" + 
-				"   (  ____ \\\\__   __/(  ____ \\+\\     /+\\__   __/  \r\n" + 
-				"   + (    \\/   ) (   + (    \\/| )   ( |   ) (     \r\n" + 
-				"   | (__       + +   | +      | (___) |   + +     \r\n" + 
-				"   |  __)      | |   | | ____ |  ___  |   | |     \r\n" + 
-				"   | (         + +   | + \\_  )| (   ) |   | |     \r\n" + 
-				"   | )      ___) (___+ (___) ++ )   ( |   + +     \r\n" + 
-				"   +/       \\_______/(_______)+/     \\+   )_(     \r\n" + 
-				"                                                  \r\n" + 
-				" +-----------------------------------------------+ \r\n" + 
-				"\n\n";
-		
-		
 		//Select the sprite frame to return based on method argument "duckSprite"
 		switch(duckSprite) 
 		{
-			case("fightBanner"):
-				System.out.println(fightBanner);
+			case("fight"):
+				Utilities.printSprite("UI/Banner/fight", "", "");;
 				break;
 				
 			case("stand"):
@@ -86,7 +62,11 @@ public class Duck_Object {
 			case("taunt"):
 				Utilities.printSprite("Duck/Taunt/duckDance_" + direction, xPadding, yPadding);
 				break;
-			
+				
+			case("quack"):
+				Utilities.printSprite("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
+				break;
+				
 			case("attack1"):
 				Utilities.printSprite("Duck/Attack/duckAttack_One_" + direction, xPadding, yPadding);
 				break;
@@ -94,9 +74,13 @@ public class Duck_Object {
 			case("attack2"):
 				Utilities.printSprite("Duck/Attack/duckAttack_Two_" + direction, xPadding, yPadding);
 				break;
-			
-			case("quack"):
-				Utilities.printSprite("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
+				
+			case("hurt"):
+				Utilities.printSprite("Duck/Hurt/duckHurt_" + direction, xPadding, yPadding);
+				break;
+				
+			case("dead"):
+				Utilities.printSprite("Duck/Hurt/duckDead_" + direction, xPadding, yPadding);
 				break;
 			
 			case("run_1"):
@@ -145,13 +129,13 @@ public class Duck_Object {
 	{
 		Utilities.clearConsole();
 		
-		getSprite("fightBanner");
+		getSprite("fight");
 		enemy.getSprite("stand");
 		getSprite("quack");
 		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
 		
-		getSprite("fightBanner");
+		getSprite("fight");
 		enemy.getSprite("stand");
 		getSprite("attack");
 		Utilities.clearConsole();
@@ -179,18 +163,18 @@ public class Duck_Object {
 			
 			Utilities.clearConsole();
 			
-			getSprite("fightBanner");
+			getSprite("fight");
 			enemy.getSprite("stand");
 			getSprite("run_1");
-			Utilities.waitMilliseconds(10);
+			Utilities.waitMilliseconds(20);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
 			
-			getSprite("fightBanner");
+			getSprite("fight");
 			enemy.getSprite("stand");
 			getSprite("run_2");
-			Utilities.waitMilliseconds(10);
+			Utilities.waitMilliseconds(20);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
@@ -205,10 +189,12 @@ public class Duck_Object {
 	 * @throws InterruptedException
 	 */
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
+		
 		run(13, +1, 0, enemy);
 		peck(enemy, 1);
 		run(13, -1, 0, enemy);
 		run(0, +1, 0, enemy);
+		enemy.enemyMove(this ,"taunt");
 		
 	}//End of attack
 	
@@ -224,13 +210,13 @@ public class Duck_Object {
 			
 			Utilities.clearConsole();
 			
-			getSprite("fightBanner");
+			getSprite("fight");
 			enemy.getSprite("stand");
 			getSprite("attack1");
 			Utilities.waitMilliseconds(200);
 			Utilities.clearConsole();
 			
-			getSprite("fightBanner");
+			getSprite("fight");
 			enemy.getSprite("hurt");
 			getSprite("attack2");
 			Utilities.waitMilliseconds(400);
@@ -254,13 +240,13 @@ public class Duck_Object {
 			
 				Utilities.clearConsole();
 				
-				getSprite("fightBanner");
+				getSprite("fight");
 				enemy.getSprite("stand");
 				getSprite("stand");
 				Utilities.waitMilliseconds(100);
 				Utilities.clearConsole();
 				
-				getSprite("fightBanner");
+				getSprite("fight");
 				enemy.getSprite("stand");
 				getSprite("taunt");
 				Utilities.waitMilliseconds(100);

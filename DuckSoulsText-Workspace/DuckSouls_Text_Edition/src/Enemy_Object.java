@@ -5,10 +5,6 @@ import java.util.Scanner;
 
 
 /**
- * SUPER SUPER SUPER EARLY ENEMY OBJECT:
- * Pretty much a direct copy of the duck sprite.
- * Only used as a placeholder until further enemies and
- * enemy attacks are created.
  * 
  * @author Wylee McAndrews
  * @author add name if modified
@@ -18,7 +14,7 @@ public class Enemy_Object {
 	
 	/**		Public Variables	*/
 	
-	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
+	// x/y position: Where the enemy is drawn on the screen (0,0 = topmost left)
 	public int xPosition = 35;
 	public int yPosition = 0;	
 	
@@ -35,6 +31,7 @@ public class Enemy_Object {
 	/**
 	 * Object constructor:
 	 * Define character type when a new Enemy_Object is created. (i.e Rat, Fish, etc)
+	 * Modifiable with different characteristics (attacks, stats, etc)
 	 * 
 	 * @param enemy
 	 * 			The type of enemy to display (Will affect sprite used & move type)
@@ -45,52 +42,47 @@ public class Enemy_Object {
 	
 	
 	/**
-	 * Calls the class constructor
+	 * Main class.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 	}
 	
+	
 	/**
-	 * Gets the required sprite from a text file.
-	 * 
+	 * Prints the required sprite from a text file.
+	 *  
 	 * @param enemySprite
-	 * 					The sprite to print.
+	 * 					The type of sprite to print.
 	 * @throws FileNotFoundException 
 	 */
 	public void getSprite(String enemySprite) throws FileNotFoundException 
 	{
-		//update x position on screen
+		//Update position on screen using newlines and spaces
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
 		
-		//Attack Banner (Will be replaced with stats)
-		String fightBanner = 
-				" +-----------------------------------------------+ \r\n" + 
-				"    _______ _________ _______          _________  \r\n" + 
-				"   (  ____ \\\\__   __/(  ____ \\+\\     /+\\__   __/  \r\n" + 
-				"   + (    \\/   ) (   + (    \\/| )   ( |   ) (     \r\n" + 
-				"   | (__       + +   | +      | (___) |   + +     \r\n" + 
-				"   |  __)      | |   | | ____ |  ___  |   | |     \r\n" + 
-				"   | (         + +   | + \\_  )| (   ) |   | |     \r\n" + 
-				"   | )      ___) (___+ (___) ++ )   ( |   + +     \r\n" + 
-				"   +/       \\_______/(_______)+/     \\+   )_(     \r\n" + 
-				"                                                  \r\n" + 
-				" +-----------------------------------------------+ \r\n" + 
-				"\n\n";
-				
-		
-		//Select the sprite frame to return based on method argument "duckSprite"
+		//Select the sprite frame to print based on the argument "enemySprite"
+		//Uses 'enemyType' string to decide which folder to choose.
 		switch(enemySprite) 
 		{
-			case("fightBanner"):
-				System.out.println(fightBanner);
+			//Fight banner to be replaced with stats
+			case("fight"):
+				Utilities.printSprite("UI/Banner/fight", "", "");;
 				break;
 			
 			case("stand"):
 				Utilities.printSprite(enemyType + "/Stand/stand_" + direction, xPadding, yPadding);
+				break;
+			
+			case("taunt1"):
+				Utilities.printSprite(enemyType + "/Taunt/taunt_One_" + direction, xPadding, yPadding);
+				break;
+				
+			case("taunt2"):
+				Utilities.printSprite(enemyType + "/Taunt/taunt_Two_" + direction, xPadding, yPadding);
 				break;
 		
 			case("hurt"):
@@ -98,11 +90,15 @@ public class Enemy_Object {
 				break;
 			
 			case("attack1"):
-				Utilities.printSprite(enemyType + "/Attack/attack_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite(enemyType + "/Attack/attack_One", xPadding, yPadding);
 				break;
 				
 			case("attack2"):
-				Utilities.printSprite(enemyType + "/Attack/attack_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite(enemyType + "/Attack/attack_Two", xPadding, yPadding);
+				break;
+				
+			case("attack3"):
+				Utilities.printSprite(enemyType + "/Attack/attack_Three", xPadding, yPadding);
 				break;
 			
 			case("run_1"):
@@ -117,7 +113,7 @@ public class Enemy_Object {
 				System.out.println("Error: No move found.");
 				break;
 		}
-	}
+	} 
 	
 	/**
 	 * 
@@ -128,14 +124,42 @@ public class Enemy_Object {
 		
 		move = move.toLowerCase();
 		
-		if (move.contains("test")) {
-			run(13, -1, 0, player);
-			run(13, +1, 0, player);
-		}else if (move.contains("example defend")) {
-			System.out.println("This would make an enemy defend");
+		if (move.contains("taunt")) {
+			taunt(player);
+		}else if (move.contains("attack")) {
+			attack(player);
 		}
 		
 	}//End of enemyMove
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws IOException 
+	 * 
+	 */
+	public void swipe(Duck_Object player) throws IOException, InterruptedException {
+		
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack1");
+		player.getSprite("stand");
+		Utilities.waitMilliseconds(300);
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack2");
+		player.getSprite("hurt");
+		Utilities.waitMilliseconds(100);
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack3");
+		player.getSprite("hurt");
+		Utilities.waitMilliseconds(100);
+		Utilities.clearConsole();
+		
+	}//End of swipe
 	
 	/**
 	 * 
@@ -158,22 +182,66 @@ public class Enemy_Object {
 			
 			Utilities.clearConsole();
 			
-			getSprite("fightBanner");
+			getSprite("fight");
 			getSprite("run_1");
 			player.getSprite("stand");
-			Utilities.waitMilliseconds(10);
+			Utilities.waitMilliseconds(20);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
 			
-			getSprite("fightBanner");
+			getSprite("fight");
 			getSprite("run_2");
 			player.getSprite("stand");
-			Utilities.waitMilliseconds(10);
+			Utilities.waitMilliseconds(20);
 			xPosition += xDirection;
 			yPosition += yDirection;
 			Utilities.clearConsole();
 		}
 		
 	}//End of run
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws IOException 
+	 * 
+	 */
+	public void attack(Duck_Object player) throws IOException, InterruptedException 
+	{
+		run(13, -1, 0, player);
+		swipe(player);
+		run(13, +1, 0, player);
+		run(0, -1, 0, player);
+	}//End of attack
+	
+	/**
+	 * 
+	 * @param player
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	public void taunt(Duck_Object player) throws IOException, InterruptedException
+	{
+		getSprite("fight");
+		getSprite("stand");
+		player.getSprite("stand");
+		Utilities.waitMilliseconds(400);
+		Utilities.clearConsole();
+		
+		for(int i = 0; i <= 3; i++)
+		{	
+			getSprite("fight");
+			getSprite("taunt1");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(50);
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("taunt2");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(50	);
+			Utilities.clearConsole();
+		}
+	}
+	
 }
