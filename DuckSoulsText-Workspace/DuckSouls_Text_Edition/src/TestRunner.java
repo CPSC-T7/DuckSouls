@@ -11,15 +11,9 @@ public class TestRunner {
 		doors[2] = new Point(4, 0);
 		doors[3] = new Point(6, 2);
 
-		TextRoom r = new TextRoom(5, 8, doors);
+		TextRoom r = new TextRoom(5, 8, doors, new Point(3, 3));
 		
-		r.setTile(new Point(3, 3), TextRoom.Tile.PLAYER);
-		
-		r.draw();
-		
-		r.moveTile(new Point(3, 3), new Point(0, 0));
-		
-		System.out.println("foo");
+		r.moveLoop();
 
 	}
 
