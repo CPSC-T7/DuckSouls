@@ -242,12 +242,36 @@ public class Enemy_Object {
 	public void attack(Duck_Object player) throws IOException, InterruptedException 
 	{
 		
+		Random rand = new Random();
+		int accuracyChance = rand.nextInt(100) + 1;
+		int criticalHitChance = rand.nextInt(100) +1;
+		boolean landed = true;
+		boolean critical = true;
+		
+		if (accuracyChance <= accuracyPoints) {
+			landed = true;
+		}
+		else {
+			landed = false;
+		}
+		
+		if (criticalHitChance <= criticalHitPoints) {
+			critical = true;
+		}
+		else {
+			critical = false;
+		}
+		
 		double damage;
 		damage = (attackPoints * 2.5) - player.getDefence();
 		double playerHealth = player.getHealth();
-		double newHealth = playerHealth - damage;
-		player.setHealth(Math.round(newHealth));
-		
+		if (critical) {
+			damage = damage * 1.5;
+		}
+		if (landed) {
+			double newHealth = playerHealth - damage;
+			player.setHealth(Math.round(newHealth));
+		}
 		
 		System.out.println("The enemy attacked you...");
 		Utilities.waitMilliseconds(500);
@@ -258,10 +282,18 @@ public class Enemy_Object {
 		run(13, +1, 0, player);
 		run(0, -1, 0, player);
 		
+		if (landed) {
+			if (critical) {
+				System.out.println("It's a critical hit!");
+			}
+			System.out.print("The enemy dealt ");
+			System.out.print(Math.round(damage));
+			System.out.println(" damage to you!");
+		}
 		
-		System.out.print("The enemy dealt ");
-		System.out.print(Math.round(damage));
-		System.out.println(" damage to you!");
+		else {
+			System.out.println("The enemy missed!");
+		}
 		Utilities.waitMilliseconds(2000);
 	}//End of attack
 	

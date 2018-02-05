@@ -2,6 +2,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Random;
 
 
 /**
@@ -127,6 +128,8 @@ public class Duck_Object {
 	/**
 	 * Gets information on which move to make from the user.
 	 * 
+	 * @param enemy
+	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
@@ -164,6 +167,8 @@ public class Duck_Object {
 	
 	
 	/**
+	 * 
+	 * @param enemy
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -237,11 +242,39 @@ public class Duck_Object {
 	 */
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
 		
+		Random rand = new Random();
+		int accuracyChance = rand.nextInt(100) + 1;
+		int criticalHitChance = rand.nextInt(100) +1;
+		boolean landed = true;
+		boolean critical = true;
+		
+		if (accuracyChance <= accuracyPoints) {
+			landed = true;
+		}
+		else {
+			landed = false;
+		}
+		
+		if (criticalHitChance <= criticalHitPoints) {
+			critical = true;
+		}
+		else {
+			critical = false;
+		}
+		
+		
+		
 		double damage;
 		damage = (attackPoints * 2.5) - enemy.getDefence();
 		double enemyHealth = enemy.getHealth();
-		double newHealth = enemyHealth - damage;
-		enemy.setHealth(Math.round(newHealth));
+		if (critical) {
+			damage = damage * 1.5;
+		}
+		if (landed) {
+			double newHealth = enemyHealth - damage;
+			enemy.setHealth(Math.round(newHealth));
+		}
+		
 		
 		System.out.println("You attacked the enemy...");
 		Utilities.waitMilliseconds(500);
@@ -253,17 +286,26 @@ public class Duck_Object {
 		//enemy.enemyMove(this ,"taunt");
 		enemy.flinch(this);
 		
-		System.out.print("You dealt ");
-		System.out.print(Math.round(damage));
-		System.out.println(" damage to the enemy!");
-		Utilities.waitMilliseconds(2000);
+		if (!landed) {
+			System.out.println("You missed!");
+		}
 		
+		else if (landed) {
+			if (critical) {
+				System.out.println("It's a critical hit!");
+			}
+			System.out.print("You dealt ");
+			System.out.print(Math.round(damage));
+			System.out.println(" damage to the enemy!");
+		}
+		Utilities.waitMilliseconds(2000);
 	}//End of attack
 
 	
 	/**
 	 * 
 	 * @param enemy
+	 * @param numTimes
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
@@ -339,8 +381,18 @@ public class Duck_Object {
 		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
 		
 	}
+	
+	/**
+	 * 
+	 * @param enemy
+	 * @param move
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws FileNotFoundException
+	 */
 
-	private boolean finishBattle(Enemy_Object enemy, String move) throws FileNotFoundException {
+	private boolean finishBattle(Enemy_Object enemy, String move) throws IOException, InterruptedException, FileNotFoundException {
 		
 		double enemyHealth = enemy.getHealth();
 		
@@ -355,8 +407,8 @@ public class Duck_Object {
 		
 		else if (enemyHealth <= 0) {
 			Utilities.clearConsole();
-			getSprite("quack");
 			enemy.getSprite("dead");
+			getSprite("quack");
 			System.out.println("You have beaten the enemy!");
 			int gainedXP = enemy.getXP();
 			int gainedMoney = enemy.getMoney();
@@ -438,6 +490,12 @@ public class Duck_Object {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * @param newValue
+	 *
+	 */
 	
 	public void setDefence(double newValue) {
 		defencePoints = newValue;
