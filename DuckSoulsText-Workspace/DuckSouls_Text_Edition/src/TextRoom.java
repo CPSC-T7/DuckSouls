@@ -1,8 +1,6 @@
 import java.awt.Point;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.rmi.CORBA.Util;
 
 //TODO: Fill in JavaDocs
 
@@ -16,7 +14,22 @@ import javax.rmi.CORBA.Util;
  */
 public class TextRoom {
 	
-	// ENUMERATORS
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * STATIC VARIABLES
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	
 	public static enum Tile {
 		
@@ -52,7 +65,22 @@ public class TextRoom {
 		
 	}
 	
-	// INSTANCE VARIABLES
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	
 	private final int	DEFAULT_WIDTH	= 8, DEFAULT_HEIGHT = 8;
 	
@@ -60,13 +88,34 @@ public class TextRoom {
 	private Tile[][]	tileArray;
 	private Point		plyrPoint;
 	
-	// CONSTRUCTORS
+	public String		name;
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * CONSTRUCTORS
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	
 	/**
 	 * Creates an empty, doorless room of default size.
+	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
 	 */
-	TextRoom() {
+	TextRoom(String name) {
 		
+		this.name = name;
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
 		this.genTileArray();
@@ -76,12 +125,14 @@ public class TextRoom {
 	/**
 	 * Creates an empty room of set size.
 	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
 	 * @param width
 	 *            Width of the room. Must be 0 < width < 32.
 	 * @param height
 	 *            Height of the room. Must be 0 < height < 32.
 	 */
-	TextRoom(int width, int height) {
+	TextRoom(String name, int width, int height) {
 		
 		this.width = width;
 		this.height = height;
@@ -92,12 +143,14 @@ public class TextRoom {
 	/**
 	 * Creates an empty room of default size, with specified door points.
 	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
 	 * @param doors
 	 *            A java.awt.Point array of door co-ordinates. Acceptable points lie
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	TextRoom(Point[] doors) {
+	TextRoom(String name, Point[] doors) {
 		
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
@@ -110,6 +163,8 @@ public class TextRoom {
 	/**
 	 * Creates an empty room of specified size, with specified door points.
 	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
 	 * @param width
 	 *            Width of the room. Must be 0 < width < 32.
 	 * @param height
@@ -119,7 +174,7 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	TextRoom(int width, int height, Point[] doors) {
+	TextRoom(String name, int width, int height, Point[] doors) {
 		
 		this.width = width;
 		this.height = height;
@@ -133,6 +188,8 @@ public class TextRoom {
 	 * Creates an empty room of specified size, with specified door points, and
 	 * places a player.
 	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
 	 * @param width
 	 *            Width of the room. Must be 0 < width < 32.
 	 * @param height
@@ -142,7 +199,7 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	TextRoom(int width, int height, Point[] doors, Point plyrPoint) {
+	TextRoom(String name, int width, int height, Point[] doors, Point plyrPoint) {
 		
 		this.width = width;
 		this.height = height;
@@ -157,10 +214,12 @@ public class TextRoom {
 	/**
 	 * Creates a room from a specified file.
 	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
 	 * @param fileName
 	 *            The file containing the data for the room.
 	 */
-	TextRoom(String fileName) {
+	TextRoom(String name, String fileName) {
 		
 		String[] lines = Utilities.readLines(fileName);
 		
@@ -195,7 +254,32 @@ public class TextRoom {
 		
 	}
 	
-	// METHODS
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * METHODS
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * PRIVATE METHODS
+	 * 
+	 * 
+	 * 
+	 */
 	
 	/**
 	 * Generates and appends a tile array to the instance.
@@ -244,20 +328,6 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Sets a tile at a point in the tile array to a specific character.
-	 * 
-	 * @param pos
-	 *            A java.awt.Point specifying the tile to change.
-	 * @param ch
-	 *            The character to set the tile to.
-	 */
-	public void setTile(Point pos, Tile tile) {
-		
-		this.tileArray[pos.x][pos.y] = tile;
-		
-	}
-	
-	/**
 	 * Takes an array of points and places a door at every point.
 	 * 
 	 * @param doors
@@ -270,6 +340,30 @@ public class TextRoom {
 			this.setTile(pos, Tile.DOOR);
 			
 		}
+		
+	}
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * PUBLIC METHODS
+	 * 
+	 * 
+	 * 
+	 */
+	
+	/**
+	 * Sets a tile at a point in the tile array to a specific character.
+	 * 
+	 * @param pos
+	 *            A java.awt.Point specifying the tile to change.
+	 * @param ch
+	 *            The character to set the tile to.
+	 */
+	public void setTile(Point pos, Tile tile) {
+		
+		this.tileArray[pos.x][pos.y] = tile;
 		
 	}
 	
@@ -344,6 +438,10 @@ public class TextRoom {
 		
 	}
 	
+	/**
+	 * Runs through a loop, where it displays the room and asks for input
+	 * repeatedly.
+	 */
 	public void moveLoop() {
 		
 		Scanner _scanner = new Scanner(System.in);
@@ -380,9 +478,14 @@ public class TextRoom {
 					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x + 1, this.plyrPoint.y));
 					break;
 				
+				case "EXIT":
+					this.saveToTextFile();
+					_scanner.close();
+					break;
+				
 				default:
 					System.out.println("...What?");
-					Utilities.waitMilliseconds(1000);
+					Utilities.waitMilliseconds(500);
 					break;
 				
 			}
@@ -390,6 +493,28 @@ public class TextRoom {
 			System.out.println("\n\n");
 			
 		}
+		
+	}
+	
+	public void saveToTextFile() {
+		
+		String fileName = "../TextRooms/" + this.name + ".txt", temp;
+		ArrayList<String> lines = new ArrayList<String>();
+		
+		for (int y = 0; y < this.height + 2; y++) {
+			temp = "";
+			for (int x = 0; x < this.width + 2; x++) {
+				
+				temp += this.tileArray[x][y].FILE_CHAR + ",";
+				
+			}
+			
+			temp = temp.substring(0, temp.length() - 1);
+			lines.add(temp);
+			
+		}
+		
+		Utilities.writeFile(fileName, lines);
 		
 	}
 	
