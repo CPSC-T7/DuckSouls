@@ -11,7 +11,7 @@ import javax.rmi.CORBA.Util;
  * 
  * @author Matthew Allwright
  * @requires java.awt.Point
- * @version 1.5.0
+ * @version 1.6.2
  *
  */
 public class TextRoom {
@@ -41,11 +41,12 @@ public class TextRoom {
 		FISH(" F ", true),
 		CURRENCY(" $ ", true);
 		
-		private String	STR;
+		private String	STR, FILE_CHAR;
 		private boolean	CAN_WALK_ON;
 		
 		Tile(String STR, boolean CAN_WALK_ON) {
 			this.STR = STR;
+			this.FILE_CHAR = Character.toString(this.STR.charAt(1)); // Middle char
 			this.CAN_WALK_ON = CAN_WALK_ON;
 		}
 		
@@ -178,30 +179,17 @@ public class TextRoom {
 		for (int x = 0; x < this.width + 2; x++) {
 			for (int y = 0; y < this.height + 2; y++) {
 				
-				switch (textTileArray[y][x]) {
-					
-					case "D":
-						this.tileArray[x][y] = Tile.DOOR;
+				for (Tile tile : Tile.values()) {
+					if (textTileArray[x][y].equals(tile.FILE_CHAR)) {
+						this.tileArray[x][y] = tile;
+						if (tile == Tile.PLAYER) {
+							this.plyrPoint = new Point(x, y);
+						}
 						break;
-					
-					case "@":
-						this.tileArray[x][y] = Tile.PLAYER;
-						this.plyrPoint = new Point(x, y);
-						break;
-					
-					case ".":
-						this.tileArray[x][y] = Tile.PATH;
-						break;
-					
-					case " ":
-						this.tileArray[x][y] = Tile.EMPTY;
-						break;
-					
+					}
 				}
 				
 			}
-			
-			System.out.println();
 			
 		}
 		
@@ -343,9 +331,10 @@ public class TextRoom {
 		} else {
 			
 			/*
-			System.out.println("Cannot move tile " + this.tileAt(toMove).toString() + " from point " + toMove.toString()
-					+ " to point " + moveTo.toString() + ". There's a " + this.tileAt(moveTo).toString() + " there!");
-			*/
+			 * System.out.println("Cannot move tile " + this.tileAt(toMove).toString() +
+			 * " from point " + toMove.toString() + " to point " + moveTo.toString() +
+			 * ". There's a " + this.tileAt(moveTo).toString() + " there!");
+			 */
 			
 			System.out.println("You can't walk there!");
 			

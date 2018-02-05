@@ -13,7 +13,7 @@ public class TestRunner {
 
 		//TextRoom r = new TextRoom(8, 8, doors, new Point(3, 3));
 		
-		TextRoom r = new TextRoom("../TextRooms/testRoom.txt");
+		TextRoom r = new TextRoom("../TextRooms/room1.txt");
 		
 		//r.draw();
 		
