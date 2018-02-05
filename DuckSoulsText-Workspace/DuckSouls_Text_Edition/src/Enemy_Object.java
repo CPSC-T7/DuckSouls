@@ -1,7 +1,8 @@
 //IOException for use with CMD in Windows
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.Random;
+
 
 
 /**
@@ -22,7 +23,7 @@ public class Enemy_Object {
 	/**		Private Variables	*/
 	
 	//Enemy Stats
-	final private double HEALTH_POINTS = 20;
+	final private double HEALTH_POINTS = 10;
 	final private double MANA_POINTS = 15;
 	final private double ATTACK_POINTS = 5;
 	final private double DEFENCE_POINTS = 5;
@@ -38,6 +39,9 @@ public class Enemy_Object {
 	private double speedPoints = 5;
 	private double accuracyPoints = 70;
 	private double criticalHitPoints = 16;	
+	
+	private int giveXP = 25;
+	private int giveMoney = 100;
 	
 	private String enemyType;		//The type of enemy (Will be added via a constructor)
 	
@@ -69,13 +73,6 @@ public class Enemy_Object {
 
 	}
 	
-	/**
-	 * 
-	 * @return sprite
-	 */
-	public String enemySprite() {
-		return sprite;
-	}
 	
 	/**
 	 * Prints the required sprite from a text file.
@@ -127,6 +124,10 @@ public class Enemy_Object {
 				Utilities.printSprite(enemyType + "/Attack/attack_Three", xPadding, yPadding);
 				break;
 			
+			case("dead"):
+				Utilities.printSprite(enemyType + "/Dead/dead_" + direction, xPadding, yPadding);
+				break;
+			
 			case("run_1"):
 				Utilities.printSprite(enemyType + "/Run/run_One_" + direction, xPadding, yPadding);
 				break;
@@ -146,15 +147,20 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void enemyMove(Duck_Object player, String move) throws IOException, InterruptedException {
+	public boolean enemyMove(Duck_Object player) throws IOException, InterruptedException {
 		
-		move = move.toLowerCase();
+		Random random = new Random();
+		int move = random.nextInt(2);
 		
-		if (move.contains("taunt")) {
-			taunt(player);
-		}else if (move.contains("attack")) {
+		if (move == 0) {
 			attack(player);
+		}else if (move == 1) {
+			taunt(player);
 		}
+		boolean inBattle = finishBattle(player, move);
+		
+		return inBattle;
+		
 		
 	}//End of enemyMove
 	
@@ -235,10 +241,28 @@ public class Enemy_Object {
 	 */
 	public void attack(Duck_Object player) throws IOException, InterruptedException 
 	{
+		
+		double damage;
+		damage = (attackPoints * 2.5) - player.getDefence();
+		double playerHealth = player.getHealth();
+		double newHealth = playerHealth - damage;
+		player.setHealth(Math.round(newHealth));
+		
+		
+		System.out.println("The enemy attacked you...");
+		Utilities.waitMilliseconds(500);
+		
+		
 		run(13, -1, 0, player);
 		swipe(player);
 		run(13, +1, 0, player);
 		run(0, -1, 0, player);
+		
+		
+		System.out.print("The enemy dealt ");
+		System.out.print(Math.round(damage));
+		System.out.println(" damage to you!");
+		Utilities.waitMilliseconds(2000);
 	}//End of attack
 	
 	/**
@@ -249,6 +273,42 @@ public class Enemy_Object {
 	 */
 	public void taunt(Duck_Object player) throws IOException, InterruptedException
 	{
+		
+		double playerAttack = player.getAttack();
+		double playerDefence = player.getDefence();
+		player.setAttack(playerAttack + 5);
+		player.setDefence(playerDefence - 5);
+		
+		
+		getSprite("fight");
+		getSprite("stand");
+		player.getSprite("stand");
+		Utilities.waitMilliseconds(400);
+		Utilities.clearConsole();
+		
+		for(int i = 0; i <= 3; i++)
+		{	
+			getSprite("fight");
+			getSprite("taunt1");
+			player.getSprite("stand");
+			System.out.println("The enemy taunted you...");
+			Utilities.waitMilliseconds(50);
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("taunt2");
+			player.getSprite("stand");
+			System.out.println("The enemy taunted you...");
+			Utilities.waitMilliseconds(50	);
+			Utilities.clearConsole();
+		}
+		System.out.println("Your attack has increased!");
+		System.out.println("Your defence has decreased!");
+		Utilities.waitMilliseconds(2000);
+	}
+	
+	public void flinch(Duck_Object player) throws IOException, InterruptedException
+	{	
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
@@ -269,6 +329,53 @@ public class Enemy_Object {
 			Utilities.waitMilliseconds(50	);
 			Utilities.clearConsole();
 		}
+	}
+	
+	public void resetStats() {
+		
+		healthPoints = HEALTH_POINTS + 0;
+		manaPoints = MANA_POINTS + 0;
+		attackPoints = ATTACK_POINTS + 0;
+		defencePoints = DEFENCE_POINTS + 0;
+		speedPoints = SPEED_POINTS + 0;
+		accuracyPoints = ACCURACY_POINTS + 0;
+		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
+		
+	}
+	
+	private boolean finishBattle(Duck_Object player, int move) throws FileNotFoundException {
+		
+		double playerHealth = player.getHealth();
+		
+		/*
+		if (move == 2) {
+			System.out.println("The enemy ran away from battle...");
+			resetStats();
+			player.resetStats();
+			return false;
+		}*/
+		
+		/*else*/ if (playerHealth <= 0) {
+			Utilities.clearConsole();
+			getSprite("stand");
+			player.getSprite("dead");
+			System.out.println("The enemy knocked you out!");
+			Utilities.waitMilliseconds(1000);
+			System.out.println("Your consciousness slowly fades from this world...");
+			Utilities.waitMilliseconds(1000);
+			//resetStats();
+			//player.resetStats();
+			System.out.println("The battle has ended.");
+			Utilities.waitMilliseconds(1200);
+			System.exit(0);
+			return false;
+		}
+		
+		else {
+			return true;
+		}
+		
+		
 	}
 	
 	public double getDefence() {
@@ -297,6 +404,14 @@ public class Enemy_Object {
 	
 	public double getAccuracy() {	
 		return accuracyPoints;	
+	}
+	
+	public int getXP() {	
+		return giveXP;	
+	}
+	
+	public int getMoney() {	
+		return giveMoney;	
 	}
 	
 	

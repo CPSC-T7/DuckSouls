@@ -1,5 +1,6 @@
 //IOException for use with CMD in Windows
 import java.io.IOException;
+import java.util.Random;
 import java.io.FileNotFoundException;
 
 /**
@@ -20,7 +21,7 @@ public class Battle_World_Test {
 		battleLoop();
 	}
 	
-	public static void drawSprites()
+	public static void drawSprites() throws FileNotFoundException
 	{
 		Enemy.getSprite("fight");
 		Enemy.getSprite("stand");
@@ -38,16 +39,20 @@ public class Battle_World_Test {
 			Utilities.waitMilliseconds(10);
 			
 			inBattle = Player.playerMove(Enemy);
-			drawSprites();
-			Utilities.waitMilliseconds(1000);
-			Enemy.enemyMove(Player, "attack");
-			drawSprites();
+			if (inBattle) {
+				drawSprites();
+				Utilities.waitMilliseconds(1000);
+				inBattle = Enemy.enemyMove(Player);
+				drawSprites();
+			}
 			
 			Utilities.clearConsole();
 			
 		}
 		
-		System.out.println("The battle has ended.");
+		System.out.println("A new battle will resume in 3 seconds.");
+		Utilities.waitMilliseconds(3000);
+		battleLoop();
 		
 	}
 

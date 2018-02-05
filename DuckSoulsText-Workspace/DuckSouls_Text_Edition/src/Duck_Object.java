@@ -24,15 +24,16 @@ public class Duck_Object {
 	//Private Variables
 	
 	//Player Stats, it's fixed for DEMO 1
-	final private double HEALTH_POINTS = 20;
-	final private double MANA_POINTS = 15;
-	final private double ATTACK_POINTS = 5;
-	final private double DEFENCE_POINTS = 5;
-	final private double SPEED_POINTS = 5;
-	final private double ACCURACY_POINTS = 70;
-	final private double CRITICAL_HIT_POINTS = 16;
+	//Stats for resetting (actual stats)
+	private double HEALTH_POINTS = 20;
+	private double MANA_POINTS = 15;
+	private double ATTACK_POINTS = 5;
+	private double DEFENCE_POINTS = 5;
+	private double SPEED_POINTS = 5;
+	private double ACCURACY_POINTS = 70;
+	private double CRITICAL_HIT_POINTS = 16;
 		
-		
+	//Stats used in battle
 	private double healthPoints = 20;
 	private double manaPoints = 15;
 	private double attackPoints = 5;
@@ -41,6 +42,7 @@ public class Duck_Object {
 	private double accuracyPoints = 70;
 	private double criticalHitPoints = 16;	
 	
+	private int level = 1;
 	private int experience = 0;
 	private int money = 0;
 
@@ -104,7 +106,7 @@ public class Duck_Object {
 				break;
 				
 			case("dead"):
-				Utilities.printSprite("Duck/Hurt/duckDead_" + direction, xPadding, yPadding);
+				Utilities.printSprite("Duck/Dead/duckDead_" + direction, xPadding, yPadding);
 				break;
 			
 			case("run_1"):
@@ -242,18 +244,19 @@ public class Duck_Object {
 		enemy.setHealth(Math.round(newHealth));
 		
 		System.out.println("You attacked the enemy...");
-		Thread.sleep(500);
+		Utilities.waitMilliseconds(500);
 		
 		run(13, +1, 0, enemy);
 		peck(enemy, 1);
 		run(13, -1, 0, enemy);
 		run(0, +1, 0, enemy);
-		enemy.enemyMove(this ,"taunt");
+		//enemy.enemyMove(this ,"taunt");
+		enemy.flinch(this);
 		
 		System.out.print("You dealt ");
 		System.out.print(Math.round(damage));
 		System.out.println(" damage to the enemy!");
-		Thread.sleep(2500);
+		Utilities.waitMilliseconds(2000);
 		
 	}//End of attack
 
@@ -264,7 +267,7 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-public void peck(Enemy_Object enemy, int numTimes) throws IOException, InterruptedException {
+	public void peck(Enemy_Object enemy, int numTimes) throws IOException, InterruptedException {
 		
 		for (int i = 0; i < numTimes; i++) {
 			
@@ -325,7 +328,7 @@ public void peck(Enemy_Object enemy, int numTimes) throws IOException, Interrupt
 		Utilities.waitMilliseconds(2000);
 	}//End of taunt
 	
-	private void resetStats() {
+	public void resetStats() {
 		
 		healthPoints = HEALTH_POINTS + 0;
 		manaPoints = MANA_POINTS + 0;
@@ -337,19 +340,41 @@ public void peck(Enemy_Object enemy, int numTimes) throws IOException, Interrupt
 		
 	}
 
-	private boolean finishBattle(Enemy_Object enemy, String move) {
+	private boolean finishBattle(Enemy_Object enemy, String move) throws FileNotFoundException {
 		
 		double enemyHealth = enemy.getHealth();
 		
 		if (move.equals("fly")) {
 			System.out.println("You flew away from battle...");
 			resetStats();
+			enemy.resetStats();
+			System.out.println("The battle has ended.");
+			Utilities.waitMilliseconds(1200);
 			return false;
 		}
 		
 		else if (enemyHealth <= 0) {
+			Utilities.clearConsole();
+			getSprite("quack");
+			enemy.getSprite("dead");
 			System.out.println("You have beaten the enemy!");
+			int gainedXP = enemy.getXP();
+			int gainedMoney = enemy.getMoney();
+			experience += gainedXP;
+			System.out.print("You have gained ");
+			System.out.print(gainedXP);
+			System.out.println(" experience points!");
+			Utilities.waitMilliseconds(800);
+			money += gainedMoney;
+			System.out.print("You have gained ");
+			System.out.print(gainedMoney);
+			System.out.println(" moneys!");
+			Utilities.waitMilliseconds(800);
+			levelUp();
 			resetStats();
+			enemy.resetStats();
+			System.out.println("The battle has ended.");
+			Utilities.waitMilliseconds(1200);
 			return false;
 		}
 		
@@ -358,6 +383,88 @@ public void peck(Enemy_Object enemy, int numTimes) throws IOException, Interrupt
 		}
 		
 		
+	}
+	
+	private void levelUp() {
+		
+		if (experience >= 50) {
+			level += 1;
+			experience -= 50;
+			HEALTH_POINTS += 2;
+			MANA_POINTS += 2;
+			ATTACK_POINTS += 1;
+			DEFENCE_POINTS += 1;
+			SPEED_POINTS += 1;
+			ACCURACY_POINTS += 1;
+			CRITICAL_HIT_POINTS += 1;
+			System.out.println("You have levelled up!");
+			Utilities.waitMilliseconds(800);
+			System.out.print("You are now level ");
+			System.out.println(level);
+			Utilities.waitMilliseconds(800);
+			System.out.println("Your stats have gone up!");
+			Utilities.waitMilliseconds(800);
+			
+		}
+		
+	}
+	
+	public double getDefence() {
+		return defencePoints;
+	}
+	
+	public double getCriticalHit() {
+		return criticalHitPoints;
+	}
+
+
+	public double getAttack() {
+		return attackPoints;
+	}
+
+	public double getHealth() {
+		return healthPoints;
+	}
+	public double getMana() {
+		return manaPoints;
+	}
+	
+	public double getSpeed() {
+		return speedPoints;
+	}
+	
+	public double getAccuracy() {	
+		return accuracyPoints;	
+	}
+	
+	
+	
+	public void setDefence(double newValue) {
+		defencePoints = newValue;
+	}
+	
+	public void setCriticalHit(double newValue) {
+		criticalHitPoints = newValue;	
+	}
+
+	public void setAttack(double newValue) {
+		attackPoints = newValue;
+	}
+
+	public void setHealth(double newValue) {
+		healthPoints = newValue;
+	}
+
+	public void setMana(double newValue) {
+		manaPoints = newValue;
+	}
+	
+	public void setSpeed(double newValue) {
+		speedPoints = newValue;
+	}
+	
+	public void setAccuracy(double newValue) {	
+		accuracyPoints = newValue;	
 	}
 	
 }
