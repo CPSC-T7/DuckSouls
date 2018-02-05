@@ -1,5 +1,3 @@
-//IOException for use with CMD in Windows
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -25,14 +23,14 @@ public class Title_Screen {
 	private static Duck_Object duck = new Duck_Object();
 	private static Scanner scanner = new Scanner(System.in);
 
-	public static void main(String[] args) throws InterruptedException, IOException 
+	public static void main(String[] args)
 	{
 		Utilities.clearConsole();
 		duck.xPosition = 32;
 		menu();
 	}
 	
-	public static void menu() throws InterruptedException, IOException 
+	public static void menu()
 	{
 		System.out.print(duckSouls);
 		System.out.println("\t\t\t\t\t\t\t\t     Press Enter To Start");
