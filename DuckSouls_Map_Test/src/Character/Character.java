@@ -58,4 +58,20 @@ public class Character {
 		
 	}
 	
+	public boolean isNextTo(int x, int y) {
+		if(x == this.pos.x) {
+			if(y== this.pos.y + 1)
+				return true;
+			if(y== this.pos.y - 1)
+				return true;
+		}
+		if(y == this.pos.y) {
+			if(x== this.pos.x + 1)
+				return true;
+			if(x== this.pos.x - 1)
+				return true;
+		}
+		return false;
+	}
+	
 }

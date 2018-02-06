@@ -38,6 +38,7 @@ public class Map {
 					this.player.setPos(x, y, currentMap);
 					break;
 				case 'E':
+					this.characters.add(new Enemy(x, y));
 				case 'F':
 					this.currentMap.get(y).add(new Floor(x, y));
 					break;
@@ -64,7 +65,10 @@ public class Map {
 					char type = mapData.get(y).get(x).charAt(0);
 					switch (type) {
 					case '@':
+						this.currentMap.get(y).add(new Floor(x, y));
+						break;
 					case 'E':
+						this.characters.add(new Enemy(x, y));
 					case 'F':
 						this.currentMap.get(y).add(new Floor(x, y));
 						break;
@@ -135,16 +139,18 @@ public class Map {
 			for (int x = 0; x < this.currentMap.get(y).size(); x++) {
 				printed = false;
 				for(Character character: this.characters) {
-					if(character.getX() == x) {
-						if(character.getY() == y) {
-							if(character.getX() == 0 || character.getX() == this.currentMap.get(y).size() -1) {
-								System.out.print(character.print());
+					if(!printed) {
+						if(character.getX() == x) {
+							if(character.getY() == y) {
+								if(character.getX() == 0 || character.getX() == this.currentMap.get(y).size() -1) {
+									System.out.print(character.print());
+								}
+	
+								else{
+									System.out.print(" " + character.print() + " ");
+								}
+								printed = true;
 							}
-
-							else{
-								System.out.print(" " + character.print() + " ");
-							}
-							printed = true;
 						}
 					}
 				}
@@ -167,25 +173,30 @@ public class Map {
 		int count = 0;
 		this.loadAllMapFiles(0, 2);
 		this.loadMap();
+		String mapID = new String();
 		do {
 			boolean doorCheck = false;
 			this.print();
 			for(Character character: this.characters) {
 				character.move(this.currentMap);
-			
+			}
 			for(int y =0; y<this.currentMap.size(); y++) {
 				for(int x=0; x<this.currentMap.get(y).size(); x++) {
 					if(x == player.getX() && y==player.getY()) {
 						if(currentMap.get(y).get(x).getType().equals("Door")) {
 							if(!doorCheck) {
-								String mapID = currentMap.get(y).get(x).getMapID();
-								this.clearMap();
-								this.loadMap(mapID);
+								mapID = currentMap.get(y).get(x).getMapID();
 								doorCheck = true;
 							}
 						}
 					}
+					if(doorCheck) {
+						this.clearMap();
+						this.clearCharacters();
+						this.loadMap(mapID);
+					}
 				}
+				
 			}
 			try {
 				Utilities.clearConsole();
@@ -196,7 +207,7 @@ public class Map {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			}
+		
 		} while(count < 20);
 	}
 }
