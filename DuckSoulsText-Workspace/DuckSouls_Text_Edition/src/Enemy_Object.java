@@ -66,7 +66,8 @@ public class Enemy_Object {
 	 * @param enemy
 	 * 			The type of enemy to display (Will affect sprite used & move type)
 	 */
-	public Enemy_Object(String enemy) {
+	public Enemy_Object(String enemy) 
+	{
 		enemyType = enemy;
 	}
 	
@@ -88,7 +89,7 @@ public class Enemy_Object {
 	 * 					The type of sprite to print.
 	 * @throws FileNotFoundException 
 	 */
-	public void getSprite(String enemySprite) throws FileNotFoundException 
+	public void getSprite(String enemySprite)
 	{
 		//Update position on screen using newlines and spaces
 		xPadding = Utilities.multiplyString("  ", xPosition);
@@ -160,7 +161,8 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void enemyMove(Duck_Object player, String move) throws IOException, InterruptedException {
+	public void enemyMove(Duck_Object player, String move)
+	{
 		
 		move = move.toLowerCase();
 		
@@ -177,7 +179,8 @@ public class Enemy_Object {
 	 * @throws IOException 
 	 * 
 	 */
-	public void swipe(Duck_Object player) throws IOException, InterruptedException {
+	public void swipe(Duck_Object player)
+	{
 		
 		Utilities.clearConsole();
 		
@@ -301,7 +304,7 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player) throws IOException, InterruptedException 
+	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player)
 	{
 		if (xDirection == 1) {
 			direction = "Right";
@@ -337,7 +340,7 @@ public class Enemy_Object {
 	 * @throws IOException 
 	 * 
 	 */
-	public void attack(Duck_Object player) throws IOException, InterruptedException 
+	public void attack(Duck_Object player)
 	{
 		
 		Random rand = new Random();
@@ -425,7 +428,7 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void taunt(Duck_Object player) throws IOException, InterruptedException
+	public void taunt(Duck_Object player)
 	{
 >>>>>>> master
 		getSprite("fight");

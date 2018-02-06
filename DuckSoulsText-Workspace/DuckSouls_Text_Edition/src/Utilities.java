@@ -1,9 +1,13 @@
 
-//IOException for use with CMD in Windows
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
@@ -13,6 +17,7 @@ import java.util.Scanner;
  * repeated more than once.
  * 
  * @author Wylee McAndrews
+ * @author Matthew Allwright
  * @author add name if modified
  */
 public class Utilities {
@@ -126,12 +131,10 @@ public class Utilities {
 	public static void printSprite(String sprite, String xPadding, String yPadding) {
 		
 		String fileName = "TextSprites/" + sprite + ".txt";
+		File spriteFile = new File(fileName);
+		System.out.print(yPadding);
 		
-		try {
-			
-			File spriteFile = new File(fileName);
-			Scanner readFile = new Scanner(spriteFile);
-			System.out.print(yPadding);
+		try(Scanner readFile = new Scanner(spriteFile);) {
 			
 			while (readFile.hasNext()) {
 				String line = readFile.nextLine();
@@ -175,15 +178,42 @@ public class Utilities {
 		} catch (FileNotFoundException e) {
 			
 			System.out.println("File [" + fileName + "] not found.");
+			e.printStackTrace();
 			
 		} catch (IOException e) {
 			
 			System.out.println("Cannot read file [" + fileName + "], IO Exception.");
+			e.printStackTrace();
 			
 		}
 		
 		return new String[0];
 		
 	}// End of readLines
+	
+	/**
+	 * Writes lines from a String array to a specified file.
+	 * 
+	 * @param fileName
+	 *            The file to write to.
+	 * @param lines
+	 *            The lines to write to the file.
+	 */
+	public static void writeFile(String fileName, ArrayList<String> lines) {
+		
+		Path file = Paths.get(fileName);
+		
+		try {
+			
+			Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+			
+		} catch (IOException e) {
+			
+			System.out.println("Cannot write to file [" + fileName + "], IO Exception.");
+			e.printStackTrace();
+			
+		}
+		
+	}// End of writeFile
 	
 }// End of Utilities

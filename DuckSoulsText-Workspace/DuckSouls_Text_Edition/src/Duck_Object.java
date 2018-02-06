@@ -11,7 +11,8 @@ import java.util.Random;
  * @author add name if modified
  * @author Rahmanta Satriana
  */
-public class Duck_Object {
+public class Duck_Object 
+{
 	
 	//Public Variables
 
@@ -56,7 +57,8 @@ public class Duck_Object {
 	private static Scanner scanner = new Scanner(System.in);
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		
 	}
 	
@@ -68,11 +70,15 @@ public class Duck_Object {
 	 * @throws FileNotFoundException 
 	 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	
 =======
 >>>>>>> master
 	public void getSprite(String duckSprite) throws FileNotFoundException 
+=======
+	public void getSprite(String duckSprite) 
+>>>>>>> master
 	{
 		//update x position on screen
 		xPadding = Utilities.multiplyString("  ", xPosition);
@@ -143,11 +149,16 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
+<<<<<<< HEAD
 	public boolean playerMove(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 		boolean selection;
 		selection = true;
 		String move = "";
+=======
+	public void playerMove(Enemy_Object enemy)
+	{
+>>>>>>> master
 		
 		while (selection) {
 			move = scanner.nextLine();
@@ -186,10 +197,15 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
+<<<<<<< HEAD
 	public void quack(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 
 		
+=======
+	public void quack(Enemy_Object enemy)
+	{
+>>>>>>> master
 		Utilities.clearConsole();
 		
 		getSprite("fight");
@@ -224,7 +240,7 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void run(int numTimes, int xDirection, int yDirection, Enemy_Object enemy) throws IOException, InterruptedException 
+	public void run(int numTimes, int xDirection, int yDirection, Enemy_Object enemy)
 	{
 		if (xDirection == 1) {
 			direction = "Right";
@@ -261,6 +277,7 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
+<<<<<<< HEAD
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 <<<<<<< HEAD
@@ -303,6 +320,10 @@ public class Duck_Object {
 		
 =======
 >>>>>>> master
+=======
+	public void attack(Enemy_Object enemy)
+	{	
+>>>>>>> master
 		run(13, +1, 0, enemy);
 		peck(enemy, 1);
 		run(13, -1, 0, enemy);
@@ -339,7 +360,8 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void peck(Enemy_Object enemy, int numTimes) throws IOException, InterruptedException {
+	public void peck(Enemy_Object enemy, int numTimes)
+	{
 		
 		for (int i = 0; i < numTimes; i++) {
 			
@@ -367,12 +389,17 @@ public class Duck_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
+<<<<<<< HEAD
 	public void taunt(Enemy_Object enemy) throws IOException, InterruptedException  {
 		
 		double enemyAttack = enemy.getAttack();
 		double enemyDefence = enemy.getDefence();
 		enemy.setAttack(enemyAttack + 5);
 		enemy.setDefence(enemyDefence - 5);
+=======
+	public void taunt(Enemy_Object enemy)
+	{
+>>>>>>> master
 		
 		for (int i = 0; i <= 2; i++) 
 		{
