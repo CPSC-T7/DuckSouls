@@ -110,7 +110,7 @@ public class Utilities {
 	 */
 	public static void printSprite(String sprite, String xPadding, String yPadding) {
 		
-		String fileName = "TextSprites/" + sprite + ".txt";
+		String fileName = "../TextSprites/" + sprite + ".txt";
 		File spriteFile = new File(fileName);
 		System.out.print(yPadding);
 		

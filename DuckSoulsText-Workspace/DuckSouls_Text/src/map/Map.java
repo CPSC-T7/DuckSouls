@@ -23,7 +23,7 @@ public class Map {
 		this.currentMapID = String.format("%03d", firstmap);
 		for(int i=firstmap; i<=lastmap; i++) {
 			String mapNum = String.format("%03d", i);
-			String mapName = "map" + mapNum + ".txt";
+			String mapName = "../TextRooms/" + "map" + mapNum + ".txt";
 			this.maps.put(mapNum, new Mapfile(mapName));
 		}
 	}
@@ -202,8 +202,52 @@ public class Map {
 			}
 
 			Utilities.clearConsole();
+			count += 1;
 			
 		
 		} while(count < 20);
+	}
+	
+	public void initalization(int firstmap, int lastmap) {
+		this.loadAllMapFiles(firstmap, lastmap);
+		this.loadMap();
+	}
+	
+	public void turnLoop() {
+		String mapID = new String();
+		boolean doorCheck = false;
+		this.print();
+		for(Character character: this.characters) {
+			character.move(this.currentMap);
+		}
+		for(int y =0; y<this.currentMap.size(); y++) {
+			for(int x=0; x<this.currentMap.get(y).size(); x++) {
+				if(x == player.getX() && y==player.getY()) {
+					if(currentMap.get(y).get(x).getType().equals("Door")) {
+						if(!doorCheck) {
+							mapID = currentMap.get(y).get(x).getMapID();
+							doorCheck = true;
+						}
+					}
+				}
+				if(doorCheck) {
+					this.clearMap();
+					this.clearCharacters();
+					this.loadMap(mapID);
+				}
+			}
+			
+		}
+
+	}
+	
+	public boolean isEnemyNear() {
+		boolean isnear = false;
+		for(Character character: this.characters) {
+			if(!character.isPlayer()) {
+				if(character.isNextTo(this.player.getX(), this.player.getY())) isnear = true;
+			}
+		}
+		return isnear;
 	}
 }
