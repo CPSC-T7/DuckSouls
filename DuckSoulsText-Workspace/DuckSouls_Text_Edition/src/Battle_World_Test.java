@@ -48,11 +48,7 @@ public class Battle_World_Test {
 			Utilities.clearConsole();
 			
 		}
-		
-		System.out.println("A new battle will resume in 3 seconds.");
-		Utilities.waitMilliseconds(3000);
-		battleLoop();
-		
+				
 	}
 
 }
