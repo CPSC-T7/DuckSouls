@@ -70,3 +70,6 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+DuckSoulsText-Workspace/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+DuckSoulsText-Workspace/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+DuckSoulsText-Workspace/.metadata/version.ini
