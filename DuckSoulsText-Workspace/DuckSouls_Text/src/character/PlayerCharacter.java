@@ -1,6 +1,7 @@
-package Character;
+package character;
 import java.util.*;
-import Tiles.*;
+
+import tiles.*;
 
 public class PlayerCharacter extends Character {
 	Scanner keyboard = new Scanner(System.in);

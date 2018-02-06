@@ -1,6 +1,9 @@
+package map;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import utils.Utilities;
 
 //TODO: Fill in JavaDocs
 
@@ -10,6 +13,7 @@ import java.util.Scanner;
  * @author Matthew Allwright
  * @requires java.awt.Point
  * @version 1.6.2
+ * @deprecated
  *
  */
 public class TextRoom {
@@ -219,7 +223,7 @@ public class TextRoom {
 	 * @param fileName
 	 *            The file containing the data for the room.
 	 */
-	TextRoom(String name, String fileName) {
+	public TextRoom(String name, String fileName) {
 		
 		String[] lines = Utilities.readLines(fileName);
 		

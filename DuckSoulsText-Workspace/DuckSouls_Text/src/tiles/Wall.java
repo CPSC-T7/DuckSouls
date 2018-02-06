@@ -1,4 +1,4 @@
-package Tiles;
+package tiles;
 public class Wall extends Tile {
 
 	private String orientation;

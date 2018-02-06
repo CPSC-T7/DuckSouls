@@ -1,5 +1,7 @@
 import java.awt.Point;
 
+import map.TextRoom;
+
 public class TestRunner {
 
 	public static void main(String[] args) {
@@ -13,7 +15,7 @@ public class TestRunner {
 
 		//TextRoom r = new TextRoom(8, 8, doors, new Point(3, 3));
 		
-		TextRoom r = new TextRoom("../TextRooms/room1.txt");
+		TextRoom r = new TextRoom("testRoom", "../TextRooms/room1.txt");
 		
 		//r.draw();
 		

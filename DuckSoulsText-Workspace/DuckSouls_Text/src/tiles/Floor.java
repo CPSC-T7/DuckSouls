@@ -1,4 +1,4 @@
-package Tiles;
+package tiles;
 public class Floor extends Tile {
 
 	public Floor(int x, int y) {

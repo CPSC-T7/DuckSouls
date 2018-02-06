@@ -1,8 +1,8 @@
-package Character;
+package character;
 
 import java.util.ArrayList;
 
-import Tiles.Tile;
+import tiles.Tile;
 
 public class Enemy extends Character {
 

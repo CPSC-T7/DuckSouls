@@ -1,9 +1,11 @@
+package map;
 
-import java.io.IOException;
 import java.util.*;
-import Tiles.*;
-import Character.*;
-import Character.Character;
+
+import utils.Utilities;
+import character.*;
+import character.Character;
+import tiles.*;
 
 public class Map {
 	private ArrayList<ArrayList<Tile>> currentMap = new ArrayList<ArrayList<Tile>>(0);

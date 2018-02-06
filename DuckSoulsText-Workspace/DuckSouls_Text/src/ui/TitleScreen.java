@@ -1,4 +1,8 @@
+package ui;
 import java.util.Scanner;
+
+import battle.DuckObject;
+import utils.Utilities;
 
 /**
  * 

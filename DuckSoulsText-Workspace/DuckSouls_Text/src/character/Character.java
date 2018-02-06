@@ -1,7 +1,8 @@
-package Character;
+package character;
 import java.awt.*;
 import java.util.*;
-import Tiles.*;
+
+import tiles.*;
 
 public class Character {
 	private Point pos = new Point();

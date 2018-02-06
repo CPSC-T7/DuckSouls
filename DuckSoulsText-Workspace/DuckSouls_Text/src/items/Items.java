@@ -1,3 +1,4 @@
+package items;
 /**
  * Defines in game items for use in DuckSouls
  * 

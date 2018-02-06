@@ -1,8 +1,12 @@
+package battle;
 
 //IOException for use with CMD in Windows
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import utils.Utilities;
+
 import java.util.Random;
 
 /**
