@@ -198,15 +198,9 @@ public class Map {
 				}
 				
 			}
-			try {
-				Utilities.clearConsole();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+			Utilities.clearConsole();
+			
 		
 		} while(count < 20);
 	}

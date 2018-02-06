@@ -75,66 +75,62 @@ public class Enemy_Object {
 	
 	/**
 	 * Prints the required sprite from a text file.
-	 *  
+	 * 
 	 * @param enemySprite
-	 * 					The type of sprite to print.
-	 * @throws FileNotFoundException 
+	 *            The type of sprite to print.
+	 * @throws FileNotFoundException
 	 */
-	public void getSprite(String enemySprite)
-	{
-		//Update position on screen using newlines and spaces
+	public void getSprite(String enemySprite) {
+		// Update position on screen using newlines and spaces
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
 		
-		//Select the sprite frame to print based on the argument "enemySprite"
-		//Uses 'enemyType' string to decide which folder to choose.
-		switch(enemySprite) 
-		{
-			//Fight banner to be replaced with stats
-			case("fight"):
-				Utilities.printSprite("UI/Banner/fight", "", "");;
+		// Select the sprite frame to print based on the argument "enemySprite"
+		// Uses 'enemyType' string to decide which folder to choose.
+		switch (enemySprite) {
+			// Fight banner to be replaced with stats
+			case ("fight"):
+				Utilities.printSprite("UI/Banner/fight", "", "");
+				;
 				break;
 			
-			case("stand"):
+			case ("stand"):
 				Utilities.printSprite(enemyType + "/Stand/stand_" + direction, xPadding, yPadding);
 				break;
 			
-			case("taunt1"):
+			case ("taunt1"):
 				Utilities.printSprite(enemyType + "/Taunt/taunt_One_" + direction, xPadding, yPadding);
 				break;
-				
-			case("taunt2"):
+			
+			case ("taunt2"):
 				Utilities.printSprite(enemyType + "/Taunt/taunt_Two_" + direction, xPadding, yPadding);
 				break;
-		
-			case("hurt"):
+			
+			case ("hurt"):
 				Utilities.printSprite(enemyType + "/Hurt/hurt_" + direction, xPadding, yPadding);
 				break;
 			
-			case("attack1"):
+			case ("attack1"):
 				Utilities.printSprite(enemyType + "/Attack/attack_One", xPadding, yPadding);
 				break;
-				
-			case("attack2"):
+			
+			case ("attack2"):
 				Utilities.printSprite(enemyType + "/Attack/attack_Two", xPadding, yPadding);
 				break;
-				
-			case("attack3"):
+			
+			case ("attack3"):
 				Utilities.printSprite(enemyType + "/Attack/attack_Three", xPadding, yPadding);
 				break;
 			
-<<<<<<< HEAD
-			case("dead"):
+			case ("dead"):
 				Utilities.printSprite(enemyType + "/Dead/dead_" + direction, xPadding, yPadding);
 				break;
 			
-=======
->>>>>>> master
-			case("run_1"):
+			case ("run_1"):
 				Utilities.printSprite(enemyType + "/Run/run_One_" + direction, xPadding, yPadding);
 				break;
 			
-			case("run_2"):
+			case ("run_2"):
 				Utilities.printSprite(enemyType + "/Run/run_Two_" + direction, xPadding, yPadding);
 				break;
 			
@@ -142,18 +138,14 @@ public class Enemy_Object {
 				System.out.println("Error: No move found.");
 				break;
 		}
-<<<<<<< HEAD
 	} // End of getSprite
-	=======
-	
-	}
 	
 	/**
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void enemyMove(Duck_Object player, String move) {
+	public void enemyMove(Duck_Object player, String move) throws InterruptedException, IOException {
 		
 		move = move.toLowerCase();
 		
@@ -166,36 +158,6 @@ public class Enemy_Object {
 	}// End of enemyMove
 	
 	/**
-	 * @throws InterruptedException
-	 * @throws IOException
-	 * 
-	 */
-	public void swipe(Duck_Object player) {
-		
-		Utilities.clearConsole();
-		
-		getSprite("fight");
-		getSprite("attack1");
-		player.getSprite("stand");
-		Utilities.waitMilliseconds(300);
-		Utilities.clearConsole();
-		
-		getSprite("fight");
-		getSprite("attack2");
-		player.getSprite("hurt");
-		Utilities.waitMilliseconds(100);
-		Utilities.clearConsole();
-		
-		getSprite("fight");
-		getSprite("attack3");
-		player.getSprite("hurt");
-		Utilities.waitMilliseconds(100);
-		Utilities.clearConsole();
-		
-	}// End of swipe
-	>>>>>>>master
-	
-	/**
 	 * 
 	 * @param numTimes
 	 * @param xDirection
@@ -204,7 +166,6 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	<<<<<<<HEAD
 	
 	public boolean enemyMove(Duck_Object player) throws IOException, InterruptedException {
 		
@@ -221,8 +182,6 @@ public class Enemy_Object {
 		return inBattle;
 		
 	}// End of enemyMove
-	
-	=======
 	
 	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player)
 			throws IOException, InterruptedException {
@@ -254,15 +213,12 @@ public class Enemy_Object {
 		}
 		
 	}// End of run
-	>>>>>>>master
 	
 	/**
 	 * @throws InterruptedException
 	 * @throws IOException
 	 * 
 	 */
-	<<<<<<<HEAD
-	
 	public void swipe(Duck_Object player) throws IOException, InterruptedException {
 		
 		Utilities.clearConsole();
@@ -288,50 +244,11 @@ public class Enemy_Object {
 	}// End of swipe
 	
 	/**
-	 * 
-	 * @param numTimes
-	 * @param xDirection
-	 * @param yDirection
-	 * @param enemy
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player) {
-		if (xDirection == 1) {
-			direction = "Right";
-		} else {
-			direction = "Left";
-		}
-		
-		for (int i = 0; i < numTimes; i++) {
-			
-			Utilities.clearConsole();
-			
-			getSprite("fight");
-			getSprite("run_1");
-			player.getSprite("stand");
-			Utilities.waitMilliseconds(20);
-			xPosition += xDirection;
-			yPosition += yDirection;
-			Utilities.clearConsole();
-			
-			getSprite("fight");
-			getSprite("run_2");
-			player.getSprite("stand");
-			Utilities.waitMilliseconds(20);
-			xPosition += xDirection;
-			yPosition += yDirection;
-			Utilities.clearConsole();
-		}
-		
-	}// End of run
-	
-	/**
 	 * @throws InterruptedException
 	 * @throws IOException
 	 * 
 	 */
-	public void attack(Duck_Object player) {
+	public void attack(Duck_Object player) throws IOException, InterruptedException {
 		
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
@@ -391,57 +308,27 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void taunt(Duck_Object player) throws IOException, InterruptedException
-	{
-		
-		double playerAttack = player.getAttack();
-		double playerDefence = player.getDefence();
-		player.setAttack(playerAttack + 5);
-		player.setDefence(playerDefence - 5);
-		
-		
-=======
-	
-	public void attack(Duck_Object player) throws IOException, InterruptedException {
-		run(13, -1, 0, player);
-		swipe(player);
-		run(13, +1, 0, player);
-		run(0, -1, 0, player);
-	}// End of attack
-	
-	/**
-	 * 
-	 * @param player
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	public void taunt(Duck_Object player)
-	{
->>>>>>> master
+	public void taunt(Duck_Object player) {
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
 		Utilities.waitMilliseconds(400);
 		Utilities.clearConsole();
 		
-		for(int i = 0; i <= 3; i++)
-		{	
+		for (int i = 0; i <= 3; i++) {
 			getSprite("fight");
 			getSprite("taunt1");
 			player.getSprite("stand");
-<<<<<<< HEAD
 			System.out.println("The enemy taunted you...");
-=======
->>>>>>> master
 			Utilities.waitMilliseconds(50);
 			Utilities.clearConsole();
 			
 			getSprite("fight");
 			getSprite("taunt2");
 			player.getSprite("stand");
-<<<<<<< HEAD
+			
 			System.out.println("The enemy taunted you...");
-			Utilities.waitMilliseconds(50	);
+			Utilities.waitMilliseconds(50);
 			Utilities.clearConsole();
 		}
 		System.out.println("Your attack has increased!");
@@ -574,12 +461,10 @@ public class Enemy_Object {
 		speedPoints = newValue;
 	}
 	
-	public void setAccuracy(double newValue) {	
-		accuracyPoints = newValue;	
-=======
-			Utilities.waitMilliseconds(50	);
-			Utilities.clearConsole();
-		}>>>>>>>master
-}
-
+	public void setAccuracy(double newValue) {
+		accuracyPoints = newValue;
+		Utilities.waitMilliseconds(50);
+		Utilities.clearConsole();
+	}
+	
 }
