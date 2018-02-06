@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @author Wylee McAndrews
  * @author add name if modified
  */
-public class Title_Screen {
+public class TitleScreen {
 	
 	private static String duckSouls = 
 			"\n\n"+
@@ -20,7 +20,7 @@ public class Title_Screen {
 			"\t\t\t\t\t   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n" + 
 			"\t\t\t\t\t ░               ░                                                              \r\n";
 	
-	private static Duck_Object duck = new Duck_Object();
+	private static DuckObject duck = new DuckObject();
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args)

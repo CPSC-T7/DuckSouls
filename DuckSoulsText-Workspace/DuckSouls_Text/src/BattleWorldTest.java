@@ -14,10 +14,10 @@ import java.io.FileNotFoundException;
  * @author Rahmanta Satriana
  * @author add name if modified
  */
-public class Battle_World_Test {
+public class BattleWorldTest {
 	
-	private static Duck_Object	Player	= new Duck_Object();
-	private static Enemy_Object	Enemy	= new Enemy_Object("Rat");
+	private static DuckObject	Player	= new DuckObject();
+	private static EnemyObject	Enemy	= new EnemyObject("Rat");
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Utilities.clearConsole();

@@ -11,7 +11,7 @@ import java.util.Random;
  * @author add name if modified
  *
  */
-public class Enemy_Object {
+public class EnemyObject {
 	
 	/** Public Variables */
 	
@@ -60,7 +60,7 @@ public class Enemy_Object {
 	 * @param enemy
 	 *            The type of enemy to display (Will affect sprite used & move type)
 	 */
-	public Enemy_Object(String enemy) {
+	public EnemyObject(String enemy) {
 		enemyType = enemy;
 	}
 	
@@ -145,7 +145,7 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void enemyMove(Duck_Object player, String move) throws InterruptedException, IOException {
+	public void enemyMove(DuckObject player, String move) throws InterruptedException, IOException {
 		
 		move = move.toLowerCase();
 		
@@ -167,7 +167,7 @@ public class Enemy_Object {
 	 * @throws InterruptedException
 	 */
 	
-	public boolean enemyMove(Duck_Object player) throws IOException, InterruptedException {
+	public boolean enemyMove(DuckObject player) throws IOException, InterruptedException {
 		
 		Random random = new Random();
 		int move = random.nextInt(2);
@@ -183,7 +183,7 @@ public class Enemy_Object {
 		
 	}// End of enemyMove
 	
-	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player)
+	public void run(int numTimes, int xDirection, int yDirection, DuckObject player)
 			throws IOException, InterruptedException {
 		if (xDirection == 1) {
 			direction = "Right";
@@ -219,7 +219,7 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * 
 	 */
-	public void swipe(Duck_Object player) throws IOException, InterruptedException {
+	public void swipe(DuckObject player) throws IOException, InterruptedException {
 		
 		Utilities.clearConsole();
 		
@@ -248,7 +248,7 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * 
 	 */
-	public void attack(Duck_Object player) throws IOException, InterruptedException {
+	public void attack(DuckObject player) throws IOException, InterruptedException {
 		
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
@@ -308,7 +308,7 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void taunt(Duck_Object player) {
+	public void taunt(DuckObject player) {
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
@@ -336,7 +336,7 @@ public class Enemy_Object {
 		Utilities.waitMilliseconds(2000);
 	}
 	
-	public void flinch(Duck_Object player) throws IOException, InterruptedException {
+	public void flinch(DuckObject player) throws IOException, InterruptedException {
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
@@ -370,7 +370,7 @@ public class Enemy_Object {
 		
 	}
 	
-	private boolean finishBattle(Duck_Object player, int move) throws FileNotFoundException {
+	private boolean finishBattle(DuckObject player, int move) throws FileNotFoundException {
 		
 		double playerHealth = player.getHealth();
 		
