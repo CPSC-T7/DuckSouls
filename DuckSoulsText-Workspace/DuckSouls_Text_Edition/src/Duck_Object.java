@@ -1,9 +1,9 @@
+
 //IOException for use with CMD in Windows
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Random;
-
 
 /**
  * 
@@ -11,54 +11,50 @@ import java.util.Random;
  * @author add name if modified
  * @author Rahmanta Satriana
  */
-public class Duck_Object 
-{
+public class Duck_Object {
 	
-	//Public Variables
-
-	//Current Sprite
-	public String sprite = "stand";
+	// Public Variables
+	
+	// Current Sprite
+	public String			sprite				= "stand";
 	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
-	public int xPosition = 0;
-	public int yPosition = 0;	
+	public int				xPosition			= 0;
+	public int				yPosition			= 0;
 	
+	// Private Variables
 	
-	//Private Variables
+	// Player Stats, it's fixed for DEMO 1
+	// Stats for resetting (actual stats)
+	private double			HEALTH_POINTS		= 20;
+	private double			MANA_POINTS			= 15;
+	private double			ATTACK_POINTS		= 5;
+	private double			DEFENCE_POINTS		= 5;
+	private double			SPEED_POINTS		= 5;
+	private double			ACCURACY_POINTS		= 70;
+	private double			CRITICAL_HIT_POINTS	= 16;
 	
-	//Player Stats, it's fixed for DEMO 1
-	//Stats for resetting (actual stats)
-	private double HEALTH_POINTS = 20;
-	private double MANA_POINTS = 15;
-	private double ATTACK_POINTS = 5;
-	private double DEFENCE_POINTS = 5;
-	private double SPEED_POINTS = 5;
-	private double ACCURACY_POINTS = 70;
-	private double CRITICAL_HIT_POINTS = 16;
-		
-	//Stats used in battle
-	private double healthPoints = 20;
-	private double manaPoints = 15;
-	private double attackPoints = 5;
-	private double defencePoints = 5;
-	private double speedPoints = 5;
-	private double accuracyPoints = 70;
-	private double criticalHitPoints = 16;	
+	// Stats used in battle
+	private double			healthPoints		= 20;
+	private double			manaPoints			= 15;
+	private double			attackPoints		= 5;
+	private double			defencePoints		= 5;
+	private double			speedPoints			= 5;
+	private double			accuracyPoints		= 70;
+	private double			criticalHitPoints	= 16;
 	
-	private int level = 1;
-	private int experience = 0;
-	private int money = 0;
-
+	private int				level				= 1;
+	private int				experience			= 0;
+	private int				money				= 0;
+	
 	// x/y padding: Converts x/y position into spaces/tabs
-	private String xPadding = Utilities.multiplyString("  ", xPosition);
-	private String yPadding = Utilities.multiplyString("\n", yPosition);
-	//The direction that the sprite is facing
-	private static String direction = "Right";
-	//Get user input
-	private static Scanner scanner = new Scanner(System.in);
+	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
+	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
+	// The direction that the sprite is facing
+	private static String	direction			= "Right";
+	// Get user input
+	private static Scanner	scanner				= new Scanner(System.in);
 	
-
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		
 	}
 	
@@ -66,68 +62,55 @@ public class Duck_Object
 	 * Gets the required sprite from a text file.
 	 * 
 	 * @param duckSprite
-	 * 					The sprite to print.
-	 * @throws FileNotFoundException 
+	 *            The sprite to print.
+	 * @throws FileNotFoundException
 	 */
-<<<<<<< HEAD
-<<<<<<< HEAD
 	
-	
-=======
->>>>>>> master
-	public void getSprite(String duckSprite) throws FileNotFoundException 
-=======
-	public void getSprite(String duckSprite) 
->>>>>>> master
-	{
-		//update x position on screen
+	public void getSprite(String duckSprite) {
+		// update x position on screen
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
 		
-		//Select the sprite frame to return based on method argument "duckSprite"
-		switch(duckSprite) 
-		{
-			case("fight"):
-				Utilities.printSprite("UI/Banner/fight", "", "");;
-				break;
-				
-			case("stand"):
-				Utilities.printSprite("Duck/Stand/duckStand_" + direction, xPadding, yPadding);
-				break;
-		
-			case("taunt"):
-				Utilities.printSprite("Duck/Taunt/duckDance_" + direction, xPadding, yPadding);
-				break;
-				
-			case("quack"):
-				Utilities.printSprite("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
-				break;
-				
-			case("attack1"):
-				Utilities.printSprite("Duck/Attack/duckAttack_One_" + direction, xPadding, yPadding);
-				break;
-				
-			case("attack2"):
-				Utilities.printSprite("Duck/Attack/duckAttack_Two_" + direction, xPadding, yPadding);
-				break;
-				
-			case("hurt"):
-				Utilities.printSprite("Duck/Hurt/duckHurt_" + direction, xPadding, yPadding);
-				break;
-				
-			case("dead"):
-<<<<<<< HEAD
-				Utilities.printSprite("Duck/Dead/duckDead_" + direction, xPadding, yPadding);
-=======
-				Utilities.printSprite("Duck/Hurt/duckDead_" + direction, xPadding, yPadding);
->>>>>>> master
+		// Select the sprite frame to return based on method argument "duckSprite"
+		switch (duckSprite) {
+			case ("fight"):
+				Utilities.printSprite("UI/Banner/fight", "", "");
+				;
 				break;
 			
-			case("run_1"):
+			case ("stand"):
+				Utilities.printSprite("Duck/Stand/duckStand_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("taunt"):
+				Utilities.printSprite("Duck/Taunt/duckDance_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("quack"):
+				Utilities.printSprite("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("attack1"):
+				Utilities.printSprite("Duck/Attack/duckAttack_One_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("attack2"):
+				Utilities.printSprite("Duck/Attack/duckAttack_Two_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("hurt"):
+				Utilities.printSprite("Duck/Hurt/duckHurt_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("dead"):
+				Utilities.printSprite("Duck/Dead/duckDead_" + direction, xPadding, yPadding);
+				break;
+			
+			case ("run_1"):
 				Utilities.printSprite("Duck/Run/duckRun_One_" + direction, xPadding, yPadding);
 				break;
 			
-			case("run_2"):
+			case ("run_2"):
 				Utilities.printSprite("Duck/Run/duckRun_Two_" + direction, xPadding, yPadding);
 				break;
 			
@@ -136,59 +119,49 @@ public class Duck_Object
 				break;
 		}
 		
-	}//End of getSprite
+	}// End of getSprite
 	
 	/**
-	 * Gets information on which move to make from the user.
-<<<<<<< HEAD
+	 * Gets information on which move to make from the user. <<<<<<< HEAD
 	 * 
 	 * @param enemy
-=======
->>>>>>> master
+	 *            ======= >>>>>>> master
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-<<<<<<< HEAD
+	
 	public boolean playerMove(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 		boolean selection;
 		selection = true;
 		String move = "";
-=======
-	public void playerMove(Enemy_Object enemy)
-	{
->>>>>>> master
 		
 		while (selection) {
 			move = scanner.nextLine();
 			move = move.toLowerCase();
-		
+			
 			if (move.contains("quack")) {
 				quack(enemy);
 				selection = false;
-			}else if (move.contains("attack")) {
+			} else if (move.contains("attack")) {
 				attack(enemy);
 				selection = false;
-			}else if (move.contains("taunt")) {
+			} else if (move.contains("taunt")) {
 				taunt(enemy);
 				selection = false;
-			}else if (move.contains("fly")) {
+			} else if (move.contains("fly")) {
 				selection = false;
-			}else {
+			} else {
 				System.out.println("That is not a valid command.");
 			}
 		}
 		
-<<<<<<< HEAD
 		boolean inBattle = finishBattle(enemy, move);
 		
 		return inBattle;
 		
-=======
->>>>>>> master
-	}//End of playerMove
-	
+	}// End of playerMove
 	
 	/**
 	 * 
@@ -197,39 +170,24 @@ public class Duck_Object
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-<<<<<<< HEAD
 	public void quack(Enemy_Object enemy) throws IOException, InterruptedException {
 		
-
-		
-=======
-	public void quack(Enemy_Object enemy)
-	{
->>>>>>> master
 		Utilities.clearConsole();
 		
 		getSprite("fight");
 		enemy.getSprite("stand");
 		getSprite("quack");
-<<<<<<< HEAD
 		System.out.println("You quacked at the enemy...");
-=======
->>>>>>> master
 		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
 		
 		getSprite("fight");
 		enemy.getSprite("stand");
 		getSprite("attack");
-<<<<<<< HEAD
 		System.out.println("That move did absolutely nothing!");
 		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
-=======
-		Utilities.clearConsole();
-		
->>>>>>> master
-	}//End of quack
+	}// End of quack
 	
 	/**
 	 * 
@@ -240,11 +198,10 @@ public class Duck_Object
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void run(int numTimes, int xDirection, int yDirection, Enemy_Object enemy)
-	{
+	public void run(int numTimes, int xDirection, int yDirection, Enemy_Object enemy) {
 		if (xDirection == 1) {
 			direction = "Right";
-		}else {
+		} else {
 			direction = "Left";
 		}
 		
@@ -269,7 +226,7 @@ public class Duck_Object
 			Utilities.clearConsole();
 		}
 		
-	}//End of run
+	}// End of run
 	
 	/**
 	 * 
@@ -277,31 +234,25 @@ public class Duck_Object
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-<<<<<<< HEAD
 	public void attack(Enemy_Object enemy) throws IOException, InterruptedException {
 		
-<<<<<<< HEAD
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
-		int criticalHitChance = rand.nextInt(100) +1;
+		int criticalHitChance = rand.nextInt(100) + 1;
 		boolean landed = true;
 		boolean critical = true;
 		
 		if (accuracyChance <= accuracyPoints) {
 			landed = true;
-		}
-		else {
+		} else {
 			landed = false;
 		}
 		
 		if (criticalHitChance <= criticalHitPoints) {
 			critical = true;
-		}
-		else {
+		} else {
 			critical = false;
 		}
-		
-		
 		
 		double damage;
 		damage = (attackPoints * 2.5) - enemy.getDefence();
@@ -314,44 +265,10 @@ public class Duck_Object
 			enemy.setHealth(Math.round(newHealth));
 		}
 		
-		
 		System.out.println("You attacked the enemy...");
 		Utilities.waitMilliseconds(500);
 		
-=======
->>>>>>> master
-=======
-	public void attack(Enemy_Object enemy)
-	{	
->>>>>>> master
-		run(13, +1, 0, enemy);
-		peck(enemy, 1);
-		run(13, -1, 0, enemy);
-		run(0, +1, 0, enemy);
-<<<<<<< HEAD
-		//enemy.enemyMove(this ,"taunt");
-		enemy.flinch(this);
-		
-		if (!landed) {
-			System.out.println("You missed!");
-		}
-		
-		else if (landed) {
-			if (critical) {
-				System.out.println("It's a critical hit!");
-			}
-			System.out.print("You dealt ");
-			System.out.print(Math.round(damage));
-			System.out.println(" damage to the enemy!");
-		}
-		Utilities.waitMilliseconds(2000);
-	}//End of attack
-
-=======
-		enemy.enemyMove(this ,"taunt");
-		
-	}//End of attack
->>>>>>> master
+	}
 	
 	/**
 	 * 
@@ -360,8 +277,7 @@ public class Duck_Object
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void peck(Enemy_Object enemy, int numTimes)
-	{
+	public void peck(Enemy_Object enemy, int numTimes) {
 		
 		for (int i = 0; i < numTimes; i++) {
 			
@@ -381,7 +297,7 @@ public class Duck_Object
 			
 		}
 		
-	}//End of peck
+	}// End of peck
 	
 	/**
 	 * 
@@ -389,22 +305,15 @@ public class Duck_Object
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-<<<<<<< HEAD
-	public void taunt(Enemy_Object enemy) throws IOException, InterruptedException  {
+	public void taunt(Enemy_Object enemy) throws IOException, InterruptedException {
 		
 		double enemyAttack = enemy.getAttack();
 		double enemyDefence = enemy.getDefence();
 		enemy.setAttack(enemyAttack + 5);
 		enemy.setDefence(enemyDefence - 5);
-=======
-	public void taunt(Enemy_Object enemy)
-	{
->>>>>>> master
 		
-		for (int i = 0; i <= 2; i++) 
-		{
+		for (int i = 0; i <= 2; i++) {
 			
-<<<<<<< HEAD
 			Utilities.clearConsole();
 			
 			getSprite("fight");
@@ -420,13 +329,13 @@ public class Duck_Object
 			System.out.println("You taunted the enemy...");
 			Utilities.waitMilliseconds(100);
 			Utilities.clearConsole();
-				
+			
 		}
 		
 		System.out.println("The enemy's attack has increased!");
 		System.out.println("The enemy's defence has decreased!");
 		Utilities.waitMilliseconds(2000);
-	}//End of taunt
+	}// End of taunt
 	
 	public void resetStats() {
 		
@@ -449,8 +358,9 @@ public class Duck_Object
 	 * @throws InterruptedException
 	 * @throws FileNotFoundException
 	 */
-
-	private boolean finishBattle(Enemy_Object enemy, String move) throws IOException, InterruptedException, FileNotFoundException {
+	
+	private boolean finishBattle(Enemy_Object enemy, String move)
+			throws IOException, InterruptedException, FileNotFoundException {
 		
 		double enemyHealth = enemy.getHealth();
 		
@@ -492,7 +402,6 @@ public class Duck_Object
 			return true;
 		}
 		
-		
 	}
 	
 	private void levelUp() {
@@ -526,15 +435,15 @@ public class Duck_Object
 	public double getCriticalHit() {
 		return criticalHitPoints;
 	}
-
-
+	
 	public double getAttack() {
 		return attackPoints;
 	}
-
+	
 	public double getHealth() {
 		return healthPoints;
 	}
+	
 	public double getMana() {
 		return manaPoints;
 	}
@@ -543,11 +452,9 @@ public class Duck_Object
 		return speedPoints;
 	}
 	
-	public double getAccuracy() {	
-		return accuracyPoints;	
+	public double getAccuracy() {
+		return accuracyPoints;
 	}
-	
-	
 	
 	/**
 	 * 
@@ -560,17 +467,17 @@ public class Duck_Object
 	}
 	
 	public void setCriticalHit(double newValue) {
-		criticalHitPoints = newValue;	
+		criticalHitPoints = newValue;
 	}
-
+	
 	public void setAttack(double newValue) {
 		attackPoints = newValue;
 	}
-
+	
 	public void setHealth(double newValue) {
 		healthPoints = newValue;
 	}
-
+	
 	public void setMana(double newValue) {
 		manaPoints = newValue;
 	}
@@ -579,27 +486,8 @@ public class Duck_Object
 		speedPoints = newValue;
 	}
 	
-	public void setAccuracy(double newValue) {	
-		accuracyPoints = newValue;	
+	public void setAccuracy(double newValue) {
+		accuracyPoints = newValue;
 	}
 	
-=======
-				Utilities.clearConsole();
-				
-				getSprite("fight");
-				enemy.getSprite("stand");
-				getSprite("stand");
-				Utilities.waitMilliseconds(100);
-				Utilities.clearConsole();
-				
-				getSprite("fight");
-				enemy.getSprite("stand");
-				getSprite("taunt");
-				Utilities.waitMilliseconds(100);
-				Utilities.clearConsole();
-				
-		}
-		
-	}//End of taunt
->>>>>>> master
 }

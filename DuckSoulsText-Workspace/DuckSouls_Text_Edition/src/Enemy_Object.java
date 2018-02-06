@@ -1,9 +1,8 @@
+
 //IOException for use with CMD in Windows
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
-
-
 
 /**
  * 
@@ -14,63 +13,56 @@ import java.util.Random;
  */
 public class Enemy_Object {
 	
-<<<<<<< HEAD
-/**		Public Variables	*/
-=======
-	/**		Public Variables	*/
->>>>>>> master
+	/** Public Variables */
 	
 	// x/y position: Where the enemy is drawn on the screen (0,0 = topmost left)
-	public int xPosition = 35;
-	public int yPosition = 0;	
+	public int				xPosition			= 35;
+	public int				yPosition			= 0;
 	
-	/**		Private Variables	*/
+	/** Private Variables */
 	
-<<<<<<< HEAD
-	//Enemy Stats
-	final private double HEALTH_POINTS = 10;
-	final private double MANA_POINTS = 15;
-	final private double ATTACK_POINTS = 5;
-	final private double DEFENCE_POINTS = 5;
-	final private double SPEED_POINTS = 5;
-	final private double ACCURACY_POINTS = 70;
-	final private double CRITICAL_HIT_POINTS = 16;
-		
-		
-	private double healthPoints = 10;
-	private double manaPoints = 15;
-	private double attackPoints = 5;
-	private double defencePoints = 5;
-	private double speedPoints = 5;
-	private double accuracyPoints = 70;
-	private double criticalHitPoints = 16;	
+	// Enemy Stats
+	final private double	HEALTH_POINTS		= 10;
+	final private double	MANA_POINTS			= 15;
+	final private double	ATTACK_POINTS		= 5;
+	final private double	DEFENCE_POINTS		= 5;
+	final private double	SPEED_POINTS		= 5;
+	final private double	ACCURACY_POINTS		= 70;
+	final private double	CRITICAL_HIT_POINTS	= 16;
 	
-	private int giveXP = 25;
-	private int giveMoney = 100;
+	private double			healthPoints		= 10;
+	private double			manaPoints			= 15;
+	private double			attackPoints		= 5;
+	private double			defencePoints		= 5;
+	private double			speedPoints			= 5;
+	private double			accuracyPoints		= 70;
+	private double			criticalHitPoints	= 16;
 	
-=======
->>>>>>> master
-	private String enemyType;		//The type of enemy (Will be added via a constructor)
+	private int				giveXP				= 25;
+	private int				giveMoney			= 100;
+	
+	private String			enemyType;														// The type of enemy (Will
+																							// be added via a
+																							// constructor)
 	
 	// x/y padding: Converts x/y position into spaces/tabs
-	private String xPadding = Utilities.multiplyString("  ", xPosition);
-	private String yPadding = Utilities.multiplyString("\n", yPosition);
+	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
+	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
-	private static String direction = "Left";		//The direction that the sprite is facing
+	private static String	direction			= "Left";									// The direction that the
+																							// sprite is facing
 	
 	/**
-	 * Object constructor:
-	 * Define character type when a new Enemy_Object is created. (i.e Rat, Fish, etc)
-	 * Modifiable with different characteristics (attacks, stats, etc)
+	 * Object constructor: Define character type when a new Enemy_Object is created.
+	 * (i.e Rat, Fish, etc) Modifiable with different characteristics (attacks,
+	 * stats, etc)
 	 * 
 	 * @param enemy
-	 * 			The type of enemy to display (Will affect sprite used & move type)
+	 *            The type of enemy to display (Will affect sprite used & move type)
 	 */
-	public Enemy_Object(String enemy) 
-	{
+	public Enemy_Object(String enemy) {
 		enemyType = enemy;
 	}
-	
 	
 	/**
 	 * Main class.
@@ -78,9 +70,8 @@ public class Enemy_Object {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		
 	}
-	
 	
 	/**
 	 * Prints the required sprite from a text file.
@@ -152,35 +143,34 @@ public class Enemy_Object {
 				break;
 		}
 <<<<<<< HEAD
-	} //End of getSprite
-=======
-	} 
+	} // End of getSprite
+	=======
+	
+	}
 	
 	/**
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void enemyMove(Duck_Object player, String move)
-	{
+	public void enemyMove(Duck_Object player, String move) {
 		
 		move = move.toLowerCase();
 		
 		if (move.contains("taunt")) {
 			taunt(player);
-		}else if (move.contains("attack")) {
+		} else if (move.contains("attack")) {
 			attack(player);
 		}
 		
-	}//End of enemyMove
+	}// End of enemyMove
 	
 	/**
-	 * @throws InterruptedException 
-	 * @throws IOException 
+	 * @throws InterruptedException
+	 * @throws IOException
 	 * 
 	 */
-	public void swipe(Duck_Object player)
-	{
+	public void swipe(Duck_Object player) {
 		
 		Utilities.clearConsole();
 		
@@ -202,8 +192,8 @@ public class Enemy_Object {
 		Utilities.waitMilliseconds(100);
 		Utilities.clearConsole();
 		
-	}//End of swipe
->>>>>>> master
+	}// End of swipe
+	>>>>>>>master
 	
 	/**
 	 * 
@@ -214,7 +204,8 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-<<<<<<< HEAD
+	<<<<<<<HEAD
+	
 	public boolean enemyMove(Duck_Object player) throws IOException, InterruptedException {
 		
 		Random random = new Random();
@@ -222,22 +213,22 @@ public class Enemy_Object {
 		
 		if (move == 0) {
 			attack(player);
-		}else if (move == 1) {
+		} else if (move == 1) {
 			taunt(player);
 		}
 		boolean inBattle = finishBattle(player, move);
 		
 		return inBattle;
 		
-		
-	}//End of enemyMove
+	}// End of enemyMove
 	
-=======
-	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player) throws IOException, InterruptedException 
-	{
+	=======
+	
+	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player)
+			throws IOException, InterruptedException {
 		if (xDirection == 1) {
 			direction = "Right";
-		}else {
+		} else {
 			direction = "Left";
 		}
 		
@@ -262,15 +253,16 @@ public class Enemy_Object {
 			Utilities.clearConsole();
 		}
 		
-	}//End of run
->>>>>>> master
+	}// End of run
+	>>>>>>>master
 	
 	/**
-	 * @throws InterruptedException 
-	 * @throws IOException 
+	 * @throws InterruptedException
+	 * @throws IOException
 	 * 
 	 */
-<<<<<<< HEAD
+	<<<<<<<HEAD
+	
 	public void swipe(Duck_Object player) throws IOException, InterruptedException {
 		
 		Utilities.clearConsole();
@@ -293,7 +285,7 @@ public class Enemy_Object {
 		Utilities.waitMilliseconds(100);
 		Utilities.clearConsole();
 		
-	}//End of swipe
+	}// End of swipe
 	
 	/**
 	 * 
@@ -304,11 +296,10 @@ public class Enemy_Object {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player)
-	{
+	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player) {
 		if (xDirection == 1) {
 			direction = "Right";
-		}else {
+		} else {
 			direction = "Left";
 		}
 		
@@ -333,33 +324,30 @@ public class Enemy_Object {
 			Utilities.clearConsole();
 		}
 		
-	}//End of run
+	}// End of run
 	
 	/**
-	 * @throws InterruptedException 
-	 * @throws IOException 
+	 * @throws InterruptedException
+	 * @throws IOException
 	 * 
 	 */
-	public void attack(Duck_Object player)
-	{
+	public void attack(Duck_Object player) {
 		
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
-		int criticalHitChance = rand.nextInt(100) +1;
+		int criticalHitChance = rand.nextInt(100) + 1;
 		boolean landed = true;
 		boolean critical = true;
 		
 		if (accuracyChance <= accuracyPoints) {
 			landed = true;
-		}
-		else {
+		} else {
 			landed = false;
 		}
 		
 		if (criticalHitChance <= criticalHitPoints) {
 			critical = true;
-		}
-		else {
+		} else {
 			critical = false;
 		}
 		
@@ -376,7 +364,6 @@ public class Enemy_Object {
 		
 		System.out.println("The enemy attacked you...");
 		Utilities.waitMilliseconds(500);
-		
 		
 		run(13, -1, 0, player);
 		swipe(player);
@@ -396,7 +383,7 @@ public class Enemy_Object {
 			System.out.println("The enemy missed!");
 		}
 		Utilities.waitMilliseconds(2000);
-	}//End of attack
+	}// End of attack
 	
 	/**
 	 * 
@@ -414,13 +401,13 @@ public class Enemy_Object {
 		
 		
 =======
-	public void attack(Duck_Object player) throws IOException, InterruptedException 
-	{
+	
+	public void attack(Duck_Object player) throws IOException, InterruptedException {
 		run(13, -1, 0, player);
 		swipe(player);
 		run(13, +1, 0, player);
 		run(0, -1, 0, player);
-	}//End of attack
+	}// End of attack
 	
 	/**
 	 * 
@@ -462,16 +449,14 @@ public class Enemy_Object {
 		Utilities.waitMilliseconds(2000);
 	}
 	
-	public void flinch(Duck_Object player) throws IOException, InterruptedException
-	{	
+	public void flinch(Duck_Object player) throws IOException, InterruptedException {
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
 		Utilities.waitMilliseconds(400);
 		Utilities.clearConsole();
 		
-		for(int i = 0; i <= 3; i++)
-		{	
+		for (int i = 0; i <= 3; i++) {
 			getSprite("fight");
 			getSprite("taunt1");
 			player.getSprite("stand");
@@ -481,7 +466,7 @@ public class Enemy_Object {
 			getSprite("fight");
 			getSprite("taunt2");
 			player.getSprite("stand");
-			Utilities.waitMilliseconds(50	);
+			Utilities.waitMilliseconds(50);
 			Utilities.clearConsole();
 		}
 	}
@@ -503,14 +488,11 @@ public class Enemy_Object {
 		double playerHealth = player.getHealth();
 		
 		/*
-		if (move == 2) {
-			System.out.println("The enemy ran away from battle...");
-			resetStats();
-			player.resetStats();
-			return false;
-		}*/
+		 * if (move == 2) { System.out.println("The enemy ran away from battle...");
+		 * resetStats(); player.resetStats(); return false; }
+		 */
 		
-		/*else*/ if (playerHealth <= 0) {
+		/* else */ if (playerHealth <= 0) {
 			Utilities.clearConsole();
 			getSprite("stand");
 			player.getSprite("dead");
@@ -518,8 +500,8 @@ public class Enemy_Object {
 			Utilities.waitMilliseconds(1000);
 			System.out.println("Your consciousness slowly fades from this world...");
 			Utilities.waitMilliseconds(1000);
-			//resetStats();
-			//player.resetStats();
+			// resetStats();
+			// player.resetStats();
 			System.out.println("The battle has ended.");
 			Utilities.waitMilliseconds(1200);
 			System.exit(0);
@@ -530,7 +512,6 @@ public class Enemy_Object {
 			return true;
 		}
 		
-		
 	}
 	
 	public double getDefence() {
@@ -540,15 +521,15 @@ public class Enemy_Object {
 	public double getCriticalHit() {
 		return criticalHitPoints;
 	}
-
-
+	
 	public double getAttack() {
 		return attackPoints;
 	}
-
+	
 	public double getHealth() {
 		return healthPoints;
 	}
+	
 	public double getMana() {
 		return manaPoints;
 	}
@@ -557,36 +538,34 @@ public class Enemy_Object {
 		return speedPoints;
 	}
 	
-	public double getAccuracy() {	
-		return accuracyPoints;	
+	public double getAccuracy() {
+		return accuracyPoints;
 	}
 	
-	public int getXP() {	
-		return giveXP;	
+	public int getXP() {
+		return giveXP;
 	}
 	
-	public int getMoney() {	
-		return giveMoney;	
+	public int getMoney() {
+		return giveMoney;
 	}
-	
-	
 	
 	public void setDefence(double newValue) {
 		defencePoints = newValue;
 	}
 	
 	public void setCriticalHit(double newValue) {
-		criticalHitPoints = newValue;	
+		criticalHitPoints = newValue;
 	}
-
+	
 	public void setAttack(double newValue) {
 		attackPoints = newValue;
 	}
-
+	
 	public void setHealth(double newValue) {
 		healthPoints = newValue;
 	}
-
+	
 	public void setMana(double newValue) {
 		manaPoints = newValue;
 	}
@@ -600,8 +579,7 @@ public class Enemy_Object {
 =======
 			Utilities.waitMilliseconds(50	);
 			Utilities.clearConsole();
-		}
->>>>>>> master
-	}
-	
+		}>>>>>>>master
+}
+
 }

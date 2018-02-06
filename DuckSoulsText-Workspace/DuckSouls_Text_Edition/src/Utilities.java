@@ -66,7 +66,6 @@ public class Utilities {
 	 * @param multiple
 	 *            The number of times to multiply the string.
 	 * @return newString The new string.
-<<<<<<< HEAD
 	 */
 	public static String multiplyString(String string, int multiple) {
 		
@@ -86,27 +85,7 @@ public class Utilities {
 	 * @param stopTime
 	 *            Stop after this long (Milliseconds)
 	 */
-=======
-	 */
-	public static String multiplyString(String string, int multiple) {
-		
-		StringBuilder stringArray = new StringBuilder();
-		for (int i = 0; i < multiple; i++) {
-			stringArray.append(string);
-		}
-		String newString = stringArray.toString();
-		return (newString);
-		
-	}// End of multiplyString
-	
-	/**
-	 * Timer method used as an alternative to Thread.sleep() Gives a more accurately
-	 * timed delay across systems.
-	 * 
-	 * @param stopTime
-	 *            Stop after this long (Milliseconds)
-	 */
->>>>>>> master
+
 	public static void waitMilliseconds(long stopTime) {
 		long startTime = System.currentTimeMillis();
 		while (true) {
