@@ -14,7 +14,11 @@ import java.util.Random;
  */
 public class Enemy_Object {
 	
+<<<<<<< HEAD
 /**		Public Variables	*/
+=======
+	/**		Public Variables	*/
+>>>>>>> master
 	
 	// x/y position: Where the enemy is drawn on the screen (0,0 = topmost left)
 	public int xPosition = 35;
@@ -22,6 +26,7 @@ public class Enemy_Object {
 	
 	/**		Private Variables	*/
 	
+<<<<<<< HEAD
 	//Enemy Stats
 	final private double HEALTH_POINTS = 10;
 	final private double MANA_POINTS = 15;
@@ -43,6 +48,8 @@ public class Enemy_Object {
 	private int giveXP = 25;
 	private int giveMoney = 100;
 	
+=======
+>>>>>>> master
 	private String enemyType;		//The type of enemy (Will be added via a constructor)
 	
 	// x/y padding: Converts x/y position into spaces/tabs
@@ -124,10 +131,13 @@ public class Enemy_Object {
 				Utilities.printSprite(enemyType + "/Attack/attack_Three", xPadding, yPadding);
 				break;
 			
+<<<<<<< HEAD
 			case("dead"):
 				Utilities.printSprite(enemyType + "/Dead/dead_" + direction, xPadding, yPadding);
 				break;
 			
+=======
+>>>>>>> master
 			case("run_1"):
 				Utilities.printSprite(enemyType + "/Run/run_One_" + direction, xPadding, yPadding);
 				break;
@@ -140,13 +150,68 @@ public class Enemy_Object {
 				System.out.println("Error: No move found.");
 				break;
 		}
+<<<<<<< HEAD
 	} //End of getSprite
+=======
+	} 
 	
 	/**
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
+	public void enemyMove(Duck_Object player, String move) throws IOException, InterruptedException {
+		
+		move = move.toLowerCase();
+		
+		if (move.contains("taunt")) {
+			taunt(player);
+		}else if (move.contains("attack")) {
+			attack(player);
+		}
+		
+	}//End of enemyMove
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws IOException 
+	 * 
+	 */
+	public void swipe(Duck_Object player) throws IOException, InterruptedException {
+		
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack1");
+		player.getSprite("stand");
+		Utilities.waitMilliseconds(300);
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack2");
+		player.getSprite("hurt");
+		Utilities.waitMilliseconds(100);
+		Utilities.clearConsole();
+		
+		getSprite("fight");
+		getSprite("attack3");
+		player.getSprite("hurt");
+		Utilities.waitMilliseconds(100);
+		Utilities.clearConsole();
+		
+	}//End of swipe
+>>>>>>> master
+	
+	/**
+	 * 
+	 * @param numTimes
+	 * @param xDirection
+	 * @param yDirection
+	 * @param enemy
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+<<<<<<< HEAD
 	public boolean enemyMove(Duck_Object player) throws IOException, InterruptedException {
 		
 		Random random = new Random();
@@ -164,12 +229,45 @@ public class Enemy_Object {
 		
 	}//End of enemyMove
 	
+=======
+	public void run(int numTimes, int xDirection, int yDirection, Duck_Object player) throws IOException, InterruptedException 
+	{
+		if (xDirection == 1) {
+			direction = "Right";
+		}else {
+			direction = "Left";
+		}
+		
+		for (int i = 0; i < numTimes; i++) {
+			
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("run_1");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(20);
+			xPosition += xDirection;
+			yPosition += yDirection;
+			Utilities.clearConsole();
+			
+			getSprite("fight");
+			getSprite("run_2");
+			player.getSprite("stand");
+			Utilities.waitMilliseconds(20);
+			xPosition += xDirection;
+			yPosition += yDirection;
+			Utilities.clearConsole();
+		}
+		
+	}//End of run
+>>>>>>> master
 	
 	/**
 	 * @throws InterruptedException 
 	 * @throws IOException 
 	 * 
 	 */
+<<<<<<< HEAD
 	public void swipe(Duck_Object player) throws IOException, InterruptedException {
 		
 		Utilities.clearConsole();
@@ -312,6 +410,24 @@ public class Enemy_Object {
 		player.setDefence(playerDefence - 5);
 		
 		
+=======
+	public void attack(Duck_Object player) throws IOException, InterruptedException 
+	{
+		run(13, -1, 0, player);
+		swipe(player);
+		run(13, +1, 0, player);
+		run(0, -1, 0, player);
+	}//End of attack
+	
+	/**
+	 * 
+	 * @param player
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	public void taunt(Duck_Object player) throws IOException, InterruptedException
+	{
+>>>>>>> master
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
@@ -323,13 +439,17 @@ public class Enemy_Object {
 			getSprite("fight");
 			getSprite("taunt1");
 			player.getSprite("stand");
+<<<<<<< HEAD
 			System.out.println("The enemy taunted you...");
+=======
+>>>>>>> master
 			Utilities.waitMilliseconds(50);
 			Utilities.clearConsole();
 			
 			getSprite("fight");
 			getSprite("taunt2");
 			player.getSprite("stand");
+<<<<<<< HEAD
 			System.out.println("The enemy taunted you...");
 			Utilities.waitMilliseconds(50	);
 			Utilities.clearConsole();
@@ -474,6 +594,11 @@ public class Enemy_Object {
 	
 	public void setAccuracy(double newValue) {	
 		accuracyPoints = newValue;	
+=======
+			Utilities.waitMilliseconds(50	);
+			Utilities.clearConsole();
+		}
+>>>>>>> master
 	}
-
+	
 }
