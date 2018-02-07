@@ -19,6 +19,7 @@ import java.util.Scanner;
  * 
  * @author Wylee McAndrews
  * @author Matthew Allwright
+ * @author Colin Au Yeung
  * @author add name if modified
  */
 public class Utilities {
