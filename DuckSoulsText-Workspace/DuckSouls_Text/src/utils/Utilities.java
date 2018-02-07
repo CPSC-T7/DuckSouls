@@ -26,40 +26,42 @@ public class Utilities {
 	
 	/**
 	 * Clear the console screen of text.
-	 * 
-	 * @throws InterruptedException
-	 * @throws IOException
 	 */
 	public static void clearConsole() {
 		
+		// Try to clear the console via unique OS-Specific methods
 		try {
+			
 			// Get the operating system name
 			final String os = System.getProperty("os.name");
 			
-			// If windows: clear using cmd command
+			// If using Windows: clear using cmd command
 			if (os.contains("Windows")) {
+				
+				// Run the cmd command and wait for it to finish
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			}
-			// If other: use terminal command
-			else {
-				// Runtime.getRuntime().exec("clear");
+				
+			} else { // If other: use terminal clearing command (bash)
+				
+				// Print this interesting series of character and flush the console
 				System.out.println("\033[H\033[2J");
 				System.out.flush();
+				
 			}
-		}
-		
-		// If clearing doesn't work: tell the user and stop the program
-		catch (Exception e) {
+			
+			// TODO: Add MacOS clearing
+			
+		} catch (Exception e) { // If clearing doesn't work: tell the user and stop the program
 			// If console doesn't clear print this error
 			System.out.println("Console failed to clear.");
 			waitMilliseconds(3000);
-			System.exit(0);
+			System.exit(1);
 		}
 		
 	}// End of clearConsole
 	
 	/**
-	 * Multiply a string by a specified amount.
+	 * Multiply a string by a specified amount.<br>
 	 * 
 	 * i.e: "f"*3 = "fff"
 	 * 
@@ -67,15 +69,20 @@ public class Utilities {
 	 *            The string to multiply.
 	 * @param multiple
 	 *            The number of times to multiply the string.
-	 * @return newString The new string.
+	 * @return newString The multiplied string.
 	 */
 	public static String multiplyString(String string, int multiple) {
 		
-		StringBuilder stringArray = new StringBuilder();
+		// Create a string builder
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		// Append the inputed string to the string builder the desired number of times
 		for (int i = 0; i < multiple; i++) {
-			stringArray.append(string);
+			stringBuilder.append(string);
 		}
-		String newString = stringArray.toString();
+		
+		// Process and return the newly multiplied string
+		String newString = stringBuilder.toString();
 		return (newString);
 		
 	}// End of multiplyString
@@ -87,14 +94,21 @@ public class Utilities {
 	 * @param stopTime
 	 *            Stop after this long (Milliseconds)
 	 */
-
 	public static void waitMilliseconds(long stopTime) {
+		
+		// The time at the beginning of the method
 		long startTime = System.currentTimeMillis();
+		
+		// Keep checking to see if the difference in time has passed the required length
 		while (true) {
+			
 			long currentTime = System.currentTimeMillis();
+			
+			// If the time has passed, break out of the loop
 			if (currentTime - startTime >= stopTime)
 				break;
 		}
+		
 	}// End of waitMilliSeconds
 	
 	/**
@@ -111,23 +125,27 @@ public class Utilities {
 	 */
 	public static void printSprite(String sprite, String xPadding, String yPadding) {
 		
+		// Locate the sprite file in the TextSprites folder above bin
 		String fileName = "../TextSprites/" + sprite + ".txt";
 		File spriteFile = new File(fileName);
+		
+		// Pad the image
 		System.out.print(yPadding);
 		
-		try(Scanner readFile = new Scanner(spriteFile);) {
+		// Try to read the file line-by-line and print out each line
+		try (Scanner readFile = new Scanner(spriteFile);) {
 			
+			// Read all the non-null lines in the file and print them
 			while (readFile.hasNext()) {
 				String line = readFile.nextLine();
 				System.out.println(xPadding + line);
 			}
 			
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { // If the file isn't found
 			
 			System.out.println("File [" + fileName + "] not found.");
 			
 		}
-	
 		
 	}// End of printSprite
 	
@@ -140,35 +158,34 @@ public class Utilities {
 	 */
 	public static String[] readLines(String fileName) {
 		
-		try {
+		// Try to open and read the file line-by-line with auto-closable BufferedReader
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
 			
-			FileReader fileReader = new FileReader(fileName);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			
+			// Have an array list of lines waiting to be filled with the file's contents
 			ArrayList<String> lines = new ArrayList<String>();
 			String line = null;
 			
+			// Read all non-null lines from the file into the array list
 			while ((line = bufferedReader.readLine()) != null) {
-				
 				lines.add(line);
-				
 			}
 			
-			bufferedReader.close();
+			// Return all of the lines in an array
 			return lines.toArray(new String[lines.size()]);
 			
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) { // If the file isn't found
 			
 			System.out.println("File [" + fileName + "] not found.");
 			e.printStackTrace();
 			
-		} catch (IOException e) {
+		} catch (IOException e) { // If something goes wrong whilst reading the file
 			
 			System.out.println("Cannot read file [" + fileName + "], IO Exception.");
 			e.printStackTrace();
 			
 		}
 		
+		// If nothing was read, return an empty string array
 		return new String[0];
 		
 	}// End of readLines
@@ -183,13 +200,15 @@ public class Utilities {
 	 */
 	public static void writeFile(String fileName, ArrayList<String> lines) {
 		
+		// Create a path object to the file
 		Path file = Paths.get(fileName);
 		
+		// Try to write to the file in UTF-8, creating a file if it doesn't exist.
 		try {
 			
 			Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
 			
-		} catch (IOException e) {
+		} catch (IOException e) { // If something goes wrong whilst writing the file
 			
 			System.out.println("Cannot write to file [" + fileName + "], IO Exception.");
 			e.printStackTrace();
