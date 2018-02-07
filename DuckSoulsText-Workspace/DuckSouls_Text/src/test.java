@@ -11,11 +11,11 @@ public class test {
 		do {
 			Utilities.clearConsole();
 			map1.turnLoop();
-			if(map1.isEnemyNear())
+			if(map1.isEnemyNear()){
 				
 				BattleWorldTest.battleLoop();
 				count = 20;
-				
+			}
 			count += 1;
 		}while (count<20);
 	}
