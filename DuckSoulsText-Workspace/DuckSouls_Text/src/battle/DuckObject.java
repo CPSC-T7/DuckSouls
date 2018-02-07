@@ -272,6 +272,29 @@ public class DuckObject {
 		System.out.println("You attacked the enemy...");
 		Utilities.waitMilliseconds(500);
 		
+		run(13, +1, 0, enemy);
+		peck(enemy, 1);
+		run(13, -1, 0, enemy);
+		run(0, +1, 0, enemy);	
+		//enemy.enemyMove(this ,"taunt");
+		
+		
+		//enemy.flinch(this); /*HEY MATT I THINK THIS MIGHT BE WHERE THE PROBLEM WAS THAT NADHIF HAD I DUNNO AM JUST A BOT*/
+		
+		if (!landed) {
+			System.out.println("You missed!");
+		}
+		
+		else if (landed) {
+			if (critical) {
+				System.out.println("It's a critical hit!");
+			}
+			System.out.print("You dealt ");
+			System.out.print(Math.round(damage));
+			System.out.println(" damage to the enemy!");
+		}
+		Utilities.waitMilliseconds(2000);
+		
 	}
 	
 	/**
