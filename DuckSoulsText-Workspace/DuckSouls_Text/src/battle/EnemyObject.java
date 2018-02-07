@@ -170,7 +170,7 @@ public class EnemyObject {
 	 * @throws InterruptedException
 	 */
 	
-	public boolean enemyMove(DuckObject player) throws IOException, InterruptedException {
+	public boolean enemyMove(DuckObject player) {
 		
 		Random random = new Random();
 		int move = random.nextInt(2);
@@ -186,8 +186,7 @@ public class EnemyObject {
 		
 	}// End of enemyMove
 	
-	public void run(int numTimes, int xDirection, int yDirection, DuckObject player)
-			throws IOException, InterruptedException {
+	public void run(int numTimes, int xDirection, int yDirection, DuckObject player) {
 		if (xDirection == 1) {
 			direction = "Right";
 		} else {
@@ -222,7 +221,7 @@ public class EnemyObject {
 	 * @throws IOException
 	 * 
 	 */
-	public void swipe(DuckObject player) throws IOException, InterruptedException {
+	public void swipe(DuckObject player) {
 		
 		Utilities.clearConsole();
 		
@@ -251,7 +250,7 @@ public class EnemyObject {
 	 * @throws IOException
 	 * 
 	 */
-	public void attack(DuckObject player) throws IOException, InterruptedException {
+	public void attack(DuckObject player) {
 		
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
@@ -373,7 +372,7 @@ public class EnemyObject {
 		
 	}
 	
-	private boolean finishBattle(DuckObject player, int move) throws FileNotFoundException {
+	private boolean finishBattle(DuckObject player, int move) {
 		
 		double playerHealth = player.getHealth();
 		

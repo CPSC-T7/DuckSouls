@@ -1,12 +1,6 @@
 package battle;
 
-//IOException for use with CMD in Windows
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import utils.Utilities;
-
-import java.io.FileNotFoundException;
 
 /**
  * 
@@ -23,18 +17,18 @@ public class BattleWorldTest {
 	private static DuckObject	Player	= new DuckObject();
 	private static EnemyObject	Enemy	= new EnemyObject("Rat");
 	
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) {
 		Utilities.clearConsole();
 		battleLoop();
 	}
 	
-	public static void drawSprites() throws FileNotFoundException {
+	public static void drawSprites() {
 		Enemy.getSprite("fight");
 		Enemy.getSprite("stand");
 		Player.getSprite("stand");
 	}
 	
-	public static void battleLoop() throws IOException, InterruptedException {
+	public static void battleLoop() {
 		
 		boolean inBattle;
 		inBattle = true;

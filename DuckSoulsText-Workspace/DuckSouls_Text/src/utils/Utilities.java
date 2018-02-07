@@ -125,11 +125,6 @@ public class Utilities {
 			
 			System.out.println("File [" + fileName + "] not found.");
 			
-		} catch (IOException e) {
-			
-			System.out.println("Cannot read file [" + fileName + "], IO Exception.");
-			e.printStackTrace();
-			
 		}
 	
 		

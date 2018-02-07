@@ -411,7 +411,7 @@ public class TextRoom {
 	 */
 	public void moveTile(Point toMove, Point moveTo) {
 		
-		Tile temp = this.tileAt(toMove), landedOnTile = this.tileAt(moveTo);
+		Tile temp = this.tileAt(toMove); // , landedOnTile = this.tileAt(moveTo);
 		
 		if (this.tileAt(moveTo).CAN_WALK_ON) {
 			

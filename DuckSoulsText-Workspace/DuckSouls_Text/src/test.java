@@ -1,8 +1,6 @@
 import map.Map;
 import utils.Utilities;
 
-import java.io.IOException;
-
 import battle.BattleWorldTest;
 
 public class test {
@@ -14,13 +12,10 @@ public class test {
 			Utilities.clearConsole();
 			map1.turnLoop();
 			if(map1.isEnemyNear())
-				try {
-					BattleWorldTest.battleLoop();
-					count = 20;
-				} catch (IOException | InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
+				BattleWorldTest.battleLoop();
+				count = 20;
+				
 			count += 1;
 		}while (count<20);
 	}
