@@ -1,46 +1,50 @@
 package ui;
-import java.util.Scanner;
 
-import battle.DuckObject;
+import java.util.Scanner;
 import utils.Utilities;
 
 /**
+ * Stores and runs the game's title screen, which disappears after you press
+ * enter.
  * 
  * @author Wylee McAndrews
  * @author add name if modified
  */
 public class TitleScreen {
 	
-	private static String duckSouls = 
-			"\n\n"+
-			"\t\t\t\t\t █████▄  █   ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████ \r\n" + 
-			"\t\t\t\t\t ██   ██ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ░██    ▒ ░██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n" + 
-			"\t\t\t\t\t ██   ██░██  ▒██░▒██    ▄ ░███▄░    ░ ▓██▄   ░██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n" + 
-			"\t\t\t\t\t ██  ▄██░██  ░██░▒██▄ ▄██░░██ █▄      ▒   ██░░██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n" + 
-			"\t\t\t\t\t░██████░░▓████▓ ▒  ███▀ ░▒██▒ █▄   ▒██████▒░░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒\r\n" + 
-			"\t\t\t\t\t ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░\r\n" + 
-			"\t\t\t\t\t ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░   ░ ░▒  ░ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░ ▒  ░░ ░▒  ░ ░\r\n" + 
-			"\t\t\t\t\t ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n" + 
-			"\t\t\t\t\t   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n" + 
-			"\t\t\t\t\t ░               ░                                                              \r\n";
+	// Scanner just to read if the user presses enter
+	private static Scanner	scanner		= new Scanner(System.in);
 	
-	private static DuckObject duck = new DuckObject();
-	private static Scanner scanner = new Scanner(System.in);
-
-	public static void main(String[] args)
-	{
+	// The awesome tile ASCII art from
+	// http://patorjk.com/software/taag/#p=display&f=Bloody&t=Duck%20Souls
+	private static String	duckSoulsTitle	= "\n\n"
+			+ "\t\t\t\t\t █████▄  █   ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████  \r\n"
+			+ "\t\t\t\t\t ██   ██ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ░██    ▒ ░██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n"
+			+ "\t\t\t\t\t ██   ██░██  ▒██░▒██    ▄ ░███▄░    ░ ▓██▄   ░██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n"
+			+ "\t\t\t\t\t ██  ▄██░██  ░██░▒██▄ ▄██░░██ █▄      ▒   ██░░██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n"
+			+ "\t\t\t\t\t░██████░░▓████▓ ▒  ███▀ ░▒██▒ █▄   ▒██████▒░░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒ \r\n"
+			+ "\t\t\t\t\t ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░\r\n"
+			+ "\t\t\t\t\t ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░   ░ ░▒  ░ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░ ▒  ░░ ░▒  ░ ░\r\n"
+			+ "\t\t\t\t\t ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n"
+			+ "\t\t\t\t\t   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n"
+			+ "\t\t\t\t\t ░               ░                                                              \r\n";
+	
+	/**
+	 * Display's the game's menu, clearing it when the user presses enter.
+	 */
+	public static void displayMenu() {
+		
+		// Clear the console
 		Utilities.clearConsole();
-		duck.xPosition = 32;
-		menu();
-	}
-	
-	public static void menu()
-	{
-		System.out.print(duckSouls);
+		
+		// Print the tile and instructions
+		System.out.print(duckSoulsTitle);
 		System.out.println("\t\t\t\t\t\t\t\t     Press Enter To Start");
-		duck.getSprite("stand" + "\n");
-		String userStart = scanner.nextLine();
+		
+		// Wait for the user to press enter to continue
+		scanner.nextLine();
+		scanner.close();
 		
 	}
-
+	
 }
