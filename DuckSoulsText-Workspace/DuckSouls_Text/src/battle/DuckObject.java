@@ -279,7 +279,7 @@ public class DuckObject {
 		//enemy.enemyMove(this ,"taunt");
 		
 		
-		//enemy.flinch(this); /*HEY MATT I THINK THIS MIGHT BE WHERE THE PROBLEM WAS THAT NADHIF HAD I DUNNO AM JUST A BOT*/
+		enemy.flinch(this);
 		
 		if (!landed) {
 			System.out.println("You missed!");

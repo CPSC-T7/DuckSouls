@@ -338,7 +338,7 @@ public class EnemyObject {
 		Utilities.waitMilliseconds(2000);
 	}
 	
-	public void flinch(DuckObject player) throws IOException, InterruptedException {
+	public void flinch(DuckObject player) {
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
