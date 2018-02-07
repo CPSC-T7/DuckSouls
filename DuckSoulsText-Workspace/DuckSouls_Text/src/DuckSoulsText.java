@@ -22,24 +22,23 @@ public class DuckSoulsText {
 	 */
 	public static void main(String[] args) {
 		
-
 		System.out.println("======== Duck Souls ========");
-		
 		
 		System.out.println("Initialization Starting...");
 		initialize();
 		System.out.println("Initialization Done.");
 		
+		System.out.println("Pre-Loop Staring...");
+		preLoop();
+		System.out.println("Pre-Loop Done.");
 		
 		System.out.println("Game Loop Starting...");
 		loop();
 		System.out.println("Game Loop Done.");
 		
-		
-		System.out.println("Game Ending...");
-		end();
-		System.out.println("Game Ending Done.");
-		
+		System.out.println("Post-Loop Starting...");
+		postLoop();
+		System.out.println("Post-Loop Done.");
 		
 		System.out.println("Cleanup Starting...");
 		cleanup();
@@ -49,7 +48,7 @@ public class DuckSoulsText {
 	}
 	
 	/**
-	 * Calls the init methods of all game components.
+	 * Initializes all game components.
 	 */
 	private static void initialize() {
 		
@@ -58,7 +57,16 @@ public class DuckSoulsText {
 	}
 	
 	/**
-	 * Calls the loop methods of all game components.
+	 * Runs what needs to run before the game loop.
+	 */
+	private static void preLoop() {
+		
+		// TODO: Pre Main Game Loop
+		
+	}
+	
+	/**
+	 * Runs what needs to be continuously run for the game to work.
 	 */
 	private static void loop() {
 		
@@ -67,16 +75,16 @@ public class DuckSoulsText {
 	}
 	
 	/**
-	 * Calls the end methods of all game components.
+	 * Runs what needs to be run after the loop.
 	 */
-	private static void end() {
+	private static void postLoop() {
 		
 		// TODO: Game Ending
 		
 	}
 	
 	/**
-	 * Calls the cleanup methods of all game components.
+	 * Cleans up any resources.
 	 */
 	private static void cleanup() {
 		
