@@ -135,7 +135,7 @@ public class DuckObject {
 	 * @throws InterruptedException
 	 */
 	
-	public boolean playerMove(EnemyObject enemy) throws IOException, InterruptedException {
+	public boolean playerMove(EnemyObject enemy) {
 		
 		boolean selection;
 		selection = true;
@@ -174,7 +174,7 @@ public class DuckObject {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void quack(EnemyObject enemy) throws IOException, InterruptedException {
+	public void quack(EnemyObject enemy) {
 		
 		Utilities.clearConsole();
 		
@@ -238,7 +238,7 @@ public class DuckObject {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void attack(EnemyObject enemy) throws IOException, InterruptedException {
+	public void attack(EnemyObject enemy) {
 		
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
@@ -309,7 +309,7 @@ public class DuckObject {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public void taunt(EnemyObject enemy) throws IOException, InterruptedException {
+	public void taunt(EnemyObject enemy) {
 		
 		double enemyAttack = enemy.getAttack();
 		double enemyDefence = enemy.getDefence();
@@ -363,8 +363,7 @@ public class DuckObject {
 	 * @throws FileNotFoundException
 	 */
 	
-	private boolean finishBattle(EnemyObject enemy, String move)
-			throws IOException, InterruptedException, FileNotFoundException {
+	private boolean finishBattle(EnemyObject enemy, String move) {
 		
 		double enemyHealth = enemy.getHealth();
 		
