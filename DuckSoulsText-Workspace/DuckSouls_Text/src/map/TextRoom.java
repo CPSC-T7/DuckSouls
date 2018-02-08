@@ -1,4 +1,5 @@
 package map;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,8 +14,6 @@ import utils.Utilities;
  * @author Matthew Allwright
  * @requires java.awt.Point
  * @version 1.6.2
- * @deprecated
- *
  */
 public class TextRoom {
 	
