@@ -17,6 +17,10 @@ public class DuckObject {
 	private int				xPosition			= 0;
 	private int				yPosition			= 0;
 	
+	// Convert x/y position into spaces/tabs
+	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
+	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
+	
 	// Player Stats (All fixed values for DEMO 1)
 	// Stats for resetting (Will probably be set through a constructor later)
 	private double			HEALTH_POINTS		= 20;
@@ -38,10 +42,6 @@ public class DuckObject {
 	private int				level				= 1;
 	private int				experience			= 0;
 	private int				money				= 0;
-	
-	// Convert x/y position into spaces/tabs
-	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
-	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
 	private static String	direction			= "Right";	// The direction that the sprite is facing
 
