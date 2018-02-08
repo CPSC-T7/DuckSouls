@@ -2,49 +2,46 @@
  * Defines in game items for use in DuckSouls
  * 
  * @author Cassondra Platel
- * @version 1.2.0
+ * @version 1.2.1
  */
 public class Items {
 
 	//total number of components in each enumeration category
 	//for use in array initializations during setup methods
-	private static int numConsumables = 7;
-	private static int numWeapons = 8;
-	private static int numArmorSets = 1;
+	private static final int NUM_CONSUMABLES = 7;
+	private static final int NUM_WEAPONS = 7;
+	private static final int NUM_ARMOR_SETS = 1;
 
 // ATTRIBUTES
 
-	private String ITEM_NAME;
+	private String itemName;
 
-	private boolean CAN_EQUIP;
-	private boolean CAN_CONSUME;
+	private boolean canEquip;
+	private boolean canConsume;
 
-	private int HEALTH_DAM;
-	private int MANA_DAM;
-	private int ATTACK;
-	private int DEFENSE;
-	private int SPEED;
-	private int ACCURACY;
-	private int CRIT_CHANCE;
-	private int PRICE;
-	private int EFFECT_LENGTH;
+	private int healthDamage;
+	private int manaDamage;
+	private int attack;
+	private int defense;
+	private int speed;
+	private int accuracy;
+	private int critChance;
+	private int price;
 
 
 // ENUMERATORS 
 
-	//(name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,length_of_effect,price)
-
 	//define all consumable items and their associated attributes
 	public enum Consumables {
 
-		//order of values: (name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,length_of_effect,price)
-		BUGS("Bugs",false,true,0,0,0,0,0,0,0,0,0),
-		ET("Useless Game Cartridge",false,true,0,0,0,0,0,0,0,0,0),
-		FISH("Smelly Fish",false,true,0,0,0,0,0,0,0,0,0),
-		FOOD("Rotten Food",false,true,0,0,0,0,0,0,0,0,0),	
-		CRUTON("Soggy Cruton",false,true,0,0,0,0,0,0,0,0,0),
-		ROIDS("Suspicious Liquid",false,true,0,0,0,0,0,0,0,0,0),
-		WAX("Dr.Quakenstein's Wonderous Wing Wax!",false,true,0,0,0,0,0,0,0,0,0);
+		//order of values: (name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,price)
+		BUGS("Bugs",false,true,0,0,0,0,0,0,0,0),
+		ET("Useless Game Cartridge",false,true,0,0,0,0,0,0,0,0),
+		FISH("Smelly Fish",false,true,0,0,0,0,0,0,0,0),
+		FOOD("Rotten Food",false,true,0,0,0,0,0,0,0,0),	
+		CRUTON("Soggy Cruton",false,true,0,0,0,0,0,0,0,0),
+		ROIDS("Suspicious Liquid",false,true,0,0,0,0,0,0,0,0),
+		WAX("Dr.Quakenstein's Wonderous Wing Wax!",false,true,0,0,0,0,0,0,0,0);
 	
 
 		private String ITEM_NAME;
@@ -60,11 +57,10 @@ public class Items {
 		private int ACCURACY;
 		private int CRIT_CHANCE;
 		private int PRICE;
-		private int EFFECT_LENGTH;
 
 
 		Consumables(String ITEM_NAME, boolean CAN_EQUIP, boolean CAN_CONSUME, int HEALTH_DAM, int MANA_DAM,
-					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int EFFECT_LENGTH, int PRICE) {
+					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int PRICE) {
 
 			this.ITEM_NAME = ITEM_NAME;
 
@@ -78,7 +74,6 @@ public class Items {
 			this.SPEED = SPEED;
 			this.ACCURACY = ACCURACY;
 			this.CRIT_CHANCE = CRIT_CHANCE;
-			this.EFFECT_LENGTH = EFFECT_LENGTH;
 			this.PRICE = PRICE;		
 		}
 	}
@@ -86,17 +81,16 @@ public class Items {
 	//define all weapons and their associated attributes
 	public enum Weapons {
 		
-		//order of values: (name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,length_of_effect,price)
-		BARE_HANDS("Unarmed",true,false,0,0,0,0,0,0,0,0,0),
-		DAGGERS("Bugs",true,false,0,0,0,0,0,0,0,0,0),
-		KNIVES("Bugs",true,false,0,0,0,0,0,0,0,0,0),
-		BOW("Bugs",true,false,0,0,0,0,0,0,0,0,0),
+		//order of values: (name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,price)
+		DAGGERS("Pointy Sticks",true,false,0,0,0,0,0,0,0,0),
+		KNIVES("Used Toothpicks",true,false,0,0,0,0,0,0,0,0),
+		BOW("Pew Pew",true,false,0,0,0,0,0,0,0,0),
 		
-		SWORD_SHIELD("Bugs",true,false,0,0,0,0,0,0,0,0,0),
-		BIG_SWORD("Bugs",true,false,0,0,0,0,0,0,0,0,0),
-		DUAL_WIELD("Bugs",true,false,0,0,0,0,0,0,0,0,0),
+		SWORD_SHIELD("",true,false,0,0,0,0,0,0,0,0),
+		BIG_SWORD("",true,false,0,0,0,0,0,0,0,0),
+		DUAL_WIELD("Bugs",true,false,0,0,0,0,0,0,0,0),
 
-		STAFF("name",true,false,0,0,0,0,0,0,0,0,0);
+		STAFF("Magic Pew Pew",true,false,0,0,0,0,0,0,0,0);
 
 
 		private String ITEM_NAME;
@@ -112,11 +106,10 @@ public class Items {
 		private int ACCURACY;
 		private int CRIT_CHANCE;
 		private int PRICE;
-		private int EFFECT_LENGTH;
 
 
 		Weapons(String ITEM_NAME, boolean CAN_EQUIP, boolean CAN_CONSUME, int HEALTH_DAM, int MANA_DAM,
-					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int EFFECT_LENGTH, int PRICE) {
+					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int PRICE) {
 
 			this.ITEM_NAME = ITEM_NAME;
 
@@ -130,7 +123,6 @@ public class Items {
 			this.SPEED = SPEED;
 			this.ACCURACY = ACCURACY;
 			this.CRIT_CHANCE = CRIT_CHANCE;
-			this.EFFECT_LENGTH = EFFECT_LENGTH;
 			this.PRICE = PRICE;		
 		}
 	}
@@ -138,8 +130,8 @@ public class Items {
 	//define all armor sets and their associated attributes
 	public enum Armor {
 		
-		//order of values: (name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,length_of_effect,price)
-		MAGE_ROBE("Magic Threads",true,false,0,0,0,0,0,0,0,0,0);
+		//order of values: (name,can_equip,can_consume,hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,price)
+		MAGE_ROBE("Magic Threads",true,false,0,0,0,0,0,0,0,0);
 
 
 		private String ITEM_NAME;
@@ -155,11 +147,10 @@ public class Items {
 		private int ACCURACY;
 		private int CRIT_CHANCE;
 		private int PRICE;
-		private int EFFECT_LENGTH;
 
 
 		Armor(String ITEM_NAME, boolean CAN_EQUIP, boolean CAN_CONSUME, int HEALTH_DAM, int MANA_DAM,
-					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int EFFECT_LENGTH, int PRICE) {
+					int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int PRICE) {
 
 			this.ITEM_NAME = ITEM_NAME;
 
@@ -173,7 +164,6 @@ public class Items {
 			this.SPEED = SPEED;
 			this.ACCURACY = ACCURACY;
 			this.CRIT_CHANCE = CRIT_CHANCE;
-			this.EFFECT_LENGTH = EFFECT_LENGTH;
 			this.PRICE = PRICE;		
 		}
 	}
@@ -181,7 +171,7 @@ public class Items {
 
 // METHODS
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 
 		Items test = new Items();
 
@@ -190,9 +180,9 @@ public class Items {
 		for(int index = 0; index < allConsumableItems.length;index++){
 
 			Items testArray = allConsumableItems[index];
-			System.out.println(testArray.ITEM_NAME);
-			System.out.println(testArray.CAN_EQUIP);
-			System.out.println(testArray.CAN_CONSUME);
+			System.out.println(testArray.itemName);
+			System.out.println(testArray.canEquip);
+			System.out.println(testArray.canConsume);
 		}
 		
 		Items[] allWeapons = test.setupWeapons();
@@ -200,9 +190,9 @@ public class Items {
 		for(int index = 0; index < allWeapons.length;index++){
 
 			Items testArray = allWeapons[index];
-			System.out.println(testArray.ITEM_NAME);
-			System.out.println(testArray.CAN_EQUIP);
-			System.out.println(testArray.CAN_CONSUME);
+			System.out.println(testArray.itemName);
+			System.out.println(testArray.canEquip);
+			System.out.println(testArray.canConsume);
 		}
 	
 		Items[] allArmorSets = test.setupArmorSets();
@@ -210,11 +200,11 @@ public class Items {
 		for(int index = 0; index < allArmorSets.length;index++){
 
 			Items testArray = allArmorSets[index];
-			System.out.println(testArray.ITEM_NAME);
-			System.out.println(testArray.CAN_EQUIP);
-			System.out.println(testArray.CAN_CONSUME);
+			System.out.println(testArray.itemName);
+			System.out.println(testArray.canEquip);
+			System.out.println(testArray.canConsume);
 		}
-	}*/
+	}
 
 	/**
 	 * Returns all in game consumable items.
@@ -225,7 +215,7 @@ public class Items {
 	 */
 	public Items[] setupConsumableItems() {
 		
-		Items[] allConsumableItems = new Items[numConsumables];
+		Items[] allConsumableItems = new Items[NUM_CONSUMABLES];
 
 		int index = 0;
 
@@ -233,19 +223,18 @@ public class Items {
 			
 			Items newItem = new Items();
 
-			newItem.ITEM_NAME = item.ITEM_NAME;
-			newItem.CAN_EQUIP = item.CAN_EQUIP;
-			newItem.CAN_CONSUME = item.CAN_CONSUME;
+			newItem.itemName = item.ITEM_NAME;
+			newItem.canEquip = item.CAN_EQUIP;
+			newItem.canConsume = item.CAN_CONSUME;
 
-			newItem.HEALTH_DAM = item.HEALTH_DAM;
-			newItem.MANA_DAM = item.MANA_DAM;
-			newItem.ATTACK = item.ATTACK;
-			newItem.DEFENSE = item.DEFENSE;
-			newItem.SPEED = item.SPEED;
-			newItem.ACCURACY = item.ACCURACY;
-			newItem.CRIT_CHANCE = item.CRIT_CHANCE;
-			newItem.PRICE = item.PRICE;
-			newItem.EFFECT_LENGTH = item.EFFECT_LENGTH;
+			newItem.healthDamage = item.HEALTH_DAM;
+			newItem.manaDamage = item.MANA_DAM;
+			newItem.attack = item.ATTACK;
+			newItem.defense = item.DEFENSE;
+			newItem.speed = item.SPEED;
+			newItem.accuracy = item.ACCURACY;
+			newItem.critChance = item.CRIT_CHANCE;
+			newItem.price = item.PRICE;
 
 			allConsumableItems[index] = newItem;
 			index++;
@@ -262,7 +251,7 @@ public class Items {
 	 */
 	public Items[] setupWeapons() {
 		
-		Items[] allWeapons = new Items[numWeapons];
+		Items[] allWeapons = new Items[NUM_WEAPONS];
 
 		int index = 0;
 
@@ -270,19 +259,18 @@ public class Items {
 			
 			Items newItem = new Items();
 
-			newItem.ITEM_NAME = item.ITEM_NAME;
-			newItem.CAN_EQUIP = item.CAN_EQUIP;
-			newItem.CAN_CONSUME = item.CAN_CONSUME;
+			newItem.itemName = item.ITEM_NAME;
+			newItem.canEquip = item.CAN_EQUIP;
+			newItem.canConsume = item.CAN_CONSUME;
 
-			newItem.HEALTH_DAM = item.HEALTH_DAM;
-			newItem.MANA_DAM = item.MANA_DAM;
-			newItem.ATTACK = item.ATTACK;
-			newItem.DEFENSE = item.DEFENSE;
-			newItem.SPEED = item.SPEED;
-			newItem.ACCURACY = item.ACCURACY;
-			newItem.CRIT_CHANCE = item.CRIT_CHANCE;
-			newItem.PRICE = item.PRICE;
-			newItem.EFFECT_LENGTH = item.EFFECT_LENGTH;
+			newItem.healthDamage = item.HEALTH_DAM;
+			newItem.manaDamage = item.MANA_DAM;
+			newItem.attack = item.ATTACK;
+			newItem.defense = item.DEFENSE;
+			newItem.speed = item.SPEED;
+			newItem.accuracy = item.ACCURACY;
+			newItem.critChance = item.CRIT_CHANCE;
+			newItem.price = item.PRICE;
 
 			allWeapons[index] = newItem;
 			index++;
@@ -299,7 +287,7 @@ public class Items {
 	 */
 	public Items[] setupArmorSets() {
 		
-		Items[] allArmorSets = new Items[numArmorSets];
+		Items[] allArmorSets = new Items[NUM_ARMOR_SETS];
 
 		int index = 0;
 
@@ -307,19 +295,18 @@ public class Items {
 			
 			Items newItem = new Items();
 
-			newItem.ITEM_NAME = item.ITEM_NAME;
-			newItem.CAN_EQUIP = item.CAN_EQUIP;
-			newItem.CAN_CONSUME = item.CAN_CONSUME;
+			newItem.itemName = item.ITEM_NAME;
+			newItem.canEquip = item.CAN_EQUIP;
+			newItem.canConsume = item.CAN_CONSUME;
 
-			newItem.HEALTH_DAM = item.HEALTH_DAM;
-			newItem.MANA_DAM = item.MANA_DAM;
-			newItem.ATTACK = item.ATTACK;
-			newItem.DEFENSE = item.DEFENSE;
-			newItem.SPEED = item.SPEED;
-			newItem.ACCURACY = item.ACCURACY;
-			newItem.CRIT_CHANCE = item.CRIT_CHANCE;
-			newItem.PRICE = item.PRICE;
-			newItem.EFFECT_LENGTH = item.EFFECT_LENGTH;
+			newItem.healthDamage = item.HEALTH_DAM;
+			newItem.manaDamage = item.MANA_DAM;
+			newItem.attack = item.ATTACK;
+			newItem.defense = item.DEFENSE;
+			newItem.speed = item.SPEED;
+			newItem.accuracy = item.ACCURACY;
+			newItem.critChance = item.CRIT_CHANCE;
+			newItem.price = item.PRICE;
 
 			allArmorSets[index] = newItem;
 			index++;
