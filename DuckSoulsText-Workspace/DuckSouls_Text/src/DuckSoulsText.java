@@ -1,14 +1,9 @@
 import ui.TitleScreen;
 import utils.Utilities;
 import map.Map;
-<<<<<<< HEAD
 
-import java.util.Scanner;
-
-=======
 import map.Mapfile;
 import map.TextRoom;
->>>>>>> 048132000dfe9a680749efcca51a143059497728
 import battle.BattleWorldTest;
 import battle.DuckObject;
 
@@ -54,7 +49,6 @@ public class DuckSoulsText {
 		System.out.println("Post-Loop Done.");
 
 		System.out.println("Cleanup Starting...");
-		keyboard.close();
 		cleanup();
 		System.out.println("Cleanup Done.");
 
