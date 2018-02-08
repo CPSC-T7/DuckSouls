@@ -17,4 +17,5 @@
 <fullyQualifiedTypeName name="Utilities"/>
 <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="ui.TitleScreen"/>
 </qualifiedTypeNameHistroy>

@@ -1,6 +1,4 @@
 package battle;
-
-//IOException for use with CMD in Windows
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,23 +10,20 @@ import java.util.Random;
 /**
  * 
  * @author Wylee McAndrews
- * @author add name if modified
  * @author Rahmanta Satriana
  */
 public class DuckObject {
 	
-	// Public Variables
-	
-	// Current Sprite
-	public String			sprite				= "stand";
-	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
-	public int				xPosition			= 0;
-	public int				yPosition			= 0;
+
 	
 	// Private Variables
 	
-	// Player Stats, it's fixed for DEMO 1
-	// Stats for resetting (actual stats)
+	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
+	private int				xPosition			= 0;
+	private int				yPosition			= 0;
+	
+	// Player Stats (All fixed values for DEMO 1)
+	// Stats for resetting (Will probably be set through a constructor later)
 	private double			HEALTH_POINTS		= 20;
 	private double			MANA_POINTS			= 15;
 	private double			ATTACK_POINTS		= 5;
@@ -37,7 +32,7 @@ public class DuckObject {
 	private double			ACCURACY_POINTS		= 70;
 	private double			CRITICAL_HIT_POINTS	= 16;
 	
-	// Stats used in battle
+	// Stats that will change during the battle
 	private double			healthPoints		= 20;
 	private double			manaPoints			= 15;
 	private double			attackPoints		= 5;
@@ -45,18 +40,17 @@ public class DuckObject {
 	private double			speedPoints			= 5;
 	private double			accuracyPoints		= 70;
 	private double			criticalHitPoints	= 16;
-	
 	private int				level				= 1;
 	private int				experience			= 0;
 	private int				money				= 0;
 	
-	// x/y padding: Converts x/y position into spaces/tabs
+	// Convert x/y position into spaces/tabs
 	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
 	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
-	// The direction that the sprite is facing
-	private static String	direction			= "Right";
-	// Get user input
-	private static Scanner	scanner				= new Scanner(System.in);
+	
+	private static String	direction			= "Right";	// The direction that the sprite is facing
+
+	private static Scanner	scanner				= new Scanner(System.in);	// Scanner to get user input
 	
 	public static void main(String[] args) {
 		
@@ -67,7 +61,6 @@ public class DuckObject {
 	 * 
 	 * @param duckSprite
 	 *            The sprite to print.
-	 * @throws FileNotFoundException
 	 */
 	
 	public void getSprite(String duckSprite) {
@@ -131,8 +124,6 @@ public class DuckObject {
 	 * @param enemy
 	 *            ======= >>>>>>> master
 	 * 
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	
 	public boolean playerMove(EnemyObject enemy) {
@@ -171,8 +162,6 @@ public class DuckObject {
 	 * 
 	 * @param enemy
 	 * 
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	public void quack(EnemyObject enemy) {
 		
@@ -199,8 +188,6 @@ public class DuckObject {
 	 * @param xDirection
 	 * @param yDirection
 	 * @param enemy
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	public void run(int numTimes, int xDirection, int yDirection, EnemyObject enemy) {
 		if (xDirection == 1) {
@@ -235,8 +222,6 @@ public class DuckObject {
 	/**
 	 * 
 	 * @param enemy
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	public void attack(EnemyObject enemy) {
 		
@@ -301,8 +286,6 @@ public class DuckObject {
 	 * 
 	 * @param enemy
 	 * @param numTimes
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	public void peck(EnemyObject enemy, int numTimes) {
 		
@@ -329,8 +312,6 @@ public class DuckObject {
 	/**
 	 * 
 	 * @param enemy
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	public void taunt(EnemyObject enemy) {
 		
@@ -381,9 +362,6 @@ public class DuckObject {
 	 * @param enemy
 	 * @param move
 	 * 
-	 * @throws IOException
-	 * @throws InterruptedException
-	 * @throws FileNotFoundException
 	 */
 	
 	private boolean finishBattle(EnemyObject enemy, String move) {

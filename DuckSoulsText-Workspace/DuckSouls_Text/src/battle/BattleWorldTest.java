@@ -3,17 +3,19 @@ package battle;
 import utils.Utilities;
 
 /**
+ * Called when the player walks over an enemy tile, this class prints
+ * a battle screen where the player can fight an enemy. The loop will allow
+ * the player to attack, heal, defend, etc first, and then the enemy. The loop ends
+ * when either the player or enemy dies.
  * 
- * |||REMEMBER||| For animations to work properly, use the console to run the
- * program. If you are just testing, maximizing the eclipse console (or other)
- * will still work.
+ * For animations to work properly, use the OS console to run the
+ * program (Unless on an Apple device).
  * 
  * @author Wylee McAndrews
  * @author Rahmanta Satriana
- * @author add name if modified
  */
 public class BattleWorldTest {
-	
+	//Create player and enemy objects.
 	private static DuckObject	Player	= new DuckObject();
 	private static EnemyObject	Enemy	= new EnemyObject("Rat");
 	
@@ -30,8 +32,7 @@ public class BattleWorldTest {
 	
 	public static void battleLoop() {
 		
-		boolean inBattle;
-		inBattle = true;
+		boolean inBattle = true;
 		
 		while (inBattle) {
 			drawSprites();

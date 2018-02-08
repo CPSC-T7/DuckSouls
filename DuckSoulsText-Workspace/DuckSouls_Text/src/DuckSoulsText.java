@@ -1,3 +1,4 @@
+import ui.TitleScreen;
 
 /**
  * The main class to play DuckSouls.
@@ -26,7 +27,7 @@ public class DuckSoulsText {
 		System.out.println("======== Duck Souls ========");
 		
 		
-		System.out.println("Initialization Starting...");
+		System.out.println("Initialization Starting...");s
 		initialize();
 		System.out.println("Initialization Done.");
 		
@@ -54,6 +55,7 @@ public class DuckSoulsText {
 	private static void initialize() {
 		
 		// TODO: Initialization
+		TitleScreen.menu();
 		
 	}
 	
