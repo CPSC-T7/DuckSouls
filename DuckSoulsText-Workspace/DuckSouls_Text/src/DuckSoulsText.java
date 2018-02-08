@@ -1,7 +1,14 @@
 import ui.TitleScreen;
+import utils.Utilities;
 import map.Map;
+<<<<<<< HEAD
+
+import java.util.Scanner;
+
+=======
 import map.Mapfile;
 import map.TextRoom;
+>>>>>>> 048132000dfe9a680749efcca51a143059497728
 import battle.BattleWorldTest;
 import battle.DuckObject;
 
@@ -26,17 +33,20 @@ public class DuckSoulsText {
 	 *
 	 * @param args Not used.
 	 */
+
+
 	public static void main(String[] args) {
 
 		//Start the game on the title menu
-		initialize();
+		Map map = new Map();
+		initialize(map);
 
 		System.out.println("Pre-Loop Staring...");
 		preLoop();
 		System.out.println("Pre-Loop Done.");
 
 		System.out.println("Game Loop Starting...");
-		loop();
+		loop(map);
 		System.out.println("Game Loop Done.");
 
 		System.out.println("Post-Loop Starting...");
@@ -44,6 +54,7 @@ public class DuckSoulsText {
 		System.out.println("Post-Loop Done.");
 
 		System.out.println("Cleanup Starting...");
+		keyboard.close();
 		cleanup();
 		System.out.println("Cleanup Done.");
 
@@ -53,10 +64,8 @@ public class DuckSoulsText {
 	/**
 	 * Initializes all game components.
 	 */
-	private static void initialize() {
-		Map map = new Map();
-		map.initialize(0,2);
-		TitleScreen.displayMenu();
+	private static void initialize(Map map) {
+		map.initalization(0,2);
 
 	}
 
@@ -72,12 +81,13 @@ public class DuckSoulsText {
 	/**
 	 * Runs what needs to be continuously run for the game to work.
 	 */
-	private static void loop() {
+	private static void loop(Map map) {
+		TitleScreen.displayMenu();
 		boolean battleDone = false;
 		do {
 			Utilities.clearConsole();
-			map1.turnLoop();
-			if(map1.isEnemyNear()){
+			map.turnLoop();
+			if(map.isEnemyNear()){
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop();
 				battleDone = true;
@@ -102,12 +112,12 @@ public class DuckSoulsText {
 	private static void cleanup() {
 
 		// TODO: Cleanup
-		
+
 		DuckObject.cleanup();
 		Mapfile.cleanup();
 		TextRoom.cleanup();
 		TitleScreen.cleanup();
-		
+
 
 	}
 
