@@ -54,6 +54,9 @@ public class BattleWorldTest {
 			drawSprites();
 			Utilities.waitMilliseconds(10);
 			
+			//Tell the player when to make a move
+			System.out.print("\nEnter a move: ");
+			
 			//Player moves, then becomes True if the enemy is still alive or False if the enemy dies
 			inBattle = Player.playerMove(Enemy);
 			

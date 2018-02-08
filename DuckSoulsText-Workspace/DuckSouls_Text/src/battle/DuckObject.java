@@ -138,7 +138,10 @@ public class DuckObject {
 				selection = false;
 			} else if (move.contains("fly")) {
 				selection = false;
-			} else {
+			} else if (move.contains("help")) {
+				System.out.println(" 'attack', 'taunt', 'quack': ");
+				System.out.print("\nEnter a move: ");
+			}else {
 				System.out.println("That is not a valid command.");
 			}
 		}
