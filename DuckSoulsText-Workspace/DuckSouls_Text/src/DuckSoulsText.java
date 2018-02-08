@@ -1,6 +1,9 @@
 import ui.TitleScreen;
 import map.Map;
+import map.Mapfile;
+import map.TextRoom;
 import battle.BattleWorldTest;
+import battle.DuckObject;
 
 /**
  * The main class to play DuckSouls.
@@ -99,6 +102,12 @@ public class DuckSoulsText {
 	private static void cleanup() {
 
 		// TODO: Cleanup
+		
+		DuckObject.cleanup();
+		Mapfile.cleanup();
+		TextRoom.cleanup();
+		TitleScreen.cleanup();
+		
 
 	}
 

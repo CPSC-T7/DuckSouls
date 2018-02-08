@@ -11,8 +11,6 @@ import java.util.Random;
  */
 public class DuckObject {
 	
-
-	
 	// Private Variables
 	
 	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
@@ -442,6 +440,10 @@ public class DuckObject {
 			
 		}
 		
+	}
+	
+	public static void cleanup() {
+		scanner.close();
 	}
 	
 	public double getDefence() {

@@ -8,7 +8,7 @@ public class Mapfile {
 	private int size;
 	private ArrayList<ArrayList<String>> map = new ArrayList<ArrayList<String>>(0);
 
-	Scanner inputStream = null;
+	private static Scanner inputStream = null;
 
 	public Mapfile(String fileName) {
 		int lineCount = 0;
@@ -32,7 +32,6 @@ public class Mapfile {
 			} // end of else block
 			lineCount += 1;
 		} // end of while block
-		inputStream.close();
 	}// end of constructor
 
 	public void print() {
@@ -66,6 +65,10 @@ public class Mapfile {
 		}//end of outer for loop
 		return does;
 	}//end of mapContainsPlayer method
+	
+	public static void cleanup() {
+		inputStream.close();
+	}
 
 
 }// end of class

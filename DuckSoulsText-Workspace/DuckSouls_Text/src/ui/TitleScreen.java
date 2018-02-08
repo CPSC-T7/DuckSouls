@@ -44,8 +44,11 @@ public class TitleScreen {
 		// Wait for the user to press enter to continue, then clear the console
 		scanner.nextLine();
 		Utilities.clearConsole();
-		scanner.close();	//Close scanner input
 		
+	}
+	
+	public static void cleanup() {
+		scanner.close();
 	}
 	
 }

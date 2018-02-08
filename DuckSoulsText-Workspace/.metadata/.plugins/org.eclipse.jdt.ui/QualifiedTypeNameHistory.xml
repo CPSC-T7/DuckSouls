@@ -17,5 +17,8 @@
 <fullyQualifiedTypeName name="Utilities"/>
 <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="battle.DuckObject"/>
+<fullyQualifiedTypeName name="map.Mapfile"/>
+<fullyQualifiedTypeName name="map.TextRoom"/>
 <fullyQualifiedTypeName name="ui.TitleScreen"/>
 </qualifiedTypeNameHistroy>

@@ -34,6 +34,8 @@ public class TextRoom {
 	 * 
 	 */
 	
+	private static Scanner _scanner = new Scanner(System.in);
+	
 	public static enum Tile {
 		
 		// Doors
@@ -447,7 +449,6 @@ public class TextRoom {
 	 */
 	public void moveLoop() {
 		
-		Scanner _scanner = new Scanner(System.in);
 		String input;
 		
 		while (true) {
@@ -483,7 +484,6 @@ public class TextRoom {
 				
 				case "EXIT":
 					this.saveToTextFile();
-					_scanner.close();
 					break;
 				
 				default:
@@ -519,6 +519,10 @@ public class TextRoom {
 		
 		Utilities.writeFile(fileName, lines);
 		
+	}
+	
+	public static void cleanup() {
+		_scanner.close();
 	}
 	
 }
