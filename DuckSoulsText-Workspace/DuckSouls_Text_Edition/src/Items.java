@@ -171,7 +171,7 @@ public class Items {
 
 // METHODS
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		Items test = new Items();
 
@@ -204,7 +204,7 @@ public class Items {
 			System.out.println(testArray.canEquip);
 			System.out.println(testArray.canConsume);
 		}
-	}
+	}*/
 
 	/**
 	 * Returns all in game consumable items.
