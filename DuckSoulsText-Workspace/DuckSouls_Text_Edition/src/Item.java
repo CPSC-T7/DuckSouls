@@ -2,7 +2,15 @@
  * Defines in game items and allows user to use those items in DuckSouls.
  * 
  * @author Cassondra Platel
- * @version 2.0.0
+ * @version 2.0.1
+ *
+ *TO DO:	set stats for each item
+ *			add private updateStat() method that gets/sets stats --> switch statement? should reduce code duplication found in useItem()
+ *			add public hasWeapon,weaponName,hasArmor,armorName to Duck_Object.java
+ *			add getStat() and setStat to Duck_Object.java --> switch statements
+ *			Create Inventory parent with Store and Player child classes --> add updateInventory() to reflect using/buying a consumable item
+ *			test useItem() at runtime
+ *			
  */
 import java.util.ArrayList;
 
@@ -30,7 +38,7 @@ public class Item {
 
 // ENUMERATOR 
 
-	//define all consumable items and their associated attributes
+	//define all items and their associated attributes
 	public enum Items {
 
 		/*order of values: (name,can_consume,is_weapon,is_armor,
@@ -178,7 +186,7 @@ public class Item {
 	 * @param player
 	 *			Player instance
 	 */
-	public void useItem(/*Player player,*/String name){
+	public void useItem(/*Duck_Object player,*/String name){
 
 		//determine correct Item object
 		int index = getIndex(name);
@@ -210,38 +218,91 @@ public class Item {
 			
 			//not trying to replace current equipped items
 			else {
-				break //check failed, do not update with removal
+				break; //check failed, do not update with removal
 			}
 
-			//check passed, update stats with removal of wearable item
-			player.damage -= wearableItem.healthDamage;
-			player.defense -= wearableItem.defense;
-			player.speed -= wearableItem.speed;
-			player.accuracy -= wearableItem.accuracy;	
+			//check passed, update stats with removal of current wearable item
+			int currentValue = player.getStats(attack);
+			int newValue = (currentValue -= wearableItem.attack);
+			player.setStats(attack,newValue);
+			
+			currentValue = player.getStats(defense);
+			newValue = (currentValue -= wearableItem.defense);
+			player.setStats(defense,newValue);
+
+			currentValue = player.getStats(speed);
+			newValue = (currentValue -= wearableItem.speed);
+			player.setStats(speed,newValue);
+
+			currentValue = player.getStats(accuracy);
+			newValue = (currentValue -= wearableItem.accuracy);
+			player.setStats(accuracy,newValue);
 		}
 
-		//Update player stats based off item type
+		//Update player stats, dependent on item type
 		if (item.canConsume == true){
-			player.health += item.healthDamage;
-			player.mana += item.manaDamage;
-			player.attack += item.attack;
-			player.defense += item.defense;
-			player.speed += item.speed;
-			player.accuracy += item.accuracy;
-			player.critChance += item.critChance;
+			
+			int currentValue = player.getStats("healthPoints");
+			int newValue = (currentValue += item.healthDamage);
+			player.setStats(health,newValue);
+
+			int currentValue = player.getStats("manaPoints");
+			int newValue = (currentValue += item.manaDamage);
+			player.setStats(mana,newValue);
+
+			int currentValue = player.getStats("attack");
+			int newValue = (currentValue += item.attack);
+			player.setStats(attack,newValue);
+			
+			int currentValue = player.getStats("defense");
+			int newValue = (currentValue += item.defense);
+			player.setStats(defense,newValue);
+
+			int currentValue = player.getStats("speed");
+			int newValue = (currentValue += item.speed);
+			player.setStats(speed,newValue);
+
+			int currentValue = player.getStats("accuracy");
+			int newValue = (currentValue += item.accuracy);
+			player.setStats(accuracy,newValue);
+
+			int currentValue = player.getStats("crit");
+			int newValue = (currentValue += item.critChance);
+			player.setStats(crit,newValue);
+
 			updateBackpack(item);
 		
 		} else if(item.isWeapon == true){
 			player.hasWeapon = true;
-			player.weaponName = item.itemName;
-			player.damage += item.healthDamage;
-		
+			player.weaponName = item.itemName; //need to make a new string object
+			
+			int currentValue = player.getStats(attack);
+			int newValue = (currentValue += item.attack);
+			player.setStats(attack,newValue);
+			
+			int currentValue = player.getStats(defense);
+			int newValue = (currentValue += item.defense);
+			player.setStats(defense,newValue);
+			
+			int currentValue = player.getStats(crit);
+			int newValue = (currentValue += item.critChance);
+			player.setStats(crit,newValue);
+
 		} else {
 			player.hasArmor = true;
-			player.armorName = item.itemName;
-			player.defense += item.defense;
-			player.speed += item.speed;
-			player.accuracy += item.accuracy;
+			player.armorName = item.itemName; //need to make a new string object
+			
+			int currentValue = player.getStats(defense);
+			int newValue = (currentValue += item.defense);
+			player.setStats(defense,newValue);
+
+			int currentValue = player.getStats(speed);
+			int newValue = (currentValue += item.speed);
+			player.setStats(speed,newValue);
+
+			int currentValue = player.getStats(accuracy);
+			int newValue = (currentValue += item.accuracy);
+			player.setStats(accuracy,newValue);
 		}*/
 	}//End of useItem method
 
