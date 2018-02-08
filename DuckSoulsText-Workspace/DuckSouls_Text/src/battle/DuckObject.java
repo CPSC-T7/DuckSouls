@@ -1,10 +1,7 @@
 package battle;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.Scanner;
-
 import utils.Utilities;
-
 import java.util.Random;
 
 /**
@@ -70,9 +67,9 @@ public class DuckObject {
 		
 		// Select the sprite frame to return based on method argument "duckSprite"
 		switch (duckSprite) {
+		
 			case ("fight"):
 				Utilities.printSprite("UI/Banner/fight", "", "");
-				;
 				break;
 			
 			case ("stand"):
@@ -119,17 +116,13 @@ public class DuckObject {
 	}// End of getSprite
 	
 	/**
-	 * Gets information on which move to make from the user. <<<<<<< HEAD
+	 * Gets information on which move to make from the user.
 	 * 
 	 * @param enemy
-	 *            ======= >>>>>>> master
-	 * 
 	 */
-	
 	public boolean playerMove(EnemyObject enemy) {
 		
-		boolean selection;
-		selection = true;
+		boolean selection = true;
 		String move = "";
 		
 		while (selection) {
@@ -170,13 +163,12 @@ public class DuckObject {
 		getSprite("fight");
 		enemy.getSprite("stand");
 		getSprite("quack");
-		System.out.println("You quacked at the enemy...");
 		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
 		
 		getSprite("fight");
 		enemy.getSprite("stand");
-		getSprite("attack");
+		getSprite("stand");
 		System.out.println("That move did absolutely nothing!");
 		Utilities.waitMilliseconds(1000);
 		Utilities.clearConsole();
@@ -214,7 +206,6 @@ public class DuckObject {
 			Utilities.waitMilliseconds(20);
 			xPosition += xDirection;
 			yPosition += yDirection;
-			Utilities.clearConsole();
 		}
 		
 	}// End of run
@@ -254,33 +245,41 @@ public class DuckObject {
 			enemy.setHealth(Math.round(newHealth));
 		}
 		
-		System.out.println("You attacked the enemy...");
+		//Wait for half a second before attacking
 		Utilities.waitMilliseconds(500);
 		
+		//Run to the enemy, attack, then run back and turn around
 		run(13, +1, 0, enemy);
 		peck(enemy, 1);
 		run(13, -1, 0, enemy);
 		run(0, +1, 0, enemy);	
-		//enemy.enemyMove(this ,"taunt");
 		
-		
+		//Enemy flinches
 		enemy.flinch(this);
 		
+		//If the hit was unsuccessful, tell the player
 		if (!landed) {
+
 			System.out.println("You missed!");
-		}
 		
-		else if (landed) {
+		//If the hit was successful, take damage from the enemy and tell the player
+		}else if (landed) {
+			
 			if (critical) {
+				
 				System.out.println("It's a critical hit!");
 			}
+			
 			System.out.print("You dealt ");
 			System.out.print(Math.round(damage));
-			System.out.println(" damage to the enemy!");
+			System.out.print(" damage to the enemy!");
 		}
-		Utilities.waitMilliseconds(2000);
 		
-	}
+		//Wait before clearing the console
+		Utilities.waitMilliseconds(2000);
+		Utilities.clearConsole();
+		
+	}//End of attack
 	
 	/**
 	 * 
@@ -303,8 +302,6 @@ public class DuckObject {
 			enemy.getSprite("hurt");
 			getSprite("attack2");
 			Utilities.waitMilliseconds(400);
-			Utilities.clearConsole();
-			
 		}
 		
 	}// End of peck
@@ -327,22 +324,19 @@ public class DuckObject {
 			getSprite("fight");
 			enemy.getSprite("stand");
 			getSprite("stand");
-			System.out.println("You taunted the enemy...");
 			Utilities.waitMilliseconds(100);
 			Utilities.clearConsole();
 			
 			getSprite("fight");
 			enemy.getSprite("stand");
 			getSprite("taunt");
-			System.out.println("You taunted the enemy...");
-			Utilities.waitMilliseconds(100);
-			Utilities.clearConsole();
-			
+			Utilities.waitMilliseconds(100);	
 		}
 		
 		System.out.println("The enemy's attack has increased!");
 		System.out.println("The enemy's defence has decreased!");
 		Utilities.waitMilliseconds(2000);
+		Utilities.clearConsole();
 	}// End of taunt
 	
 	public void resetStats() {
@@ -369,48 +363,62 @@ public class DuckObject {
 		double enemyHealth = enemy.getHealth();
 		
 		if (move.equals("fly")) {
+			
 			System.out.println("You flew away from battle...");
 			resetStats();
 			enemy.resetStats();
 			System.out.println("The battle has ended.");
 			Utilities.waitMilliseconds(1200);
+			
 			return false;
 		}
 		
 		else if (enemyHealth <= 0) {
+			
 			Utilities.clearConsole();
+			getSprite("fight");
 			enemy.getSprite("dead");
 			getSprite("quack");
 			System.out.println("You have beaten the enemy!");
+			
 			int gainedXP = enemy.getXP();
 			int gainedMoney = enemy.getMoney();
 			experience += gainedXP;
+			
 			System.out.print("You have gained ");
 			System.out.print(gainedXP);
 			System.out.println(" experience points!");
 			Utilities.waitMilliseconds(800);
+			
 			money += gainedMoney;
 			System.out.print("You have gained ");
 			System.out.print(gainedMoney);
 			System.out.println(" moneys!");
 			Utilities.waitMilliseconds(800);
+			
 			levelUp();
 			resetStats();
 			enemy.resetStats();
 			System.out.println("The battle has ended.");
 			Utilities.waitMilliseconds(1200);
+			
 			return false;
 		}
 		
+		//If the enemy is still alive
 		else {
 			return true;
 		}
 		
 	}
 	
+	/**
+	 * Level up the player and increase their stats as a reward.
+	 */
 	private void levelUp() {
 		
 		if (experience >= 50) {
+			
 			level += 1;
 			experience -= 50;
 			HEALTH_POINTS += 2;
@@ -420,13 +428,17 @@ public class DuckObject {
 			SPEED_POINTS += 1;
 			ACCURACY_POINTS += 1;
 			CRITICAL_HIT_POINTS += 1;
+			
 			System.out.println("You have levelled up!");
 			Utilities.waitMilliseconds(800);
+			
 			System.out.print("You are now level ");
 			System.out.println(level);
 			Utilities.waitMilliseconds(800);
+			
 			System.out.println("Your stats have gone up!");
 			Utilities.waitMilliseconds(800);
+			Utilities.clearConsole();
 			
 		}
 		
@@ -465,7 +477,6 @@ public class DuckObject {
 	 * @param newValue
 	 *
 	 */
-	
 	public void setDefence(double newValue) {
 		defencePoints = newValue;
 	}

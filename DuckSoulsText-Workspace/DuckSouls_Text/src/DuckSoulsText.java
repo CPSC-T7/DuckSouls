@@ -23,16 +23,8 @@ public class DuckSoulsText {
 	 */
 	public static void main(String[] args) {
 		
-		System.out.println("======== Duck Souls ========");
-		
-<<<<<<< HEAD
-		
-		System.out.println("Initialization Starting...");s
-=======
-		System.out.println("Initialization Starting...");
->>>>>>> 13706e6bf131ec656fec7b8d27ae80fdbb64e209
+		//Start the game on the title menu
 		initialize();
-		System.out.println("Initialization Done.");
 		
 		System.out.println("Pre-Loop Staring...");
 		preLoop();
@@ -58,8 +50,7 @@ public class DuckSoulsText {
 	 */
 	private static void initialize() {
 		
-		// TODO: Initialization
-		TitleScreen.menu();
+		TitleScreen.displayMenu();
 		
 	}
 	

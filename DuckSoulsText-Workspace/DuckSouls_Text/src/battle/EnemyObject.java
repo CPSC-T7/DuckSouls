@@ -24,7 +24,7 @@ public class EnemyObject {
 	
 	/** Private Variables */
 	
-	// Enemy Stats
+	// Enemy Default Stats
 	final private double	HEALTH_POINTS		= 10;
 	final private double	MANA_POINTS			= 15;
 	final private double	ATTACK_POINTS		= 5;
@@ -33,6 +33,7 @@ public class EnemyObject {
 	final private double	ACCURACY_POINTS		= 70;
 	final private double	CRITICAL_HIT_POINTS	= 16;
 	
+	// Enemy Battle Stats (will change with the game)
 	private double			healthPoints		= 10;
 	private double			manaPoints			= 15;
 	private double			attackPoints		= 5;
@@ -41,19 +42,17 @@ public class EnemyObject {
 	private double			accuracyPoints		= 70;
 	private double			criticalHitPoints	= 16;
 	
+	//Amount of XP and Money to give the player uppon death
 	private int				giveXP				= 25;
 	private int				giveMoney			= 100;
 	
-	private String			enemyType;														// The type of enemy (Will
-																							// be added via a
-																							// constructor)
+	private String			enemyType; 						//The type of enemy (will be changed via constructor)
 	
 	// x/y padding: Converts x/y position into spaces/tabs
 	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
 	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
-	private static String	direction			= "Left";									// The direction that the
-																							// sprite is facing
+	private static String	direction			= "Left";	// The direction that the sprite is facing
 	
 	/**
 	 * Object constructor: Define character type when a new Enemy_Object is created.
@@ -80,10 +79,10 @@ public class EnemyObject {
 	 * Prints the required sprite from a text file.
 	 * 
 	 * @param enemySprite
-	 *            The type of sprite to print.
-	 * @throws FileNotFoundException
+	 *            The type of sprite to print (species of enemy)
 	 */
 	public void getSprite(String enemySprite) {
+		
 		// Update position on screen using newlines and spaces
 		xPadding = Utilities.multiplyString("  ", xPosition);
 		yPadding = Utilities.multiplyString("\n", yPosition);
@@ -145,23 +144,6 @@ public class EnemyObject {
 	
 	/**
 	 * 
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	public void enemyMove(DuckObject player, String move) throws InterruptedException, IOException {
-		
-		move = move.toLowerCase();
-		
-		if (move.contains("taunt")) {
-			taunt(player);
-		} else if (move.contains("attack")) {
-			attack(player);
-		}
-		
-	}// End of enemyMove
-	
-	/**
-	 * 
 	 * @param numTimes
 	 * @param xDirection
 	 * @param yDirection
@@ -169,7 +151,6 @@ public class EnemyObject {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	
 	public boolean enemyMove(DuckObject player) {
 		
 		Random random = new Random();
@@ -186,6 +167,13 @@ public class EnemyObject {
 		
 	}// End of enemyMove
 	
+	/**
+	 * 
+	 * @param numTimes
+	 * @param xDirection
+	 * @param yDirection
+	 * @param player
+	 */
 	public void run(int numTimes, int xDirection, int yDirection, DuckObject player) {
 		if (xDirection == 1) {
 			direction = "Right";
@@ -211,15 +199,13 @@ public class EnemyObject {
 			Utilities.waitMilliseconds(20);
 			xPosition += xDirection;
 			yPosition += yDirection;
-			Utilities.clearConsole();
 		}
 		
 	}// End of run
 	
 	/**
-	 * @throws InterruptedException
-	 * @throws IOException
 	 * 
+	 * @param player
 	 */
 	public void swipe(DuckObject player) {
 		
@@ -241,14 +227,11 @@ public class EnemyObject {
 		getSprite("attack3");
 		player.getSprite("hurt");
 		Utilities.waitMilliseconds(100);
-		Utilities.clearConsole();
-		
 	}// End of swipe
 	
 	/**
-	 * @throws InterruptedException
-	 * @throws IOException
 	 * 
+	 * @param player
 	 */
 	public void attack(DuckObject player) {
 		
@@ -302,50 +285,61 @@ public class EnemyObject {
 			System.out.println("The enemy missed!");
 		}
 		Utilities.waitMilliseconds(2000);
+		Utilities.clearConsole();
 	}// End of attack
 	
 	/**
 	 * 
 	 * @param player
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
 	public void taunt(DuckObject player) {
-		getSprite("fight");
-		getSprite("stand");
-		player.getSprite("stand");
-		Utilities.waitMilliseconds(400);
-		Utilities.clearConsole();
 		
 		for (int i = 0; i <= 3; i++) {
+			
+			Utilities.clearConsole();
+			
 			getSprite("fight");
 			getSprite("taunt1");
 			player.getSprite("stand");
-			System.out.println("The enemy taunted you...");
 			Utilities.waitMilliseconds(50);
 			Utilities.clearConsole();
 			
 			getSprite("fight");
 			getSprite("taunt2");
 			player.getSprite("stand");
-			
-			System.out.println("The enemy taunted you...");
 			Utilities.waitMilliseconds(50);
-			Utilities.clearConsole();
 		}
+		
+		//End of taunt sprites
+		Utilities.clearConsole();
+		getSprite("fight");
+		getSprite("stand");
+		player.getSprite("stand");
+		
+		System.out.println("The enemy taunted you...");
 		System.out.println("Your attack has increased!");
 		System.out.println("Your defence has decreased!");
 		Utilities.waitMilliseconds(2000);
+		Utilities.clearConsole();
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 */
 	public void flinch(DuckObject player) {
+		
+		Utilities.clearConsole();
+		
 		getSprite("fight");
 		getSprite("stand");
 		player.getSprite("stand");
 		Utilities.waitMilliseconds(400);
-		Utilities.clearConsole();
 		
 		for (int i = 0; i <= 3; i++) {
+			
+			Utilities.clearConsole();
+			
 			getSprite("fight");
 			getSprite("taunt1");
 			player.getSprite("stand");
@@ -356,10 +350,12 @@ public class EnemyObject {
 			getSprite("taunt2");
 			player.getSprite("stand");
 			Utilities.waitMilliseconds(50);
-			Utilities.clearConsole();
 		}
 	}
 	
+	/**
+	 * Resets stats to original values.
+	 */
 	public void resetStats() {
 		
 		healthPoints = HEALTH_POINTS + 0;
@@ -369,9 +365,14 @@ public class EnemyObject {
 		speedPoints = SPEED_POINTS + 0;
 		accuracyPoints = ACCURACY_POINTS + 0;
 		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
-		
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 * @param move
+	 * @return
+	 */
 	private boolean finishBattle(DuckObject player, int move) {
 		
 		double playerHealth = player.getHealth();

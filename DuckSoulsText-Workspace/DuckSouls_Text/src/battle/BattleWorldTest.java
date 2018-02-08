@@ -15,37 +15,56 @@ import utils.Utilities;
  * @author Rahmanta Satriana
  */
 public class BattleWorldTest {
+	
 	//Create player and enemy objects.
 	private static DuckObject	Player	= new DuckObject();
-	private static EnemyObject	Enemy	= new EnemyObject("Rat");
+	private static EnemyObject	Enemy	= new EnemyObject("Rat"); //Enemy will be more random in later versions
 	
+	/**
+	 * Clear the console on startup and start the battle loop.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Utilities.clearConsole();
 		battleLoop();
 	}
 	
+	/**
+	 * Draw the move options ("Fight" banner for now), Enemy, and player in default positions
+	 */
 	public static void drawSprites() {
 		Enemy.getSprite("fight");
 		Enemy.getSprite("stand");
 		Player.getSprite("stand");
 	}
 	
+	/**
+	 * While the player and enemy are alive, keep the battle going.
+	 * The player takes the first move, then if the enemy is still alive
+	 * it will move.
+	 */
 	public static void battleLoop() {
 		
 		boolean inBattle = true;
 		
 		while (inBattle) {
+			
+			//Start the battle in default positions
 			drawSprites();
 			Utilities.waitMilliseconds(10);
 			
+			//Player moves, then becomes True if the enemy is still alive or False if the enemy dies
 			inBattle = Player.playerMove(Enemy);
+			
 			if (inBattle) {
+				//Wait a second in default positions before the enemy attacks the player
 				drawSprites();
 				Utilities.waitMilliseconds(1000);
+				
+				//If the enemy kills the player, the battle will end
 				inBattle = Enemy.enemyMove(Player);
-				drawSprites();
 			}
 		}
 	}
-	
 }

@@ -1,11 +1,8 @@
 package ui;
 
 import java.util.Scanner;
-<<<<<<< HEAD
-import battle.DuckObject;
-=======
 import utils.Utilities;
->>>>>>> 13706e6bf131ec656fec7b8d27ae80fdbb64e209
+
 
 /**
  * Stores and runs the game's title screen, which disappears after you press
@@ -14,18 +11,6 @@ import utils.Utilities;
  * @author Wylee McAndrews
  */
 public class TitleScreen {
-<<<<<<< HEAD
-
-	private static String duckSouls = "\n\n"
-			+ "\t\t\t\t\t █████▄  █   ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████ \r\n"
-			+ "\t\t\t\t\t ██   ██ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ░██    ▒ ░██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n"
-			+ "\t\t\t\t\t ██   ██░██  ▒██░▒██    ▄ ░███▄░    ░ ▓██▄   ░██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n"
-			+ "\t\t\t\t\t ██  ▄██░██  ░██░▒██▄ ▄██░░██ █▄      ▒   ██░░██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n"
-			+ "\t\t\t\t\t░██████░░▓████▓ ▒  ███▀ ░▒██▒ █▄   ▒██████▒░░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒\r\n"
-=======
-	
-	// Scanner just to read if the user presses enter
-	private static Scanner	scanner		= new Scanner(System.in);
 	
 	// The awesome tile ASCII art from
 	// http://patorjk.com/software/taag/#p=display&f=Bloody&t=Duck%20Souls
@@ -35,26 +20,15 @@ public class TitleScreen {
 			+ "\t\t\t\t\t ██   ██░██  ▒██░▒██    ▄ ░███▄░    ░ ▓██▄   ░██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n"
 			+ "\t\t\t\t\t ██  ▄██░██  ░██░▒██▄ ▄██░░██ █▄      ▒   ██░░██   ██░▓▓█  ░██░▒██░      ▒   ██▒\r\n"
 			+ "\t\t\t\t\t░██████░░▓████▓ ▒  ███▀ ░▒██▒ █▄   ▒██████▒░░ ████▓▒░▒▒█████▓ ░██████▒▒██████▒▒ \r\n"
->>>>>>> 13706e6bf131ec656fec7b8d27ae80fdbb64e209
 			+ "\t\t\t\t\t ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒░▓  ░▒ ▒▓▒ ▒ ░\r\n"
 			+ "\t\t\t\t\t ░ ▒  ▒ ░░▒░ ░ ░   ░  ▒   ░ ░▒ ▒░   ░ ░▒  ░ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░ ▒  ░░ ░▒  ░ ░\r\n"
 			+ "\t\t\t\t\t ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n"
 			+ "\t\t\t\t\t   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n"
 			+ "\t\t\t\t\t ░               ░                                                              \r\n";
-<<<<<<< HEAD
 
-	private static DuckObject duck = new DuckObject();
+	//Get user input from console
 	private static Scanner scanner = new Scanner(System.in);
 
-	public static void menu() {
-		System.out.print(duckSouls);
-		System.out.println("\t\t\t\t\t\t\t\t     Press Enter To Start");
-		duck.getSprite("stand" + "\n");
-		scanner.nextLine();
-		scanner.close();
-		// Add a
-=======
-	
 	/**
 	 * Display's the game's menu, clearing it when the user presses enter.
 	 */
@@ -67,11 +41,11 @@ public class TitleScreen {
 		System.out.print(duckSoulsTitle);
 		System.out.println("\t\t\t\t\t\t\t\t     Press Enter To Start");
 		
-		// Wait for the user to press enter to continue
+		// Wait for the user to press enter to continue, then clear the console
 		scanner.nextLine();
-		scanner.close();
+		Utilities.clearConsole();
+		scanner.close();	//Close scanner input
 		
->>>>>>> 13706e6bf131ec656fec7b8d27ae80fdbb64e209
 	}
 	
 }
