@@ -2,7 +2,6 @@ import ui.TitleScreen;
 import utils.Utilities;
 import map.Map;
 
-import map.Mapfile;
 import map.TextRoom;
 import battle.BattleWorldTest;
 import battle.DuckObject;

@@ -28,7 +28,7 @@ public class Map {
 	private ArrayList<ArrayList<Tile>>	currentMap_2DArrayList	= new ArrayList<ArrayList<Tile>>(0);
 	private ArrayList<Character>		characters_ArrayList	= new ArrayList<Character>(0);
 	private HashMap<String, Mapfile>	maps_HashMap			= new HashMap<String, Mapfile>();
-	private Player				player					= new Player();
+	private Player						player					= new Player();
 	private String						currentMapID;
 	
 	/*
@@ -87,7 +87,7 @@ public class Map {
 	public void loadCurrentMap() {
 		
 		// Fetch the current map's 2D array list from the hash map
-		ArrayList<ArrayList<String>> mapData = this.maps_HashMap.get(currentMapID).getMap();
+		ArrayList<ArrayList<String>> mapData = this.maps_HashMap.get(this.currentMapID).getMap();
 		
 		// For each column of the map...
 		for (int y = 0; y < mapData.size(); y++) {
@@ -300,10 +300,11 @@ public class Map {
 							// Print the character
 							System.out.print(character.getStringRepr());
 							
+							// Something has now been printed
+							printed = true;
+							
 						}
 						
-						// Something has now been printed
-						printed = true;
 					}
 					
 				}
@@ -319,7 +320,7 @@ public class Map {
 			}
 			
 			// The entire row has been printed, wrap to a new line.
-			System.out.println("");
+			System.out.println();
 			
 		}
 		

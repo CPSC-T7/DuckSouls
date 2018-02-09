@@ -50,11 +50,11 @@ public class Character {
 		// Set the appropriate string representation
 		if (this.isPlayer) {
 			
-			this.stringRepr = "@"; // Player
+			this.stringRepr = " @ "; // Player
 			
 		} else {
 			
-			this.stringRepr = "E"; // Enemy
+			this.stringRepr = " E "; // Enemy
 			
 		}
 		
@@ -90,6 +90,10 @@ public class Character {
 	 */
 	public void setPos(int y, int x, ArrayList<ArrayList<Tile>> mapdata) {
 		
+		// Move the character
+		//this.position.setLocation(x, y);
+		
+		
 		// If the specific point can be moved to...
 		if (mapdata.get(y).get(x).canMove()) {
 			
@@ -98,7 +102,7 @@ public class Character {
 			
 		}
 		
-	} // End of move
+	} // End of setPos
 	
 	/**
 	 * Turn the character.
