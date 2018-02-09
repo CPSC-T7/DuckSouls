@@ -125,27 +125,18 @@ public class Utilities {
 	 */
 	public static void printSprite(String sprite, String xPadding, String yPadding) {
 		
-		// Locate the sprite file in the TextSprites folder above bin
+		// Locate and read the sprite file in the TextSprites folder above bin
 		String fileName = "../TextSprites/" + sprite + ".txt";
-		File spriteFile = new File(fileName);
+		String[] lines = readLines(fileName);
 		
-		// Pad the image
+		// Pad above the image
 		System.out.print(yPadding);
 		
-		// Try to read the file line-by-line and print out each line
-		try (Scanner readFile = new Scanner(spriteFile);) {
-			
-			// Read all the non-null lines in the file and print them
-			while (readFile.hasNext()) {
-				String line = readFile.nextLine();
-				System.out.println(xPadding + line);
-			}
-			
-		} catch (FileNotFoundException e) { // If the file isn't found
-			
-			System.out.println("File [" + fileName + "] not found.");
-			
+		//Print out each line with [adding to the left of it
+		for(String line : lines) {
+			System.out.println(xPadding + line);
 		}
+		
 		
 	}// End of printSprite
 	
@@ -158,16 +149,18 @@ public class Utilities {
 	 */
 	public static String[] readLines(String fileName) {
 		
-		// Try to open and read the file line-by-line with auto-closable BufferedReader
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-			
-			// Have an array list of lines waiting to be filled with the file's contents
-			ArrayList<String> lines = new ArrayList<String>();
-			String line = null;
+		// Locate the file to read
+		File fileToRead = new File(fileName);
+		
+		// Have an array list of lines waiting to be filled with the file's contents
+		ArrayList<String> lines = new ArrayList<String>();
+		
+		// Try to open and read the file line-by-line with a scanner
+		try (Scanner _scanner = new Scanner(fileToRead);) {
 			
 			// Read all non-null lines from the file into the array list
-			while ((line = bufferedReader.readLine()) != null) {
-				lines.add(line);
+			while (_scanner.hasNext()) {
+				lines.add(_scanner.nextLine());
 			}
 			
 			// Return all of the lines in an array
@@ -176,11 +169,6 @@ public class Utilities {
 		} catch (FileNotFoundException e) { // If the file isn't found
 			
 			System.out.println("File [" + fileName + "] not found.");
-			e.printStackTrace();
-			
-		} catch (IOException e) { // If something goes wrong whilst reading the file
-			
-			System.out.println("Cannot read file [" + fileName + "], IO Exception.");
 			e.printStackTrace();
 			
 		}

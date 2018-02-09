@@ -10,8 +10,11 @@ import character.Character;
 import tiles.*;
 
 /**
- * Defines a map.
+ * This class represents the map of Duck Souls. It loads and manages MapFile
+ * objects to work with by doing things such as printing them to the console for
+ * the user, and determining if an enemy is close to the player.
  * 
+ * @see map.MapFile.java
  * @author Colin Yeung
  */
 public class Map {
@@ -22,10 +25,10 @@ public class Map {
 	 * 
 	 */
 	
-	private ArrayList<ArrayList<Tile>>	currentMap	= new ArrayList<ArrayList<Tile>>(0);
-	private ArrayList<Character>		characters	= new ArrayList<Character>(0);
-	private HashMap<String, Mapfile>	maps		= new HashMap<String, Mapfile>();
-	private PlayerCharacter				player		= new PlayerCharacter();
+	private ArrayList<ArrayList<Tile>>	currentMap_2DArrayList	= new ArrayList<ArrayList<Tile>>(0);
+	private ArrayList<Character>		characters_ArrayList	= new ArrayList<Character>(0);
+	private HashMap<String, Mapfile>	maps_HashMap			= new HashMap<String, Mapfile>();
+	private Player				player					= new Player();
 	private String						currentMapID;
 	
 	/*
@@ -39,7 +42,7 @@ public class Map {
 	 */
 	public Map() {
 		
-		this.characters.add(this.player);
+		this.characters_ArrayList.add(this.player);
 		
 	}
 	
@@ -61,7 +64,7 @@ public class Map {
 	public void loadAllMapFiles(int firstMapNum, int lastMapNum) {
 		
 		// Clear and set the first map ID to the current map ID with 3 digits
-		this.maps.clear();
+		this.maps_HashMap.clear();
 		this.currentMapID = String.format("%03d", firstMapNum);
 		
 		// For each ID from the first map to the last map...
@@ -72,7 +75,7 @@ public class Map {
 			String mapName = "../TextRooms/" + "map" + mapID + ".txt";
 			
 			// Put the map file and number in a hash map for ease of use
-			this.maps.put(mapID, new Mapfile(mapName));
+			this.maps_HashMap.put(mapID, new Mapfile(mapName));
 			
 		}
 		
@@ -84,13 +87,13 @@ public class Map {
 	public void loadCurrentMap() {
 		
 		// Fetch the current map's 2D array list from the hash map
-		ArrayList<ArrayList<String>> mapData = this.maps.get(currentMapID).getMap();
+		ArrayList<ArrayList<String>> mapData = this.maps_HashMap.get(currentMapID).getMap();
 		
 		// For each column of the map...
 		for (int y = 0; y < mapData.size(); y++) {
 			
 			// Add a new list to hold the tile rows
-			this.currentMap.add(new ArrayList<Tile>(0));
+			this.currentMap_2DArrayList.add(new ArrayList<Tile>(0));
 			
 			// For each character in a row of the map...
 			for (int x = 0; x < mapData.get(y).size(); x++) {
@@ -102,28 +105,28 @@ public class Map {
 				switch (type) {
 					
 					case '@': // Player
-						this.currentMap.get(y).add(new Floor(x, y));
-						this.player.setPos(x, y, currentMap);
+						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
+						this.player.setPos(x, y, currentMap_2DArrayList);
 						break;
 					
 					case 'E': // Enemy
-						this.characters.add(new Enemy(x, y));
+						this.characters_ArrayList.add(new Enemy(x, y));
 						// No break to make sure to add a floor underneath the enemy
 						
 					case 'F': // Floor
-						this.currentMap.get(y).add(new Floor(x, y));
+						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
 						break;
 					
 					case ' ': // Empty Tile
-						this.currentMap.get(y).add(new Tile(x, y));
+						this.currentMap_2DArrayList.get(y).add(new Tile(x, y));
 						break;
 					
 					case 'D': // Door
-						this.currentMap.get(y).add(loadDoor(mapData.get(y).get(x).substring(1), x, y));
+						this.currentMap_2DArrayList.get(y).add(loadDoor(mapData.get(y).get(x).substring(1), x, y));
 						break;
 					
 					case 'W': // Wall
-						this.currentMap.get(y).add(loadWall(mapData.get(y).get(x).substring(1), x, y));
+						this.currentMap_2DArrayList.get(y).add(loadWall(mapData.get(y).get(x).substring(1), x, y));
 						break;
 					
 				}
@@ -143,7 +146,7 @@ public class Map {
 	public void loadNewMap(String mapID) {
 		
 		// If the given map ID is in the hash map of maps
-		if (this.maps.containsKey(mapID)) {
+		if (this.maps_HashMap.containsKey(mapID)) {
 			
 			// Set the new map ID and store the old one
 			String previousMapID = this.currentMapID;
@@ -153,7 +156,7 @@ public class Map {
 			this.loadCurrentMap();
 			
 			// For each tile in each column
-			for (ArrayList<Tile> column : this.currentMap) {
+			for (ArrayList<Tile> column : this.currentMap_2DArrayList) {
 				for (Tile spot : column) {
 					
 					// If the tile is a door and the tile is from the previous map...
@@ -164,7 +167,7 @@ public class Map {
 						int y = spot.getY();
 						
 						// Place the player at the same position on the new map
-						this.player.setPos(x, y, this.currentMap);
+						this.player.setPos(x, y, this.currentMap_2DArrayList);
 						
 					}
 					
@@ -181,7 +184,7 @@ public class Map {
 	 */
 	public void clearMap() {
 		
-		this.currentMap.clear();
+		this.currentMap_2DArrayList.clear();
 		
 	}
 	
@@ -190,8 +193,8 @@ public class Map {
 	 */
 	public void resetCharacters() {
 		
-		this.characters.clear();
-		this.characters.add(player);
+		this.characters_ArrayList.clear();
+		this.characters_ArrayList.add(player);
 		
 	}
 	
@@ -279,14 +282,14 @@ public class Map {
 		boolean printed = false;
 		
 		// For each x any y position in the current map...
-		for (int y = 0; y < this.currentMap.size(); y++) {
-			for (int x = 0; x < this.currentMap.get(y).size(); x++) {
+		for (int y = 0; y < this.currentMap_2DArrayList.size(); y++) {
+			for (int x = 0; x < this.currentMap_2DArrayList.get(y).size(); x++) {
 				
 				// Nothing has been printed yet
 				printed = false;
 				
 				// For each character in the current map...
-				for (Character character : this.characters) {
+				for (Character character : this.characters_ArrayList) {
 					
 					// If nothing has been printed yet...
 					if (!printed) {
@@ -295,7 +298,7 @@ public class Map {
 						if (character.getX() == x && character.getY() == y) {
 							
 							// Print the character
-							System.out.print(character.stringToPrint());
+							System.out.print(character.getStringRepr());
 							
 						}
 						
@@ -309,7 +312,7 @@ public class Map {
 				if (!printed) {
 					
 					// Print the tile representation
-					System.out.print(this.currentMap.get(y).get(x).getRep());
+					System.out.print(this.currentMap_2DArrayList.get(y).get(x).getStringRepr());
 					
 				}
 				
@@ -332,9 +335,9 @@ public class Map {
 	 */
 	public ArrayList<ArrayList<Tile>> getMap() {
 		
-		return this.currentMap;
+		return this.currentMap_2DArrayList;
 		
-	}
+	} // End of getMap
 	
 	/**
 	 * Returns a boolean stating whether or not a particular tile can be moved to.
@@ -347,9 +350,9 @@ public class Map {
 	 */
 	public boolean canMoveTo(int x, int y) {
 		
-		return this.currentMap.get(y).get(x).CanMove();
+		return this.currentMap_2DArrayList.get(y).get(x).canMove();
 		
-	}
+	} // End of canMoveTo
 	
 	/**
 	 * Runs a loop to play the game. Currently runs for 21 turns.
@@ -379,7 +382,8 @@ public class Map {
 			turnCount += 1;
 			
 		} while (turnCount < 20);
-	}
+		
+	} // End of mainLoop
 	
 	/**
 	 * Loads all map files from the first map to the last map, and then loads the
@@ -395,7 +399,7 @@ public class Map {
 		this.loadAllMapFiles(firstMapNum, lastMapNum);
 		this.loadCurrentMap();
 		
-	}
+	} // End of initialization
 	
 	/**
 	 * Runs methods and checks that need to be run every turn for the map.
@@ -418,25 +422,26 @@ public class Map {
 		this.print();
 		
 		// For each character in the map...
-		for (Character character : this.characters) {
+		for (Character character : this.characters_ArrayList) {
 			
 			// TODO: What does this do?
-			character.move(this.currentMap);
+			character.move(this.currentMap_2DArrayList);
 			
 		}
 		
 		// For each position on the map...
-		for (int y = 0; y < this.currentMap.size(); y++) {
-			for (int x = 0; x < this.currentMap.get(y).size(); x++) {
+		for (int y = 0; y < this.currentMap_2DArrayList.size(); y++) {
+			for (int x = 0; x < this.currentMap_2DArrayList.get(y).size(); x++) {
 				
 				// If the player is at that position and the position is a door...
-				if (x == player.getX() && y == player.getY() && currentMap.get(y).get(x).getType().equals("Door")) {
+				if (x == player.getX() && y == player.getY()
+						&& currentMap_2DArrayList.get(y).get(x).getType().equals("Door")) {
 					
 					// If the character hasn't already been moved to a different map in this turn...
 					if (!hasMovedMaps) {
 						
 						// Set the map ID to the map the door the character is standing on links to
-						mapID = currentMap.get(y).get(x).getMapID();
+						mapID = currentMap_2DArrayList.get(y).get(x).getMapID();
 						
 						// The player has now moved maps in this turn
 						hasMovedMaps = true;
@@ -459,7 +464,7 @@ public class Map {
 			
 		}
 		
-	}
+	} // End of runTurn
 	
 	/**
 	 * Returns a boolean stating whether the player is near an enemy. This is true
@@ -469,24 +474,22 @@ public class Map {
 	 */
 	public boolean isEnemyNear() {
 		
-		// Boolean to keep track of if an enemy is close to the player
-		boolean isNear = false;
-		
 		// For each character on the map...
-		for (Character character : this.characters) {
+		for (Character character : this.characters_ArrayList) {
 			
 			// If the character is an enemy and the player is next to the enemy...
 			if (!character.isPlayer() && character.isNextTo(this.player.getX(), this.player.getY())) {
 				
-				// Then the player is indeed near an enemy
-				isNear = true;
+				// Return true
+				return true;
 				
 			}
 			
 		}
 		
-		return isNear;
+		// Otherwise return false
+		return false;
 		
-	}
+	} // End of isEnemyNear
 	
 }

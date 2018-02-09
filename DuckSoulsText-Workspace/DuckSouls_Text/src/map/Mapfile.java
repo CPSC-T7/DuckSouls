@@ -1,74 +1,155 @@
 package map;
 
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
 
+import utils.Utilities;
+
+/**
+ * This class represents a map room read from a file.
+ * 
+ * @see map.Map.java
+ * @author Colin Yeung
+ */
 public class Mapfile {
-
-	private int size;
-	private ArrayList<ArrayList<String>> map = new ArrayList<ArrayList<String>>(0);
-
-	private static Scanner inputStream = null;
-
+	
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
+	
+	private int								mapWidth;
+	private ArrayList<ArrayList<String>>	map_2DArrayList	= new ArrayList<ArrayList<String>>(0);
+	
+	/*
+	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+	
+	/**
+	 * Creates a new MapFile from the text in a specified file.
+	 * 
+	 * @param fileName
+	 *            The file that contains the data for the map.
+	 */
 	public Mapfile(String fileName) {
-		int lineCount = 0;
-		try {
-			inputStream = new Scanner(new File(fileName));
-		} catch (FileNotFoundException e) {
-			System.out.println("Error opening the file " + "fileName");
-			System.exit(0);
+		
+		// Read the file containing the map data
+		String[] lines = Utilities.readLines(fileName);
+		
+		// First line indicates the map size
+		this.mapWidth = Integer.parseInt(lines[0]);
+		
+		// For every other line...
+		for (int i = 1; i < lines.length; i++) {
+			
+			// Make a new list of strings that represent the tiles to the map
+			map_2DArrayList.add(new ArrayList<String>(mapWidth));
+			
+			// Fill that list with each tile string from the file
+			String[] tileStrings = lines[i].trim().split(":");
+			for (String tileString : tileStrings) {
+				
+				map_2DArrayList.get(i - 1).add(tileString);
+				
+			}
 		}
-		while (inputStream.hasNextLine()) {
-			String line = inputStream.nextLine();
-			if (lineCount == 0) {
-				this.size = Integer.parseInt(line);
-			} else {
-				map.add(new ArrayList<String>(size));
-				line = line.trim();
-				String[] parts = line.split(":");
-				for (int i = 0; i < parts.length; i++) {
-					map.get(lineCount - 1).add(parts[i]);
-				} // end of for loop
-			} // end of else block
-			lineCount += 1;
-		} // end of while block
-	}// end of constructor
-
+		
+	}// End of constructor
+	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
+	
+	/**
+	 * Print the MapFile to the console.
+	 */
 	public void print() {
-		for (int i = 0; i < this.map.size(); i++) {
-			for (int i2 = 0; i2 < this.map.get(i).size(); i2++) {
-				System.out.print(this.map.get(i).get(i2) + " ");
+		
+		// For each position in the map array...
+		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
+			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
+				
+				// Print out the character
+				System.out.print(this.map_2DArrayList.get(y).get(x) + " ");
+				
 			}
-			System.out.println(" ");
+			
+			// Current line printed, wrap to a new line.
+			System.out.println();
+			
 		}
-	}// end of print()
-
+		
+	}// End of print
+	
+	/**
+	 * Unlocks the door located at the given position
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the door.
+	 * @param y
+	 *            The Y co-ordinate of the door.
+	 */
 	public void unlockDoor(int x, int y) {
-		if (this.map.get(y).get(x).charAt(0) == 'D')
-			if (this.map.get(y).get(x).charAt(1) == 'L') {
-				String replace = this.map.get(x).get(y).replace('L', 'U');
-				this.map.get(y).set(x, replace);
+		
+		// If the tile is actually a door...
+		if (this.map_2DArrayList.get(y).get(x).charAt(0) == 'D') {
+			
+			// If the door is actually locked...
+			if (this.map_2DArrayList.get(y).get(x).charAt(1) == 'L') {
+				
+				// Replace the locked door with an unlocked one
+				String unlockedDoor = this.map_2DArrayList.get(x).get(y).replace('L', 'U');
+				this.map_2DArrayList.get(y).set(x, unlockedDoor);
+				
 			}
-	}
-
+			
+		}
+		
+	} // End of unlockDoor
+	
+	/**
+	 * Returns the 2D array list of the map.
+	 * 
+	 * @return 2D array list of the map.
+	 */
+	/*
+	 * TODO: Privacy leak. This returns a reference to a private variable.
+	 */
 	public ArrayList<ArrayList<String>> getMap() {
-		return map;
-	}
+		
+		return map_2DArrayList;
+		
+	} // End of getMap
 	
+	/**
+	 * Returns whether the player is in the current map or not.
+	 * 
+	 * @return A boolean stating whether the player is in the current map or not.
+	 */
 	public boolean mapContainsPlayer() {
-		boolean does = false;
-		for(int y=0; y < this.map.size(); y++) {
-			for(int x=0; x < this.map.get(y).size(); x++) {
-				if(this.map.get(y).get(x) == "@")
-					does = true;
-			}//end of inner for loop
-		}//end of outer for loop
-		return does;
-	}//end of mapContainsPlayer method
+		
+		// For each position in the map...
+		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
+			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
+				
+				// Return true if the player is at that position
+				if (this.map_2DArrayList.get(y).get(x) == "@") {
+					
+					return true;
+					
+				}
+				
+			}
+			
+		}
+		
+		// Otherwise return false
+		return false;
+		
+	}// End of mapContainsPlayer
 	
-	public static void cleanup() {
-		inputStream.close();
-	}
-
-
-}// end of class
+}
