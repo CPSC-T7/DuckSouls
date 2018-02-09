@@ -97,64 +97,49 @@ public class Player extends Character {
 					// Move the appropriate direction
 					switch (input) {
 						
-						case "w": // North
-							
-							// If the player can move to that position...
-							if (this.getY() >= 1) {
-								if (map_2DArrayList.get(this.getY() - 1).get(this.getX()).canMove()) {
-									
-									// Move the player
-									super.setPos(this.getY() - 1, this.getX(), map_2DArrayList);
-									hasMoved = true;
-									
-								}
-							}
-							
-							break;
+						/*
+						 * For each case:
+						 * 
+						 * If the player is within the bounds to move...
+						 * 		Move the player,
+						 * 		And set the boolean accordingly.
+						 * 
+						 */
 						
-						case "s": // South
-							
-							// If the player can move to that position...
-							if (this.getY() < map_2DArrayList.size() - 1) {
-								if (map_2DArrayList.get(this.getY() + 1).get(this.getX()).canMove()) {
-									
-									// Move the player
-									super.setPos(this.getY() + 1, this.getX(), map_2DArrayList);
+						case "w":
+							if(this.getY() >= 1) {
+								if(map_2DArrayList.get(this.getY()-1).get(this.getX()).canMove()) {
+									super.move(this.getY()-1, this.getX(), map_2DArrayList);
 									hasMoved = true;
-									
 								}
 							}
-							
 							break;
-						
-						case "a": // East
 							
-							// If the player can move to that position...
-							if (this.getX() > 0) {
-								if (map_2DArrayList.get(this.getY()).get(this.getX() - 1).canMove()) {
-									
-									// Move the player
-									super.setPos(this.getY(), this.getX() - 1, map_2DArrayList);
+						case "s":
+							if(this.getY() < map_2DArrayList.size()-1) {
+								if(map_2DArrayList.get(this.getY()+1).get(this.getX()).canMove()) {
+									super.move(this.getY()+1, this.getX(), map_2DArrayList);
 									hasMoved = true;
-									
 								}
 							}
-							
 							break;
-						
-						case "d": // West
 							
-							// If the player can move to that position...
-							if (this.getX() < map_2DArrayList.get(this.getY()).size() - 1) {
-								if (map_2DArrayList.get(this.getY()).get(this.getX() + 1).canMove()) {
-									
-									// Move the player
-									super.setPos(this.getY(), this.getX() + 1, map_2DArrayList);
+						case "a":
+							if(this.getX() > 0) {
+								if(map_2DArrayList.get(this.getY()).get(this.getX()-1).canMove()) {
+									super.move(this.getY(), this.getX()-1, map_2DArrayList);
 									hasMoved = true;
-									
 								}
 							}
+							break;
 							
+						case "d":
+							if(this.getX() < map_2DArrayList.get(this.getY()).size()-1) {
+								if(map_2DArrayList.get(this.getY()).get(this.getX()+1).canMove()) {
+									super.move(this.getY(), this.getX()+1, map_2DArrayList);
+									hasMoved = true;
+								}
+							}
 							break;
 						
 					}

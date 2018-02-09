@@ -78,6 +78,32 @@ public class Character {
 	} // End of getStringRepr
 	
 	/**
+	 * Moves the character to a specified position.
+	 * 
+	 * @param x
+	 *            The X co-ordinate to move to.
+	 * @param y
+	 *            The Y co-ordinate to move to.
+	 * @param mapdata
+	 *            The array list of tiles of the map the character should move in.
+	 */
+	public void setPos(int x, int y, ArrayList<ArrayList<Tile>> mapdata) {
+		
+		// Move the character
+		//this.position.setLocation(x, y);
+		
+		
+		// If the specific point can be moved to...
+		if (mapdata.get(y).get(x).canMove()) {
+			
+			// Move the character
+			position.setLocation(x, y);
+			
+		}
+		
+	} // End of setPos
+	
+	/**
 	 * Moves the character to a specified position. <br>
 	 * TODO: Swap Y and X. X should always come first when imputing co-ords!
 	 * 
@@ -88,7 +114,7 @@ public class Character {
 	 * @param mapdata
 	 *            The array list of tiles of the map the character should move in.
 	 */
-	public void setPos(int y, int x, ArrayList<ArrayList<Tile>> mapdata) {
+	public void move(int y, int x, ArrayList<ArrayList<Tile>> mapdata) {
 		
 		// Move the character
 		//this.position.setLocation(x, y);
@@ -102,7 +128,7 @@ public class Character {
 			
 		}
 		
-	} // End of setPos
+	} // End of move
 	
 	/**
 	 * Turn the character.
