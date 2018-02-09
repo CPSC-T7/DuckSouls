@@ -41,7 +41,7 @@ public class EnemyObject {
 	private double			accuracyPoints		= 70;
 	private double			criticalHitPoints	= 16;
 	
-	//Amount of XP and Money to give the player uppon death
+	//Amount of XP and Money to give the player upon death
 	private int				giveXP				= 25;
 	private int				giveMoney			= 100;
 	
@@ -154,12 +154,14 @@ public class EnemyObject {
 		
 		Random random = new Random();
 		int move = random.nextInt(2);
+		//A random chance for the enemy to choose a move
 		
 		if (move == 0) {
 			attack(player);
 		} else if (move == 1) {
 			taunt(player);
 		}
+		//Only two moves for now
 		boolean inBattle = finishBattle(player, move);
 		
 		return inBattle;
@@ -234,6 +236,8 @@ public class EnemyObject {
 	 */
 	public void attack(DuckObject player) {
 		
+		
+		//Same stuff as in the DuckObject class
 		Random rand = new Random();
 		int accuracyChance = rand.nextInt(100) + 1;
 		int criticalHitChance = rand.nextInt(100) + 1;
@@ -292,6 +296,12 @@ public class EnemyObject {
 	 * @param player
 	 */
 	public void taunt(DuckObject player) {
+		
+		double playerAttack = player.getAttack();
+		double playerDefence = player.getDefence();
+		player.setAttack(playerAttack + 5);
+		player.setDefence(playerDefence - 5);
+		//Increases and decreases the player's stats
 		
 		for (int i = 0; i <= 3; i++) {
 			
@@ -394,6 +404,7 @@ public class EnemyObject {
 			System.out.println("The battle has ended.");
 			Utilities.waitMilliseconds(1200);
 			System.exit(0);
+			//if the player dies then exit from the game
 			return false;
 		}
 		
@@ -402,6 +413,8 @@ public class EnemyObject {
 		}
 		
 	}
+	
+	//Getters and setters for the stats
 	
 	public double getDefence() {
 		return defencePoints;

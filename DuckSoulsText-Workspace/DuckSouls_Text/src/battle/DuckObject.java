@@ -43,6 +43,9 @@ public class DuckObject {
 	private int				experience			= 0;
 	private int				money				= 0;
 	
+	private boolean hasWeapon = false;
+	private boolean hasArmour = false;
+	
 	private static String	direction			= "Right";	// The direction that the sprite is facing
 
 	private static Scanner	scanner				= new Scanner(System.in);	// Scanner to get user input
@@ -126,6 +129,7 @@ public class DuckObject {
 		while (selection) {
 			move = scanner.nextLine();
 			move = move.toLowerCase();
+			//Get input from the user
 			
 			if (move.contains("quack")) {
 				quack(enemy);
@@ -218,8 +222,10 @@ public class DuckObject {
 	public void attack(EnemyObject enemy) {
 		
 		Random rand = new Random();
+		//Create a random object
 		int accuracyChance = rand.nextInt(100) + 1;
 		int criticalHitChance = rand.nextInt(100) + 1;
+		//Get random numbers
 		boolean landed = true;
 		boolean critical = true;
 		
@@ -228,22 +234,28 @@ public class DuckObject {
 		} else {
 			landed = false;
 		}
+		//To see if it will be a successful attack or not
 		
 		if (criticalHitChance <= criticalHitPoints) {
 			critical = true;
 		} else {
 			critical = false;
 		}
+		//To see if it will deal bonus damage or not
 		
 		double damage;
 		damage = (attackPoints * 2.5) - enemy.getDefence();
+		//Temporary damage formula
 		double enemyHealth = enemy.getHealth();
+		//Gets enemy's health
 		if (critical) {
 			damage = damage * 1.5;
+			//if extra damage then increase it
 		}
 		if (landed) {
 			double newHealth = enemyHealth - damage;
 			enemy.setHealth(Math.round(newHealth));
+			//If successful attack then minus the enemy health
 		}
 		
 		//Wait for half a second before attacking
@@ -263,7 +275,7 @@ public class DuckObject {
 
 			System.out.println("You missed!");
 		
-		//If the hit was successful, take damage from the enemy and tell the player
+		//If the hit was successful, tell the player
 		}else if (landed) {
 			
 			if (critical) {
@@ -290,7 +302,7 @@ public class DuckObject {
 	public void peck(EnemyObject enemy, int numTimes) {
 		
 		for (int i = 0; i < numTimes; i++) {
-			
+			//A pecking animation for the duck
 			Utilities.clearConsole();
 			
 			getSprite("fight");
@@ -317,6 +329,7 @@ public class DuckObject {
 		double enemyDefence = enemy.getDefence();
 		enemy.setAttack(enemyAttack + 5);
 		enemy.setDefence(enemyDefence - 5);
+		//Increases and decreases the enemy's stats
 		
 		for (int i = 0; i <= 2; i++) {
 			
@@ -341,7 +354,7 @@ public class DuckObject {
 	}// End of taunt
 	
 	public void resetStats() {
-		
+		//Resets the stats after battle
 		healthPoints = HEALTH_POINTS + 0;
 		manaPoints = MANA_POINTS + 0;
 		attackPoints = ATTACK_POINTS + 0;
@@ -360,14 +373,16 @@ public class DuckObject {
 	 */
 	
 	private boolean finishBattle(EnemyObject enemy, String move) {
-		
+		//Two ways of the battles finishing on player's turn
 		double enemyHealth = enemy.getHealth();
 		
 		if (move.equals("fly")) {
+			//Player runs away
 			
 			System.out.println("You flew away from battle...");
 			resetStats();
 			enemy.resetStats();
+			//resets both player's and enemy's stats
 			System.out.println("The battle has ended.");
 			Utilities.waitMilliseconds(1200);
 			
@@ -375,6 +390,7 @@ public class DuckObject {
 		}
 		
 		else if (enemyHealth <= 0) {
+			//Enemy's health reaches zero
 			
 			Utilities.clearConsole();
 			getSprite("fight");
@@ -385,6 +401,7 @@ public class DuckObject {
 			int gainedXP = enemy.getXP();
 			int gainedMoney = enemy.getMoney();
 			experience += gainedXP;
+			//Add experience to the player
 			
 			System.out.print("You have gained ");
 			System.out.print(gainedXP);
@@ -395,6 +412,7 @@ public class DuckObject {
 			System.out.print("You have gained ");
 			System.out.print(gainedMoney);
 			System.out.println(" moneys!");
+			//Add money to the player
 			Utilities.waitMilliseconds(800);
 			
 			levelUp();
@@ -448,6 +466,9 @@ public class DuckObject {
 	public static void cleanup() {
 		scanner.close();
 	}
+	
+	//A lot of getters and setters for the stats, will be
+	//cleaned up for Demo 2
 	
 	public double getDefence() {
 		return defencePoints;
