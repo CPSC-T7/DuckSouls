@@ -20,7 +20,7 @@ public class Character {
 		else this.rep="E";
 	}
 	
-	public String print() {
+	public String stringToPrint() {
 		return this.rep;
 	}
 	

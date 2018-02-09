@@ -10,7 +10,7 @@ public class test {
 		int count = 0; 
 		do {
 			Utilities.clearConsole();
-			map1.turnLoop();
+			map1.runTurn();
 			if(map1.isEnemyNear()){
 				
 				BattleWorldTest.battleLoop();

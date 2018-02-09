@@ -13,7 +13,7 @@ public class Door extends Tile {
 		this.mapID = mapID;
 		this.keyID = keyID;
 		if (vertical) {
-			this.setRep("D");
+			this.setRep(" D ");
 		}
 	}
 

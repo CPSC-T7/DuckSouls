@@ -80,7 +80,7 @@ public class DuckSoulsText {
 		boolean battleDone = false;
 		do {
 			Utilities.clearConsole();
-			map.turnLoop();
+			map.runTurn();
 			if(map.isEnemyNear()){
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop();
