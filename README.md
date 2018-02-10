@@ -1,6 +1,6 @@
 # Duck Souls
 
-## How To Play
+## How To Play (Linux)
 1. Open the directory in a terminal
 2. Run ```chmod +x PlayDuckSouls.sh``` to make sure you can run the play game script
 3. Run ```./PlayDuckSouls.sh``` to play the game!
