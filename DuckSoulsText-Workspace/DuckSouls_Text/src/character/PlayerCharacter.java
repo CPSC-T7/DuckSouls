@@ -10,7 +10,7 @@ import tiles.*;
  * 
  * @author Colin Yeung
  */
-public class Player extends Character {
+public class PlayerCharacter extends Character {
 	
 	/*
 	 * 
@@ -29,7 +29,7 @@ public class Player extends Character {
 	/**
 	 * Creates a new player.
 	 */
-	public Player() {
+	public PlayerCharacter() {
 		
 		// Create a new character
 		super(0, 0, true);
@@ -46,7 +46,7 @@ public class Player extends Character {
 	 * @param map_2DArrayList
 	 *            The map of tiles the player is a part of.
 	 */
-	public Player(int x, int y, ArrayList<ArrayList<Tile>> map_2DArrayList) {
+	public PlayerCharacter(int x, int y, ArrayList<ArrayList<Tile>> map_2DArrayList) {
 		
 		// Create a new character at the position
 		super(x, y, true);

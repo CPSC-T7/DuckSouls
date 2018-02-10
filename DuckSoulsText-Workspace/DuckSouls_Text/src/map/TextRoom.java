@@ -19,23 +19,17 @@ public class TextRoom {
 	
 	/*
 	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * STATIC VARIABLES
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * 
 	 */
 	
 	private static Scanner _scanner = new Scanner(System.in);
 	
+	/**
+	 * Temporary enumerator for tiles whilst tilea re in development.
+	 * 
+	 * @author Matthew Allwright
+	 */
 	public static enum Tile {
 		
 		// Doors
@@ -62,53 +56,41 @@ public class TextRoom {
 		private String	STR, FILE_CHAR;
 		private boolean	CAN_WALK_ON;
 		
-		Tile(String STR, boolean CAN_WALK_ON) {
+		/**
+		 * Creates a tile.
+		 * 
+		 * @param STR
+		 *            The 3-character string used to print the tile.
+		 * @param CAN_WALK_ON
+		 *            Whether or not a player can walk on the tile.
+		 */
+		private Tile(String STR, boolean CAN_WALK_ON) {
+			
 			this.STR = STR;
 			this.FILE_CHAR = Character.toString(this.STR.charAt(1)); // Middle char
 			this.CAN_WALK_ON = CAN_WALK_ON;
+			
 		}
 		
 	}
 	
 	/*
 	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * INSTANCE VARIABLES
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * 
 	 */
 	
 	private final int	DEFAULT_WIDTH	= 8, DEFAULT_HEIGHT = 8;
 	
-	private int			width, height;
+	private int			internalWidth, internalHeight;
 	private Tile[][]	tileArray;
-	private Point		plyrPoint;
+	private Point		playerPosition;
 	
-	public String		name;
+	public String		roomName;
 	
 	/*
 	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * CONSTRUCTORS
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * 
 	 */
 	
@@ -118,11 +100,11 @@ public class TextRoom {
 	 * @param name
 	 *            The name of the room. (Used for file i/o)
 	 */
-	TextRoom(String name) {
+	public TextRoom(String name) {
 		
-		this.name = name;
-		this.width = DEFAULT_WIDTH;
-		this.height = DEFAULT_HEIGHT;
+		this.roomName = name;
+		this.internalWidth = DEFAULT_WIDTH;
+		this.internalHeight = DEFAULT_HEIGHT;
 		this.genTileArray();
 		
 	}
@@ -137,10 +119,10 @@ public class TextRoom {
 	 * @param height
 	 *            Height of the room. Must be 0 < height < 32.
 	 */
-	TextRoom(String name, int width, int height) {
+	public TextRoom(String name, int width, int height) {
 		
-		this.width = width;
-		this.height = height;
+		this.internalWidth = width;
+		this.internalHeight = height;
 		this.genTileArray();
 		
 	}
@@ -155,10 +137,10 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	TextRoom(String name, Point[] doors) {
+	public TextRoom(String name, Point[] doors) {
 		
-		this.width = DEFAULT_WIDTH;
-		this.height = DEFAULT_HEIGHT;
+		this.internalWidth = DEFAULT_WIDTH;
+		this.internalHeight = DEFAULT_HEIGHT;
 		this.genTileArray();
 		
 		this.addDoors(doors);
@@ -179,10 +161,10 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	TextRoom(String name, int width, int height, Point[] doors) {
+	public TextRoom(String name, int width, int height, Point[] doors) {
 		
-		this.width = width;
-		this.height = height;
+		this.internalWidth = width;
+		this.internalHeight = height;
 		this.genTileArray();
 		
 		this.addDoors(doors);
@@ -204,15 +186,15 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	TextRoom(String name, int width, int height, Point[] doors, Point plyrPoint) {
+	public TextRoom(String name, int width, int height, Point[] doors, Point playerPosition) {
 		
-		this.width = width;
-		this.height = height;
-		this.plyrPoint = plyrPoint;
+		this.internalWidth = width;
+		this.internalHeight = height;
+		this.playerPosition = playerPosition;
 		this.genTileArray();
 		
 		this.addDoors(doors);
-		this.setTile(this.plyrPoint, Tile.PLAYER);
+		this.setTile(this.playerPosition, Tile.PLAYER);
 		
 	}
 	
@@ -226,31 +208,51 @@ public class TextRoom {
 	 */
 	public TextRoom(String name, String fileName) {
 		
+		// Read the file
 		String[] lines = Utilities.readLines(fileName);
 		
-		this.width = lines[0].split(",").length - 2;
-		this.height = lines.length - 2;
+		// Width of the room is the number of characters in a row, minus the walls
+		this.internalWidth = lines[0].split(",").length - 2;
 		
-		String[][] textTileArray = new String[this.width + 2][this.height + 2];
+		// Height of the room is the number of lines, minus the walls
+		this.internalHeight = lines.length - 2;
+		
+		// Generate an array for reading the file
+		String[][] textTileArray = new String[this.internalWidth + 2][this.internalHeight + 2];
+		
+		// Generate the room's tile array
 		this.genTileArray();
 		
-		for (int i = 0; i < this.height + 2; i++) {
+		// Split all the lines of the file by commas to get the tile strings
+		for (int i = 0; i < this.internalHeight + 2; i++) {
 			
 			textTileArray[i] = lines[i].split(",");
 			
 		}
 		
-		for (int x = 0; x < this.width + 2; x++) {
-			for (int y = 0; y < this.height + 2; y++) {
+		// For each position in the room...
+		for (int y = 0; y < this.internalHeight + 2; y++) {
+			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
+				// For each type of tile possible...
 				for (Tile tile : Tile.values()) {
+					
+					// If the file says there should be said tile there...
 					if (textTileArray[x][y].equals(tile.FILE_CHAR)) {
+						
+						// Place said tile
 						this.tileArray[x][y] = tile;
+						
+						// Record where the player was placed
 						if (tile == Tile.PLAYER) {
-							this.plyrPoint = new Point(x, y);
+							this.playerPosition = new Point(x, y);
 						}
+						
+						// Stop searching through tile types
 						break;
+						
 					}
+					
 				}
 				
 			}
@@ -261,62 +263,54 @@ public class TextRoom {
 	
 	/*
 	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * METHODS
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * 
 	 */
 	
 	/*
-	 * 
-	 * 
-	 * 
 	 * PRIVATE METHODS
-	 * 
-	 * 
-	 * 
 	 */
 	
 	/**
-	 * Generates and appends a tile array to the instance.
+	 * Generates and appends a tile array to the instance. Makes the tile array 2
+	 * units larger in both the x and y direction from the internal size to
+	 * accommodate walls. Also automatically fills the edges with the correct wall
+	 * tiles.
 	 */
 	private void genTileArray() {
 		
-		this.tileArray = new Tile[this.width + 2][this.height + 2];
+		// Generate a 2D tile array to fill...
+		this.tileArray = new Tile[this.internalWidth + 2][this.internalHeight + 2];
 		
-		for (int x = 0; x < this.width + 2; x++) {
-			for (int y = 0; y < this.height + 2; y++) {
+		// For each position...
+		for (int x = 0; x < this.internalWidth + 2; x++) {
+			for (int y = 0; y < this.internalHeight + 2; y++) {
+				
+				/*
+				 * Put the appropriate wall tiles along the edges.
+				 */
 				
 				if (x == 0 && y == 0) { // Top Left
 					
 					this.tileArray[x][y] = Tile.WALL_TL;
 					
-				} else if (x == this.width + 1 && y == 0) { // Top Right
+				} else if (x == this.internalWidth + 1 && y == 0) { // Top Right
 					
 					this.tileArray[x][y] = Tile.WALL_TR;
 					
-				} else if (x == 0 && y == this.height + 1) { // Bottom Left
+				} else if (x == 0 && y == this.internalHeight + 1) { // Bottom Left
 					
 					this.tileArray[x][y] = Tile.WALL_BL;
 					
-				} else if (x == this.width + 1 && y == this.height + 1) { // Bottom Right
+				} else if (x == this.internalWidth + 1 && y == this.internalHeight + 1) { // Bottom Right
 					
 					this.tileArray[x][y] = Tile.WALL_BR;
 					
-				} else if (x == 0 || x == this.width + 1) { // Left & Right Walls
+				} else if (x == 0 || x == this.internalWidth + 1) { // Left & Right Walls
 					
 					this.tileArray[x][y] = Tile.WALL_V;
 					
-				} else if (y == 0 || y == this.height + 1) { // Top & Bottom Walls
+				} else if (y == 0 || y == this.internalHeight + 1) { // Top & Bottom Walls
 					
 					this.tileArray[x][y] = Tile.WALL_H;
 					
@@ -349,13 +343,7 @@ public class TextRoom {
 	}
 	
 	/*
-	 * 
-	 * 
-	 * 
 	 * PUBLIC METHODS
-	 * 
-	 * 
-	 * 
 	 */
 	
 	/**
@@ -377,13 +365,16 @@ public class TextRoom {
 	 */
 	public void draw() {
 		
-		for (int y = 0; y < this.height + 2; y++) {
-			for (int x = 0; x < this.width + 2; x++) {
+		// For each position...
+		for (int y = 0; y < this.internalHeight + 2; y++) {
+			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
+				// Print the tile
 				System.out.print(this.tileArray[x][y].STR);
 				
 			}
 			
+			// Row has been printed, wrap the line
 			System.out.println();
 			
 		}
@@ -397,8 +388,13 @@ public class TextRoom {
 	 *            The position to look at.
 	 * @return The tile at pos.
 	 */
+	/*
+	 * TODO: Privacy leak.
+	 */
 	public Tile tileAt(Point pos) {
+		
 		return this.tileArray[pos.x][pos.y];
+		
 	}
 	
 	/**
@@ -412,19 +408,23 @@ public class TextRoom {
 	 */
 	public void moveTile(Point toMove, Point moveTo) {
 		
+		// Placeholder for swapping tiles
 		Tile temp = this.tileAt(toMove); // , landedOnTile = this.tileAt(moveTo);
 		
+		// If the player can walk on the tile...
 		if (this.tileAt(moveTo).CAN_WALK_ON) {
 			
-			this.setTile(toMove, Tile.PATH);
+			// Move the tile from one position to the other
+			this.setTile(toMove, Tile.PATH); // Path tile indicates it has been stepped on
 			this.setTile(moveTo, temp);
 			
-			// TODO: Add step-on methods.
+			// TODO: Add step-on methods/actions.
 			// https://www.ntu.edu.sg/home/ehchua/programming/java/JavaEnum.html
 			// Section 2.2
 			
+			// Keep track of if the player was moved
 			if (temp.equals(Tile.PLAYER)) {
-				this.plyrPoint = moveTo;
+				this.playerPosition = moveTo;
 			}
 			
 		} else {
@@ -451,40 +451,54 @@ public class TextRoom {
 		
 		String input;
 		
+		/*
+		 * Loop:
+		 * 
+		 * Draws the room and lets the user move.
+		 * 
+		 * Currently does not exit.
+		 * 
+		 */
 		while (true) {
 			
+			// Draw the room and ask the user for input
 			Utilities.clearConsole();
-			
 			this.draw();
 			System.out.print("\nAction \t: ");
-			
 			input = _scanner.nextLine().toUpperCase();
 			
+			// Do the action inputed by the user
 			switch (input) {
+				
+				// Moving...
 				
 				case "W":
 				case "NORTH":
-					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x, this.plyrPoint.y - 1));
+					this.moveTile(this.playerPosition, new Point(this.playerPosition.x, this.playerPosition.y - 1));
 					break;
 				
 				case "S":
 				case "SOUTH":
-					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x, this.plyrPoint.y + 1));
+					this.moveTile(this.playerPosition, new Point(this.playerPosition.x, this.playerPosition.y + 1));
 					break;
 				
 				case "A":
 				case "WEST":
-					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x - 1, this.plyrPoint.y));
+					this.moveTile(this.playerPosition, new Point(this.playerPosition.x - 1, this.playerPosition.y));
 					break;
 				
 				case "D":
 				case "EAST":
-					this.moveTile(this.plyrPoint, new Point(this.plyrPoint.x + 1, this.plyrPoint.y));
+					this.moveTile(this.playerPosition, new Point(this.playerPosition.x + 1, this.playerPosition.y));
 					break;
 				
-				case "EXIT":
+				// Room commands...
+				
+				case "SAVE":
 					this.saveToTextFile();
 					break;
+				
+				// Default
 				
 				default:
 					System.out.println("...What?");
@@ -499,15 +513,21 @@ public class TextRoom {
 		
 	}
 	
+	/**
+	 * Saves the current room object to a text file
+	 */
 	public void saveToTextFile() {
 		
-		String fileName = "../TextRooms/" + this.name + ".txt", temp;
+		// Get info for the file
+		String fileName = "../TextRooms/" + this.roomName + ".txt", temp;
 		ArrayList<String> lines = new ArrayList<String>();
 		
-		for (int y = 0; y < this.height + 2; y++) {
+		// Print all of the lines to the file
+		for (int y = 0; y < this.internalHeight + 2; y++) {
 			temp = "";
-			for (int x = 0; x < this.width + 2; x++) {
+			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
+				// Format the line
 				temp += this.tileArray[x][y].FILE_CHAR + ",";
 				
 			}
@@ -517,12 +537,18 @@ public class TextRoom {
 			
 		}
 		
+		// Write the line
 		Utilities.writeFile(fileName, lines);
 		
 	}
 	
+	/**
+	 * Cleans up the static resources
+	 */
 	public static void cleanup() {
+		
 		_scanner.close();
+	
 	}
 	
 }

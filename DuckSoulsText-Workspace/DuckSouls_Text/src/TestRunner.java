@@ -1,11 +1,11 @@
-//import java.awt.Point;
-//import map.TextRoom;
+import java.awt.Point;
+import map.TextRoom;
 
 public class TestRunner {
 
 	public static void main(String[] args) {
 
-		/*
+		
 		Point[] doors = new Point[4];
 
 		doors[0] = new Point(0, 1);
@@ -20,7 +20,7 @@ public class TestRunner {
 		//r.draw();
 		
 		r.moveLoop();
-		*/
+		
 
 	}
 

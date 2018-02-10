@@ -28,7 +28,7 @@ public class Map {
 	private ArrayList<ArrayList<Tile>>	currentMap_2DArrayList	= new ArrayList<ArrayList<Tile>>(0);
 	private ArrayList<Character>		characters_ArrayList	= new ArrayList<Character>(0);
 	private HashMap<String, Mapfile>	maps_HashMap			= new HashMap<String, Mapfile>();
-	private Player						player					= new Player();
+	private PlayerCharacter						player					= new PlayerCharacter();
 	private String						currentMapID;
 	
 	/*
