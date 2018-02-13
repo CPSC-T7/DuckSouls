@@ -2,6 +2,7 @@ package map;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 import utils.Utilities;
 
@@ -45,12 +46,7 @@ public class TextRoom {
 		// Floors
 		
 		PATH(" . ", true),
-		EMPTY("   ", true),
-		
-		// Items
-		
-		FISH(" F ", true),
-		CURRENCY(" $ ", true);
+		EMPTY("   ", true);
 		
 		private String	STRING_REPR, FILE_CHAR;
 		private boolean	CAN_WALK_ON;
@@ -101,27 +97,75 @@ public class TextRoom {
 		
 	}
 	
+	/**
+	 * Temporary enumerator for items whilst tiles are in development.
+	 * 
+	 * @author Matthew Allwright
+	 */
+	public static enum Item {
+		
+		FISH(" F ", 15),
+		MONEY(" $ ", 15),
+		POTION(" P ", 15);
+		
+		private String	STRING_REPR;
+		private int		SPAWN_CHANCE;	// 0-99
+		
+		/**
+		 * Creates an entity.
+		 * 
+		 * @param STRING_REPR
+		 *            The 3-character string used to print the tile.
+		 */
+		private Item(String STRING_REPR, int SPAWN_CHANCE) {
+			
+			this.STRING_REPR = STRING_REPR;
+			this.SPAWN_CHANCE = SPAWN_CHANCE;
+			
+		}
+		
+	}
+	
+	public static Random	_random				= new Random();
+	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private final int	DEFAULT_ROOM_SIZE	= 5;
+	private final int		DEFAULT_ROOM_SIZE	= 5;
 	
-	private int			internalWidth, internalHeight;
+	private int				internalWidth, internalHeight;
 	
-	private Tile[][]	tileArray;
-	private String[][]	spriteArray;
-	private Entity[][]	entityArray;
+	private String[][]		spriteArray;
+	private Tile[][]		tileArray;
+	private Item[][]		itemArray;
+	private Entity[][]		entityArray;
 	
-	public String		roomName;
+	public String			roomName;
 	
 	/*
 	 * 
 	 * CONSTRUCTORS
 	 * 
 	 */
+	
+	/**
+	 * Creates a square room of set size with scattered items. <br>
+	 * This is the constructor used by TextLevel to create rooms.
+	 * 
+	 * @param size
+	 *            Width and height of the room. Must be 0 < width < 32.
+	 */
+	public TextRoom(int size) {
+		
+		this.internalWidth = size;
+		this.internalHeight = size;
+		this.genTileArray();
+		this.scatterItems();
+		
+	}
 	
 	/**
 	 * Creates an empty, doorless room of default size.
@@ -150,20 +194,6 @@ public class TextRoom {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
-		this.genTileArray();
-		
-	}
-	
-	/**
-	 * Creates an empty square room of set size.
-	 * 
-	 * @param size
-	 *            Width and height of the room. Must be 0 < width < 32.
-	 */
-	public TextRoom(int size) {
-		
-		this.internalWidth = size;
-		this.internalHeight = size;
 		this.genTileArray();
 		
 	}
@@ -343,6 +373,7 @@ public class TextRoom {
 		this.tileArray = new Tile[this.internalWidth + 2][this.internalHeight + 2];
 		this.spriteArray = new String[this.internalWidth + 2][this.internalHeight + 2];
 		this.entityArray = new Entity[this.internalWidth + 2][this.internalHeight + 2];
+		this.itemArray = new Item[this.internalWidth + 2][this.internalHeight + 2];
 		
 		// For each position...
 		for (int x = 0; x < this.internalWidth + 2; x++) {
@@ -412,6 +443,26 @@ public class TextRoom {
 		
 	}
 	
+	public void scatterItems() {
+		
+		int numItems = Item.values().length, randomItemNumber;
+		
+		// For each position...
+		for (int x = 1; x < this.internalWidth + 1; x++) {
+			for (int y = 1; y < this.internalHeight + 1; y++) {
+				
+				randomItemNumber = _random.nextInt(numItems);
+				Item selectedItem = Item.values()[randomItemNumber];
+				
+				if (_random.nextInt(100) < selectedItem.SPAWN_CHANCE) {
+					this.placeItem(new Point(x, y), selectedItem);
+				}
+				
+			}
+		}
+		
+	}
+	
 	/**
 	 * Sets a tile at a point in the tile array to a specific tile.
 	 * 
@@ -428,7 +479,7 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Sets a entity at a point in the entity array to a specific entity.
+	 * Sets a position at a point in the entity array to a specific entity.
 	 * 
 	 * @param position
 	 *            A java.awt.Point specifying the entity to change.
@@ -446,7 +497,21 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Removes a entity at a point in the entity array.
+	 * Sets a position at a point in the item array to a specific item.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to change.
+	 * @param item
+	 *            The item to set the position to.
+	 */
+	public void placeItem(Point position, Item item) {
+		
+		this.itemArray[position.x][position.y] = item;
+		
+	}
+	
+	/**
+	 * Removes an entity at a point in the entity array.
 	 * 
 	 * @param position
 	 *            A java.awt.Point specifying the entity to remove.
@@ -454,6 +519,18 @@ public class TextRoom {
 	public void removeEntity(Point position) {
 		
 		this.entityArray[position.x][position.y] = null;
+		
+	}
+	
+	/**
+	 * Removes an item at a point in the item array.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to remove.
+	 */
+	public void removeItem(Point position) {
+		
+		this.itemArray[position.x][position.y] = null;
 		
 	}
 	
@@ -470,6 +547,11 @@ public class TextRoom {
 					
 					// Print the entity
 					System.out.print(this.entityArray[x][y].STRING_REPR);
+					
+				} else if (this.itemArray[x][y] != null) {
+					
+					// Print the item
+					System.out.print(this.itemArray[x][y].STRING_REPR);
 					
 				} else {
 					

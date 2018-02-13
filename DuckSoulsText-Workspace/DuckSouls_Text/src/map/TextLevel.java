@@ -189,26 +189,42 @@ public class TextLevel {
 				
 				case "W":
 				case "NORTH":
-					this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-							new Point(Entity.PLAYER.POS.x, Entity.PLAYER.POS.y - 1));
+					if (TextRoom.Entity.PLAYER.POS.y == 0) {
+						this.moveRoom_Direction('u');
+					} else {
+						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
+								new Point(Entity.PLAYER.POS.x, Entity.PLAYER.POS.y - 1));
+					}
 					break;
 				
 				case "S":
 				case "SOUTH":
-					this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-							new Point(Entity.PLAYER.POS.x, Entity.PLAYER.POS.y + 1));
-					break;
-				
-				case "A":
-				case "WEST":
-					this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-							new Point(Entity.PLAYER.POS.x - 1, Entity.PLAYER.POS.y));
+					if (TextRoom.Entity.PLAYER.POS.y == this.roomSize + 1) {
+						this.moveRoom_Direction('d');
+					} else {
+						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
+								new Point(Entity.PLAYER.POS.x, Entity.PLAYER.POS.y + 1));
+					}
 					break;
 				
 				case "D":
 				case "EAST":
-					this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-							new Point(Entity.PLAYER.POS.x + 1, Entity.PLAYER.POS.y));
+					if (TextRoom.Entity.PLAYER.POS.x == this.roomSize + 1) {
+						this.moveRoom_Direction('r');
+					} else {
+						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
+								new Point(Entity.PLAYER.POS.x + 1, Entity.PLAYER.POS.y));
+					}
+					break;
+				
+				case "A":
+				case "WEST":
+					if (TextRoom.Entity.PLAYER.POS.x == 0) {
+						this.moveRoom_Direction('l');
+					} else {
+						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
+								new Point(Entity.PLAYER.POS.x - 1, Entity.PLAYER.POS.y));
+					}
 					break;
 				
 				// Room commands...
@@ -224,17 +240,6 @@ public class TextLevel {
 					Utilities.waitMilliseconds(300);
 					break;
 				
-			}
-			
-			// Move rooms
-			if (TextRoom.Entity.PLAYER.POS.y == 0) {
-				this.moveRoom_Direction('u');
-			} else if (TextRoom.Entity.PLAYER.POS.y == this.roomSize + 1) {
-				this.moveRoom_Direction('d');
-			} else if (TextRoom.Entity.PLAYER.POS.x == 0) {
-				this.moveRoom_Direction('l');
-			} else if (TextRoom.Entity.PLAYER.POS.x == this.roomSize + 1) {
-				this.moveRoom_Direction('r');
 			}
 			
 		}
