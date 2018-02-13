@@ -1,4 +1,4 @@
-package character;
+package entities;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import tiles.Tile;
  * 
  * @author Colin Yeung
  */
-public class Character {
+public class Entity {
 	
 	/*
 	 * 
@@ -41,7 +41,7 @@ public class Character {
 	 * @param isPlayer
 	 *            Whether the character is the player or not.
 	 */
-	public Character(int x, int y, boolean isPlayer) {
+	public Entity(int x, int y, boolean isPlayer) {
 		
 		// Set the character characteristics
 		this.position.setLocation(x, y);

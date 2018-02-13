@@ -2,7 +2,6 @@ package map;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import utils.Utilities;
 
@@ -23,10 +22,8 @@ public class TextRoom {
 	 * 
 	 */
 	
-	private static Scanner _scanner = new Scanner(System.in);
-	
 	/**
-	 * Temporary enumerator for tiles whilst tilea re in development.
+	 * Temporary enumerator for tiles whilst tiles are in development.
 	 * 
 	 * @author Matthew Allwright
 	 */
@@ -45,30 +42,60 @@ public class TextRoom {
 		WALL_BL(" ╚═", false),
 		WALL_BR("═╝ ", false),
 		
-		// Not-Walls
+		// Floors
 		
-		PLAYER(" @ ", false),
 		PATH(" . ", true),
 		EMPTY("   ", true),
+		
+		// Items
+		
 		FISH(" F ", true),
 		CURRENCY(" $ ", true);
 		
-		private String	STR, FILE_CHAR;
+		private String	STRING_REPR, FILE_CHAR;
 		private boolean	CAN_WALK_ON;
 		
 		/**
 		 * Creates a tile.
 		 * 
-		 * @param STR
+		 * @param STRING_REPR
 		 *            The 3-character string used to print the tile.
 		 * @param CAN_WALK_ON
 		 *            Whether or not a player can walk on the tile.
 		 */
-		private Tile(String STR, boolean CAN_WALK_ON) {
+		private Tile(String STRING_REPR, boolean CAN_WALK_ON) {
 			
-			this.STR = STR;
-			this.FILE_CHAR = Character.toString(this.STR.charAt(1)); // Middle char
+			this.STRING_REPR = STRING_REPR;
+			this.FILE_CHAR = Character.toString(this.STRING_REPR.charAt(1)); // Middle char
 			this.CAN_WALK_ON = CAN_WALK_ON;
+			
+		}
+		
+	}
+	
+	/**
+	 * Temporary enumerator for entities whilst tiles are in development.
+	 * 
+	 * @author Matthew Allwright
+	 */
+	public static enum Entity {
+		
+		PLAYER(" @ "),
+		ENEMY(" E ");
+		
+		private String	STRING_REPR;
+		
+		public Point	POS;
+		
+		/**
+		 * Creates an entity.
+		 * 
+		 * @param STRING_REPR
+		 *            The 3-character string used to print the tile.
+		 */
+		private Entity(String STRING_REPR) {
+			
+			this.STRING_REPR = STRING_REPR;
 			
 		}
 		
@@ -80,11 +107,13 @@ public class TextRoom {
 	 * 
 	 */
 	
-	private final int	DEFAULT_WIDTH	= 8, DEFAULT_HEIGHT = 8;
+	private final int	DEFAULT_ROOM_SIZE	= 5;
 	
 	private int			internalWidth, internalHeight;
+	
 	private Tile[][]	tileArray;
-	private Point		playerPosition;
+	private String[][]	spriteArray;
+	private Entity[][]	entityArray;
 	
 	public String		roomName;
 	
@@ -103,8 +132,38 @@ public class TextRoom {
 	public TextRoom(String name) {
 		
 		this.roomName = name;
-		this.internalWidth = DEFAULT_WIDTH;
-		this.internalHeight = DEFAULT_HEIGHT;
+		this.internalWidth = DEFAULT_ROOM_SIZE;
+		this.internalHeight = DEFAULT_ROOM_SIZE;
+		this.genTileArray();
+		
+	}
+	
+	/**
+	 * Creates an empty room of set size.
+	 * 
+	 * @param width
+	 *            Width of the room. Must be 0 < width < 32.
+	 * @param height
+	 *            Height of the room. Must be 0 < height < 32.
+	 */
+	public TextRoom(int width, int height) {
+		
+		this.internalWidth = width;
+		this.internalHeight = height;
+		this.genTileArray();
+		
+	}
+	
+	/**
+	 * Creates an empty square room of set size.
+	 * 
+	 * @param size
+	 *            Width and height of the room. Must be 0 < width < 32.
+	 */
+	public TextRoom(int size) {
+		
+		this.internalWidth = size;
+		this.internalHeight = size;
 		this.genTileArray();
 		
 	}
@@ -139,11 +198,11 @@ public class TextRoom {
 	 */
 	public TextRoom(String name, Point[] doors) {
 		
-		this.internalWidth = DEFAULT_WIDTH;
-		this.internalHeight = DEFAULT_HEIGHT;
+		this.internalWidth = DEFAULT_ROOM_SIZE;
+		this.internalHeight = DEFAULT_ROOM_SIZE;
 		this.genTileArray();
 		
-		this.addDoors(doors);
+		this.placeDoors(doors);
 		
 	}
 	
@@ -167,7 +226,7 @@ public class TextRoom {
 		this.internalHeight = height;
 		this.genTileArray();
 		
-		this.addDoors(doors);
+		this.placeDoors(doors);
 		
 	}
 	
@@ -190,11 +249,11 @@ public class TextRoom {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
-		this.playerPosition = playerPosition;
+		
+		this.placeEntity(playerPosition, Entity.PLAYER);
 		this.genTileArray();
 		
-		this.addDoors(doors);
-		this.setTile(this.playerPosition, Tile.PLAYER);
+		this.placeDoors(doors);
 		
 	}
 	
@@ -243,10 +302,11 @@ public class TextRoom {
 						// Place said tile
 						this.tileArray[x][y] = tile;
 						
+						// TODO: Delete?
 						// Record where the player was placed
-						if (tile == Tile.PLAYER) {
-							this.playerPosition = new Point(x, y);
-						}
+						// if (tile == Tile.PLAYER) {
+						// this.playerPosition = new Point(x, y);
+						// }
 						
 						// Stop searching through tile types
 						break;
@@ -279,8 +339,10 @@ public class TextRoom {
 	 */
 	private void genTileArray() {
 		
-		// Generate a 2D tile array to fill...
+		// Generate 2D arrays to fill...
 		this.tileArray = new Tile[this.internalWidth + 2][this.internalHeight + 2];
+		this.spriteArray = new String[this.internalWidth + 2][this.internalHeight + 2];
+		this.entityArray = new Entity[this.internalWidth + 2][this.internalHeight + 2];
 		
 		// For each position...
 		for (int x = 0; x < this.internalWidth + 2; x++) {
@@ -320,23 +382,9 @@ public class TextRoom {
 					
 				}
 				
+				this.spriteArray[x][y] = this.tileArray[x][y].STRING_REPR;
+				
 			}
-			
-		}
-		
-	}
-	
-	/**
-	 * Takes an array of points and places a door at every point.
-	 * 
-	 * @param doors
-	 *            The array of points to place doors at.
-	 */
-	private void addDoors(Point[] doors) {
-		
-		for (Point pos : doors) {
-			
-			this.setTile(pos, Tile.DOOR);
 			
 		}
 		
@@ -347,16 +395,65 @@ public class TextRoom {
 	 */
 	
 	/**
-	 * Sets a tile at a point in the tile array to a specific character.
+	 * Takes an array of points and places a door at every point.
 	 * 
-	 * @param pos
-	 *            A java.awt.Point specifying the tile to change.
-	 * @param ch
-	 *            The character to set the tile to.
+	 * @param doors
+	 *            The array of points to place doors at.
 	 */
-	public void setTile(Point pos, Tile tile) {
+	public void placeDoors(Point[] doors) {
 		
-		this.tileArray[pos.x][pos.y] = tile;
+		for (Point pos : doors) {
+			
+			if (pos != null) {
+				this.setTile(pos, Tile.DOOR);
+			}
+			
+		}
+		
+	}
+	
+	/**
+	 * Sets a tile at a point in the tile array to a specific tile.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the tile to change.
+	 * @param tile
+	 *            The tile to set the position to.
+	 */
+	public void setTile(Point position, Tile tile) {
+		
+		this.tileArray[position.x][position.y] = tile;
+		this.spriteArray[position.x][position.y] = tile.STRING_REPR;
+		
+	}
+	
+	/**
+	 * Sets a entity at a point in the entity array to a specific entity.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to change.
+	 * @param entity
+	 *            The entity to set the position to.
+	 */
+	public void placeEntity(Point position, Entity entity) {
+		
+		this.entityArray[position.x][position.y] = entity;
+		
+		if (entity == Entity.PLAYER) {
+			entity.POS = position;
+		}
+		
+	}
+	
+	/**
+	 * Removes a entity at a point in the entity array.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to remove.
+	 */
+	public void removeEntity(Point position) {
+		
+		this.entityArray[position.x][position.y] = null;
 		
 	}
 	
@@ -369,8 +466,17 @@ public class TextRoom {
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				// Print the tile
-				System.out.print(this.tileArray[x][y].STR);
+				if (this.entityArray[x][y] != null) {
+					
+					// Print the entity
+					System.out.print(this.entityArray[x][y].STRING_REPR);
+					
+				} else {
+					
+					// Print the tile
+					System.out.print(this.spriteArray[x][y]);
+					
+				}
 				
 			}
 			
@@ -388,9 +494,6 @@ public class TextRoom {
 	 *            The position to look at.
 	 * @return The tile at pos.
 	 */
-	/*
-	 * TODO: Privacy leak.
-	 */
 	public Tile tileAt(Point pos) {
 		
 		return this.tileArray[pos.x][pos.y];
@@ -398,34 +501,46 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Moves a tile from one point to another, throwing a tantrum, I mean error, if
-	 * the ending tile cannot be moved to (walls or player).
+	 * Gets the tile at a specific point in a room.
+	 * 
+	 * @param pos
+	 *            The position to look at.
+	 * @return The tile at pos.
+	 */
+	public Entity entityAt(Point pos) {
+		
+		return this.entityArray[pos.x][pos.y];
+		
+	}
+	
+	/**
+	 * Moves an entity from one point to another, throwing a tantrum, I mean
+	 * message, if the ending tile cannot be moved to (walls).
 	 * 
 	 * @param toMove
-	 *            Point of the tile that should be moved.
+	 *            Point of the entity that should be moved.
 	 * @param moveTo
-	 *            Point of the tile that will be moved to.
+	 *            Point of the entity that will be moved to.
 	 */
-	public void moveTile(Point toMove, Point moveTo) {
-		
-		// Placeholder for swapping tiles
-		Tile temp = this.tileAt(toMove); // , landedOnTile = this.tileAt(moveTo);
+	public void moveEntity(Point toMove, Point moveTo) {
 		
 		// If the player can walk on the tile...
 		if (this.tileAt(moveTo).CAN_WALK_ON) {
 			
-			// Move the tile from one position to the other
-			this.setTile(toMove, Tile.PATH); // Path tile indicates it has been stepped on
-			this.setTile(moveTo, temp);
+			// Move the entity
+			this.entityArray[moveTo.x][moveTo.y] = this.entityAt(toMove);
+			this.entityArray[toMove.x][toMove.y] = null;
+			Entity.PLAYER.POS = moveTo;
+			
+			// Path tile indicates it has been stepped on
+			this.setTile(toMove, Tile.PATH);
 			
 			// TODO: Add step-on methods/actions.
 			// https://www.ntu.edu.sg/home/ehchua/programming/java/JavaEnum.html
 			// Section 2.2
 			
-			// Keep track of if the player was moved
-			if (temp.equals(Tile.PLAYER)) {
-				this.playerPosition = moveTo;
-			}
+			// Path tile indicates it has been stepped on
+			this.setTile(moveTo, Tile.PATH);
 			
 		} else {
 			
@@ -437,77 +552,7 @@ public class TextRoom {
 			
 			System.out.println("You can't walk there!");
 			
-			Utilities.waitMilliseconds(1000);
-			
-		}
-		
-	}
-	
-	/**
-	 * Runs through a loop, where it displays the room and asks for input
-	 * repeatedly.
-	 */
-	public void moveLoop() {
-		
-		String input;
-		
-		/*
-		 * Loop:
-		 * 
-		 * Draws the room and lets the user move.
-		 * 
-		 * Currently does not exit.
-		 * 
-		 */
-		while (true) {
-			
-			// Draw the room and ask the user for input
-			Utilities.clearConsole();
-			this.draw();
-			System.out.print("\nAction \t: ");
-			input = _scanner.nextLine().toUpperCase();
-			
-			// Do the action inputed by the user
-			switch (input) {
-				
-				// Moving...
-				
-				case "W":
-				case "NORTH":
-					this.moveTile(this.playerPosition, new Point(this.playerPosition.x, this.playerPosition.y - 1));
-					break;
-				
-				case "S":
-				case "SOUTH":
-					this.moveTile(this.playerPosition, new Point(this.playerPosition.x, this.playerPosition.y + 1));
-					break;
-				
-				case "A":
-				case "WEST":
-					this.moveTile(this.playerPosition, new Point(this.playerPosition.x - 1, this.playerPosition.y));
-					break;
-				
-				case "D":
-				case "EAST":
-					this.moveTile(this.playerPosition, new Point(this.playerPosition.x + 1, this.playerPosition.y));
-					break;
-				
-				// Room commands...
-				
-				case "SAVE":
-					this.saveToTextFile();
-					break;
-				
-				// Default
-				
-				default:
-					System.out.println("...What?");
-					Utilities.waitMilliseconds(500);
-					break;
-				
-			}
-			
-			System.out.println("\n\n");
+			Utilities.waitMilliseconds(300);
 			
 		}
 		
@@ -540,15 +585,6 @@ public class TextRoom {
 		// Write the line
 		Utilities.writeFile(fileName, lines);
 		
-	}
-	
-	/**
-	 * Cleans up the static resources
-	 */
-	public static void cleanup() {
-		
-		_scanner.close();
-	
 	}
 	
 }

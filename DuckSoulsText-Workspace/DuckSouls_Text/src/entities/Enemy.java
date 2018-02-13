@@ -1,4 +1,4 @@
-package character;
+package entities;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import tiles.Tile;
  * 
  * @author Colin Yeung
  */
-public class Enemy extends Character {
+public class Enemy extends Entity {
 	
 	/*
 	 * 
