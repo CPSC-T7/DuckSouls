@@ -45,7 +45,7 @@ public class TextLevel {
 		this.genRoomArray();
 		
 		this.currentRoomPoint = new Point(0, 0);
-		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2, this.roomSize / 2), Entity.PLAYER);
+		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1), Entity.PLAYER);
 		
 	}
 	

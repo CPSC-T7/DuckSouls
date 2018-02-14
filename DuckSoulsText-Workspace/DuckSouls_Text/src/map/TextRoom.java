@@ -168,21 +168,6 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Creates an empty, doorless room of default size.
-	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
-	 */
-	public TextRoom(String name) {
-		
-		this.roomName = name;
-		this.internalWidth = DEFAULT_ROOM_SIZE;
-		this.internalHeight = DEFAULT_ROOM_SIZE;
-		this.genTileArray();
-		
-	}
-	
-	/**
 	 * Creates an empty room of set size.
 	 * 
 	 * @param width
@@ -198,6 +183,21 @@ public class TextRoom {
 		
 	}
 	
+	/**
+	 * Creates an empty, doorless room of default size.
+	 * 
+	 * @param name
+	 *            The name of the room. (Used for file i/o)
+	 */
+	public TextRoom(String name) {
+		
+		this.roomName = name;
+		this.internalWidth = DEFAULT_ROOM_SIZE;
+		this.internalHeight = DEFAULT_ROOM_SIZE;
+		this.genTileArray();
+		
+	}
+
 	/**
 	 * Creates an empty room of set size.
 	 * 
@@ -426,115 +426,6 @@ public class TextRoom {
 	 */
 	
 	/**
-	 * Takes an array of points and places a door at every point.
-	 * 
-	 * @param doors
-	 *            The array of points to place doors at.
-	 */
-	public void placeDoors(Point[] doors) {
-		
-		for (Point pos : doors) {
-			
-			if (pos != null) {
-				this.setTile(pos, Tile.DOOR);
-			}
-			
-		}
-		
-	}
-	
-	public void scatterItems() {
-		
-		int numItems = Item.values().length, randomItemNumber;
-		
-		// For each position...
-		for (int x = 1; x < this.internalWidth + 1; x++) {
-			for (int y = 1; y < this.internalHeight + 1; y++) {
-				
-				randomItemNumber = _random.nextInt(numItems);
-				Item selectedItem = Item.values()[randomItemNumber];
-				
-				if (_random.nextInt(100) < selectedItem.SPAWN_CHANCE) {
-					this.placeItem(new Point(x, y), selectedItem);
-				}
-				
-			}
-		}
-		
-	}
-	
-	/**
-	 * Sets a tile at a point in the tile array to a specific tile.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the tile to change.
-	 * @param tile
-	 *            The tile to set the position to.
-	 */
-	public void setTile(Point position, Tile tile) {
-		
-		this.tileArray[position.x][position.y] = tile;
-		this.spriteArray[position.x][position.y] = tile.STRING_REPR;
-		
-	}
-	
-	/**
-	 * Sets a position at a point in the entity array to a specific entity.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the entity to change.
-	 * @param entity
-	 *            The entity to set the position to.
-	 */
-	public void placeEntity(Point position, Entity entity) {
-		
-		this.entityArray[position.x][position.y] = entity;
-		
-		if (entity == Entity.PLAYER) {
-			entity.POS = position;
-		}
-		
-	}
-	
-	/**
-	 * Sets a position at a point in the item array to a specific item.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the entity to change.
-	 * @param item
-	 *            The item to set the position to.
-	 */
-	public void placeItem(Point position, Item item) {
-		
-		this.itemArray[position.x][position.y] = item;
-		
-	}
-	
-	/**
-	 * Removes an entity at a point in the entity array.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the entity to remove.
-	 */
-	public void removeEntity(Point position) {
-		
-		this.entityArray[position.x][position.y] = null;
-		
-	}
-	
-	/**
-	 * Removes an item at a point in the item array.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the entity to remove.
-	 */
-	public void removeItem(Point position) {
-		
-		this.itemArray[position.x][position.y] = null;
-		
-	}
-	
-	/**
 	 * Draws the room to the console
 	 */
 	public void draw() {
@@ -568,20 +459,7 @@ public class TextRoom {
 		}
 		
 	}
-	
-	/**
-	 * Gets the tile at a specific point in a room.
-	 * 
-	 * @param pos
-	 *            The position to look at.
-	 * @return The tile at pos.
-	 */
-	public Tile tileAt(Point pos) {
-		
-		return this.tileArray[pos.x][pos.y];
-		
-	}
-	
+
 	/**
 	 * Gets the tile at a specific point in a room.
 	 * 
@@ -594,7 +472,7 @@ public class TextRoom {
 		return this.entityArray[pos.x][pos.y];
 		
 	}
-	
+
 	/**
 	 * Moves an entity from one point to another, throwing a tantrum, I mean
 	 * message, if the ending tile cannot be moved to (walls).
@@ -621,6 +499,8 @@ public class TextRoom {
 			// https://www.ntu.edu.sg/home/ehchua/programming/java/JavaEnum.html
 			// Section 2.2
 			
+			
+			
 			// Path tile indicates it has been stepped on
 			this.setTile(moveTo, Tile.PATH);
 			
@@ -639,7 +519,81 @@ public class TextRoom {
 		}
 		
 	}
-	
+
+	/**
+	 * Takes an array of points and places a door at every point.
+	 * 
+	 * @param doors
+	 *            The array of points to place doors at.
+	 */
+	public void placeDoors(Point[] doors) {
+		
+		for (Point pos : doors) {
+			
+			if (pos != null) {
+				this.setTile(pos, Tile.DOOR);
+			}
+			
+		}
+		
+	}
+
+	/**
+	 * Sets a position at a point in the entity array to a specific entity.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to change.
+	 * @param entity
+	 *            The entity to set the position to.
+	 */
+	public void placeEntity(Point position, Entity entity) {
+		
+		this.entityArray[position.x][position.y] = entity;
+		
+		if (entity == Entity.PLAYER) {
+			entity.POS = position;
+		}
+		
+	}
+
+	/**
+	 * Sets a position at a point in the item array to a specific item.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to change.
+	 * @param item
+	 *            The item to set the position to.
+	 */
+	public void placeItem(Point position, Item item) {
+		
+		this.itemArray[position.x][position.y] = item;
+		
+	}
+
+	/**
+	 * Removes an entity at a point in the entity array.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to remove.
+	 */
+	public void removeEntity(Point position) {
+		
+		this.entityArray[position.x][position.y] = null;
+		
+	}
+
+	/**
+	 * Removes an item at a point in the item array.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to remove.
+	 */
+	public void removeItem(Point position) {
+		
+		this.itemArray[position.x][position.y] = null;
+		
+	}
+
 	/**
 	 * Saves the current room object to a text file
 	 */
@@ -666,6 +620,54 @@ public class TextRoom {
 		
 		// Write the line
 		Utilities.writeFile(fileName, lines);
+		
+	}
+
+	public void scatterItems() {
+		
+		int numItems = Item.values().length, randomItemNumber;
+		
+		// For each position...
+		for (int x = 1; x < this.internalWidth + 1; x++) {
+			for (int y = 1; y < this.internalHeight + 1; y++) {
+				
+				randomItemNumber = _random.nextInt(numItems);
+				Item selectedItem = Item.values()[randomItemNumber];
+				
+				if (_random.nextInt(100) < selectedItem.SPAWN_CHANCE) {
+					this.placeItem(new Point(x, y), selectedItem);
+				}
+				
+			}
+		}
+		
+	}
+
+	/**
+	 * Sets a tile at a point in the tile array to a specific tile.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the tile to change.
+	 * @param tile
+	 *            The tile to set the position to.
+	 */
+	public void setTile(Point position, Tile tile) {
+		
+		this.tileArray[position.x][position.y] = tile;
+		this.spriteArray[position.x][position.y] = tile.STRING_REPR;
+		
+	}
+
+	/**
+	 * Gets the tile at a specific point in a room.
+	 * 
+	 * @param pos
+	 *            The position to look at.
+	 * @return The tile at position.
+	 */
+	public Tile tileAt(Point pos) {
+		
+		return this.tileArray[pos.x][pos.y];
 		
 	}
 	
