@@ -26,6 +26,7 @@ public class TextLevel {
 	private final int		DEFAULT_ROOM_SIZE	= 5;
 	
 	private TextRoom[][]	roomArray;
+	private String[][]		minimapArray;
 	private Point			currentRoomPoint;
 	private int				levelWidth, levelHeight;
 	private int				roomSize;
@@ -45,7 +46,74 @@ public class TextLevel {
 		this.genRoomArray();
 		
 		this.currentRoomPoint = new Point(0, 0);
-		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1), Entity.PLAYER);
+		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1),
+				Entity.PLAYER);
+		
+		this.genMinimapArray();
+		
+	}
+	
+	private void drawMinimap() {
+		
+		int yMax = 2 * this.levelHeight + 1, xMax = 2 * this.levelWidth + 1;
+		
+		for (int y = 0; y < yMax; y++) {
+			for (int x = 0; x < xMax; x++) {
+				
+				if (y == 0) {
+					
+					if (x == 0) {
+						System.out.print("┌");
+					} else if (x == xMax - 1) {
+						System.out.print("┐");
+					} else if (x % 2 == 0) {
+						System.out.print("┬");
+					} else {
+						System.out.print("─");
+					}
+					
+				} else if (y == yMax - 1) {
+					
+					if (x == 0) {
+						System.out.print("└");
+					} else if (x == xMax - 1) {
+						System.out.print("┘");
+					} else if (x % 2 == 0) {
+						System.out.print("┴");
+					} else {
+						System.out.print("─");
+					}
+					
+				} else if (y % 2 == 0) {
+					
+					if (x == 0) {
+						System.out.print("├");
+					} else if (x == xMax - 1) {
+						System.out.print("┤");
+					} else if (x % 2 == 0) {
+						System.out.print("┼");
+					} else {
+						System.out.print(" ");
+					}
+					
+				} else {
+					
+					if (x == 0) {
+						System.out.print("│");
+					} else if (x == xMax - 1) {
+						System.out.print("│");
+					} else if (x % 2 == 0) {
+						System.out.print(" ");
+					} else {
+						System.out.print(this.minimapArray[(x - 1) / 2][(y - 1) / 2]);
+					}
+					
+				}
+				
+			}
+			
+			System.out.println();
+		}
 		
 	}
 	
@@ -54,6 +122,30 @@ public class TextLevel {
 	 * METHODS
 	 * 
 	 */
+	
+	private void genMinimapArray() {
+		
+		this.minimapArray = new String[this.levelWidth][this.levelHeight];
+		
+		// For each position...
+		for (int x = 0; x < this.levelWidth; x++) {
+			for (int y = 0; y < this.levelHeight; y++) {
+				
+				if (x == this.currentRoomPoint.x && y == this.currentRoomPoint.y) {
+					
+					this.minimapArray[x][y] = "@";
+					
+				} else {
+					
+					this.minimapArray[x][y] = " ";
+					
+				}
+				
+			}
+			
+		}
+		
+	}
 	
 	private void genRoomArray() {
 		
@@ -115,6 +207,19 @@ public class TextLevel {
 		
 	}
 	
+	private TextRoom roomAt(Point position) {
+		return this.roomArray[position.x][position.y];
+	}
+	
+	/**
+	 * Cleans up the static resources
+	 */
+	public static void cleanup() {
+		
+		_scanner.close();
+		
+	}
+	
 	/**
 	 * 
 	 * @param direction
@@ -125,6 +230,7 @@ public class TextLevel {
 		Point newPlayerPoint = new Point(TextRoom.Entity.PLAYER.POS);
 		
 		this.roomAt(this.currentRoomPoint).removeEntity(TextRoom.Entity.PLAYER.POS);
+		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
 		
 		switch (direction) {
 			
@@ -151,11 +257,8 @@ public class TextLevel {
 		}
 		
 		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, TextRoom.Entity.PLAYER);
+		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
 		
-	}
-	
-	private TextRoom roomAt(Point position) {
-		return this.roomArray[position.x][position.y];
 	}
 	
 	/**
@@ -178,6 +281,8 @@ public class TextLevel {
 			
 			// Draw the room and ask the user for input
 			Utilities.clearConsole();
+			this.drawMinimap();
+			System.out.println('\n');
 			this.roomAt(this.currentRoomPoint).draw();
 			System.out.print("\nAction \t: ");
 			input = _scanner.nextLine().toUpperCase();
@@ -243,15 +348,6 @@ public class TextLevel {
 			}
 			
 		}
-		
-	}
-	
-	/**
-	 * Cleans up the static resources
-	 */
-	public static void cleanup() {
-		
-		_scanner.close();
 		
 	}
 	

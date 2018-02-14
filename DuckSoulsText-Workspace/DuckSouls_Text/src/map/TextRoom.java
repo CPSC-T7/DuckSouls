@@ -465,11 +465,24 @@ public class TextRoom {
 	 * 
 	 * @param pos
 	 *            The position to look at.
-	 * @return The tile at pos.
+	 * @return The tile at position.
 	 */
 	public Entity entityAt(Point pos) {
 		
 		return this.entityArray[pos.x][pos.y];
+		
+	}
+	
+	/**
+	 * Gets the item at a specific point in a room.
+	 * 
+	 * @param pos
+	 *            The position to look at.
+	 * @return The item at position.
+	 */
+	public Item itemAt(Point pos) {
+		
+		return this.itemArray[pos.x][pos.y];
 		
 	}
 
@@ -488,18 +501,26 @@ public class TextRoom {
 		if (this.tileAt(moveTo).CAN_WALK_ON) {
 			
 			// Move the entity
-			this.entityArray[moveTo.x][moveTo.y] = this.entityAt(toMove);
-			this.entityArray[toMove.x][toMove.y] = null;
-			Entity.PLAYER.POS = moveTo;
+			this.placeEntity(moveTo, this.entityAt(toMove));
+			this.placeEntity(toMove, null);
+			
+			if (this.entityAt(moveTo) == Entity.PLAYER) {
+				Entity.PLAYER.POS = moveTo;
+			}
 			
 			// Path tile indicates it has been stepped on
 			this.setTile(toMove, Tile.PATH);
 			
-			// TODO: Add step-on methods/actions.
-			// https://www.ntu.edu.sg/home/ehchua/programming/java/JavaEnum.html
-			// Section 2.2
-			
-			
+			// Deal with the stepped on item
+			if (this.itemAt(moveTo) != null) {
+				
+				// TODO: Add step-on methods/actions.
+				// https://www.ntu.edu.sg/home/ehchua/programming/java/JavaEnum.html
+				// Section 2.2
+				
+				this.placeItem(moveTo, null);
+				
+			}
 			
 			// Path tile indicates it has been stepped on
 			this.setTile(moveTo, Tile.PATH);
