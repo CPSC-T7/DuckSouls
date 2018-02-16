@@ -348,19 +348,14 @@ public class TextLevel {
 				
 			}
 			
-			// Check for enemies
-			for (Point position : this.roomAt(this.currentRoomPoint).enemyPoints) {
+			// Check for enemies\
+			Point battlePoint = this.roomAt(this.currentRoomPoint).checkForBattle();
+			if (battlePoint != null) {
 				
-				if (Math.abs(position.x - TextRoom.Entity.PLAYER.POS.x) <= 1
-						&& Math.abs(position.y - TextRoom.Entity.PLAYER.POS.y) <= 1) {
-					
-					Utilities.clearConsole();
-					BattleWorldTest.battleLoop();
-					
-					this.roomAt(this.currentRoomPoint).removeEntity(position);
-					this.roomAt(this.currentRoomPoint).enemyPoints.remove(position);
-					
-				}
+				Utilities.clearConsole();
+				BattleWorldTest.battleLoop();
+				
+				this.roomAt(this.currentRoomPoint).removeEntity(battlePoint);
 				
 			}
 			

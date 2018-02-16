@@ -144,7 +144,6 @@ public class TextRoom {
 	private Item[][]		itemArray;
 	private Entity[][]		entityArray;
 	
-	public ArrayList<Point>	enemyPoints;
 	public String			roomName;
 	
 	/*
@@ -164,7 +163,6 @@ public class TextRoom {
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
-		this.enemyPoints = new ArrayList<Point>();
 		
 		this.genTileArray();
 		this.scatterItems();
@@ -430,6 +428,25 @@ public class TextRoom {
 	 * PUBLIC METHODS
 	 */
 	
+	public Point checkForBattle() {
+
+		for(int y = 0; y < this.internalHeight + 2; y++) {
+			for(int x = 0; x < this.internalWidth + 2; x++) {
+				
+				if (this.entityArray[x][y] == Entity.ENEMY) {
+					Point enemyPoint = new Point(x, y);
+					if (Entity.PLAYER.POS.distance(enemyPoint) < 1.5) {
+						return enemyPoint;
+					}
+				}
+				
+			}
+		}
+		
+		return null;
+		
+	}
+	
 	/**
 	 * Draws the room to the console
 	 */
@@ -578,8 +595,6 @@ public class TextRoom {
 		
 		if (entity == Entity.PLAYER) {
 			entity.POS = position;
-		} else if (entity == Entity.ENEMY) {
-			this.enemyPoints.add(position);
 		}
 		
 	}
@@ -660,7 +675,6 @@ public class TextRoom {
 				if (_random.nextInt(100) < this.enemySpawnChance) {
 					Point point = new Point(x, y);
 					this.placeEntity(point, Entity.ENEMY);
-					this.enemyPoints.add(point);
 				}
 				
 			}
