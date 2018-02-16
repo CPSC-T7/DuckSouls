@@ -126,7 +126,7 @@ public class TextRoom {
 		
 	}
 	
-	public static Random	_random				= new Random();
+	private static Random	_random				= new Random();
 	
 	/*
 	 * 
@@ -137,12 +137,14 @@ public class TextRoom {
 	private final int		DEFAULT_ROOM_SIZE	= 5;
 	
 	private int				internalWidth, internalHeight;
+	private int				enemySpawnChance	= 5;
 	
 	private String[][]		spriteArray;
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
 	private Entity[][]		entityArray;
 	
+	public ArrayList<Point>	enemyPoints;
 	public String			roomName;
 	
 	/*
@@ -162,8 +164,11 @@ public class TextRoom {
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
+		this.enemyPoints = new ArrayList<Point>();
+		
 		this.genTileArray();
 		this.scatterItems();
+		this.scatterEnemies();
 		
 	}
 	
@@ -197,7 +202,7 @@ public class TextRoom {
 		this.genTileArray();
 		
 	}
-
+	
 	/**
 	 * Creates an empty room of set size.
 	 * 
@@ -459,7 +464,7 @@ public class TextRoom {
 		}
 		
 	}
-
+	
 	/**
 	 * Gets the tile at a specific point in a room.
 	 * 
@@ -485,7 +490,7 @@ public class TextRoom {
 		return this.itemArray[pos.x][pos.y];
 		
 	}
-
+	
 	/**
 	 * Moves an entity from one point to another, throwing a tantrum, I mean
 	 * message, if the ending tile cannot be moved to (walls).
@@ -540,7 +545,7 @@ public class TextRoom {
 		}
 		
 	}
-
+	
 	/**
 	 * Takes an array of points and places a door at every point.
 	 * 
@@ -558,7 +563,7 @@ public class TextRoom {
 		}
 		
 	}
-
+	
 	/**
 	 * Sets a position at a point in the entity array to a specific entity.
 	 * 
@@ -573,10 +578,12 @@ public class TextRoom {
 		
 		if (entity == Entity.PLAYER) {
 			entity.POS = position;
+		} else if (entity == Entity.ENEMY) {
+			this.enemyPoints.add(position);
 		}
 		
 	}
-
+	
 	/**
 	 * Sets a position at a point in the item array to a specific item.
 	 * 
@@ -590,7 +597,7 @@ public class TextRoom {
 		this.itemArray[position.x][position.y] = item;
 		
 	}
-
+	
 	/**
 	 * Removes an entity at a point in the entity array.
 	 * 
@@ -602,7 +609,7 @@ public class TextRoom {
 		this.entityArray[position.x][position.y] = null;
 		
 	}
-
+	
 	/**
 	 * Removes an item at a point in the item array.
 	 * 
@@ -614,7 +621,7 @@ public class TextRoom {
 		this.itemArray[position.x][position.y] = null;
 		
 	}
-
+	
 	/**
 	 * Saves the current room object to a text file
 	 */
@@ -643,7 +650,24 @@ public class TextRoom {
 		Utilities.writeFile(fileName, lines);
 		
 	}
-
+	
+	public void scatterEnemies() {
+		
+		// For each position...
+		for (int x = 1; x < this.internalWidth + 1; x++) {
+			for (int y = 1; y < this.internalHeight + 1; y++) {
+				
+				if (_random.nextInt(100) < this.enemySpawnChance) {
+					Point point = new Point(x, y);
+					this.placeEntity(point, Entity.ENEMY);
+					this.enemyPoints.add(point);
+				}
+				
+			}
+		}
+		
+	}
+	
 	public void scatterItems() {
 		
 		int numItems = Item.values().length, randomItemNumber;
@@ -663,7 +687,7 @@ public class TextRoom {
 		}
 		
 	}
-
+	
 	/**
 	 * Sets a tile at a point in the tile array to a specific tile.
 	 * 
@@ -678,7 +702,7 @@ public class TextRoom {
 		this.spriteArray[position.x][position.y] = tile.STRING_REPR;
 		
 	}
-
+	
 	/**
 	 * Gets the tile at a specific point in a room.
 	 * 

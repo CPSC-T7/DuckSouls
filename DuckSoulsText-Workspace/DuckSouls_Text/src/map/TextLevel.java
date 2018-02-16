@@ -3,6 +3,7 @@ package map;
 import java.awt.Point;
 import java.util.Scanner;
 
+import battle.BattleWorldTest;
 import map.TextRoom.Entity;
 import utils.Utilities;
 
@@ -344,6 +345,22 @@ public class TextLevel {
 					System.out.println("...What?");
 					Utilities.waitMilliseconds(300);
 					break;
+				
+			}
+			
+			// Check for enemies
+			for (Point position : this.roomAt(this.currentRoomPoint).enemyPoints) {
+				
+				if (Math.abs(position.x - TextRoom.Entity.PLAYER.POS.x) <= 1
+						&& Math.abs(position.y - TextRoom.Entity.PLAYER.POS.y) <= 1) {
+					
+					Utilities.clearConsole();
+					BattleWorldTest.battleLoop();
+					
+					this.roomAt(this.currentRoomPoint).removeEntity(position);
+					this.roomAt(this.currentRoomPoint).enemyPoints.remove(position);
+					
+				}
 				
 			}
 			
