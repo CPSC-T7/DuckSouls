@@ -428,7 +428,7 @@ public class TextRoom {
 	 * PUBLIC METHODS
 	 */
 	
-	public Point checkForBattle() {
+	public Point checkForBattlePoint() {
 
 		for(int y = 0; y < this.internalHeight + 2; y++) {
 			for(int x = 0; x < this.internalWidth + 2; x++) {

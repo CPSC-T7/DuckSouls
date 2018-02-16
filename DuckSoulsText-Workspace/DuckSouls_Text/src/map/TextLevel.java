@@ -349,7 +349,7 @@ public class TextLevel {
 			}
 			
 			// Check for enemies\
-			Point battlePoint = this.roomAt(this.currentRoomPoint).checkForBattle();
+			Point battlePoint = this.roomAt(this.currentRoomPoint).checkForBattlePoint();
 			if (battlePoint != null) {
 				
 				Utilities.clearConsole();
