@@ -13,7 +13,7 @@ import utils.Utilities;
  * @author add name if modified
  *
  */
-public class EnemyObject {
+public class EnemyObject extends CharacterBattle {
 	
 	/** Public Variables */
 	
@@ -23,23 +23,7 @@ public class EnemyObject {
 	
 	/** Private Variables */
 	
-	// Enemy Default Stats
-	final private double	HEALTH_POINTS		= 10;
-	final private double	MANA_POINTS			= 15;
-	final private double	ATTACK_POINTS		= 5;
-	final private double	DEFENCE_POINTS		= 5;
-	final private double	SPEED_POINTS		= 5;
-	final private double	ACCURACY_POINTS		= 70;
-	final private double	CRITICAL_HIT_POINTS	= 16;
-	
-	// Enemy Battle Stats (will change with the game)
-	private double			healthPoints		= 10;
-	private double			manaPoints			= 15;
-	private double			attackPoints		= 5;
-	private double			defencePoints		= 5;
-	private double			speedPoints			= 5;
-	private double			accuracyPoints		= 70;
-	private double			criticalHitPoints	= 16;
+
 	
 	//Amount of XP and Money to give the player upon death
 	private int				giveXP				= 25;
@@ -61,8 +45,10 @@ public class EnemyObject {
 	 * @param enemy
 	 *            The type of enemy to display (Will affect sprite used & move type)
 	 */
-	public EnemyObject(String enemy) {
+	public EnemyObject(String enemy, double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
+		super(health, mana, attack, defence, speed, accuracy, crit);
 		enemyType = enemy;
+		
 	}
 	
 	/**
@@ -362,20 +348,8 @@ public class EnemyObject {
 		}
 	}
 	
-	/**
-	 * Resets stats to original values.
-	 */
-	public void resetStats() {
-		
-		healthPoints = HEALTH_POINTS + 0;
-		manaPoints = MANA_POINTS + 0;
-		attackPoints = ATTACK_POINTS + 0;
-		defencePoints = DEFENCE_POINTS + 0;
-		speedPoints = SPEED_POINTS + 0;
-		accuracyPoints = ACCURACY_POINTS + 0;
-		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
-	}
-	
+
+
 	/**
 	 * 
 	 * @param player

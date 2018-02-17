@@ -9,8 +9,9 @@ import java.util.Random;
  * @author Wylee McAndrews
  * @author Rahmanta Satriana
  */
-public class DuckObject {
+public class DuckObject extends CharacterBattle {
 	
+
 	// Private Variables
 	
 	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
@@ -21,24 +22,7 @@ public class DuckObject {
 	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
 	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
-	// Player Stats (All fixed values for DEMO 1)
-	// Stats for resetting (Will probably be set through a constructor later)
-	private double			HEALTH_POINTS		= 20;
-	private double			MANA_POINTS			= 15;
-	private double			ATTACK_POINTS		= 5;
-	private double			DEFENCE_POINTS		= 5;
-	private double			SPEED_POINTS		= 5;
-	private double			ACCURACY_POINTS		= 70;
-	private double			CRITICAL_HIT_POINTS	= 16;
-	
-	// Stats that will change during the battle
-	private double			healthPoints		= 20;
-	private double			manaPoints			= 15;
-	private double			attackPoints		= 5;
-	private double			defencePoints		= 5;
-	private double			speedPoints			= 5;
-	private double			accuracyPoints		= 70;
-	private double			criticalHitPoints	= 16;
+
 	private int				level				= 1;
 	private int				experience			= 0;
 	private int				money				= 0;
@@ -52,6 +36,10 @@ public class DuckObject {
 	
 	public static void main(String[] args) {
 		
+	}
+	
+	public DuckObject(double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
+		super(health, mana, attack, defence, speed, accuracy, crit);
 	}
 	
 	/**
@@ -353,17 +341,7 @@ public class DuckObject {
 		Utilities.clearConsole();
 	}// End of taunt
 	
-	public void resetStats() {
-		//Resets the stats after battle
-		healthPoints = HEALTH_POINTS + 0;
-		manaPoints = MANA_POINTS + 0;
-		attackPoints = ATTACK_POINTS + 0;
-		defencePoints = DEFENCE_POINTS + 0;
-		speedPoints = SPEED_POINTS + 0;
-		accuracyPoints = ACCURACY_POINTS + 0;
-		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
-		
-	}
+
 	
 	/**
 	 * 
@@ -380,7 +358,7 @@ public class DuckObject {
 			//Player runs away
 			
 			System.out.println("You flew away from battle...");
-			resetStats();
+			super.resetStats();
 			enemy.resetStats();
 			//resets both player's and enemy's stats
 			System.out.println("The battle has ended.");
@@ -440,13 +418,13 @@ public class DuckObject {
 			
 			level += 1;
 			experience -= 50;
-			HEALTH_POINTS += 2;
-			MANA_POINTS += 2;
-			ATTACK_POINTS += 1;
-			DEFENCE_POINTS += 1;
-			SPEED_POINTS += 1;
-			ACCURACY_POINTS += 1;
-			CRITICAL_HIT_POINTS += 1;
+			healthPointsStatic += 2;
+			manaPointsStatic += 2;
+			attackPointsStatic += 1;
+			defencePointsStatic += 1;
+			speedPointsStatic += 1;
+			accuracyPointsStatic += 1;
+			criticalHitPointsStatic += 1;
 			
 			System.out.println("You have levelled up!");
 			Utilities.waitMilliseconds(800);
@@ -460,75 +438,12 @@ public class DuckObject {
 			Utilities.clearConsole();
 			
 		}
-		
+
 	}
 	
 	public static void cleanup() {
 		scanner.close();
 	}
 	
-	//A lot of getters and setters for the stats, will be
-	//cleaned up for Demo 2
-	
-	public double getDefence() {
-		return defencePoints;
-	}
-	
-	public double getCriticalHit() {
-		return criticalHitPoints;
-	}
-	
-	public double getAttack() {
-		return attackPoints;
-	}
-	
-	public double getHealth() {
-		return healthPoints;
-	}
-	
-	public double getMana() {
-		return manaPoints;
-	}
-	
-	public double getSpeed() {
-		return speedPoints;
-	}
-	
-	public double getAccuracy() {
-		return accuracyPoints;
-	}
-	
-	/**
-	 * 
-	 * @param newValue
-	 *
-	 */
-	public void setDefence(double newValue) {
-		defencePoints = newValue;
-	}
-	
-	public void setCriticalHit(double newValue) {
-		criticalHitPoints = newValue;
-	}
-	
-	public void setAttack(double newValue) {
-		attackPoints = newValue;
-	}
-	
-	public void setHealth(double newValue) {
-		healthPoints = newValue;
-	}
-	
-	public void setMana(double newValue) {
-		manaPoints = newValue;
-	}
-	
-	public void setSpeed(double newValue) {
-		speedPoints = newValue;
-	}
-	
-	public void setAccuracy(double newValue) {
-		accuracyPoints = newValue;
-	}
 	
 }
