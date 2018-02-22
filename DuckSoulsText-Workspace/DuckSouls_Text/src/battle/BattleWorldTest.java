@@ -25,10 +25,10 @@ public class BattleWorldTest {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Utilities.clearConsole();
 		battleLoop();
-	}
+	}*/
 	
 	/**
 	 * Draw the move options ("Fight" banner for now), Enemy, and player in default positions

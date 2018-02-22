@@ -27,8 +27,8 @@ public class DuckObject extends CharacterBattle {
 	private int				experience			= 0;
 	private int				money				= 0;
 	
-	private boolean hasWeapon = false;
-	private boolean hasArmour = false;
+	//private boolean hasWeapon = false;
+	//private boolean hasArmour = false;
 	
 	private static String	direction			= "Right";	// The direction that the sprite is facing
 
@@ -216,15 +216,21 @@ public class DuckObject extends CharacterBattle {
 		//Get random numbers
 		boolean landed = true;
 		boolean critical = true;
+		System.out.println(accuracyChance);
+		System.out.println(getStats("accuracyPoints"));
+		System.out.println(landed);
 		
-		if (accuracyChance <= accuracyPoints) {
+		if (accuracyChance <= getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;
 		}
 		//To see if it will be a successful attack or not
+		System.out.println(landed);
+		Utilities.waitMilliseconds(1500);
 		
-		if (criticalHitChance <= criticalHitPoints) {
+		
+		if (criticalHitChance <= getStats("criticalHitPoints")) {
 			critical = true;
 		} else {
 			critical = false;
@@ -232,9 +238,9 @@ public class DuckObject extends CharacterBattle {
 		//To see if it will deal bonus damage or not
 		
 		double damage;
-		damage = (attackPoints * 2.5) - enemy.getDefence();
+		damage = (getStats("attackPoints") * 2.5) - enemy.getStats("defencePoints");
 		//Temporary damage formula
-		double enemyHealth = enemy.getHealth();
+		double enemyHealth = enemy.getStats("healthPoints");
 		//Gets enemy's health
 		if (critical) {
 			damage = damage * 1.5;
@@ -242,7 +248,7 @@ public class DuckObject extends CharacterBattle {
 		}
 		if (landed) {
 			double newHealth = enemyHealth - damage;
-			enemy.setHealth(Math.round(newHealth));
+			enemy.setStats("healthPoints", Math.round(newHealth));
 			//If successful attack then minus the enemy health
 		}
 		
@@ -313,10 +319,10 @@ public class DuckObject extends CharacterBattle {
 	 */
 	public void taunt(EnemyObject enemy) {
 		
-		double enemyAttack = enemy.getAttack();
-		double enemyDefence = enemy.getDefence();
-		enemy.setAttack(enemyAttack + 5);
-		enemy.setDefence(enemyDefence - 5);
+		double enemyAttack = enemy.getStats("attackPoints");
+		double enemyDefence = enemy.getStats("defencePoints");
+		enemy.setStats("attackPoints", (enemyAttack + 5));
+		enemy.setStats("defencePoints", (enemyDefence - 5));
 		//Increases and decreases the enemy's stats
 		
 		for (int i = 0; i <= 2; i++) {
@@ -352,7 +358,7 @@ public class DuckObject extends CharacterBattle {
 	
 	private boolean finishBattle(EnemyObject enemy, String move) {
 		//Two ways of the battles finishing on player's turn
-		double enemyHealth = enemy.getHealth();
+		double enemyHealth = enemy.getStats("healthPoints");
 		
 		if (move.equals("fly")) {
 			//Player runs away
@@ -418,13 +424,13 @@ public class DuckObject extends CharacterBattle {
 			
 			level += 1;
 			experience -= 50;
-			healthPointsStatic += 2;
-			manaPointsStatic += 2;
-			attackPointsStatic += 1;
-			defencePointsStatic += 1;
-			speedPointsStatic += 1;
-			accuracyPointsStatic += 1;
-			criticalHitPointsStatic += 1;
+			setStats("healthPointsStatic", (getStats("healthPointsStatic") + 2));
+			setStats("manaPointsStatic", (getStats("manaPointsStatic") + 2));
+			setStats("attackPointsStatic", (getStats("attackPointsStatic") + 1));
+			setStats("defencePointsStatic", (getStats("defencePointsStatic") + 1));
+			setStats("speedPointsStatic", (getStats("speedPointsStatic") + 1));
+			setStats("accuracyPointsStatic", (getStats("accuracyPointsStatic") + 1));
+			setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 1));
 			
 			System.out.println("You have levelled up!");
 			Utilities.waitMilliseconds(800);
@@ -443,6 +449,10 @@ public class DuckObject extends CharacterBattle {
 	
 	public static void cleanup() {
 		scanner.close();
+	}
+	
+	public int getMoney() {
+		return money;
 	}
 	
 	

@@ -230,27 +230,35 @@ public class EnemyObject extends CharacterBattle {
 		boolean landed = true;
 		boolean critical = true;
 		
-		if (accuracyChance <= accuracyPoints) {
+		System.out.println(accuracyChance);
+		System.out.println(getStats("accuracyPoints"));
+		System.out.println(getStats("criticalHitPoints"));
+		System.out.println(landed);
+		
+		if (accuracyChance <= getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;
 		}
 		
-		if (criticalHitChance <= criticalHitPoints) {
+		System.out.println(landed);
+		Utilities.waitMilliseconds(1500);
+		
+		if (criticalHitChance <= getStats("criticalHitPoints")) {
 			critical = true;
 		} else {
 			critical = false;
 		}
 		
 		double damage;
-		damage = (attackPoints * 2.5) - player.getDefence();
-		double playerHealth = player.getHealth();
+		damage = (getStats("attackPoints") * 2.5) - player.getStats("defencePoints");
+		double playerHealth = player.getStats("healthPoints");
 		if (critical) {
 			damage = damage * 1.5;
 		}
 		if (landed) {
 			double newHealth = playerHealth - damage;
-			player.setHealth(Math.round(newHealth));
+			player.setStats("healthPoints", (Math.round(newHealth)));
 		}
 		
 		System.out.println("The enemy attacked you...");
@@ -283,10 +291,10 @@ public class EnemyObject extends CharacterBattle {
 	 */
 	public void taunt(DuckObject player) {
 		
-		double playerAttack = player.getAttack();
-		double playerDefence = player.getDefence();
-		player.setAttack(playerAttack + 5);
-		player.setDefence(playerDefence - 5);
+		double playerAttack = player.getStats("attackPoints");
+		double playerDefence = player.getStats("defencePoints");
+		player.setStats("attackPoints", (playerAttack + 5));
+		player.setStats("defencePoints", (playerDefence - 5));
 		//Increases and decreases the player's stats
 		
 		for (int i = 0; i <= 3; i++) {
@@ -358,7 +366,7 @@ public class EnemyObject extends CharacterBattle {
 	 */
 	private boolean finishBattle(DuckObject player, int move) {
 		
-		double playerHealth = player.getHealth();
+		double playerHealth = player.getStats("healthPoints");
 		
 		/*
 		 * if (move == 2) { System.out.println("The enemy ran away from battle...");
@@ -388,72 +396,13 @@ public class EnemyObject extends CharacterBattle {
 		
 	}
 	
-	//Getters and setters for the stats
-	
-	public double getDefence() {
-		return defencePoints;
-	}
-	
-	public double getCriticalHit() {
-		return criticalHitPoints;
-	}
-	
-	public double getAttack() {
-		return attackPoints;
-	}
-	
-	public double getHealth() {
-		return healthPoints;
-	}
-	
-	public double getMana() {
-		return manaPoints;
-	}
-	
-	public double getSpeed() {
-		return speedPoints;
-	}
-	
-	public double getAccuracy() {
-		return accuracyPoints;
+	public int getMoney() {
+		return giveMoney;
 	}
 	
 	public int getXP() {
 		return giveXP;
 	}
-	
-	public int getMoney() {
-		return giveMoney;
-	}
-	
-	public void setDefence(double newValue) {
-		defencePoints = newValue;
-	}
-	
-	public void setCriticalHit(double newValue) {
-		criticalHitPoints = newValue;
-	}
-	
-	public void setAttack(double newValue) {
-		attackPoints = newValue;
-	}
-	
-	public void setHealth(double newValue) {
-		healthPoints = newValue;
-	}
-	
-	public void setMana(double newValue) {
-		manaPoints = newValue;
-	}
-	
-	public void setSpeed(double newValue) {
-		speedPoints = newValue;
-	}
-	
-	public void setAccuracy(double newValue) {
-		accuracyPoints = newValue;
-		Utilities.waitMilliseconds(50);
-		Utilities.clearConsole();
-	}
+
 	
 }

@@ -1,5 +1,6 @@
 package battle;
 
+import java.util.Random;
 
 /**
  * 
@@ -11,22 +12,22 @@ public class CharacterBattle {
 	
 	// Player Stats (All fixed values for DEMO 1)
 	// Stats for resetting (Will probably be set through a constructor later)
-	protected double			healthPointsStatic;
-	protected double			manaPointsStatic;
-	protected double			attackPointsStatic;
-	protected double			defencePointsStatic;
-	protected double			speedPointsStatic;
-	protected double			accuracyPointsStatic;
-	protected double			criticalHitPointsStatic;
+	private double			healthPointsStatic;
+	private double			manaPointsStatic;
+	private double			attackPointsStatic;
+	private double			defencePointsStatic;
+	private double			speedPointsStatic;
+	private double			accuracyPointsStatic;
+	private double			criticalHitPointsStatic;
 		
 	// Stats that will change during the battle
-	protected double			healthPoints;
-	protected double			manaPoints;
-	protected double			attackPoints;
-	protected double			defencePoints;
-	protected double			speedPoints;
-	protected double			accuracyPoints;
-	protected double			criticalHitPoints;
+	private double			healthPoints;
+	private double			manaPoints;
+	private double			attackPoints;
+	private double			defencePoints;
+	private double			speedPoints;
+	private double			accuracyPoints;
+	private double			criticalHitPoints;
 
 	
 	public CharacterBattle (double health, double mana, double attack, double defence, double speed, double accuracy, double crit) {
@@ -46,6 +47,15 @@ public class CharacterBattle {
 		speedPointsStatic = speed;
 		accuracyPointsStatic = accuracy;
 		criticalHitPointsStatic = crit;
+	}
+	
+	public double attackBonus(double damage) {
+		
+		Random rand = new Random();
+		//Create a random object
+		int bonus = rand.nextInt(11) - 5;
+		damage += bonus;
+		return damage;
 	}
 	
 	
@@ -153,7 +163,17 @@ public class CharacterBattle {
 			return criticalHitPointsStatic;
 				
 		}
-		return 0.0;
+		return 5.2;
 		
+	}
+	
+	public void resetStats() {
+		healthPoints = healthPointsStatic + 0;
+		manaPoints = manaPointsStatic + 0;
+		attackPoints = attackPointsStatic + 0;
+		defencePoints = defencePointsStatic + 0;
+		speedPoints = speedPointsStatic + 0;
+		accuracyPoints = accuracyPointsStatic + 0;
+		criticalHitPoints = criticalHitPointsStatic + 0;
 	}
 }
