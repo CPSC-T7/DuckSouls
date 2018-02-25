@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Scanner;
 
 import battle.BattleWorldTest;
-import map.TextRoom.Entity;
+import mattEntities.*;
 import utils.Utilities;
 
 public class TextLevel {
@@ -48,7 +48,7 @@ public class TextLevel {
 		
 		this.currentRoomPoint = new Point(0, 0);
 		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1),
-				Entity.PLAYER);
+				new Player());
 		
 		this.genMinimapArray();
 		
@@ -228,9 +228,9 @@ public class TextLevel {
 	 */
 	public void moveRoom_Direction(char direction) {
 		
-		Point newPlayerPoint = new Point(TextRoom.Entity.PLAYER.POS);
+		Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint);
 		
-		this.roomAt(this.currentRoomPoint).removeEntity(TextRoom.Entity.PLAYER.POS);
+		this.roomAt(this.currentRoomPoint).removeEntity(this.roomAt(this.currentRoomPoint).playerPoint);
 		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
 		
 		switch (direction) {
@@ -257,7 +257,7 @@ public class TextLevel {
 			
 		}
 		
-		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, TextRoom.Entity.PLAYER);
+		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, new Player());
 		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
 		
 	}
@@ -295,41 +295,45 @@ public class TextLevel {
 				
 				case "W":
 				case "NORTH":
-					if (TextRoom.Entity.PLAYER.POS.y == 0) {
+					if (this.roomAt(this.currentRoomPoint).playerPoint.y == 0) {
 						this.moveRoom_Direction('u');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-								new Point(Entity.PLAYER.POS.x, Entity.PLAYER.POS.y - 1));
+						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
+								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x,
+										this.roomAt(this.currentRoomPoint).playerPoint.y - 1));
 					}
 					break;
 				
 				case "S":
 				case "SOUTH":
-					if (TextRoom.Entity.PLAYER.POS.y == this.roomSize + 1) {
+					if (this.roomAt(this.currentRoomPoint).playerPoint.y == this.roomSize + 1) {
 						this.moveRoom_Direction('d');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-								new Point(Entity.PLAYER.POS.x, Entity.PLAYER.POS.y + 1));
+						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
+								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x,
+										this.roomAt(this.currentRoomPoint).playerPoint.y + 1));
 					}
 					break;
 				
 				case "D":
 				case "EAST":
-					if (TextRoom.Entity.PLAYER.POS.x == this.roomSize + 1) {
+					if (this.roomAt(this.currentRoomPoint).playerPoint.x == this.roomSize + 1) {
 						this.moveRoom_Direction('r');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-								new Point(Entity.PLAYER.POS.x + 1, Entity.PLAYER.POS.y));
+						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
+								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x + 1,
+										this.roomAt(this.currentRoomPoint).playerPoint.y));
 					}
 					break;
 				
 				case "A":
 				case "WEST":
-					if (TextRoom.Entity.PLAYER.POS.x == 0) {
+					if (this.roomAt(this.currentRoomPoint).playerPoint.x == 0) {
 						this.moveRoom_Direction('l');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(Entity.PLAYER.POS,
-								new Point(Entity.PLAYER.POS.x - 1, Entity.PLAYER.POS.y));
+						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
+								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x - 1,
+										this.roomAt(this.currentRoomPoint).playerPoint.y));
 					}
 					break;
 				

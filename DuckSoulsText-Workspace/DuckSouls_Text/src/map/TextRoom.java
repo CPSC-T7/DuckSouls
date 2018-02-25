@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mattEntities.*;
+import mattTiles.*;
+import mattItems.*;
 import utils.Utilities;
 
 //TODO: Fill in JavaDocs
@@ -23,109 +26,6 @@ public class TextRoom {
 	 * 
 	 */
 	
-	/**
-	 * Temporary enumerator for tiles whilst tiles are in development.
-	 * 
-	 * @author Matthew Allwright
-	 */
-	public static enum Tile {
-		
-		// Doors
-		
-		DOOR(" D ", true),
-		
-		// Walls
-		
-		WALL_H("═══", false),
-		WALL_V(" ║ ", false),
-		WALL_TL(" ╔═", false),
-		WALL_TR("═╗ ", false),
-		WALL_BL(" ╚═", false),
-		WALL_BR("═╝ ", false),
-		
-		// Floors
-		
-		PATH(" . ", true),
-		EMPTY("   ", true);
-		
-		private String	STRING_REPR, FILE_CHAR;
-		private boolean	CAN_WALK_ON;
-		
-		/**
-		 * Creates a tile.
-		 * 
-		 * @param STRING_REPR
-		 *            The 3-character string used to print the tile.
-		 * @param CAN_WALK_ON
-		 *            Whether or not a player can walk on the tile.
-		 */
-		private Tile(String STRING_REPR, boolean CAN_WALK_ON) {
-			
-			this.STRING_REPR = STRING_REPR;
-			this.FILE_CHAR = Character.toString(this.STRING_REPR.charAt(1)); // Middle char
-			this.CAN_WALK_ON = CAN_WALK_ON;
-			
-		}
-		
-	}
-	
-	/**
-	 * Temporary enumerator for entities whilst tiles are in development.
-	 * 
-	 * @author Matthew Allwright
-	 */
-	public static enum Entity {
-		
-		PLAYER(" @ "),
-		ENEMY(" E ");
-		
-		private String	STRING_REPR;
-		
-		public Point	POS;
-		
-		/**
-		 * Creates an entity.
-		 * 
-		 * @param STRING_REPR
-		 *            The 3-character string used to print the tile.
-		 */
-		private Entity(String STRING_REPR) {
-			
-			this.STRING_REPR = STRING_REPR;
-			
-		}
-		
-	}
-	
-	/**
-	 * Temporary enumerator for items whilst tiles are in development.
-	 * 
-	 * @author Matthew Allwright
-	 */
-	public static enum Item {
-		
-		FISH(" F ", 15),
-		MONEY(" $ ", 15),
-		POTION(" P ", 15);
-		
-		private String	STRING_REPR;
-		private int		SPAWN_CHANCE;	// 0-99
-		
-		/**
-		 * Creates an entity.
-		 * 
-		 * @param STRING_REPR
-		 *            The 3-character string used to print the tile.
-		 */
-		private Item(String STRING_REPR, int SPAWN_CHANCE) {
-			
-			this.STRING_REPR = STRING_REPR;
-			this.SPAWN_CHANCE = SPAWN_CHANCE;
-			
-		}
-		
-	}
-	
 	private static Random	_random				= new Random();
 	
 	/*
@@ -142,6 +42,8 @@ public class TextRoom {
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
 	private Entity[][]		entityArray;
+	
+	public Point			playerPoint;
 	
 	public String			roomName;
 	
@@ -282,76 +184,77 @@ public class TextRoom {
 		this.internalWidth = width;
 		this.internalHeight = height;
 		
-		this.placeEntity(playerPosition, Entity.PLAYER);
+		this.placeEntity(playerPosition, new Player());
 		this.genTileArray();
 		
 		this.placeDoors(doors);
 		
 	}
 	
-	/**
-	 * Creates a room from a specified file.
-	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
-	 * @param fileName
-	 *            The file containing the data for the room.
-	 */
-	public TextRoom(String name, String fileName) {
-		
-		// Read the file
-		String[] lines = Utilities.readLines(fileName);
-		
-		// Width of the room is the number of characters in a row, minus the walls
-		this.internalWidth = lines[0].split(",").length - 2;
-		
-		// Height of the room is the number of lines, minus the walls
-		this.internalHeight = lines.length - 2;
-		
-		// Generate an array for reading the file
-		String[][] textTileArray = new String[this.internalWidth + 2][this.internalHeight + 2];
-		
-		// Generate the room's tile array
-		this.genTileArray();
-		
-		// Split all the lines of the file by commas to get the tile strings
-		for (int i = 0; i < this.internalHeight + 2; i++) {
-			
-			textTileArray[i] = lines[i].split(",");
-			
-		}
-		
-		// For each position in the room...
-		for (int y = 0; y < this.internalHeight + 2; y++) {
-			for (int x = 0; x < this.internalWidth + 2; x++) {
-				
-				// For each type of tile possible...
-				for (Tile tile : Tile.values()) {
-					
-					// If the file says there should be said tile there...
-					if (textTileArray[x][y].equals(tile.FILE_CHAR)) {
-						
-						// Place said tile
-						this.tileArray[x][y] = tile;
-						
-						// TODO: Delete?
-						// Record where the player was placed
-						// if (tile == Tile.PLAYER) {
-						// this.playerPosition = new Point(x, y);
-						// }
-						
-						// Stop searching through tile types
-						break;
-						
-					}
-					
-				}
-				
-			}
-			
-		}
-		
-	}
+	// /**
+	// * Creates a room from a specified file.
+	// *
+	// * @param name
+	// * The name of the room. (Used for file i/o)
+	// * @param fileName
+	// * The file containing the data for the room.
+	// */
+	// public TextRoom(String name, String fileName) {
+	//
+	// // Read the file
+	// String[] lines = Utilities.readLines(fileName);
+	//
+	// // Width of the room is the number of characters in a row, minus the walls
+	// this.internalWidth = lines[0].split(",").length - 2;
+	//
+	// // Height of the room is the number of lines, minus the walls
+	// this.internalHeight = lines.length - 2;
+	//
+	// // Generate an array for reading the file
+	// String[][] textTileArray = new String[this.internalWidth +
+	// 2][this.internalHeight + 2];
+	//
+	// // Generate the room's tile array
+	// this.genTileArray();
+	//
+	// // Split all the lines of the file by commas to get the tile strings
+	// for (int i = 0; i < this.internalHeight + 2; i++) {
+	//
+	// textTileArray[i] = lines[i].split(",");
+	//
+	// }
+	//
+	// // For each position in the room...
+	// for (int y = 0; y < this.internalHeight + 2; y++) {
+	// for (int x = 0; x < this.internalWidth + 2; x++) {
+	//
+	// // For each type of tile possible...
+	// for (Tile tile : Tile.values()) {
+	//
+	// // If the file says there should be said tile there...
+	// if (textTileArray[x][y].equals(tile.FILE_CHAR)) {
+	//
+	// // Place said tile
+	// this.tileArray[x][y] = tile;
+	//
+	// // TODO: Delete?
+	// // Record where the player was placed
+	// // if (tile == Tile.PLAYER) {
+	// // this.playerPosition = new Point(x, y);
+	// // }
+	//
+	// // Stop searching through tile types
+	// break;
+	//
+	// }
+	//
+	// }
+	//
+	// }
+	//
+	// }
+	//
+	// }
 	
 	/*
 	 * 
@@ -386,31 +289,31 @@ public class TextRoom {
 				
 				if (x == 0 && y == 0) { // Top Left
 					
-					this.tileArray[x][y] = Tile.WALL_TL;
+					this.tileArray[x][y] = new Wall_TL();
 					
 				} else if (x == this.internalWidth + 1 && y == 0) { // Top Right
 					
-					this.tileArray[x][y] = Tile.WALL_TR;
+					this.tileArray[x][y] = new Wall_TR();
 					
 				} else if (x == 0 && y == this.internalHeight + 1) { // Bottom Left
 					
-					this.tileArray[x][y] = Tile.WALL_BL;
+					this.tileArray[x][y] = new Wall_BL();
 					
 				} else if (x == this.internalWidth + 1 && y == this.internalHeight + 1) { // Bottom Right
 					
-					this.tileArray[x][y] = Tile.WALL_BR;
+					this.tileArray[x][y] = new Wall_BR();
 					
 				} else if (x == 0 || x == this.internalWidth + 1) { // Left & Right Walls
 					
-					this.tileArray[x][y] = Tile.WALL_V;
+					this.tileArray[x][y] = new Wall_V();
 					
 				} else if (y == 0 || y == this.internalHeight + 1) { // Top & Bottom Walls
 					
-					this.tileArray[x][y] = Tile.WALL_H;
+					this.tileArray[x][y] = new Wall_H();
 					
 				} else { // Centre Tiles
 					
-					this.tileArray[x][y] = Tile.EMPTY;
+					this.tileArray[x][y] = new EmptyTile();
 					
 				}
 				
@@ -425,13 +328,13 @@ public class TextRoom {
 	 */
 	
 	public Point checkForBattlePoint() {
-
-		for(int y = 0; y < this.internalHeight + 2; y++) {
-			for(int x = 0; x < this.internalWidth + 2; x++) {
+		
+		for (int y = 0; y < this.internalHeight + 2; y++) {
+			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				if (this.entityArray[x][y] == Entity.ENEMY) {
+				if (this.entityArray[x][y] != null && this.entityArray[x][y].type.equals("ENEMY")) {
 					Point enemyPoint = new Point(x, y);
-					if (Entity.PLAYER.POS.distance(enemyPoint) < 1.5) {
+					if (this.playerPoint.distance(enemyPoint) < 1.5) {
 						return enemyPoint;
 					}
 				}
@@ -522,12 +425,12 @@ public class TextRoom {
 			this.placeEntity(moveTo, this.entityAt(toMove));
 			this.placeEntity(toMove, null);
 			
-			if (this.entityAt(moveTo) == Entity.PLAYER) {
-				Entity.PLAYER.POS = moveTo;
+			if (this.entityAt(moveTo).type.equals("PLAYER")) {
+				this.playerPoint = moveTo;
 			}
 			
 			// Path tile indicates it has been stepped on
-			this.setTile(toMove, Tile.PATH);
+			this.setTile(toMove, new Path());
 			
 			// Deal with the stepped on item
 			if (this.itemAt(moveTo) != null) {
@@ -541,7 +444,7 @@ public class TextRoom {
 			}
 			
 			// Path tile indicates it has been stepped on
-			this.setTile(moveTo, Tile.PATH);
+			this.setTile(moveTo, new Path());
 			
 		} else {
 			
@@ -570,7 +473,7 @@ public class TextRoom {
 		for (Point pos : doors) {
 			
 			if (pos != null) {
-				this.setTile(pos, Tile.DOOR);
+				this.setTile(pos, new Door());
 			}
 			
 		}
@@ -589,8 +492,8 @@ public class TextRoom {
 		
 		this.entityArray[position.x][position.y] = entity;
 		
-		if (entity == Entity.PLAYER) {
-			entity.POS = position;
+		if (entity != null && entity.type.equals("PLAYER")) {
+			this.playerPoint = position;
 		}
 		
 	}
@@ -670,7 +573,7 @@ public class TextRoom {
 				
 				if (_random.nextInt(100) < this.enemySpawnChance) {
 					Point point = new Point(x, y);
-					this.placeEntity(point, Entity.ENEMY);
+					this.placeEntity(point, new Enemy());
 				}
 				
 			}
@@ -680,14 +583,34 @@ public class TextRoom {
 	
 	public void scatterItems() {
 		
-		int numItems = Item.values().length, randomItemNumber;
+		int numItems = 3, randomItemNumber;
 		
 		// For each position...
 		for (int x = 1; x < this.internalWidth + 1; x++) {
 			for (int y = 1; y < this.internalHeight + 1; y++) {
 				
 				randomItemNumber = _random.nextInt(numItems);
-				Item selectedItem = Item.values()[randomItemNumber];
+				Item selectedItem;
+				
+				switch(randomItemNumber) {
+					
+					case 0:
+						selectedItem = new Fish();
+						break;
+						
+					case 1:
+						selectedItem = new Money();
+						break;
+						
+					case 2:
+						selectedItem = new Potion();
+						break;
+					
+					default:
+						selectedItem = new Item();
+						break;
+					
+				}
 				
 				if (_random.nextInt(100) < selectedItem.SPAWN_CHANCE) {
 					this.placeItem(new Point(x, y), selectedItem);

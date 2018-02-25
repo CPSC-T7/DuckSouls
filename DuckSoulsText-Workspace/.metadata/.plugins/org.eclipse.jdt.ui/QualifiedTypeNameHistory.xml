@@ -19,13 +19,16 @@
 <fullyQualifiedTypeName name="ui.TitleScreen"/>
 <fullyQualifiedTypeName name="character.PlayerCharacter"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="tiles.Tile"/>
 <fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="utils.Utilities"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="java.awt.Point"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="tiles.Tile"/>
+<fullyQualifiedTypeName name="entities.Entity"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="mattItems.Potion"/>
+<fullyQualifiedTypeName name="mattEntities.Player"/>
 </qualifiedTypeNameHistroy>
