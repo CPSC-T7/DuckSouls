@@ -284,7 +284,7 @@ public class TextLevel {
 			Utilities.clearConsole();
 			this.drawMinimap();
 			System.out.println('\n');
-			this.roomAt(this.currentRoomPoint).draw();
+			this.roomAt(this.currentRoomPoint).draw_Text();
 			System.out.print("\nAction \t: ");
 			input = _scanner.nextLine().toUpperCase();
 			

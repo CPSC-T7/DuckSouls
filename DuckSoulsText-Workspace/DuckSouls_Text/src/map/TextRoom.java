@@ -139,7 +139,6 @@ public class TextRoom {
 	private int				internalWidth, internalHeight;
 	private int				enemySpawnChance	= 5;
 	
-	private String[][]		spriteArray;
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
 	private Entity[][]		entityArray;
@@ -374,7 +373,6 @@ public class TextRoom {
 		
 		// Generate 2D arrays to fill...
 		this.tileArray = new Tile[this.internalWidth + 2][this.internalHeight + 2];
-		this.spriteArray = new String[this.internalWidth + 2][this.internalHeight + 2];
 		this.entityArray = new Entity[this.internalWidth + 2][this.internalHeight + 2];
 		this.itemArray = new Item[this.internalWidth + 2][this.internalHeight + 2];
 		
@@ -416,8 +414,6 @@ public class TextRoom {
 					
 				}
 				
-				this.spriteArray[x][y] = this.tileArray[x][y].STRING_REPR;
-				
 			}
 			
 		}
@@ -450,7 +446,7 @@ public class TextRoom {
 	/**
 	 * Draws the room to the console
 	 */
-	public void draw() {
+	public void draw_Text() {
 		
 		// For each position...
 		for (int y = 0; y < this.internalHeight + 2; y++) {
@@ -469,7 +465,7 @@ public class TextRoom {
 				} else {
 					
 					// Print the tile
-					System.out.print(this.spriteArray[x][y]);
+					System.out.print(this.tileArray[x][y].STRING_REPR);
 					
 				}
 				
@@ -713,7 +709,6 @@ public class TextRoom {
 	public void setTile(Point position, Tile tile) {
 		
 		this.tileArray[position.x][position.y] = tile;
-		this.spriteArray[position.x][position.y] = tile.STRING_REPR;
 		
 	}
 	
