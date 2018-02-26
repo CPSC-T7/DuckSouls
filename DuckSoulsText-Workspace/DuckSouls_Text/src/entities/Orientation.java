@@ -1,4 +1,4 @@
-package mattEntities;
+package entities;
 
 public enum Orientation {
 	

@@ -1,110 +1,26 @@
 package tiles;
 
-import java.awt.Point;
-
-/**
- * This class represents a basic, empty tile. It is used as the super class for
- * many other specific types of tile.
- * 
- * @author Colin Yeung
- */
 public class Tile {
 	
-	/*
-	 * 
-	 * INSTANCE VARIABLES
-	 * 
-	 */
-	
-	private Point	position	= new Point();
-	private boolean	canMoveOn;
-	private String	stringRepr;
-	
-	/*
-	 * 
-	 * CONSTRUCTORS
-	 * 
-	 */
+	private String		stringRepr	= "TER";
+	protected boolean	canWalkOn	= true;
+	private char		fileCharacter;
 	
 	/**
-	 * Creates a new tile at a specified position.
+	 * Creates a tile.
 	 * 
-	 * @param x The X co-ordinate of the tile.
-	 * @param y The Y co-ordinate of the tile.
+	 * @param stringRepr
+	 *            The 3-character string used to print the tile.
+	 * @param canWalkOn
+	 *            Whether or not a player can walk on the tile.
 	 */
-	public Tile(int x, int y) {
+	protected Tile(String stringRepr, boolean canWalkOn) {
 		
-		this.canMoveOn = false;
-		this.stringRepr = "   ";
-		this.position.setLocation(x, y);
-		
-	} // End of constructor
-	
-	/**
-	 * Creates a new tile at a specified position and defined characteristics.
-	 * 
-	 * @param x The X co-ordinate of the tile.
-	 * @param y The Y co-ordinate of the tile.
-	 * @param canMoveOn Whether the player can move on this tile or not.
-	 * @param stringRepr The string to display when printing the tile.
-	 */
-	public Tile(int x, int y, boolean canMoveOn, String stringRepr) {
-		
-		this.position.setLocation(x, y);
-		this.canMoveOn = canMoveOn;
 		this.stringRepr = stringRepr;
+		this.fileCharacter = this.stringRepr.charAt(1); // Middle char
+		this.canWalkOn = canWalkOn;
 		
-	} // End of constructor
-	
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
-	
-	/**
-	 * Returns whether the tile can be moved on or not.
-	 * 
-	 * @return Whether the tile can be moved on or not.
-	 */
-	public boolean canMove() {
-		
-		return this.canMoveOn;
-		
-	} // End of canMove
-	
-	/**
-	 * Returns the X position of the tile.
-	 * 
-	 * @return The X position of the tile.
-	 */
-	public int getX() {
-		
-		return (int) this.position.getX();
-		
-	} // End of getX
-	
-	/**
-	 * Returns the Y position of the tile.
-	 * 
-	 * @return The Y position of the tile.
-	 */
-	public int getY() {
-		
-		return (int) this.position.getY();
-		
-	} // End of getY
-	
-	/**
-	 * Sets if the tile can be moved to or not.
-	 * 
-	 * @param canMoveOn Whether the tile can be moved to or not.
-	 */
-	public void setCanMoveOn(boolean canMoveOn) {
-		
-		this.canMoveOn = canMoveOn;
-	
-	} // End of canMoveOn
+	}
 	
 	/**
 	 * Returns the string representation of the tile.
@@ -113,41 +29,30 @@ public class Tile {
 	 */
 	public String getStringRepr() {
 		
-		return this.stringRepr;
+		return new String(this.stringRepr);
 		
 	} // End of getStringRepr
 	
 	/**
-	 * Returns the type of the tile.
+	 * Returns the file character of the tile.
 	 * 
-	 * @return The type of the tile.
+	 * @return The file character of the tile.
 	 */
-	public String getType() {
+	public char getFileChar() {
 		
-		return "Empty";
-	
-	} // End of getType
-	
-	/**
-	 * Sets the string representation of the tile.
-	 * 
-	 * @param stringRepr The new string representation of the tile.
-	 */
-	public void setStringRepr(String stringRepr) {
+		return new Character(this.fileCharacter);
 		
-		this.stringRepr = stringRepr;
-		
-	} // End of setStringRepr
+	} // End of getStringRepr
 	
 	/**
-	 * Returns the ID of the map this tile is in.
+	 * Returns whether the tile can be walked on or not.
 	 * 
-	 * @return The ID of the map this tile is in.
+	 * @return Whether the tile can be walked on or not.
 	 */
-	public String getMapID() {
+	public boolean getCanWalkOn() {
 		
-		return null;
+		return new Boolean(this.canWalkOn);
 		
-	}
+	} // End of getStringRepr
 	
 }

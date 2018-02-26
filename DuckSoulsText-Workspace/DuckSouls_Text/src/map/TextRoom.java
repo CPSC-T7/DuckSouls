@@ -4,9 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mattEntities.*;
-import mattTiles.*;
-import mattItems.*;
+import entities.*;
+import items.*;
+import tiles.*;
 import utils.Utilities;
 
 //TODO: Fill in JavaDocs
@@ -313,7 +313,7 @@ public class TextRoom {
 					
 				} else { // Centre Tiles
 					
-					this.tileArray[x][y] = new EmptyTile();
+					this.tileArray[x][y] = new Floor();
 					
 				}
 				
@@ -368,7 +368,7 @@ public class TextRoom {
 				} else {
 					
 					// Print the tile
-					System.out.print(this.tileArray[x][y].STRING_REPR);
+					System.out.print(this.tileArray[x][y].getStringRepr());
 					
 				}
 				
@@ -419,7 +419,7 @@ public class TextRoom {
 	public void moveEntity(Point toMove, Point moveTo) {
 		
 		// If the player can walk on the tile...
-		if (this.tileAt(moveTo).CAN_WALK_ON) {
+		if (this.tileAt(moveTo).getCanWalkOn()) {
 			
 			// Move the entity
 			this.placeEntity(moveTo, this.entityAt(toMove));
@@ -551,7 +551,7 @@ public class TextRoom {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
 				// Format the line
-				temp += this.tileArray[x][y].FILE_CHAR + ",";
+				temp += this.tileArray[x][y].getFileChar() + ",";
 				
 			}
 			

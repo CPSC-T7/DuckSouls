@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Scanner;
 
 import battle.BattleWorldTest;
-import mattEntities.*;
+import entities.*;
 import utils.Utilities;
 
 public class TextLevel {

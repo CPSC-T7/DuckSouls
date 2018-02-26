@@ -1,123 +1,36 @@
 package tiles;
 
-import java.util.ArrayList;
-
-/**
- * This class represents a door tile.
- * 
- * @author Colin Yeung
- */
 public class Door extends Tile {
 	
-	/*
-	 * 
-	 * INSTANCE VARIABLES
-	 * 
-	 */
+	private String	key;
+	private boolean	locked	= false;
 	
-	private boolean	isLocked	= false;
-	private String	mapID		= new String();
-	private String	keyID		= new String();
+	public Door() {
+		super(" D ", true);
+	}
 	
-	/*
-	 * 
-	 * CONSTRUCTORS
-	 * 
-	 */
+	public Door(String key) {
+		super(" D ", false);
+		this.locked = true;
+		this.key = key;
+	}
 	
-	/**
-	 * Creates a new door with all of the required information
-	 * 
-	 * @param x
-	 *            The X co-ordinate of the door.
-	 * @param y
-	 *            The Y co-ordinate of the door.
-	 * @param isLocked
-	 *            Whether the door is locked or not.
-	 * @param mapID
-	 *            The ID of the map this door is on.
-	 * @param isVertical
-	 *            Whether or not this door is on a vertical (side) wall.
-	 * @param keyID
-	 *            The ID of the key that unlocks this door.
-	 */
-	public Door(int x, int y, boolean isLocked, String mapID, boolean isVertical, String keyID) {
-		
-		// Create a tile at the position
-		super(x, y, false, " D ");
-		
-		// Set the other values accordingly
-		this.isLocked = isLocked;
-		this.setCanMoveOn(!this.isLocked);
-		this.mapID = mapID;
-		this.keyID = keyID;
-		
-	} // End of constructor
-	
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
-	
-	/**
-	 * Returns the type of the tile.
-	 * 
-	 * @return "Door".
-	 */
-	public String getType() {
-		
-		return "Door";
-		
-	} // End of getType
-	
-	/**
-	 * Unlocks the door.
-	 */
-	public void unlock() {
-		
-		this.isLocked = false;
-		
-		// The player can now move through this door
-		this.setCanMoveOn(true);
-		
-	} // End of unlock
-	
-	/**
-	 * Returns the ID of the map the door is on.
-	 * 
-	 * @return The ID of the map the door is on.
-	 */
-	public String getMapID() {
-		
-		return mapID;
-	
-	} // End of getMapID
-	
-	/**
-	 * Sees if the door can be unlocked with any key in an array list of keys.
-	 * 
-	 * @param keyIDs The array list of keys to check.
-	 * @return Whether or not the door can be unlocked with a key in keyIDs.
-	 */
-	public boolean canUnlockWith(ArrayList<String> keyIDs) {
-		
-		// For each key...
-		for (String key : keyIDs) {
-			
-			// If the key is the needed key...
-			if (key.equals(keyID)) {
-				
-				// The door can be unlocked
-				return true;
-				
-			}
-				
+	public boolean tryUnlock(String key) {
+		if (key.equals(this.key)) {
+			this.locked = false;
+			this.canWalkOn = true;
+			return true;
+		} else {
+			return false;
 		}
-		
-		// Otherwise the door cannot be unlocked
-		return false;
+	}
+
+	public boolean isLocked() {
+		return new Boolean(locked);
+	}
 	
-	} // End of canUnlockWith
+	public String getKey() {
+		return new String(this.key);
+	}
 	
 }

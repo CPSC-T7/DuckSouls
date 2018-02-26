@@ -5,8 +5,8 @@ import utils.Utilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import entities.*;
-import tiles.*;
+import old_entities.*;
+import old_tiles.*;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile

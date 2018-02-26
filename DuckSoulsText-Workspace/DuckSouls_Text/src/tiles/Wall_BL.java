@@ -1,4 +1,4 @@
-package mattTiles;
+package tiles;
 
 public class Wall_BL extends Wall {
 

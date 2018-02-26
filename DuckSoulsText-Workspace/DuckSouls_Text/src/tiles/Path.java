@@ -1,4 +1,4 @@
-package mattTiles;
+package tiles;
 
 public class Path extends Tile {
 	
