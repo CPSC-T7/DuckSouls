@@ -31,4 +31,5 @@
 <fullyQualifiedTypeName name="java.awt.Point"/>
 <fullyQualifiedTypeName name="mattItems.Potion"/>
 <fullyQualifiedTypeName name="mattEntities.Player"/>
+<fullyQualifiedTypeName name="mattEntities.Orientation"/>
 </qualifiedTypeNameHistroy>

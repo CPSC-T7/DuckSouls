@@ -4,9 +4,9 @@ import java.awt.Point;
 
 public class Entity {
 	
-	public String STRING_REPR = "EER";
-	public String type = "NUN";
-	public Point POS;
+	private Point		position	= new Point();
+	private String		stringRepr	= "EER";
+	private Orientation	orientation	= Orientation.SOUTH;
 	
 	/**
 	 * Creates an entity.
@@ -16,8 +16,42 @@ public class Entity {
 	 */
 	protected Entity(String STRING_REPR) {
 		
-		this.STRING_REPR = STRING_REPR;
+		this.stringRepr = STRING_REPR;
 		
 	}
+	
+	/**
+	 * Returns the string representation of the character.
+	 * 
+	 * @return The string representation of the character.
+	 */
+	public String getStringRepr() {
+		
+		return new String(this.stringRepr);
+		
+	} // End of getStringRepr
+	
+	/**
+	 * Returns the position of the character.
+	 * 
+	 * @return The position of the character.
+	 */
+	public Point getPosition() {
+		
+		return new Point(this.position);
+		
+	} // End of getPosition
+	
+	/**
+	 * Returns the position of the character. <br>
+	 * TODO: Privacy Leak?
+	 * 
+	 * @return The position of the character.
+	 */
+	public Orientation getOrientation() {
+		
+		return this.orientation;
+		
+	} // End of getPosition
 	
 }

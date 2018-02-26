@@ -332,7 +332,7 @@ public class TextRoom {
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				if (this.entityArray[x][y] != null && this.entityArray[x][y].type.equals("ENEMY")) {
+				if (this.entityArray[x][y] != null && this.entityArray[x][y] instanceof Enemy) {
 					Point enemyPoint = new Point(x, y);
 					if (this.playerPoint.distance(enemyPoint) < 1.5) {
 						return enemyPoint;
@@ -358,7 +358,7 @@ public class TextRoom {
 				if (this.entityArray[x][y] != null) {
 					
 					// Print the entity
-					System.out.print(this.entityArray[x][y].STRING_REPR);
+					System.out.print(this.entityArray[x][y].getStringRepr());
 					
 				} else if (this.itemArray[x][y] != null) {
 					
@@ -425,7 +425,7 @@ public class TextRoom {
 			this.placeEntity(moveTo, this.entityAt(toMove));
 			this.placeEntity(toMove, null);
 			
-			if (this.entityAt(moveTo).type.equals("PLAYER")) {
+			if (this.entityAt(moveTo) instanceof Player) {//.equals("PLAYER")) {
 				this.playerPoint = moveTo;
 			}
 			
@@ -492,7 +492,7 @@ public class TextRoom {
 		
 		this.entityArray[position.x][position.y] = entity;
 		
-		if (entity != null && entity.type.equals("PLAYER")) {
+		if (entity != null && entity instanceof Player) {
 			this.playerPoint = position;
 		}
 		
