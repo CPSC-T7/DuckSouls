@@ -198,7 +198,7 @@ public class GUILevel{
 		int test = 0;
 		while (test == 0) {
 
-			this.roomAt(this.currentRoomPoint).draw_Tiles(gc);
+			this.roomAt(this.currentRoomPoint).draw_Room(gc);
 			test += 1;
 			
 			/**

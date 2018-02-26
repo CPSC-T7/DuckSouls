@@ -368,7 +368,7 @@ public class GUIRoom {
 	/**
 	 * Draws the room to the console
 	 */
-	public void draw_Tiles(GraphicsContext gc) {
+	public void draw_Room(GraphicsContext gc) {
 		
 		// For each position...
 		for (int y = 0; y < this.internalHeight + 2; y++) {
@@ -379,6 +379,12 @@ public class GUIRoom {
 				
 				// Print the tile
 				this.tileArray[x][y].drawTile(gc, position);
+				
+				//Print Entities
+				if(entityAt(new Point(x,y)) != null) {
+					Entity entity = entityAt(new Point(x,y));
+					entity.drawEntity(gc, new int[] {x*this.tileSize, y*this.tileSize});
+				}
 			}
 			
 		}
@@ -577,7 +583,7 @@ public class GUIRoom {
 		Utilities.writeFile(fileName, lines);
 		
 	}
-	
+	/*
 	public void scatterEnemies() {
 		
 		// For each position...
@@ -633,6 +639,7 @@ public class GUIRoom {
 		}
 		
 	}
+	*/
 	
 	/**
 	 * Sets a tile at a point in the tile array to a specific tile.
