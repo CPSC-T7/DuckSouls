@@ -2,11 +2,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 
-public class Tile {
+public class GUI_Tile {
 
 	private Image tileImage;
 	
-	public Tile(Image image)
+	public GUI_Tile(Image image)
 	{
 		tileImage = image;
 	}

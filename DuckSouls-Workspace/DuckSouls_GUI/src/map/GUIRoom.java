@@ -4,6 +4,14 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+//JavaFX
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.stage.Stage;
+
 import mattEntities.*;
 import mattTiles.*;
 import mattItems.*;
@@ -12,14 +20,14 @@ import utils.Utilities;
 //TODO: Fill in JavaDocs
 
 /**
- * Text-based room class.
+ * GUI-Based room class.
  * 
  * @author Matthew Allwright
+ * @author Wylee McAndrews
  * @requires java.awt.Point
  * @version 1.6.2
  */
-public class TextRoom {
-	
+public class GUIRoom {
 	/*
 	 * 
 	 * STATIC VARIABLES
@@ -38,6 +46,9 @@ public class TextRoom {
 	
 	private int				internalWidth, internalHeight;
 	private int				enemySpawnChance	= 5;
+	
+	//JavaFX Variables
+	private int				tileSize 	= 64;
 	
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
@@ -60,7 +71,7 @@ public class TextRoom {
 	 * @param size
 	 *            Width and height of the room. Must be 0 < width < 32.
 	 */
-	public TextRoom(int size) {
+	public GUIRoom(int size) {
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
@@ -79,7 +90,7 @@ public class TextRoom {
 	 * @param height
 	 *            Height of the room. Must be 0 < height < 32.
 	 */
-	public TextRoom(int width, int height) {
+	public GUIRoom(int width, int height) {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
@@ -93,7 +104,7 @@ public class TextRoom {
 	 * @param name
 	 *            The name of the room. (Used for file i/o)
 	 */
-	public TextRoom(String name) {
+	public GUIRoom(String name) {
 		
 		this.roomName = name;
 		this.internalWidth = DEFAULT_ROOM_SIZE;
@@ -112,7 +123,7 @@ public class TextRoom {
 	 * @param height
 	 *            Height of the room. Must be 0 < height < 32.
 	 */
-	public TextRoom(String name, int width, int height) {
+	public GUIRoom(String name, int width, int height) {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
@@ -130,7 +141,7 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	public TextRoom(String name, Point[] doors) {
+	public GUIRoom(String name, Point[] doors) {
 		
 		this.internalWidth = DEFAULT_ROOM_SIZE;
 		this.internalHeight = DEFAULT_ROOM_SIZE;
@@ -154,7 +165,7 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	public TextRoom(String name, int width, int height, Point[] doors) {
+	public GUIRoom(String name, int width, int height, Point[] doors) {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
@@ -179,7 +190,7 @@ public class TextRoom {
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	public TextRoom(String name, int width, int height, Point[] doors, Point playerPosition) {
+	public GUIRoom(String name, int width, int height, Point[] doors, Point playerPosition) {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
@@ -303,15 +314,23 @@ public class TextRoom {
 					
 					this.tileArray[x][y] = new Wall_BR();
 					
-				} else if (x == 0 || x == this.internalWidth + 1) { // Left & Right Walls
+				} else if (x == 0) { // Left Wall
 					
-					this.tileArray[x][y] = new Wall_V();
+					this.tileArray[x][y] = new Wall_L();
 					
-				} else if (y == 0 || y == this.internalHeight + 1) { // Top & Bottom Walls
+				} else if (x == this.internalWidth + 1){ //Right Wall
 					
-					this.tileArray[x][y] = new Wall_H();
+					this.tileArray[x][y] = new Wall_R();
 					
-				} else { // Centre Tiles
+				} else if (y == 0) { // Top Wall
+					
+					this.tileArray[x][y] = new Wall_T();
+					
+				} else if (y == this.internalHeight + 1) { //Bottom Wall
+					
+					this.tileArray[x][y] = new Wall_B();
+					
+				} else { // Floor Tiles
 					
 					this.tileArray[x][y] = new Floor();
 					
@@ -349,33 +368,18 @@ public class TextRoom {
 	/**
 	 * Draws the room to the console
 	 */
-	public void draw_Text() {
+	public void draw_Tiles(GraphicsContext gc) {
 		
 		// For each position...
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				if (this.entityArray[x][y] != null) {
-					
-					// Print the entity
-					System.out.print(this.entityArray[x][y].STRING_REPR);
-					
-				} else if (this.itemArray[x][y] != null) {
-					
-					// Print the item
-					System.out.print(this.itemArray[x][y].STRING_REPR);
-					
-				} else {
-					
-					// Print the tile
-					System.out.print(this.tileArray[x][y].STRING_REPR);
-					
-				}
+				//Get the tile position
+				int[] position = new int[] {x*64, y*64};
 				
+				// Print the tile
+				this.tileArray[x][y].drawTile(gc, position);
 			}
-			
-			// Row has been printed, wrap the line
-			System.out.println();
 			
 		}
 		
@@ -429,9 +433,6 @@ public class TextRoom {
 				this.playerPoint = moveTo;
 			}
 			
-			// Path tile indicates it has been stepped on
-			this.setTile(toMove, new Path());
-			
 			// Deal with the stepped on item
 			if (this.itemAt(moveTo) != null) {
 				
@@ -442,9 +443,6 @@ public class TextRoom {
 				this.placeItem(moveTo, null);
 				
 			}
-			
-			// Path tile indicates it has been stepped on
-			this.setTile(moveTo, new Path());
 			
 		} else {
 			
@@ -473,12 +471,27 @@ public class TextRoom {
 		for (Point pos : doors) {
 			
 			if (pos != null) {
-				this.setTile(pos, new Door());
+				
+				if(pos.x == 0) { // Left Door
+					
+					this.setTile(pos, new Door("Left"));
+					
+				}else if(pos.x == this.internalWidth + 1) { // Right Door
+					
+					this.setTile(pos, new Door("Right"));
+					
+				}else if(pos.y == 0) { // Top Door
+					
+					this.setTile(pos, new Door("Top"));
+					
+				}else { // Bottom Door
+					
+					this.setTile(pos, new Door("Bottom"));
+					
+				}
 			}
-			
 		}
-		
-	}
+	}//End of placeDoors
 	
 	/**
 	 * Sets a position at a point in the entity array to a specific entity.
@@ -647,5 +660,4 @@ public class TextRoom {
 		return this.tileArray[pos.x][pos.y];
 		
 	}
-	
 }
