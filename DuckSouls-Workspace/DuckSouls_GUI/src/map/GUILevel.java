@@ -207,6 +207,7 @@ public class GUILevel{
 				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
 				
 				//Set the player direction
+				newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Up";
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 				
@@ -223,6 +224,7 @@ public class GUILevel{
 				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
 				
 				//Set the player direction
+				newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Left";
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 				
@@ -239,6 +241,7 @@ public class GUILevel{
 				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
 				
 				//Set the player direction
+				newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Down";
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 				
@@ -255,6 +258,7 @@ public class GUILevel{
 				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
 				
 				//Set the player direction
+				newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Right";
 				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 				
