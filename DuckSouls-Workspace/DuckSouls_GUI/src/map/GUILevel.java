@@ -146,7 +146,7 @@ public class GUILevel {
 		Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint);
 		
 		this.roomAt(this.currentRoomPoint).removeEntity(this.roomAt(this.currentRoomPoint).playerPoint);
-		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
+		//this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
 		
 		switch (direction) {
 			
@@ -173,7 +173,7 @@ public class GUILevel {
 		}
 		
 		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, new Player());
-		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
+		//this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
 		
 	}
 	
