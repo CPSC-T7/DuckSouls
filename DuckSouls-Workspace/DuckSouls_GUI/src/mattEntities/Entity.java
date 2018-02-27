@@ -27,7 +27,6 @@ public class Entity {
 		
 	}
 	
-	
 	/**
 	 * Draw the entity to the screen at a position (x,y)
 	 * 

@@ -77,8 +77,8 @@ public class GUIRoom {
 		this.internalHeight = size;
 		
 		this.genTileArray();
-		this.scatterItems();
-		this.scatterEnemies();
+		//this.scatterItems();
+		//this.scatterEnemies();
 		
 	}
 	
@@ -449,7 +449,7 @@ public class GUIRoom {
 				this.placeItem(moveTo, null);
 				
 			}
-			
+		// If the player can't walk on the tile...	
 		} else {
 			
 			/*
@@ -459,11 +459,7 @@ public class GUIRoom {
 			 */
 			
 			System.out.println("You can't walk there!");
-			
-			Utilities.waitMilliseconds(300);
-			
 		}
-		
 	}
 	
 	/**

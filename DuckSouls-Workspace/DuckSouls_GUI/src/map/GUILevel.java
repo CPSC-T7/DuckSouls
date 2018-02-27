@@ -4,12 +4,9 @@ import java.awt.Point;
 import java.util.Scanner;
 
 //JavaFX
-import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
 
 import battle.BattleWorldTest;
 import mattEntities.*;
@@ -55,7 +52,8 @@ public class GUILevel{
 		this.genRoomArray();
 		
 		this.currentRoomPoint = new Point(0, 0);
-		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1),
+		Point startPosition = new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1);
+		this.roomAt(this.currentRoomPoint).placeEntity(startPosition,
 				new Player());
 		
 	}
@@ -185,7 +183,7 @@ public class GUILevel{
 	 * Runs through a loop, where it displays the room and asks for input
 	 * repeatedly.
 	 */
-	public void moveLoop(GraphicsContext gc) {
+	public void moveLoop(GraphicsContext gc, Scene scene) {
 		
 		/*
 		 * Loop:
@@ -195,11 +193,76 @@ public class GUILevel{
 		 * Currently does not exit.
 		 * 
 		 */
-		int test = 0;
-		while (test == 0) {
 
-			this.roomAt(this.currentRoomPoint).draw_Room(gc);
-			test += 1;
+		this.roomAt(this.currentRoomPoint).draw_Room(gc);
+		
+		scene.setOnKeyPressed(key -> {
+			if(key.getCode() == KeyCode.W) {
+				
+				//Point to move the player to (Up)
+				Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint.x,
+												 this.roomAt(this.currentRoomPoint).playerPoint.y - 1 );
+				
+				//Run the method to move the player
+				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
+				
+				//Set the player direction
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Up";
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
+				
+				//Re-draw the room
+				this.roomAt(this.currentRoomPoint).draw_Room(gc);
+				
+			}else if(key.getCode() == KeyCode.A) {
+				
+				//Point to move the player to (Left)
+				Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint.x - 1,
+												 this.roomAt(this.currentRoomPoint).playerPoint.y);
+				
+				//Run the method to move the player
+				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
+				
+				//Set the player direction
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Left";
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
+				
+				//Re-draw the room
+				this.roomAt(this.currentRoomPoint).draw_Room(gc);
+				
+			}else if(key.getCode() == KeyCode.S) {
+				
+				//Point to move the player to (Down)
+				Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint.x,
+												 this.roomAt(this.currentRoomPoint).playerPoint.y + 1 );
+				
+				//Run the method to move the player
+				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
+				
+				//Set the player direction
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Down";
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
+				
+				//Re-draw the room
+				this.roomAt(this.currentRoomPoint).draw_Room(gc);
+				
+			}else if(key.getCode() == KeyCode.D) {
+				
+				//Point to move the player to (Right)
+				Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint.x + 1,
+												 this.roomAt(this.currentRoomPoint).playerPoint.y );
+				
+				//Run the method to move the player
+				this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint, newPlayerPoint);
+				
+				//Set the player direction
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Right";
+				this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
+				
+				//Re-draw the room
+				this.roomAt(this.currentRoomPoint).draw_Room(gc);
+				
+			}
+		});
 			
 			/**
 			
@@ -214,8 +277,6 @@ public class GUILevel{
 				
 			}
 			*/
-			
-		}
 		
 	}
 	

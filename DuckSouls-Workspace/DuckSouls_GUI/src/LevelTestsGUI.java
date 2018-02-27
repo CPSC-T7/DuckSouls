@@ -10,6 +10,7 @@ import map.GUILevel;
 public class LevelTestsGUI extends Application {	
 
 	private int windowSize = 800;
+	
 	/*
 	 * Start of JavaFX
 	 */
@@ -25,7 +26,7 @@ public class LevelTestsGUI extends Application {
 		testStage.show();
 		
 		GUILevel tl = new GUILevel();
-		tl.moveLoop(gc);
+		tl.moveLoop(gc, scene);
 		
 	}
 	
