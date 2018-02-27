@@ -32,4 +32,8 @@
 <fullyQualifiedTypeName name="mattItems.Potion"/>
 <fullyQualifiedTypeName name="mattEntities.Player"/>
 <fullyQualifiedTypeName name="mattEntities.Orientation"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Constructor"/>
+<fullyQualifiedTypeName name="items.ClothArmour"/>
+<fullyQualifiedTypeName name="items.LeatherArmour"/>
+<fullyQualifiedTypeName name="items.MetalArmour"/>
 </qualifiedTypeNameHistroy>
