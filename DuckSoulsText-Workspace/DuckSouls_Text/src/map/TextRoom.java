@@ -1,6 +1,7 @@
 package map;
 
 import java.awt.Point;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -37,7 +38,7 @@ public class TextRoom {
 	private final int		DEFAULT_ROOM_SIZE	= 5;
 	
 	private int				internalWidth, internalHeight;
-	private int				enemySpawnChance	= 5;
+	private int				enemySpawnChance	= 0;
 	
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
@@ -363,7 +364,7 @@ public class TextRoom {
 				} else if (this.itemArray[x][y] != null) {
 					
 					// Print the item
-					System.out.print(this.itemArray[x][y].STRING_REPR);
+					System.out.print(this.itemArray[x][y].getStringRepr());
 					
 				} else {
 					
@@ -425,7 +426,7 @@ public class TextRoom {
 			this.placeEntity(moveTo, this.entityAt(toMove));
 			this.placeEntity(toMove, null);
 			
-			if (this.entityAt(moveTo) instanceof Player) {//.equals("PLAYER")) {
+			if (this.entityAt(moveTo) instanceof Player) {// .equals("PLAYER")) {
 				this.playerPoint = moveTo;
 			}
 			
@@ -581,39 +582,59 @@ public class TextRoom {
 		
 	}
 	
+	// TODO: Probably redo
 	public void scatterItems() {
 		
-		int numItems = 3, randomItemNumber;
+		int numItems = Item.allItems.length, randomItemNumber;
 		
 		// For each position...
 		for (int x = 1; x < this.internalWidth + 1; x++) {
 			for (int y = 1; y < this.internalHeight + 1; y++) {
 				
 				randomItemNumber = _random.nextInt(numItems);
-				Item selectedItem;
 				
-				switch(randomItemNumber) {
+				if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
 					
-					case 0:
-						selectedItem = new Fish();
-						break;
+					switch (randomItemNumber) {
 						
-					case 1:
-						selectedItem = new Money();
-						break;
+						case 0:
+							this.placeItem(new Point(x, y), new Bugs());
+							break;
+							
+						case 1:
+							this.placeItem(new Point(x, y), new Crouton());
+							break;
+							
+						case 2:
+							this.placeItem(new Point(x, y), new Food());
+							break;
+							
+						case 3:
+							this.placeItem(new Point(x, y), new Goo());
+							break;
+							
+						case 4:
+							this.placeItem(new Point(x, y), new Knife());
+							break;
+							
+						case 5:
+							this.placeItem(new Point(x, y), new Sword());
+							break;
+							
+						case 6:
+							this.placeItem(new Point(x, y), new ClothArmour());
+							break;
+							
+						case 7:
+							this.placeItem(new Point(x, y), new LeatherArmour());
+							break;
+							
+						case 8:
+							this.placeItem(new Point(x, y), new MetalArmour());
+							break;
 						
-					case 2:
-						selectedItem = new Potion();
-						break;
+					}
 					
-					default:
-						selectedItem = new Item();
-						break;
-					
-				}
-				
-				if (_random.nextInt(100) < selectedItem.SPAWN_CHANCE) {
-					this.placeItem(new Point(x, y), selectedItem);
 				}
 				
 			}

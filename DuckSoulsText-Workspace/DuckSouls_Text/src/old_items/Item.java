@@ -1,276 +1,427 @@
 package old_items;
 
-import java.util.ArrayList;
-
 /**
  * Defines in game items and allows user to use those items in DuckSouls.
  * 
  * @author Cassondra Platel
- * @version 2.0.1
+ * @version 3.0.0
+ *
+ *TO DO:	complete a working useItem() method
+ *			add private updateStat() method that gets/sets stats --> switch statement? should reduce code duplication found in useItem()
+ *			add public hasWeapon and hasArmor to Duck_Object.java --> to check if player has item equipped
+ *			add getStat() and setStat to Duck_Object.java --> switch statements
+ *			create resetWeaponStats() and resetArmorStats() in Duck_Object --> reset players base stats for each respective category (aka unequipping the weapon or armor)
+ *			Create Inventory parent with Store and Player child classes --> add updateInventory() to reflect using/buying a consumable item
+ *			test useItem() at runtime
+ *			
  */
-/*
- * TODO: set stats for each item add private updateStat() method that gets/sets
- * stats --> switch statement? should reduce code duplication found in useItem()
- * add public hasWeapon,weaponName,hasArmor,armorName to Duck_Object.java add
- * getStat() and setStat to Duck_Object.java --> switch statements Create
- * Inventory parent with Store and Player child classes --> add
- * updateInventory() to reflect using/buying a consumable item test useItem() at
- * runtime
- */
+
+//GRANDPARENT CLASS
+
 public class Item {
-	
-	private ArrayList<Item>	allItems	= new ArrayList<Item>();
-	
-	// ATTRIBUTES
-	
-	private String			itemName;
-	
-	private boolean			canConsume;
-	private boolean			isWeapon;
-	private boolean			isArmor;
-	
-	private int				healthDamage;
-	private int				manaDamage;
-	private int				attack;
-	private int				defense;
-	private int				speed;
-	private int				accuracy;
-	private int				critChance;
-	private int				price;
-	
-	// ENUMERATOR
-	
-	// define all items and their associated attributes
-	public enum Items {
-		
-		/*
-		 * order of values: (name,can_consume,is_weapon,is_armor,
-		 * hp_damage,mp_damage,attack,defense,speed,accuracy,crit_chance,price)
-		 */
-		
-		// Consumables
-		BUGS("De Bug", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		ET("Useless Game Cartridge", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		FISH("Smelly Fish", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		FOOD("Rotten Food", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		CRUTON("Soggy Cruton", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		ROIDS("Suspicious Liquid", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		WAX("Dr.Quakenstein's Wonderous Wing Wax!", true, false, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		
-		// Weapons
-		DAGGERS("Pointy Sticks", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		KNIVES("Razor Blades", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		BOW("Pew Pew", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		SWORD_SHIELD("Meat Shield", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		BIG_SWORD("Toy Sword", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		DUAL_WIELD("Broken Toothpick", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		STAFF("Magic Stick", false, true, false, 0, 0, 0, 0, 0, 0, 0, 0),
-		
-		// Armor
-		WARRIOR_MAIL("Full Metal Jacket", false, false, true, 0, 0, 0, 0, 0, 0, 0, 0),
-		ROGUE_LEATHERS("Mooskin", false, false, true, 0, 0, 0, 0, 0, 0, 0, 0),
-		MAGE_ROBE("Ugly Christmas Sweater", false, false, true, 0, 0, 0, 0, 0, 0, 0, 0);
-		
-		// Enum Instance Variables
-		private String	ITEM_NAME;
-		
-		private boolean	CAN_CONSUME;
-		private boolean	IS_WEAPON;
-		private boolean	IS_ARMOR;
-		
-		private int		HEALTH_DAM;
-		private int		MANA_DAM;
-		private int		ATTACK;
-		private int		DEFENSE;
-		private int		SPEED;
-		private int		ACCURACY;
-		private int		CRIT_CHANCE;
-		private int		PRICE;
-		
-		// Constructor for enum Items
-		Items(String ITEM_NAME, boolean CAN_CONSUME, boolean IS_WEAPON, boolean IS_ARMOR, int HEALTH_DAM, int MANA_DAM,
-				int ATTACK, int DEFENSE, int SPEED, int ACCURACY, int CRIT_CHANCE, int PRICE) {
-			
-			this.ITEM_NAME = ITEM_NAME;
-			this.CAN_CONSUME = CAN_CONSUME;
-			this.IS_WEAPON = IS_WEAPON;
-			this.IS_ARMOR = IS_ARMOR;
-			this.HEALTH_DAM = HEALTH_DAM;
-			this.MANA_DAM = MANA_DAM;
-			this.ATTACK = ATTACK;
-			this.DEFENSE = DEFENSE;
-			this.SPEED = SPEED;
-			this.ACCURACY = ACCURACY;
-			this.CRIT_CHANCE = CRIT_CHANCE;
-			this.PRICE = PRICE;
-		}
-	}
-	
-	/*
-	 * // TESTING METHOD
-	 * 
-	 * public static void main(String[] args) {
-	 * 
-	 * Item itemSetup = new Item();
-	 * 
-	 * itemSetup.setupItems(); }
-	 */
-	
-	// METHODS
-	
+
+// ITEM ATTRIBUTES
+
+	private String itemName;
+
+	private boolean canConsume = false;
+	private boolean isWeapon = false;
+	private boolean isArmor = false;
+
+	private int healthDamage = 0;
+	private int manaDamage = 0;
+	private int attack = 0;
+	private int defense = 0;
+	private int speed = 0;
+	private int accuracy = 0;
+	private int critChance = 0;
+	private int price = 0;
+
+// ITEM METHODS
+
 	/**
-	 * Creates and stores all in game items
-	 *
+	 * Sets the name of an item.
+	 * 
+	 * @param identifier
+	 *            Single word used for item identification.
 	 */
-	private void setupItems() {
-		
-		// iterate through enumeration variables
-		for (Items item : Items.values()) {
+	protected void setName(String identifier){
+
+		switch (identifier){
+
+			//consumable names
+			case "bugs": this.itemName = "De Bug"; break;
+			case "food": this.itemName = "Half-Eaten Food"; break;
+			case "fish": this.itemName = "Smelly Fish"; break;
+			case "cruton": this.itemName = "Soggy Cruton"; break;
+			case "roids": this.itemName = "Suspicious Liquid"; break;		
+			case "wax": this.itemName = "Dr.Quakenstein's Wonderous Wing Wax!"; break;
 			
-			// create a new object each iteration
-			Item newItem = new Item();
+			//weapon names
+			case "dagger": this.itemName = "Pointy Sticks"; break;
+			case "knife": this.itemName = "Razor Blades"; break;
+			case "bow": this.itemName = "Pew Pew"; break;
+			case "shield": this.itemName = "Meat Shield"; break;
+			case "sword": this.itemName = "Toy Sword"; break;
+			case "dual": this.itemName = "Broken Toothpick"; break;
+			case "staff": this.itemName = "Magic Stick"; break;
 			
-			newItem.itemName = item.ITEM_NAME;
-			newItem.canConsume = item.CAN_CONSUME;
-			newItem.isWeapon = item.IS_WEAPON;
-			newItem.isArmor = item.IS_ARMOR;
-			
-			newItem.healthDamage = item.HEALTH_DAM;
-			newItem.manaDamage = item.MANA_DAM;
-			newItem.attack = item.ATTACK;
-			newItem.defense = item.DEFENSE;
-			newItem.speed = item.SPEED;
-			newItem.accuracy = item.ACCURACY;
-			newItem.critChance = item.CRIT_CHANCE;
-			newItem.price = item.PRICE;
-			
-			// store object for each iteration
-			allItems.add(newItem);
+			//armor names
+			case "mail": this.itemName = "Full Metal Jacket"; break;
+			case "leather": this.itemName = "Mooskin"; break;
+			case "robe": this.itemName = "Ugly Christmas Sweater"; break;
 		}
-	}// End of setupItems method
-	
+	}//End of setName method
+
+
 	/**
-	 * Returns the index of a given item
-	 *
-	 * @param name
-	 *            Name of the item
-	 * @return allItems.indexOf(item) Index of named item
-	 * @return -1 Placeholder, Compiler complains without this return statement
+	 * Sets boolean attribute values.
+	 * 
+	 * @param identifier
+	 * 			Single word used for item type identification.
+	 * @param newValue
+	 *			New value for the attribute.
 	 */
-	private int getIndex(String name) {
-		String objectName;
-		
-		for (Item item : allItems) {
-			
-			// retrieve the Item object name for each iteration
-			objectName = item.itemName;
-			
-			// check if current iteration is desired Item object
-			if (objectName.equalsIgnoreCase(name)) {
-				
-				return allItems.indexOf(item);
-			}
+	protected void setAttribute(String identifier, boolean newValue){
+
+		switch(identifier){
+
+			case "consume": this.canConsume = newValue; break;
+			case "weapon": this.isWeapon = newValue; break;
+			case "armor": this.isArmor = newValue; break;
 		}
-		return -1; // compiler complains if this return statment is left out
-	}// End of getIndex method
+	}//End of setAttribute method
 	
+
 	/**
-	 * Use named item and update game state
-	 *
-	 * @param name
-	 *            Name of item being used
-	 * @param player
-	 *            Player instance
+	 * Sets integer attribute values.
+	 * 
+	 * @param identifier
+	 * 			Single word used for item type identification.
+	 * @param newValue
+	 *			New value for the attribute.
+	 */	
+	protected void setAttribute(String identifier, int newValue){
+
+		switch(identifier){
+
+			case "health": this.healthDamage = newValue; break;
+			case "mana": this.manaDamage = newValue; break;
+			case "attack": this.attack = newValue; break;
+			case "defense": this.defense = newValue; break;
+			case "speed": this.speed = newValue; break;
+			case "accuracy": this.accuracy = newValue; break;
+			case "crit": this.critChance = newValue; break;
+			case "price": this.price = newValue; break;
+		}
+	}//End of setAttribute method
+
+
+	/**
+	 * Returns the full name of the item.
+	 * 
+	 * @return itemName
+	 * 			Return the name of the item
 	 */
-	public void useItem(/* Duck_Object player, */String name) {
+	public String getName(){
+
+		return this.itemName;
+	}//End of getName method
+
+
+	/**
+	 * Returns boolean attribute values
+	 * 
+	 * @param identifier
+	 * 			Single word used for item type identification
+	 * @return value
+	 * 			Return item value for identified attribute
+	 */
+	public boolean getBoolAttribute(String identifier){
+
+		boolean value = false;
+
+		switch(identifier){
+
+			case "consume": value = this.canConsume; break;
+			case "weapon": value = this.isWeapon; break;
+			case "armor": value = this.isArmor; break;
+		}
+		return value;
+	}//End of getBoolAttribute method
+
+
+	/**
+	 * Return integer attribute value
+	 * 
+	 * @param identifier
+	 * 			Single word used for attribute identification.
+	 * @return num
+	 *			Return numerical value of identified attribute
+	 */
+	public int getAttribute(String identifier){
+
+		int num = 0;
+		switch(identifier){
+
+			case "health": num = this.healthDamage; break;
+			case "mana": num = this.manaDamage; break;
+			case "attack": num = this.attack; break;
+			case "defense": num = this.defense; break;
+			case "speed": num = this.speed; break;
+			case "accuracy": num = this.accuracy; break;
+			case "crit": num = this.critChance; break;
+			case "price": num =this.price; break;
+
+		}
+		return num;
+	}//End of getAttribute method
+
+//DID NOT FINISH A WORKING USEITEM METHOD WITH INHERITANCE
+/*	public void useItem(Duck_Object player,String identifier){
+		if (this.canConsume == true){
+			int currentValue = player.getStats(identifier);
+			int newValue = (currentValue += getAttribute(identifier));
+			player.setStats(identifier,newValue);
+		}
+		else if (player.hasWeapon == true || player.hasArmor == true){
+			this.removeEquipped(player);
+			}//check if player already has weapon/armor equipped and remove/reduce stats as needed
+		}
+	}//end of useItem method
+	protected removeEquipped(Duck_Object player){
+		boolean weapon = this.getAttribute("weapon");
+		boolean armor = this.getAttribute("armor");
+		if (player.hasWeapon == true && weapon == true){
+			player.resetWeaponStats();
+			player.hasweapon = false;
+		}
+		else if (player.hasArmor == true && armor == true){
+			player.resetArmorStats();
+			player.hasArmor = false;
+		}
+	}//End of removeEquipped method
+	protected void updateWeapon(Duck_Object player){
+		player.hasWeapon = true;
+			
+		int currentValue = player.getStats("attack");
+		int newValue = (currentValue += this.getAttribute("attack"));
+		player.setStats("attack",newValue);
+			
+		int currentValue = player.getStats("defense");
+		int newValue = (currentValue += this.getAttribute("defense"));
+		player.setStats("defense",newValue);
+			
+		int currentValue = player.getStats("crit");
+		int newValue = (currentValue += this.getAttribute("crit"));
+		player.setStats("crit",newValue);
+	}//End of updateWeapon method
+*/
+
+}//End of Item class
+
+
+//CONSUMABLE PARENT AND CHILDREN
+
+	class Consumable extends Item{
+
+		Consumable(){super.setAttribute("consume",true);}
+	}//End of Consumable class
+
+
+	class Bugs extends Consumable{
+
+		Bugs(){
+			super.setName("bugs");
+			super.setAttribute("health", 10);
+			super.setAttribute("price", 10);
+		}
+	}//End of Bugs class
+
+
+	class Food extends Consumable{
+
+		Food(){
+			super.setName("food");
+			super.setAttribute("health", 15);
+			super.setAttribute("mana", 5);
+			super.setAttribute("price", 20);
+		}
+	}//End of Food class
+
+
+	class Cruton extends Consumable{
+
+		Cruton(){
+			super.setName("cruton");
+			super.setAttribute("health", 1);
+			super.setAttribute("price", 100);
+		}
+	}//End of Cruton class
+
+
+	class Roids extends Consumable{
+
+		Roids(){
+			super.setName("roids");
+			super.setAttribute("health", 5);
+			super.setAttribute("attack", 25);
+			super.setAttribute("speed", 20);
+			super.setAttribute("defense", -5);
+			super.setAttribute("price", 50);
+		}
+	}//End of Roids class
+
+
+	class Wax extends Consumable{
+
+		Wax(){
+			super.setName("wax");
+			super.setAttribute("speed", 50);
+			super.setAttribute("price", 20);
+		}
+	}//End of Wax class
+
+
+//WEAPON PARENT AND CHILDREN
+
+	class Weapon extends Item{
+
+		Weapon(){super.setAttribute("weapon",true);}
+	}//End of Weapon class
+
+
+	class Daggers extends Weapon{
 		
-		// determine correct Item object
-		int index = getIndex(name);
-		
-		// retrieve correct Item object
-		Item item = allItems.get(index);
-		
-		/*
-		 * //Check if weapon or armor already equipped if (player.hasWeapon == true ||
-		 * player.hasArmor == true){
-		 * 
-		 * //check if trying to replace weapon if(player.hasWeapon == true &&
-		 * item.isWeapon == true){ int index = getIndex(player.weaponName); Item
-		 * wearableItem = allItems.get(index);
-		 * 
-		 * //remove weapon player.hasWeapon = false; }
-		 * 
-		 * //check if trying to replace armor else if (player.hasArmor == true &&
-		 * item.isArmor == true){ int index = getIndex(player.armorName); Item
-		 * wearableItem = allItems.get(index);
-		 * 
-		 * //remove armor player.hasArmor = false; }
-		 * 
-		 * //not trying to replace current equipped items else { break; //check failed,
-		 * do not update with removal }
-		 * 
-		 * //check passed, update stats with removal of current wearable item int
-		 * currentValue = player.getStats(attack); int newValue = (currentValue -=
-		 * wearableItem.attack); player.setStats(attack,newValue);
-		 * 
-		 * currentValue = player.getStats(defense); newValue = (currentValue -=
-		 * wearableItem.defense); player.setStats(defense,newValue);
-		 * 
-		 * currentValue = player.getStats(speed); newValue = (currentValue -=
-		 * wearableItem.speed); player.setStats(speed,newValue);
-		 * 
-		 * currentValue = player.getStats(accuracy); newValue = (currentValue -=
-		 * wearableItem.accuracy); player.setStats(accuracy,newValue); }
-		 * 
-		 * //Update player stats, dependent on item type if (item.canConsume == true){
-		 * 
-		 * int currentValue = player.getStats("healthPoints"); int newValue =
-		 * (currentValue += item.healthDamage); player.setStats(health,newValue);
-		 * 
-		 * int currentValue = player.getStats("manaPoints"); int newValue =
-		 * (currentValue += item.manaDamage); player.setStats(mana,newValue);
-		 * 
-		 * int currentValue = player.getStats("attack"); int newValue = (currentValue +=
-		 * item.attack); player.setStats(attack,newValue);
-		 * 
-		 * int currentValue = player.getStats("defense"); int newValue = (currentValue
-		 * += item.defense); player.setStats(defense,newValue);
-		 * 
-		 * int currentValue = player.getStats("speed"); int newValue = (currentValue +=
-		 * item.speed); player.setStats(speed,newValue);
-		 * 
-		 * int currentValue = player.getStats("accuracy"); int newValue = (currentValue
-		 * += item.accuracy); player.setStats(accuracy,newValue);
-		 * 
-		 * int currentValue = player.getStats("crit"); int newValue = (currentValue +=
-		 * item.critChance); player.setStats(crit,newValue);
-		 * 
-		 * updateBackpack(item);
-		 * 
-		 * } else if(item.isWeapon == true){ player.hasWeapon = true; player.weaponName
-		 * = item.itemName; //need to make a new string object
-		 * 
-		 * int currentValue = player.getStats(attack); int newValue = (currentValue +=
-		 * item.attack); player.setStats(attack,newValue);
-		 * 
-		 * int currentValue = player.getStats(defense); int newValue = (currentValue +=
-		 * item.defense); player.setStats(defense,newValue);
-		 * 
-		 * int currentValue = player.getStats(crit); int newValue = (currentValue +=
-		 * item.critChance); player.setStats(crit,newValue);
-		 * 
-		 * } else { player.hasArmor = true; player.armorName = item.itemName; //need to
-		 * make a new string object
-		 * 
-		 * int currentValue = player.getStats(defense); int newValue = (currentValue +=
-		 * item.defense); player.setStats(defense,newValue);
-		 * 
-		 * int currentValue = player.getStats(speed); int newValue = (currentValue +=
-		 * item.speed); player.setStats(speed,newValue);
-		 * 
-		 * int currentValue = player.getStats(accuracy); int newValue = (currentValue +=
-		 * item.accuracy); player.setStats(accuracy,newValue); }
-		 */
-	}// End of useItem method
+		Daggers(){
+			super.setName("dagger");
+			super.setAttribute("attack", 15);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End of Daggers class
+
+
+	class Knives extends Weapon{
+
+		Knives(){
+			super.setName("knife");
+			super.setAttribute("attack", 15);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End of Knives class
 	
-}// End of Item class
+
+	class Bow extends Weapon{
+		
+		Bow(){
+			super.setName("bow");
+			super.setAttribute("attack", 15);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End of Bow class
+	
+	//sword and shield
+	class Shield extends Weapon{
+		
+		Shield(){
+			super.setName("shield");
+			super.setAttribute("attack", 15);
+			super.setAttribute("defense", 15);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End of Shield class
+	
+	//two-handed sword
+	class Sword extends Weapon{
+		
+		Sword(){
+			super.setName("sword");
+			super.setAttribute("attack", 25);
+			super.setAttribute("speed", 10);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 15);
+			super.setAttribute("price", 20);
+		}
+	}//End of Sword class
+	
+
+	class Dual extends Weapon{
+		
+		Dual(){
+			super.setName("dagger");
+			super.setAttribute("attack", 15);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End of Dual class
+	
+
+	class Staff extends Weapon{
+		
+		Staff(){
+			super.setName("staff");
+			super.setAttribute("attack", 15);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("crit", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End fo Staff class
+
+
+//ARMOR PARENT AND CHILDREN
+
+	class Armor extends Item{
+
+		Armor(){super.setAttribute("armor",true);}
+	}//End of Armor class
+
+
+	class Mail extends Armor{
+		
+		Mail(){
+			super.setName("mail");
+			super.setAttribute("defense", 25);
+			super.setAttribute("speed", 5);
+			super.setAttribute("accuracy", 10);
+			super.setAttribute("price", 20);
+		}
+	}//End of Mail class
+
+	
+	class Leather extends Armor{
+		
+		Leather(){
+			super.setName("leather");
+			super.setAttribute("defense", 15);
+			super.setAttribute("speed", 10);
+			super.setAttribute("accuracy", 15);
+			super.setAttribute("price", 20);
+		}
+	}//End of Leather class
+
+	
+	class Robe extends Weapon{
+		
+		Robe(){
+			super.setName("robe");
+			super.setAttribute("defense", 5);
+			super.setAttribute("speed", 25);
+			super.setAttribute("accuracy", 20);
+			super.setAttribute("price", 20);
+		}
+	}//End of Robe class
