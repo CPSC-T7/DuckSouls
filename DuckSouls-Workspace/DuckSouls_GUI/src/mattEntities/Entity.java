@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Entity {
 	
 	public Image	IMAGE;
-	public String	DIRECTION;
+	protected String	DIRECTION;
 	public String 	STRING_REPR = "EER";
 	public String 	type = "NUN";
 	public Point 	POS;
@@ -49,5 +49,9 @@ public class Entity {
 		
 		this.IMAGE = new Image("Sprites/Duck/Duck-" + DIRECTION + ".png");
 		
+	}
+	
+	public void setDirection(String s) {
+		this.DIRECTION = s;
 	}
 }

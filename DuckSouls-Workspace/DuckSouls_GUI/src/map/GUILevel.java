@@ -141,9 +141,10 @@ public class GUILevel {
 	 * @param direction
 	 *            Must be one of: 'u', 'd', 'l', or 'r'.
 	 */
-	public void moveRoom_Direction(char direction) {
+	public void moveRoom_Direction(char direction, GraphicsContext gc) {
 		
 		Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint);
+		String newDirection = "Down";
 		
 		this.roomAt(this.currentRoomPoint).removeEntity(this.roomAt(this.currentRoomPoint).playerPoint);
 		//this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
@@ -153,27 +154,38 @@ public class GUILevel {
 			case 'u':
 				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y - 1);
 				newPlayerPoint.y = this.roomSize + 1;
+				newDirection = "Up";
 				break;
 			
 			case 'd':
 				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y + 1);
 				newPlayerPoint.y = 0;
+				newDirection = "Down";
 				break;
 			
 			case 'l':
 				this.currentRoomPoint = new Point(this.currentRoomPoint.x - 1, this.currentRoomPoint.y);
 				newPlayerPoint.x = this.roomSize + 1;
+				newDirection = "Left";
 				break;
 			
 			case 'r':
 				this.currentRoomPoint = new Point(this.currentRoomPoint.x + 1, this.currentRoomPoint.y);
 				newPlayerPoint.x = 0;
+				newDirection = "Right";
 				break;
 			
 		}
 		
 		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, new Player());
 		//this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
+		
+		// Set the player direction
+		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setDirection(newDirection);
+		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
+		
+		// Re-draw the room
+		this.roomAt(this.currentRoomPoint).draw_Room(gc);
 		
 	}
 	
@@ -198,7 +210,7 @@ public class GUILevel {
 			if (key.getCode() == KeyCode.W) { // NORTH
 				
 				if (this.roomAt(this.currentRoomPoint).playerPoint.y == 0) {
-					this.moveRoom_Direction('u');
+					this.moveRoom_Direction('u', gc);
 				} else {
 					
 					// Point to move the player to (Up)
@@ -211,7 +223,7 @@ public class GUILevel {
 					
 					// Set the player direction
 					newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
-					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Up";
+					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setDirection("Up");
 					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 					
 					// Re-draw the room
@@ -222,7 +234,7 @@ public class GUILevel {
 			} else if (key.getCode() == KeyCode.A) { // EAST
 				
 				if (this.roomAt(this.currentRoomPoint).playerPoint.x == 0) {
-					this.moveRoom_Direction('l');
+					this.moveRoom_Direction('l', gc);
 				} else {
 					
 					// Point to move the player to (Left)
@@ -235,7 +247,7 @@ public class GUILevel {
 					
 					// Set the player direction
 					newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
-					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Left";
+					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setDirection("Left");
 					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 					
 					// Re-draw the room
@@ -246,7 +258,7 @@ public class GUILevel {
 			} else if (key.getCode() == KeyCode.S) { // SOUTH
 				
 				if (this.roomAt(this.currentRoomPoint).playerPoint.y == this.roomSize + 1) {
-					this.moveRoom_Direction('d');
+					this.moveRoom_Direction('d', gc);
 				} else {
 					
 					// Point to move the player to (Down)
@@ -259,7 +271,7 @@ public class GUILevel {
 					
 					// Set the player direction
 					newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
-					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Down";
+					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setDirection("Down");
 					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 					
 					// Re-draw the room
@@ -270,7 +282,7 @@ public class GUILevel {
 			} else if (key.getCode() == KeyCode.D) { // WEST
 				
 				if (this.roomAt(this.currentRoomPoint).playerPoint.x == this.roomSize + 1) {
-					this.moveRoom_Direction('r');
+					this.moveRoom_Direction('r', gc);
 				} else {
 					
 					// Point to move the player to (Right)
@@ -283,7 +295,7 @@ public class GUILevel {
 					
 					// Set the player direction
 					newPlayerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
-					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).DIRECTION = "Right";
+					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setDirection("Right");
 					this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
 					
 					// Re-draw the room
