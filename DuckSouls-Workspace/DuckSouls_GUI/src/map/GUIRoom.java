@@ -78,7 +78,7 @@ public class GUIRoom {
 		
 		this.genTileArray();
 		//this.scatterItems();
-		//this.scatterEnemies();
+		this.scatterEnemies();
 		
 	}
 	
@@ -579,7 +579,7 @@ public class GUIRoom {
 		Utilities.writeFile(fileName, lines);
 		
 	}
-	/*
+
 	public void scatterEnemies() {
 		
 		// For each position...
@@ -635,7 +635,6 @@ public class GUIRoom {
 		}
 		
 	}
-	*/
 	
 	/**
 	 * Sets a tile at a point in the tile array to a specific tile.

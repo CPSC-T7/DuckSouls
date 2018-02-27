@@ -304,21 +304,18 @@ public class GUILevel {
 				}
 				
 			}
+			// Check for enemies
+			Point battlePoint = this.roomAt(this.currentRoomPoint).checkForBattlePoint();
+			if (battlePoint != null) {
+
+				Utilities.clearConsole();
+				BattleWorldTest.battleLoop();
+
+				this.roomAt(this.currentRoomPoint).removeEntity(battlePoint);
+
+			}
 		});
-		
-		/**
-		 * 
-		 * // Check for enemies\ Point battlePoint =
-		 * this.roomAt(this.currentRoomPoint).checkForBattlePoint(); if (battlePoint !=
-		 * null) {
-		 * 
-		 * Utilities.clearConsole(); BattleWorldTest.battleLoop();
-		 * 
-		 * this.roomAt(this.currentRoomPoint).removeEntity(battlePoint);
-		 * 
-		 * }
-		 */
-		
+		  
 	}
 	
 }
