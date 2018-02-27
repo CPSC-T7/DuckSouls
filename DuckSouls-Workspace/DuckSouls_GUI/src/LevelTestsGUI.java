@@ -11,6 +11,10 @@ public class LevelTestsGUI extends Application {
 
 	private int windowSize = 800;
 	
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
+	
 	/*
 	 * Start of JavaFX
 	 */
