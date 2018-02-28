@@ -3,7 +3,7 @@ package items;
 public class Bugs extends Consumable {
 
 	public Bugs() {
-		super("De Bugs", " B ", 5, 20, 5, 5);
+		super("De Bugs", " B ", 5, 50, 5, 5);
 	}
 	
 }

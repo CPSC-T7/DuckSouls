@@ -1,12 +1,16 @@
 package entities;
 
 import java.awt.Point;
+import java.util.ArrayList;
+
+import items.Item;
 
 public class Entity {
 	
-	private Point		position	= new Point();
-	private String		stringRepr	= "EER";
-	private Orientation	orientation	= Orientation.SOUTH;
+	private Point			position	= new Point();
+	private String			stringRepr	= "EER";
+	private Orientation		orientation	= Orientation.SOUTH;
+	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	
 	/**
 	 * Creates an entity.
@@ -53,5 +57,13 @@ public class Entity {
 		return this.orientation;
 		
 	} // End of getPosition
+
+	public void addToInventory(Item item) {
+		this.inventory.add(item);
+	}
+	
+	public ArrayList<Item> getInventory() {
+		return this.inventory;
+	}
 	
 }

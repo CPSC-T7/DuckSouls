@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import battle.BattleWorldTest;
 import entities.*;
+import items.Item;
+import tiles.Stairs;
 import utils.Utilities;
 
 public class TextLevel {
@@ -229,6 +231,7 @@ public class TextLevel {
 	public void moveRoom_Direction(char direction) {
 		
 		Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint);
+		Player player = (Player) this.roomAt(this.currentRoomPoint).entityAt(this.roomAt(this.currentRoomPoint).playerPoint);
 		
 		this.roomAt(this.currentRoomPoint).removeEntity(this.roomAt(this.currentRoomPoint).playerPoint);
 		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
@@ -257,7 +260,7 @@ public class TextLevel {
 			
 		}
 		
-		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, new Player());
+		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, player);
 		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
 		
 	}
@@ -269,14 +272,13 @@ public class TextLevel {
 	public void moveLoop() {
 		
 		String input;
+		TextRoom currentRoom;
+		Point playerPoint;
 		
 		/*
 		 * Loop:
 		 * 
-		 * Draws the room and lets the user move.
-		 * 
-		 * Currently does not exit.
-		 * 
+		 * Draws the room and lets the user move. 
 		 */
 		while (true) {
 			
@@ -288,6 +290,10 @@ public class TextLevel {
 			System.out.print("\nAction \t: ");
 			input = _scanner.nextLine().toUpperCase();
 			
+			// Update some variables
+			currentRoom = this.roomAt(this.currentRoomPoint);
+			playerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
+			
 			// Do the action inputed by the user
 			switch (input) {
 				
@@ -295,52 +301,52 @@ public class TextLevel {
 				
 				case "W":
 				case "NORTH":
-					if (this.roomAt(this.currentRoomPoint).playerPoint.y == 0) {
+					if (playerPoint.y == 0) {
 						this.moveRoom_Direction('u');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
-								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x,
-										this.roomAt(this.currentRoomPoint).playerPoint.y - 1));
+						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y - 1));
 					}
 					break;
 				
 				case "S":
 				case "SOUTH":
-					if (this.roomAt(this.currentRoomPoint).playerPoint.y == this.roomSize + 1) {
+					if (playerPoint.y == this.roomSize + 1) {
 						this.moveRoom_Direction('d');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
-								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x,
-										this.roomAt(this.currentRoomPoint).playerPoint.y + 1));
+						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y + 1));
 					}
 					break;
 				
 				case "D":
 				case "EAST":
-					if (this.roomAt(this.currentRoomPoint).playerPoint.x == this.roomSize + 1) {
+					if (playerPoint.x == this.roomSize + 1) {
 						this.moveRoom_Direction('r');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
-								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x + 1,
-										this.roomAt(this.currentRoomPoint).playerPoint.y));
+						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x + 1, playerPoint.y));
 					}
 					break;
 				
 				case "A":
 				case "WEST":
-					if (this.roomAt(this.currentRoomPoint).playerPoint.x == 0) {
+					if (playerPoint.x == 0) {
 						this.moveRoom_Direction('l');
 					} else {
-						this.roomAt(this.currentRoomPoint).moveEntity(this.roomAt(this.currentRoomPoint).playerPoint,
-								new Point(this.roomAt(this.currentRoomPoint).playerPoint.x - 1,
-										this.roomAt(this.currentRoomPoint).playerPoint.y));
+						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x - 1, playerPoint.y));
 					}
 					break;
 				
 				// Room commands...
+					
+				case "I":
+					for(Item item : currentRoom.entityAt(playerPoint).getInventory()) {
+						System.out.println(item.getName());
+					}
+					System.out.println("\nPress Enter To Exit.");
+					_scanner.nextLine();
+					break;
 				
 				case "SAVE":
-					this.roomAt(this.currentRoomPoint).saveToTextFile();
+					currentRoom.saveToTextFile();
 					break;
 				
 				// Default
@@ -352,14 +358,19 @@ public class TextLevel {
 				
 			}
 			
-			// Check for enemies\
-			Point battlePoint = this.roomAt(this.currentRoomPoint).checkForBattlePoint();
+			// Exit the level if standing on stairs
+			if(currentRoom.tileAt(playerPoint) instanceof Stairs) {
+				break;
+			}
+			
+			// Check for enemies
+			Point battlePoint = currentRoom.checkForBattlePoint();
 			if (battlePoint != null) {
 				
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop();
 				
-				this.roomAt(this.currentRoomPoint).removeEntity(battlePoint);
+				currentRoom.removeEntity(battlePoint);
 				
 			}
 			

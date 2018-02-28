@@ -491,11 +491,18 @@ public class TextRoom {
 	 */
 	public void placeEntity(Point position, Entity entity) {
 		
-		this.entityArray[position.x][position.y] = entity;
-		
 		if (entity != null && entity instanceof Player) {
+			
 			this.playerPoint = position;
+			
+			if (this.itemArray[position.x][position.y] != null) {
+				entity.addToInventory(this.itemArray[position.x][position.y]);
+				this.itemArray[position.x][position.y] = null;
+			}
+			
 		}
+		
+		this.entityArray[position.x][position.y] = entity;
 		
 	}
 	
@@ -585,55 +592,90 @@ public class TextRoom {
 	// TODO: Probably redo
 	public void scatterItems() {
 		
-		int numItems = Item.allItems.length, randomItemNumber;
+		int itemTypeNumber, randomItemNumber;
 		
 		// For each position...
 		for (int x = 1; x < this.internalWidth + 1; x++) {
 			for (int y = 1; y < this.internalHeight + 1; y++) {
 				
-				randomItemNumber = _random.nextInt(numItems);
+				itemTypeNumber = _random.nextInt(6);
 				
-				if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
+				switch (itemTypeNumber) {
 					
-					switch (randomItemNumber) {
-						
-						case 0:
-							this.placeItem(new Point(x, y), new Bugs());
-							break;
+					// Consumables
+					case 0:
+					case 1:
+					case 2:
+						randomItemNumber = _random.nextInt(4);
+						if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
 							
-						case 1:
-							this.placeItem(new Point(x, y), new Crouton());
-							break;
+							switch (randomItemNumber) {
+								
+								case 0:
+									this.placeItem(new Point(x, y), new Bugs());
+									break;
+									
+								case 1:
+									this.placeItem(new Point(x, y), new Crouton());
+									break;
+									
+								case 2:
+									this.placeItem(new Point(x, y), new Food());
+									break;
+									
+								case 3:
+									this.placeItem(new Point(x, y), new Goo());
+									break;
+								
+							}
 							
-						case 2:
-							this.placeItem(new Point(x, y), new Food());
-							break;
+						}
+						break;
+					
+					// Weapons
+					case 3:
+					case 4:
+						randomItemNumber = _random.nextInt(2);
+						if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
 							
-						case 3:
-							this.placeItem(new Point(x, y), new Goo());
-							break;
+							switch (randomItemNumber) {
+								
+								case 0:
+									this.placeItem(new Point(x, y), new Knife());
+									break;
+									
+								case 1:
+									this.placeItem(new Point(x, y), new Sword());
+									break;
+								
+							}
 							
-						case 4:
-							this.placeItem(new Point(x, y), new Knife());
-							break;
+						}
+						break;
+					
+					// Armour
+					case 5:
+						randomItemNumber = _random.nextInt(3);
+						if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
 							
-						case 5:
-							this.placeItem(new Point(x, y), new Sword());
-							break;
+							switch (randomItemNumber) {
+								
+								case 0:
+									this.placeItem(new Point(x, y), new ClothArmour());
+									break;
+									
+								case 1:
+									this.placeItem(new Point(x, y), new LeatherArmour());
+									break;
+									
+								case 2:
+									this.placeItem(new Point(x, y), new MetalArmour());
+									break;
+								
+							}
 							
-						case 6:
-							this.placeItem(new Point(x, y), new ClothArmour());
-							break;
-							
-						case 7:
-							this.placeItem(new Point(x, y), new LeatherArmour());
-							break;
-							
-						case 8:
-							this.placeItem(new Point(x, y), new MetalArmour());
-							break;
-						
-					}
+						}
+						break;
 					
 				}
 				
