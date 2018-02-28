@@ -179,7 +179,7 @@ public class GUILevel {
 		
 		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, new Player());
 		//this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
-		
+
 		// Set the player direction
 		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setDirection(newDirection);
 		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).newImage();
@@ -188,7 +188,7 @@ public class GUILevel {
 		this.roomAt(this.currentRoomPoint).draw_Room(gc);
 		
 	}
-	
+
 	/**
 	 * Runs through a loop, where it displays the room and asks for input
 	 * repeatedly.
@@ -314,8 +314,6 @@ public class GUILevel {
 				this.roomAt(this.currentRoomPoint).removeEntity(battlePoint);
 
 			}
-		});
-		  
+		});	  
 	}
-	
 }

@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import mattEntities.*;
@@ -385,6 +386,7 @@ public class GUIRoom {
 					Entity entity = entityAt(new Point(x,y));
 					entity.drawEntity(gc, new int[] {x*this.tileSize, y*this.tileSize});
 				}
+				
 			}
 			
 		}
@@ -588,7 +590,7 @@ public class GUIRoom {
 				
 				if (_random.nextInt(100) < this.enemySpawnChance) {
 					Point point = new Point(x, y);
-					this.placeEntity(point, new Enemy());
+					this.placeEntity(point, new Enemy(new Image("Sprites/Rat/Rat-Down.png")));
 				}
 				
 			}
