@@ -3,6 +3,7 @@ package old_entities;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import items.Item;
 import old_tiles.*;
 
 /**
@@ -18,6 +19,7 @@ public class Player extends Entity {
 	 * 
 	 */
 	
+	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	private Scanner scanner = new Scanner(System.in);
 	
 	/*
@@ -158,4 +160,106 @@ public class Player extends Entity {
 		} while (!hasMoved);
 		
 	}// End of move
+	
+	public void move(ArrayList<ArrayList<Tile>> map_2DArrayList, String input) {
+		
+		// Define some control variables
+		boolean hasMove = false;
+		
+		/*
+		 * 
+		 * Loop:
+		 * 
+		 * Asks the user where they would like to move (wasd for nesw).
+		 * 
+		 * Breaks once the player has moved.
+		 * 
+		 */
+			// For each possible direction...
+		for (String direction : super.POSSIBLE_ORIENTATIONS) {
+			
+			// If the input matches...
+			if (input.equals(direction)) {
+				hasMove = true;
+				
+			}
+		}
+					
+					// Move the appropriate direction
+		if(hasMove) {
+			switch (input) {
+					
+					/*
+					 * For each case:
+					 * 
+					 * If the player is within the bounds to move...
+					 * 		Move the player,
+					 * 		And set the boolean accordingly.
+					 * 
+					 */
+					
+					case "w":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("w");
+						}
+						else {
+							if(this.getY() >= 1) {
+								if(map_2DArrayList.get(this.getY()-1).get(this.getX()).canMove()) {
+									super.move(this.getY()-1, this.getX(), map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+					case "s":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("s");
+						}
+						else {
+							if(this.getY() < map_2DArrayList.size()-1) {
+								if(map_2DArrayList.get(this.getY()+1).get(this.getX()).canMove()) {
+									super.move(this.getY()+1, this.getX(), map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+					case "a":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("a");
+						}
+						else {
+							if(this.getX() > 0) {
+								if(map_2DArrayList.get(this.getY()).get(this.getX()-1).canMove()) {
+									super.move(this.getY(), this.getX()-1, map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+					case "d":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("d");
+						}
+						else {
+							if(this.getX() < map_2DArrayList.get(this.getY()).size()-1) {
+								if(map_2DArrayList.get(this.getY()).get(this.getX()+1).canMove()) {
+									super.move(this.getY(), this.getX()+1, map_2DArrayList);
+								}
+							}
+						}
+						break;
+					
+				}
+		}
+	}// End of move
+
+	
+	public void addToInventory(Item item) {
+		this.inventory.add(item);
+	}
+	
+	public ArrayList<Item> getInventory() {
+		return this.inventory;
+	}
 }

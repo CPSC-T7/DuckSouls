@@ -20,10 +20,10 @@ public class Entity {
 	 */
 	
 	private Point	position				= new Point();
-	private char	orientation				= 'E';
+	private String orientation				= "d";
 	private boolean	isPlayer				= false;
 	private String	stringRepr				= new String();
-	private char[]	possibleOrientations	= { 'N', 'E', 'S', 'W' };
+	public final String[]	POSSIBLE_ORIENTATIONS	= { "w", "a", "s", "d" };
 	
 	/*
 	 * 
@@ -76,6 +76,10 @@ public class Entity {
 		return this.stringRepr;
 		
 	} // End of getStringRepr
+	
+	public String getOrientation() {
+		return this.orientation;
+	}
 	
 	/**
 	 * Moves the character to a specified position.
@@ -134,12 +138,12 @@ public class Entity {
 	 * Turn the character.
 	 * 
 	 * @param direction
-	 *            The direction to face. Must be one of: N, E, S, or W.
+	 *            The direction to face. Must be one of: w, a, s, or d.
 	 */
-	public void turn(char direction) {
+	public void turn(String direction) {
 		
 		// For each possible direction...
-		for (char i : this.possibleOrientations) {
+		for (String i : this.POSSIBLE_ORIENTATIONS) {
 			
 			// If the direction matches the one given...
 			if (direction == i) {
@@ -185,11 +189,6 @@ public class Entity {
 		return this.isPlayer;
 		
 	} // End of isPlayer
-	
-	// TODO: What does this do?
-	public void move(ArrayList<ArrayList<Tile>> map) {
-		
-	}
 	
 	/**
 	 * Returns whether the character is next to a specific position.

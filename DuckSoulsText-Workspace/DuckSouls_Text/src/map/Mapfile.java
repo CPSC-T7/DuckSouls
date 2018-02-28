@@ -152,4 +152,20 @@ public class Mapfile {
 		
 	}// End of mapContainsPlayer
 	
+	public void removePlayerpoint() {
+		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
+			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
+				
+				// Return true if the player is at that position
+				if (this.map_2DArrayList.get(y).get(x) == "@") {
+					
+					this.map_2DArrayList.get(y).set(x, "F");
+					
+				}
+				
+			}
+			
+		}
+	}
+	
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import old_entities.*;
 import old_tiles.*;
+import battle.BattleWorldTest;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile
@@ -40,9 +41,6 @@ public class Map {
 	 * Creates a map object and adds a player.
 	 */
 	public Map() {
-		
-		this.characters_ArrayList.add(this.player);
-		
 	}
 	
 	/*
@@ -106,6 +104,7 @@ public class Map {
 					case '@': // Player
 						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
 						this.player.setPos(x, y, currentMap_2DArrayList);
+						this.maps_HashMap.get(this.currentMapID).removePlayerpoint();
 						break;
 					
 					case 'E': // Enemy
@@ -193,7 +192,6 @@ public class Map {
 	public void resetCharacters() {
 		
 		this.characters_ArrayList.clear();
-		this.characters_ArrayList.add(player);
 		
 	}
 	
@@ -312,7 +310,12 @@ public class Map {
 				if (!printed) {
 					
 					// Print the tile representation
-					System.out.print(this.currentMap_2DArrayList.get(y).get(x).getStringRepr());
+					if(y == this.player.getY() && x==this.player.getX()) {
+						System.out.print(player.getStringRepr());
+					}
+					else {
+						System.out.print(this.currentMap_2DArrayList.get(y).get(x).getStringRepr());
+					} 
 					
 				}
 				
@@ -372,16 +375,21 @@ public class Map {
 		 * 
 		 * Exits after turn #21. TODO: Why?
 		 */
-		do {
+		while(true) {
 			
 			// Run the turn
 			this.runTurn();
 			
 			// Clear the console and increment the turn counter
 			Utilities.clearConsole();
-			turnCount += 1;
-			
-		} while (turnCount < 20);
+			if(this.isEnemyNear() != -1) {
+				Utilities.clearConsole();
+				BattleWorldTest.battleLoop();
+				Utilities.clearConsole();
+				this.characters_ArrayList.remove(this.isEnemyNear());
+			}
+		}
+
 		
 	} // End of mainLoop
 	
@@ -420,15 +428,7 @@ public class Map {
 		
 		// Print the map
 		this.print();
-		
-		// For each character in the map...
-		for (Entity character : this.characters_ArrayList) {
-			
-			// TODO: What does this do?
-			character.move(this.currentMap_2DArrayList);
-			
-		}
-		
+		this.player.move(this.currentMap_2DArrayList);
 		// For each position on the map...
 		for (int y = 0; y < this.currentMap_2DArrayList.size(); y++) {
 			for (int x = 0; x < this.currentMap_2DArrayList.get(y).size(); x++) {
@@ -472,23 +472,23 @@ public class Map {
 	 * 
 	 * @return A boolean stating whether the player is near an enemy
 	 */
-	public boolean isEnemyNear() {
+	public int isEnemyNear() {
 		
 		// For each character on the map...
+		int index =0;
 		for (Entity character : this.characters_ArrayList) {
-			
 			// If the character is an enemy and the player is next to the enemy...
-			if (!character.isPlayer() && character.isNextTo(this.player.getX(), this.player.getY())) {
+			if (character.getX() == player.getX() && character.getY() == player.getY()) {
 				
 				// Return true
-				return true;
+				return index;
 				
 			}
-			
+			index += 1;
 		}
 		
 		// Otherwise return false
-		return false;
+		return -1;
 		
 	} // End of isEnemyNear
 	

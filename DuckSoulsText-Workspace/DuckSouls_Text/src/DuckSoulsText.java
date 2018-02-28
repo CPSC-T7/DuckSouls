@@ -76,16 +76,7 @@ public class DuckSoulsText {
 	 */
 	private static void loop(Map map) {
 		TitleScreen.displayMenu();
-		boolean battleDone = false;
-		do {
-			Utilities.clearConsole();
-			map.runTurn();
-			if(map.isEnemyNear()){
-				Utilities.clearConsole();
-				BattleWorldTest.battleLoop();
-				battleDone = true;
-			}
-		}while (!battleDone);
+		map.mainloop();
 		// TODO: Main Game Loop
 
 	}
