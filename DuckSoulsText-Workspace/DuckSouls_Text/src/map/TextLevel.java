@@ -2,6 +2,7 @@ package map;
 
 import java.awt.Point;
 import java.util.Scanner;
+import java.util.Random;
 
 import battle.BattleWorldTest;
 import entities.*;
@@ -18,6 +19,7 @@ public class TextLevel {
 	 */
 	
 	private static Scanner	_scanner			= new Scanner(System.in);
+	private static Random	_random				= new Random();
 	
 	/*
 	 * 
@@ -55,6 +57,26 @@ public class TextLevel {
 		this.genMinimapArray();
 		
 	}
+	
+	public TextLevel(Player player, Point playerPosition) {
+		
+		this.levelWidth = DEFAULT_LEVEL_SIZE;
+		this.levelHeight = DEFAULT_LEVEL_SIZE;
+		this.roomSize = DEFAULT_ROOM_SIZE;
+		
+		this.genRoomArray();
+		
+		this.roomAt(this.currentRoomPoint).placeEntity(playerPosition, player);
+		
+		this.genMinimapArray();
+		
+	}
+	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
 	
 	private void drawMinimap() {
 		
@@ -120,12 +142,6 @@ public class TextLevel {
 		
 	}
 	
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
-	
 	private void genMinimapArray() {
 		
 		this.minimapArray = new String[this.levelWidth][this.levelHeight];
@@ -163,6 +179,9 @@ public class TextLevel {
 		}
 		
 		this.placeAllConnectingDoors();
+		
+		this.roomArray[_random.nextInt(levelWidth)][_random.nextInt(levelHeight)]
+				.setTile(new Point(_random.nextInt(this.roomSize), _random.nextInt(this.roomSize)), new Stairs());
 		
 	}
 	
@@ -231,7 +250,8 @@ public class TextLevel {
 	public void moveRoom_Direction(char direction) {
 		
 		Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint);
-		Player player = (Player) this.roomAt(this.currentRoomPoint).entityAt(this.roomAt(this.currentRoomPoint).playerPoint);
+		Player player = (Player) this.roomAt(this.currentRoomPoint)
+				.entityAt(this.roomAt(this.currentRoomPoint).playerPoint);
 		
 		this.roomAt(this.currentRoomPoint).removeEntity(this.roomAt(this.currentRoomPoint).playerPoint);
 		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
@@ -278,7 +298,7 @@ public class TextLevel {
 		/*
 		 * Loop:
 		 * 
-		 * Draws the room and lets the user move. 
+		 * Draws the room and lets the user move.
 		 */
 		while (true) {
 			
@@ -336,10 +356,10 @@ public class TextLevel {
 					break;
 				
 				// Room commands...
-					
+				
 				case "I":
 					System.out.println("Player Inventory:\n");
-					for(Item item : currentRoom.entityAt(playerPoint).getInventory()) {
+					for (Item item : currentRoom.entityAt(playerPoint).getInventory()) {
 						System.out.println(item.getName());
 					}
 					System.out.println("\nPress Enter To Exit.");
@@ -360,7 +380,7 @@ public class TextLevel {
 			}
 			
 			// Exit the level if standing on stairs
-			if(currentRoom.tileAt(playerPoint) instanceof Stairs) {
+			if (currentRoom.tileAt(playerPoint) instanceof Stairs) {
 				break;
 			}
 			
