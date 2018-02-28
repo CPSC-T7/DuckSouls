@@ -338,6 +338,7 @@ public class TextLevel {
 				// Room commands...
 					
 				case "I":
+					System.out.println("Player Inventory:\n");
 					for(Item item : currentRoom.entityAt(playerPoint).getInventory()) {
 						System.out.println(item.getName());
 					}
