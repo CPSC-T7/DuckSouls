@@ -1,7 +1,6 @@
 package map;
 
 import java.awt.Point;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -430,8 +429,15 @@ public class TextRoom {
 				this.playerPoint = moveTo;
 			}
 			
-			// Path tile indicates it has been stepped on
-			this.setTile(toMove, new Path());
+			if (this.tileAt(toMove) instanceof Floor) {
+				// Path tile indicates it has been stepped on
+				this.setTile(toMove, new Path());
+			}
+			
+			if (this.tileAt(moveTo) instanceof Floor) {
+				// Path tile indicates it has been stepped on
+				this.setTile(moveTo, new Path());
+			}
 			
 			// Deal with the stepped on item
 			if (this.itemAt(moveTo) != null) {
@@ -443,9 +449,6 @@ public class TextRoom {
 				this.placeItem(moveTo, null);
 				
 			}
-			
-			// Path tile indicates it has been stepped on
-			this.setTile(moveTo, new Path());
 			
 		} else {
 			
@@ -614,15 +617,15 @@ public class TextRoom {
 								case 0:
 									this.placeItem(new Point(x, y), new Bugs());
 									break;
-									
+								
 								case 1:
 									this.placeItem(new Point(x, y), new Crouton());
 									break;
-									
+								
 								case 2:
 									this.placeItem(new Point(x, y), new Food());
 									break;
-									
+								
 								case 3:
 									this.placeItem(new Point(x, y), new Goo());
 									break;
@@ -643,7 +646,7 @@ public class TextRoom {
 								case 0:
 									this.placeItem(new Point(x, y), new Knife());
 									break;
-									
+								
 								case 1:
 									this.placeItem(new Point(x, y), new Sword());
 									break;
@@ -663,11 +666,11 @@ public class TextRoom {
 								case 0:
 									this.placeItem(new Point(x, y), new ClothArmour());
 									break;
-									
+								
 								case 1:
 									this.placeItem(new Point(x, y), new LeatherArmour());
 									break;
-									
+								
 								case 2:
 									this.placeItem(new Point(x, y), new MetalArmour());
 									break;

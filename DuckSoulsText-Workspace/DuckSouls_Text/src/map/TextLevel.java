@@ -4,11 +4,8 @@ import java.awt.Point;
 import java.util.Scanner;
 import java.util.Random;
 
-import battle.BattleWorldTest;
 import entities.*;
-import items.Item;
 import tiles.Stairs;
-import utils.Utilities;
 
 public class TextLevel {
 	
@@ -46,27 +43,28 @@ public class TextLevel {
 		
 		this.levelWidth = DEFAULT_LEVEL_SIZE;
 		this.levelHeight = DEFAULT_LEVEL_SIZE;
-		this.roomSize = DEFAULT_ROOM_SIZE;
+		this.setRoomSize(DEFAULT_ROOM_SIZE);
 		
 		this.genRoomArray();
 		
-		this.currentRoomPoint = new Point(0, 0);
-		this.roomAt(this.currentRoomPoint).placeEntity(new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1),
+		this.setCurrentRoomPoint(new Point(0, 0));
+		this.roomAt(this.getCurrentRoomPoint()).placeEntity(new Point(this.getRoomSize() / 2 + 1, this.getRoomSize() / 2 + 1),
 				new Player());
 		
 		this.genMinimapArray();
 		
 	}
 	
-	public TextLevel(Player player, Point playerPosition) {
+	public TextLevel(Player player, Point playerPosition, Point roomPoint) {
 		
 		this.levelWidth = DEFAULT_LEVEL_SIZE;
 		this.levelHeight = DEFAULT_LEVEL_SIZE;
-		this.roomSize = DEFAULT_ROOM_SIZE;
+		this.setRoomSize(DEFAULT_ROOM_SIZE);
 		
 		this.genRoomArray();
 		
-		this.roomAt(this.currentRoomPoint).placeEntity(playerPosition, player);
+		this.setCurrentRoomPoint(roomPoint);
+		this.roomAt(this.getCurrentRoomPoint()).placeEntity(playerPosition, player);
 		
 		this.genMinimapArray();
 		
@@ -78,7 +76,7 @@ public class TextLevel {
 	 * 
 	 */
 	
-	private void drawMinimap() {
+	public void drawMinimap() {
 		
 		int yMax = 2 * this.levelHeight + 1, xMax = 2 * this.levelWidth + 1;
 		
@@ -150,7 +148,7 @@ public class TextLevel {
 		for (int x = 0; x < this.levelWidth; x++) {
 			for (int y = 0; y < this.levelHeight; y++) {
 				
-				if (x == this.currentRoomPoint.x && y == this.currentRoomPoint.y) {
+				if (x == this.getCurrentRoomPoint().x && y == this.getCurrentRoomPoint().y) {
 					
 					this.minimapArray[x][y] = "@";
 					
@@ -173,15 +171,23 @@ public class TextLevel {
 		for (int y = 0; y < this.levelHeight; y++) {
 			for (int x = 0; x < this.levelWidth; x++) {
 				
-				this.roomArray[x][y] = new TextRoom(this.roomSize);
+				this.roomArray[x][y] = new TextRoom(this.getRoomSize());
 				
 			}
 		}
 		
 		this.placeAllConnectingDoors();
+
+		int stairsRoomX = _random.nextInt(levelWidth);
+		int stairsRoomY = _random.nextInt(levelHeight);
+		int stairsTileX = _random.nextInt(this.getRoomSize()) + 1;
+		int stairsTileY = _random.nextInt(this.getRoomSize()) + 1;
+		Point stairsPoint = new Point(stairsTileX, stairsTileY);
+		TextRoom stairsRoom = this.roomArray[stairsRoomX][stairsRoomY];
 		
-		this.roomArray[_random.nextInt(levelWidth)][_random.nextInt(levelHeight)]
-				.setTile(new Point(_random.nextInt(this.roomSize), _random.nextInt(this.roomSize)), new Stairs());
+		stairsRoom.setTile(stairsPoint, new Stairs());
+		stairsRoom.removeEntity(stairsPoint);
+		stairsRoom.removeItem(stairsPoint);
 		
 	}
 	
@@ -196,28 +202,28 @@ public class TextLevel {
 				
 				try {
 					if (this.roomArray[x][y - 1] != null) {
-						doors[0] = new Point((this.roomSize + 2) / 2, 0);
+						doors[0] = new Point((this.getRoomSize() + 2) / 2, 0);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
 				}
 				
 				try {
 					if (this.roomArray[x][y + 1] != null) {
-						doors[1] = new Point((this.roomSize + 2) / 2, (this.roomSize + 1));
+						doors[1] = new Point((this.getRoomSize() + 2) / 2, (this.getRoomSize() + 1));
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
 				}
 				
 				try {
 					if (this.roomArray[x - 1][y] != null) {
-						doors[2] = new Point(0, (this.roomSize + 2) / 2);
+						doors[2] = new Point(0, (this.getRoomSize() + 2) / 2);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
 				}
 				
 				try {
 					if (this.roomArray[x + 1][y] != null) {
-						doors[3] = new Point((this.roomSize + 1), (this.roomSize + 2) / 2);
+						doors[3] = new Point((this.getRoomSize() + 1), (this.getRoomSize() + 2) / 2);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
 				}
@@ -229,7 +235,7 @@ public class TextLevel {
 		
 	}
 	
-	private TextRoom roomAt(Point position) {
+	public TextRoom roomAt(Point position) {
 		return this.roomArray[position.x][position.y];
 	}
 	
@@ -249,154 +255,56 @@ public class TextLevel {
 	 */
 	public void moveRoom_Direction(char direction) {
 		
-		Point newPlayerPoint = new Point(this.roomAt(this.currentRoomPoint).playerPoint);
-		Player player = (Player) this.roomAt(this.currentRoomPoint)
-				.entityAt(this.roomAt(this.currentRoomPoint).playerPoint);
+		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
+		Player player = (Player) this.roomAt(this.getCurrentRoomPoint())
+				.entityAt(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
 		
-		this.roomAt(this.currentRoomPoint).removeEntity(this.roomAt(this.currentRoomPoint).playerPoint);
-		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = ".";
+		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
+		this.minimapArray[this.getCurrentRoomPoint().x][this.getCurrentRoomPoint().y] = ".";
 		
 		switch (direction) {
 			
 			case 'u':
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y - 1);
-				newPlayerPoint.y = this.roomSize + 1;
+				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x, this.getCurrentRoomPoint().y - 1));
+				newPlayerPoint.y = this.getRoomSize() + 1;
 				break;
 			
 			case 'd':
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y + 1);
+				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x, this.getCurrentRoomPoint().y + 1));
 				newPlayerPoint.y = 0;
 				break;
 			
 			case 'l':
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x - 1, this.currentRoomPoint.y);
-				newPlayerPoint.x = this.roomSize + 1;
+				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x - 1, this.getCurrentRoomPoint().y));
+				newPlayerPoint.x = this.getRoomSize() + 1;
 				break;
 			
 			case 'r':
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x + 1, this.currentRoomPoint.y);
+				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x + 1, this.getCurrentRoomPoint().y));
 				newPlayerPoint.x = 0;
 				break;
 			
 		}
 		
-		this.roomAt(this.currentRoomPoint).placeEntity(newPlayerPoint, player);
-		this.minimapArray[this.currentRoomPoint.x][this.currentRoomPoint.y] = "@";
+		this.roomAt(this.getCurrentRoomPoint()).placeEntity(newPlayerPoint, player);
+		this.minimapArray[this.getCurrentRoomPoint().x][this.getCurrentRoomPoint().y] = "@";
 		
 	}
-	
-	/**
-	 * Runs through a loop, where it displays the room and asks for input
-	 * repeatedly.
-	 */
-	public void moveLoop() {
-		
-		String input;
-		TextRoom currentRoom;
-		Point playerPoint;
-		
-		/*
-		 * Loop:
-		 * 
-		 * Draws the room and lets the user move.
-		 */
-		while (true) {
-			
-			// Draw the room and ask the user for input
-			Utilities.clearConsole();
-			this.drawMinimap();
-			System.out.println('\n');
-			this.roomAt(this.currentRoomPoint).draw_Text();
-			System.out.print("\nAction \t: ");
-			input = _scanner.nextLine().toUpperCase();
-			
-			// Update some variables
-			currentRoom = this.roomAt(this.currentRoomPoint);
-			playerPoint = this.roomAt(this.currentRoomPoint).playerPoint;
-			
-			// Do the action inputed by the user
-			switch (input) {
-				
-				// Moving...
-				
-				case "W":
-				case "NORTH":
-					if (playerPoint.y == 0) {
-						this.moveRoom_Direction('u');
-					} else {
-						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y - 1));
-					}
-					break;
-				
-				case "S":
-				case "SOUTH":
-					if (playerPoint.y == this.roomSize + 1) {
-						this.moveRoom_Direction('d');
-					} else {
-						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y + 1));
-					}
-					break;
-				
-				case "D":
-				case "EAST":
-					if (playerPoint.x == this.roomSize + 1) {
-						this.moveRoom_Direction('r');
-					} else {
-						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x + 1, playerPoint.y));
-					}
-					break;
-				
-				case "A":
-				case "WEST":
-					if (playerPoint.x == 0) {
-						this.moveRoom_Direction('l');
-					} else {
-						currentRoom.moveEntity(playerPoint, new Point(playerPoint.x - 1, playerPoint.y));
-					}
-					break;
-				
-				// Room commands...
-				
-				case "I":
-					System.out.println("Player Inventory:\n");
-					for (Item item : currentRoom.entityAt(playerPoint).getInventory()) {
-						System.out.println(item.getName());
-					}
-					System.out.println("\nPress Enter To Exit.");
-					_scanner.nextLine();
-					break;
-				
-				case "SAVE":
-					currentRoom.saveToTextFile();
-					break;
-				
-				// Default
-				
-				default:
-					System.out.println("...What?");
-					Utilities.waitMilliseconds(300);
-					break;
-				
-			}
-			
-			// Exit the level if standing on stairs
-			if (currentRoom.tileAt(playerPoint) instanceof Stairs) {
-				break;
-			}
-			
-			// Check for enemies
-			Point battlePoint = currentRoom.checkForBattlePoint();
-			if (battlePoint != null) {
-				
-				Utilities.clearConsole();
-				BattleWorldTest.battleLoop();
-				
-				currentRoom.removeEntity(battlePoint);
-				
-			}
-			
-		}
-		
+
+	public Point getCurrentRoomPoint() {
+		return currentRoomPoint;
+	}
+
+	public void setCurrentRoomPoint(Point currentRoomPoint) {
+		this.currentRoomPoint = currentRoomPoint;
+	}
+
+	public int getRoomSize() {
+		return roomSize;
+	}
+
+	public void setRoomSize(int roomSize) {
+		this.roomSize = roomSize;
 	}
 	
 }
