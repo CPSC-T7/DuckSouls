@@ -28,6 +28,15 @@ public class CharacterBattle {
 	private double			speedPoints;
 	private double			accuracyPoints;
 	private double			criticalHitPoints;
+	
+	/**
+	 * Main class.
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+	}
 
 	
 	public CharacterBattle (double health, double mana, double attack, double defence, double speed, double accuracy, double crit) {
@@ -115,6 +124,30 @@ public class CharacterBattle {
 	}
 	
 	public double getStats(String stat) {
+		/*
+		if(stat.equals("healthPoints")) {
+			return healthPoints;
+		}
+		
+		else if(stat.equals("manaPoints")) {
+			return manaPoints;
+		}
+		else if(stat.equals("attackPoints")) {
+			return attackPoints;
+		}
+		else if(stat.equals("defencePoints")) {
+			return defencePoints;
+		}
+		else if(stat.equals("speedPoints")) {
+			return speedPoints;
+		}
+		else if(stat.equals("accuracyPoints")) {
+			return accuracyPoints;
+		}
+		else {
+			return criticalHitPoints;
+		}*/
+		
 		
 		switch (stat) {
 		
@@ -163,7 +196,8 @@ public class CharacterBattle {
 			return criticalHitPointsStatic;
 				
 		}
-		return 5.2;
+		return accuracyPoints;
+		
 		
 	}
 	

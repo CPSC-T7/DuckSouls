@@ -22,6 +22,7 @@ public class DuckObject extends CharacterBattle {
 	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
 	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
+	//private double  acc = 71;
 
 	private int				level				= 1;
 	private int				experience			= 0;
@@ -37,6 +38,8 @@ public class DuckObject extends CharacterBattle {
 	public static void main(String[] args) {
 		
 	}
+	
+	
 	
 	public DuckObject(double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
 		super(health, mana, attack, defence, speed, accuracy, crit);
@@ -115,22 +118,22 @@ public class DuckObject extends CharacterBattle {
 		String move = "";
 		
 		while (selection) {
-			move = scanner.nextLine();
+			move = scanner.next();
 			move = move.toLowerCase();
 			//Get input from the user
 			
-			if (move.contains("quack")) {
+			if (move.equals("quack")) {
 				quack(enemy);
 				selection = false;
-			} else if (move.contains("attack")) {
+			} else if (move.equals("attack")) {
 				attack(enemy);
 				selection = false;
-			} else if (move.contains("taunt")) {
+			} else if (move.equals("taunt")) {
 				taunt(enemy);
 				selection = false;
-			} else if (move.contains("fly")) {
+			} else if (move.equals("fly")) {
 				selection = false;
-			} else if (move.contains("help")) {
+			} else if (move.equals("help")) {
 				System.out.println(" 'attack', 'taunt', 'quack': ");
 				System.out.print("\nEnter a move: ");
 			}else {
@@ -217,6 +220,7 @@ public class DuckObject extends CharacterBattle {
 		boolean landed = true;
 		boolean critical = true;
 		System.out.println(accuracyChance);
+		System.out.println("test acc ass");
 		System.out.println(getStats("accuracyPoints"));
 		System.out.println(landed);
 		
@@ -248,7 +252,7 @@ public class DuckObject extends CharacterBattle {
 		}
 		if (landed) {
 			double newHealth = enemyHealth - damage;
-			enemy.setStats("healthPoints", Math.round(newHealth));
+			enemy.setStats("healthPoints", (Math.round(newHealth)));
 			//If successful attack then minus the enemy health
 		}
 		
@@ -264,22 +268,17 @@ public class DuckObject extends CharacterBattle {
 		//Enemy flinches
 		enemy.flinch(this);
 		
-		//If the hit was unsuccessful, tell the player
-		if (!landed) {
-
-			System.out.println("You missed!");
-		
-		//If the hit was successful, tell the player
-		}else if (landed) {
-			
+		if (landed) {
 			if (critical) {
-				
 				System.out.println("It's a critical hit!");
 			}
-			
 			System.out.print("You dealt ");
 			System.out.print(Math.round(damage));
-			System.out.print(" damage to the enemy!");
+			System.out.println(" damage to the enemy!");
+		}
+		
+		else {
+			System.out.println("You missed!");
 		}
 		
 		//Wait before clearing the console

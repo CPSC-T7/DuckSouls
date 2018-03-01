@@ -17,8 +17,8 @@ import utils.Utilities;
 public class BattleWorldTest {
 	
 	//Create player and enemy objects.
-	private static DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 70, 16);
-	private static EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16); //Enemy will be more random in later versions
+	private static DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 30, 16);
+	private static EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 29, 16); //Enemy will be more random in later versions
 	
 	/**
 	 * Clear the console on startup and start the battle loop.

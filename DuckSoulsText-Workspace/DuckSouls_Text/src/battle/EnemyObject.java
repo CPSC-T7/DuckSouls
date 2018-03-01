@@ -3,7 +3,6 @@ package battle;
 //IOException for use with CMD in Windows
 import java.io.IOException;
 import java.util.Random;
-
 import utils.Utilities;
 
 /**
@@ -139,7 +138,7 @@ public class EnemyObject extends CharacterBattle {
 	public boolean enemyMove(DuckObject player) {
 		
 		Random random = new Random();
-		int move = random.nextInt(2);
+		int move = random.nextInt(1);
 		//A random chance for the enemy to choose a move
 		
 		if (move == 0) {
