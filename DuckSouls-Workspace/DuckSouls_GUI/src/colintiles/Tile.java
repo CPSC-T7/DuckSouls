@@ -1,4 +1,4 @@
-package old_tiles;
+package colintiles;
 
 import java.awt.Point;
 

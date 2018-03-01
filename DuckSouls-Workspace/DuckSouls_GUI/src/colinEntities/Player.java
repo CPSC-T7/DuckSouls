@@ -1,10 +1,9 @@
-package old_entities;
+package colinEntities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//import items.Item;
-import old_tiles.*;
+import colintiles.*;
 
 /**
  * This class represents a player character.

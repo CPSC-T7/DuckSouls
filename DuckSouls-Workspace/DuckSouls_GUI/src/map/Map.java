@@ -5,10 +5,10 @@ import utils.Utilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import old_entities.*;
-import old_tiles.*;
 import battle.BattleWorldTest;
 //import items.Item;
+import colinEntities.*;
+import colintiles.*;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile

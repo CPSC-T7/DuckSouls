@@ -1,4 +1,4 @@
-package old_tiles;
+package colintiles;
 
 /**
  * This class represents a wall tile.

@@ -1,8 +1,8 @@
-package old_entities;
+package colinEntities;
 
 import java.util.ArrayList;
 
-import old_tiles.Tile;
+import colintiles.Tile;
 
 /**
  * This class represents an enemy character.

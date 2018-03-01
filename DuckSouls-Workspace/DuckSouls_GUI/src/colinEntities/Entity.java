@@ -1,9 +1,9 @@
-package old_entities;
+package colinEntities;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
-import old_tiles.Tile;
+import colintiles.Tile;
 
 /**
  * This class represents a default character, and is used as a super class for
