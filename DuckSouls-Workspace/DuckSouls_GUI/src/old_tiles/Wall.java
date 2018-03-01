@@ -15,6 +15,7 @@ public class Wall extends Tile {
 	 */
 	
 	private String orientation;
+	private String image;
 	
 	/*
 	 * 
@@ -46,28 +47,44 @@ public class Wall extends Tile {
 		// Set the string representation to the appropriate unicode box characters
 		switch (orientation) {
 			
-			case "V":
+			case "L":
 				this.setStringRepr(" ║ ");
+				this.image = "Tiles/Sewer/Wall-Left.png";
+				break;
+			
+			case "R":
+				this.setStringRepr(" ║ ");
+				this.image = "Tiles/Sewer/Wall-Right.png";
 				break;
 				
-			case "H":
+			case "T":
 				this.setStringRepr("═══");
+				this.image = "Tiles/Sewer/Wall-Top.png";
+				break;
+				
+			case "B":
+				this.setStringRepr("═══");
+				this.image = "Tiles/Sewer/Wall-Bottom.png";
 				break;
 				
 			case "TR":
 				this.setStringRepr("═╗ ");
+				this.image = "Tiles/Sewer/Wall-Top-Right.png";
 				break;
 				
 			case "TL":
 				this.setStringRepr(" ╔═");
+				this.image = "Tiles/Sewer/Wall-Top-Left.png";
 				break;
 				
 			case "BL":
 				this.setStringRepr(" ╚═");
+				this.image = "Tiles/Sewer/Wall-Bottom-Left.png";
 				break;
 				
 			case "BR":
 				this.setStringRepr("═╝ ");
+				this.image = "Tiles/Sewer/Wall-Bottom-Right.png";
 				break;
 				
 		}
@@ -91,4 +108,7 @@ public class Wall extends Tile {
 		
 	} // End of getType
 	
+	public String getImage() {
+		return this.image;
+	}
 }

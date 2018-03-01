@@ -150,4 +150,8 @@ public class Tile {
 		
 	}
 	
+	public String getImage() {
+		return "Tiles/Sewer/Floor.png";
+	}
+	
 }

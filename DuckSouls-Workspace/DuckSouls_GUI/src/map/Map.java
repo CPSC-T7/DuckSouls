@@ -247,10 +247,9 @@ public class Map {
 		
 		// Determine if the door is locked / vertical
 		boolean isLocked = (lockArg == 'L');
-		boolean isVertical = (orientationArg == 'V');
 		
 		// Return a door made with all of the values
-		return new Door(x, y, isLocked, mapID, isVertical, keyID);
+		return new Door(x, y, isLocked, mapID, orientationArg, keyID);
 		
 	} // End of loadDoor
 	
@@ -395,8 +394,6 @@ public class Map {
 	 * Runs a loop to play the game. Currently runs for 21 turns.
 	 */
 	public void mainloop() {
-		
-		int turnCount = 0;
 		
 		// Load the first 3 map files, and then the current (first) map
 		this.loadAllMapFiles(0, 2);

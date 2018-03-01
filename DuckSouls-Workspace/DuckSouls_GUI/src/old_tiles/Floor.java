@@ -41,5 +41,9 @@ public class Floor extends Tile {
 		return "Floor";
 		
 	} // End of getType
+	
+	public String getImage() {
+		return "Tiles/Sewer/Floor.png";
+	}
 
 }

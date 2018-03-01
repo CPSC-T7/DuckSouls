@@ -280,4 +280,8 @@ public class Player extends Entity {
 //	public ArrayList<Item> getInventory() {
 //		return this.inventory;
 //	}
+	
+	public String getImage() {
+		return "Sprites/Duck/Duck-"+ this.getOrientationName() + ".png";
+	}
 }

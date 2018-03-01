@@ -102,6 +102,15 @@ public class Entity {
 		return this.orientation;
 	}
 	
+	public String getOrientationName() {
+		switch(this.orientation) {
+		case "w": return "Up";
+		case "a": return "Right";
+		case "d" :return "Left";
+		case "s": return "Down";
+		}
+		return "Down";
+	}
 	/**
 	 * Moves the character to a specified position.
 	 * 
@@ -233,6 +242,10 @@ public class Entity {
 	
 	public int getID() {
 		return this.ID;
+	}
+	
+	public String getImage() {
+		return "Sprites/Rat/Rat-Down.png";
 	}
 	
 }

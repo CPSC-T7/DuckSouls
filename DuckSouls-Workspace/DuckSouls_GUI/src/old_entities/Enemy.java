@@ -45,4 +45,7 @@ public class Enemy extends Entity {
 		
 	}
 	
+	public String getImage() {
+		return "Sprites/Rat/Rat-"+ this.getOrientationName() + ".png";
+	}
 }

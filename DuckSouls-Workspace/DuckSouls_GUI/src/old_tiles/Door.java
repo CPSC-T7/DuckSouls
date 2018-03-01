@@ -18,6 +18,7 @@ public class Door extends Tile {
 	private boolean	isLocked	= false;
 	private String	mapID		= new String();
 	private String	keyID		= new String();
+	private char orientation;
 	
 	/*
 	 * 
@@ -41,7 +42,7 @@ public class Door extends Tile {
 	 * @param keyID
 	 *            The ID of the key that unlocks this door.
 	 */
-	public Door(int x, int y, boolean isLocked, String mapID, boolean isVertical, String keyID) {
+	public Door(int x, int y, boolean isLocked, String mapID, char Orientation, String keyID) {
 		
 		// Create a tile at the position
 		super(x, y, false, " D ");
@@ -51,6 +52,7 @@ public class Door extends Tile {
 		this.setCanMoveOn(!this.isLocked);
 		this.mapID = mapID;
 		this.keyID = keyID;
+		this.orientation = Orientation;
 		
 	} // End of constructor
 	
@@ -119,5 +121,17 @@ public class Door extends Tile {
 		return false;
 	
 	} // End of canUnlockWith
+	
+	public String getImage() {
+		String direction = "Left";
+		switch(this.orientation) {
+			case 'T': direction = "Top"; break; 
+			case 'L': direction = "Left"; break; 
+			case 'R': direction = "Right"; break; 
+			case 'B': direction = "Bottom"; break; 
+			
+		}
+		return "Tiles/Sewer/Door-" + direction + ".png";
+	}
 	
 }
