@@ -3,7 +3,7 @@ package old_entities;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import items.Item;
+//import items.Item;
 import old_tiles.*;
 
 /**
@@ -19,7 +19,7 @@ public class Player extends Entity {
 	 * 
 	 */
 	
-	private ArrayList<Item>	inventory	= new ArrayList<Item>();
+//	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	private Scanner scanner = new Scanner(System.in);
 	
 	/*
@@ -71,7 +71,7 @@ public class Player extends Entity {
 	public void move(ArrayList<ArrayList<Tile>> map_2DArrayList) {
 		
 		// Define some control variables
-		String[] possibleInput = { "w", "a", "s", "d", "i" };
+		String[] possibleInput = { "w", "a", "s", "d"};
 		boolean hasMoved = false;
 		
 		/*
@@ -143,15 +143,15 @@ public class Player extends Entity {
 								}
 							}
 							break;
-						case "i":
-							System.out.println("Player Inventory:\n");
-							for(Item item : this.getInventory()) {
-								System.out.println(item.getName());
-							}
-							System.out.println("\nPress Enter To Exit.");
-							scanner.nextLine();
-							hasMoved = true;
-							break;
+//						case "i":
+//							System.out.println("Player Inventory:\n");
+//							for(Item item : this.getInventory()) {
+//								System.out.println(item.getName());
+//							}
+//							System.out.println("\nPress Enter To Exit.");
+//							scanner.nextLine();
+//							hasMoved = true;
+//							break;
 						
 					}
 					
@@ -259,25 +259,25 @@ public class Player extends Entity {
 						}
 						break;
 						
-					case "i":
-						System.out.println("Player Inventory:\n");
-						for(Item item : this.getInventory()) {
-							System.out.println(item.getName());
-						}
-						System.out.println("\nPress Enter To Exit.");
-						scanner.nextLine();
-						break;
+//					case "i":
+//						System.out.println("Player Inventory:\n");
+//						for(Item item : this.getInventory()) {
+//							System.out.println(item.getName());
+//						}
+//						System.out.println("\nPress Enter To Exit.");
+//						scanner.nextLine();
+//						break;
 					
 				}
 		}
 	}// End of move
 
 	
-	public void addToInventory(Item item) {
-		this.inventory.add(item);
-	}
-	
-	public ArrayList<Item> getInventory() {
-		return this.inventory;
-	}
+//	public void addToInventory(Item item) {
+//		this.inventory.add(item);
+//	}
+//	
+//	public ArrayList<Item> getInventory() {
+//		return this.inventory;
+//	}
 }

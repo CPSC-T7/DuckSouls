@@ -6,4 +6,8 @@ public class Goo extends Consumable {
 		super("Some Weird Goo", " G ", 10, 15, 0, 20);
 	}
 	
+	public Goo(int x, int y, int id) {
+		super("Some Weird Goo", " G ", 10, 15, 0, 20, x, y, id);
+	}
+	
 }

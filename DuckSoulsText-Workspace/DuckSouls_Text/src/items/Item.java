@@ -13,6 +13,9 @@ public class Item {
 	protected int				accuracy;
 	protected int				critChance;
 	protected int				defense;
+	private int                  x;
+	private int                  y;
+	private int                  id;
 	
 	// TODO: Make this better
 	public static final Item[]	allItems	= { new Bugs(), new Crouton(), new Food(), new Goo(), new Knife(),
@@ -33,6 +36,20 @@ public class Item {
 		
 	}
 	
+	protected Item(String name, String stringRepr, int price, int spawnChance, int x, int y, int id) {
+		
+		this.name = name;
+		this.stringRepr = stringRepr;
+		this.price = price;
+		this.spawnChance = spawnChance;
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		
+	}
+	
+	
+	
 	/**
 	 * Copies an item.
 	 * 
@@ -50,6 +67,26 @@ public class Item {
 		this.accuracy = item.accuracy;
 		this.critChance = item.critChance;
 		this.defense = item.defense;
+		this.x = item.x;
+		this.y = item.y;
+		this.id = item.id;
+	}
+	
+	public Item(Item item, int x, int y, int id) {
+		this.stringRepr = item.stringRepr;
+		this.name = item.name;
+		this.spawnChance = item.spawnChance;
+		this.price = item.price;
+		this.health = item.health;
+		this.mana = item.mana;
+		this.attack = item.attack;
+		this.speed = item.speed;
+		this.accuracy = item.accuracy;
+		this.critChance = item.critChance;
+		this.defense = item.defense;
+		this.x = x;
+		this.y = y;
+		this.id = id;
 	}
 	
 	public Item() {
@@ -68,4 +105,15 @@ public class Item {
 		return new Integer(this.spawnChance);
 	}
 	
+	public int getX() {
+		return this.x;
+	}
+	
+	public int getY() {
+		return this.y;
+	}
+	
+	public int getID() {
+		return this.id;
+	}
 }

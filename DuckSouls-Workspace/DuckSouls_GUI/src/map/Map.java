@@ -8,7 +8,7 @@ import java.util.HashMap;
 import old_entities.*;
 import old_tiles.*;
 import battle.BattleWorldTest;
-import items.Item;
+//import items.Item;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile
@@ -28,7 +28,7 @@ public class Map {
 	
 	private ArrayList<ArrayList<Tile>>	currentMap_2DArrayList	= new ArrayList<ArrayList<Tile>>(0);
 	private ArrayList<Entity>		characters_ArrayList	= new ArrayList<Entity>(0);
-	private ArrayList<Item>          items_ArrayList     = new ArrayList<Item>(0);
+//	private ArrayList<Item>          items_ArrayList     = new ArrayList<Item>(0);
 	private HashMap<String, Mapfile>	maps_HashMap			= new HashMap<String, Mapfile>();
 	private Player						player					= new Player();
 	private String						currentMapID;
@@ -129,10 +129,10 @@ public class Map {
 						this.currentMap_2DArrayList.get(y).add(loadWall(mapData.get(y).get(x).substring(1), x, y));
 						break;
 						
-					case 'I':
-						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
-						this.items_ArrayList.add(this.loadItem(mapData.get(y).get(x), x, y));
-						break;
+//					case 'I':
+//						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
+//						this.items_ArrayList.add(this.loadItem(mapData.get(y).get(x), x, y));
+//						break;
 						
 					
 				}
@@ -285,13 +285,13 @@ public class Map {
 		return new Enemy(x, y, Integer.parseInt(codeparts[1]));
 	}
 	
-	public Item loadItem(String code, int x, int y) {
-		String[] data = code.split("-");
-		for(String it: data) {
-			System.out.println(it);
-		}
-		return new Item(Item.allItems[Integer.parseInt(data[1])], x, y, Integer.parseInt(data[2]));
-	}
+//	public Item loadItem(String code, int x, int y) {
+//		String[] data = code.split("-");
+//		for(String it: data) {
+//			System.out.println(it);
+//		}
+//		return new Item(Item.allItems[Integer.parseInt(data[1])], x, y, Integer.parseInt(data[2]));
+//	}
 	
 	/**
 	 * Prints the current map to the console.
@@ -330,14 +330,14 @@ public class Map {
 				}
 				
 	
-				for(Item item: this.items_ArrayList) {
-					if(!printed) {
-						if(item.getX() == x && item.getY()== y) {
-							System.out.print(item.getStringRepr());
-							printed = true;
-						}
-					}
-				}
+//				for(Item item: this.items_ArrayList) {
+//					if(!printed) {
+//						if(item.getX() == x && item.getY()== y) {
+//							System.out.print(item.getStringRepr());
+//							printed = true;
+//						}
+//					}
+//				}
 
 				
 				// If nothing has been printed yet (i.e. no character was at the position)...
@@ -423,12 +423,12 @@ public class Map {
 				Utilities.clearConsole();
 				this.characters_ArrayList.remove(this.isEnemyNear());
 			}
-			if(this.isItemNear() != -1) {
-				this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
-				this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
-				this.items_ArrayList.remove(this.isItemNear());
-				
-			}
+//			if(this.isItemNear() != -1) {
+//				this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
+//				this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
+//				this.items_ArrayList.remove(this.isItemNear());
+//				
+//			}
 		}
 
 		
@@ -534,24 +534,24 @@ public class Map {
 		
 	} // End of isEnemyNear
 	
-	public int isItemNear() {
-		
-		// For each character on the map...
-		int index = 0;
-		for (Item item: this.items_ArrayList) {
-			// If the character is an enemy and the player is next to the enemy...
-			if (item.getX() == player.getX() && item.getY() == player.getY()) {
-				
-				// Return true
-				return index;
-				
-			}
-			index += 1;
-		}
-		
-		// Otherwise return false
-		return -1;
-		
-	} // End of isEnemyNear
+//	public int isItemNear() {
+//		
+//		// For each character on the map...
+//		int index = 0;
+//		for (Item item: this.items_ArrayList) {
+//			// If the character is an enemy and the player is next to the enemy...
+//			if (item.getX() == player.getX() && item.getY() == player.getY()) {
+//				
+//				// Return true
+//				return index;
+//				
+//			}
+//			index += 1;
+//		}
+//		
+//		// Otherwise return false
+//		return -1;
+//		
+//	} // End of isEnemyNear
 	
 }
