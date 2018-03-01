@@ -8,11 +8,12 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Entity {
 	
-	public Image	IMAGE;
+	public Image		IMAGE;
 	protected String	DIRECTION;
-	public String 	STRING_REPR = "EER";
-	public String 	type = "NUN";
-	public Point 	POS;
+	public String[] 	DIRECTORY = new String[2];
+	public String 		STRING_REPR = "EER";
+	public String 		type = "NUN";
+	public Point 		POS;
 	
 	
 	/**
@@ -37,17 +38,17 @@ public class Entity {
 	 */
 	public void drawEntity(GraphicsContext gc, int[] position) {
 		
-		gc.drawImage(IMAGE, position[0], position[1]);
+		gc.drawImage(this.IMAGE, position[0], position[1]);
 		
 	}
 	
 	
 	/**
-	 * Create a new image depending on the direction of the entity.
+	 * Create a new image depending on the image directory and direction of the entity.
 	 */
 	public void newImage() {
 		
-		this.IMAGE = new Image("Sprites/Duck/Duck-" + DIRECTION + ".png");
+		this.IMAGE = new Image(this.DIRECTORY[0] + this.DIRECTION + this.DIRECTORY[1]);
 		
 	}
 	

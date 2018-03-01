@@ -4,9 +4,12 @@ import javafx.scene.image.Image;
 
 public class Enemy extends Entity {
 	
-	public Enemy(Image img) {
+	public Enemy() {
 		super(" E ");
 		this.type = "ENEMY";
-		this.IMAGE = img;
+		this.DIRECTION = "Down";
+		this.DIRECTORY[0] = "Sprites/Rat/Rat-";
+		this.DIRECTORY[1] = ".png";
+		this.newImage();
 	}
 }

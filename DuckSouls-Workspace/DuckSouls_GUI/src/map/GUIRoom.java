@@ -590,12 +590,10 @@ public class GUIRoom {
 				
 				if (_random.nextInt(100) < this.enemySpawnChance) {
 					Point point = new Point(x, y);
-					this.placeEntity(point, new Enemy(new Image("Sprites/Rat/Rat-Down.png")));
+					this.placeEntity(point, new Enemy());
 				}
-				
 			}
 		}
-		
 	}
 	
 	public void scatterItems() {

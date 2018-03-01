@@ -55,7 +55,7 @@ public class GUILevel {
 		Point startPosition = new Point(this.roomSize / 2 + 1, this.roomSize / 2 + 1);
 		this.roomAt(this.currentRoomPoint).placeEntity(startPosition, new Player());
 		
-	}
+	}//End of GUILevel constructor
 	
 	/*
 	 * 
@@ -76,8 +76,7 @@ public class GUILevel {
 		}
 		
 		this.placeAllConnectingDoors();
-		
-	}
+	}//End of genRoomArray
 	
 	private void placeAllConnectingDoors() {
 		
@@ -120,12 +119,11 @@ public class GUILevel {
 				
 			}
 		}
-		
-	}
+	}//End of placeAllConnectingDoors
 	
 	private GUIRoom roomAt(Point position) {
 		return this.roomArray[position.x][position.y];
-	}
+	}//End of roomAt
 	
 	/**
 	 * Cleans up the static resources
@@ -134,7 +132,7 @@ public class GUILevel {
 		
 		_scanner.close();
 		
-	}
+	}//End of cleanup
 	
 	/**
 	 * 
@@ -187,7 +185,7 @@ public class GUILevel {
 		// Re-draw the room
 		this.roomAt(this.currentRoomPoint).draw_Room(gc);
 		
-	}
+	}//End of moveRoom_Direction
 
 	/**
 	 * Runs through a loop, where it displays the room and asks for input
@@ -204,6 +202,7 @@ public class GUILevel {
 		 * 
 		 */
 		
+		//Draw the first iteration of the room
 		this.roomAt(this.currentRoomPoint).draw_Room(gc);
 		
 		scene.setOnKeyPressed(key -> {
@@ -304,16 +303,21 @@ public class GUILevel {
 				}
 				
 			}
+			
 			// Check for enemies
 			Point battlePoint = this.roomAt(this.currentRoomPoint).checkForBattlePoint();
 			if (battlePoint != null) {
-
+				System.out.println("Entering battle");
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop();
-
+				
+				//Remove the enemy if the player wins
 				this.roomAt(this.currentRoomPoint).removeEntity(battlePoint);
+				
+				// Re-draw the room
+				this.roomAt(this.currentRoomPoint).draw_Room(gc);
 
 			}
 		});	  
-	}
+	}//End of moveLoop
 }
