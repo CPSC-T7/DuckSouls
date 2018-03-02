@@ -116,9 +116,11 @@ public class DuckObject extends CharacterBattle {
 		
 		boolean selection = true;
 		String move = "";
+		//Tell the player when to make a move
+		System.out.print("\nEnter a move: ");
 		
 		while (selection) {
-			move = scanner.next();
+			move = scanner.nextLine();
 			move = move.toLowerCase();
 			//Get input from the user
 			
@@ -243,6 +245,8 @@ public class DuckObject extends CharacterBattle {
 		
 		double damage;
 		damage = (getStats("attackPoints") * 2.5) - enemy.getStats("defencePoints");
+		
+		damage = attackBonus(damage);
 		//Temporary damage formula
 		double enemyHealth = enemy.getStats("healthPoints");
 		//Gets enemy's health
@@ -398,7 +402,7 @@ public class DuckObject extends CharacterBattle {
 			//Add money to the player
 			Utilities.waitMilliseconds(800);
 			
-			levelUp();
+			//levelUp();
 			resetStats();
 			enemy.resetStats();
 			System.out.println("The battle has ended.");
@@ -416,7 +420,7 @@ public class DuckObject extends CharacterBattle {
 	
 	/**
 	 * Level up the player and increase their stats as a reward.
-	 */
+	 *
 	private void levelUp() {
 		
 		if (experience >= 50) {
@@ -444,7 +448,7 @@ public class DuckObject extends CharacterBattle {
 			
 		}
 
-	}
+	}*/
 	
 	public static void cleanup() {
 		scanner.close();

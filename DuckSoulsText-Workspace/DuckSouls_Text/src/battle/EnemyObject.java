@@ -255,6 +255,9 @@ public class EnemyObject extends CharacterBattle {
 		if (critical) {
 			damage = damage * 1.5;
 		}
+		
+		damage = attackBonus(damage);
+		
 		if (landed) {
 			double newHealth = playerHealth - damage;
 			player.setStats("healthPoints", (Math.round(newHealth)));

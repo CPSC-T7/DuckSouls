@@ -1,5 +1,6 @@
 package battle;
 
+
 import utils.Utilities;
 
 /**
@@ -17,18 +18,18 @@ import utils.Utilities;
 public class BattleWorldTest {
 	
 	//Create player and enemy objects.
-	private static DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 30, 16);
-	private static EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 29, 16); //Enemy will be more random in later versions
+	private static DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+	private static EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16); //Enemy will be more random in later versions
 	
 	/**
 	 * Clear the console on startup and start the battle loop.
 	 * 
 	 * @param args
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Utilities.clearConsole();
 		battleLoop();
-	}*/
+	}
 	
 	/**
 	 * Draw the move options ("Fight" banner for now), Enemy, and player in default positions
@@ -47,6 +48,14 @@ public class BattleWorldTest {
 	public static void battleLoop() {
 		
 		boolean inBattle = true;
+		int startingPerson = 1;
+		
+		if(Player.getStats("speedPointsStatic") >= Enemy.getStats("speedPointsStatic")) {
+			startingPerson = 1;
+		}
+		else {
+			startingPerson = 2;
+		}
 		
 		while (inBattle) {
 			
@@ -54,20 +63,16 @@ public class BattleWorldTest {
 			drawSprites();
 			Utilities.waitMilliseconds(10);
 			
-			//Tell the player when to make a move
-			System.out.print("\nEnter a move: ");
-			
-			//Player moves, then becomes True if the enemy is still alive or False if the enemy dies
-			inBattle = Player.playerMove(Enemy);
-			
-			if (inBattle) {
-				//Wait a second in default positions before the enemy attacks the player
-				drawSprites();
-				Utilities.waitMilliseconds(1000);
-				
-				//If the enemy kills the player, the battle will end
-				inBattle = Enemy.enemyMove(Player);
+			if (startingPerson == 1) {
+				inBattle = Player.playerMove(Enemy);
+				startingPerson = 2;
 			}
+			else {
+				inBattle = Enemy.enemyMove(Player);
+				startingPerson = 1;
+			}
+			
+			
 		}
 	}
 }
