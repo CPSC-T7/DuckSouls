@@ -15,7 +15,7 @@ import utils.Utilities;
  * each inner tile.
  * 
  * @author Matthew Allwright
- * @version 1.8.4
+ * @version 1.9
  */
 public class TextRoom {
 	
@@ -33,11 +33,9 @@ public class TextRoom {
 	 * 
 	 */
 	
-	private final int		DEFAULT_ROOM_SIZE	= 5;
-	
 	private int				internalWidth;
 	private int				internalHeight;
-	private int				enemySpawnChance	= 3;
+	private int				enemySpawnChance	= 1;
 	
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
@@ -54,35 +52,19 @@ public class TextRoom {
 	 */
 	
 	/**
-	 * Creates a square room of set size with, scattered items and enemies. <br>
+	 * Creates a square room of set size with scattered items and enemies. <br>
 	 * This is the constructor used by TextLevel to create rooms.
 	 * 
 	 * @param size
 	 *            Width and height of the room.
+	 * @param enemySpawnChance
+	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
-	public TextRoom(int size) {
+	public TextRoom(int size, int enemySpawnChance) {
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
-		
-		this.genTileArray();
-		this.scatterItems();
-		this.scatterEnemies();
-		
-	}
-	
-	/**
-	 * Creates a room of set width and height, with scattered items and enemies.
-	 * 
-	 * @param width
-	 *            Width of the room.
-	 * @param height
-	 *            Height of the room.
-	 */
-	public TextRoom(int width, int height) {
-		
-		this.internalWidth = width;
-		this.internalHeight = height;
+		this.enemySpawnChance = enemySpawnChance;
 		
 		this.genTileArray();
 		this.scatterItems();
@@ -266,7 +248,7 @@ public class TextRoom {
 					// Note its position
 					Point enemyPoint = new Point(x, y);
 					
-					// If the enemy is within 1 tile of the player//
+					// If the enemy is within 1 tile of the player
 					if (this.playerPoint.distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
 						
 						// Return the enemy's position
@@ -544,7 +526,8 @@ public class TextRoom {
 	 * Scatters items at random throughout the level.
 	 */
 	/*
-	 * TODO: Probably redo
+	 * TODO: Probably redo. IDEA: GENERIC CLASSES, OBJECTS, AND CASTING! Save until
+	 * after demo 2.
 	 */
 	public void scatterItems() {
 		
@@ -571,7 +554,8 @@ public class TextRoom {
 					case 0:
 					case 1:
 					case 2:
-						// Generate a random consumable. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE FIXED!
+						// Generate a random consumable. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO
+						// BE FIXED!
 						randomItemNumber = _random.nextInt(4);
 						if (_random.nextInt(100) < Item.allConsumables[randomItemNumber].getSpawnChance()) {
 							
@@ -601,7 +585,8 @@ public class TextRoom {
 					// Weapons
 					case 3:
 					case 4:
-						// Generate a random weapon. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE FIXED!
+						// Generate a random weapon. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE
+						// FIXED!
 						randomItemNumber = _random.nextInt(2);
 						if (_random.nextInt(100) < Item.allWeapons[randomItemNumber].getSpawnChance()) {
 							
@@ -622,7 +607,8 @@ public class TextRoom {
 					
 					// Armour
 					case 5:
-						// Generate a random armour. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE FIXED!
+						// Generate a random armour. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE
+						// FIXED!
 						randomItemNumber = _random.nextInt(3);
 						if (_random.nextInt(100) < Item.allArmour[randomItemNumber].getSpawnChance()) {
 							
