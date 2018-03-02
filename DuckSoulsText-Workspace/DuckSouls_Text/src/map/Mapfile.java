@@ -152,11 +152,16 @@ public class Mapfile {
 		
 	}// End of mapContainsPlayer
 	
+	/**
+	 * If there is a player marker on the map, remove it from 2D array representing the map
+	 */
 	public void removePlayerpoint() {
+		
+		// For each position in the map...
 		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
 			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
 				
-				// Return true if the player is at that position
+				// If the player is at that position, remove it and place a floor marker
 				if (this.map_2DArrayList.get(y).get(x) == "@") {
 					
 					this.map_2DArrayList.get(y).set(x, "F");
@@ -166,36 +171,62 @@ public class Mapfile {
 			}
 			
 		}
-	}
+	}// End of removePlayerPoint
 	
+	
+	/**
+	 * Given an id of a enemy, remove the enemy corresponding to that id from the map
+	 * 
+	 * @param ID
+	 * 			the id of the enemy that should be removed
+	 * 
+	 */
 	public void removeEnemy(int ID) {
+		
+		// For each position in the map
 		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
 			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
+				
+				// If the current position contains an enemy...
 				if(this.map_2DArrayList.get(y).get(x).startsWith("E")) {
 					String[] code = this.map_2DArrayList.get(y).get(x).split("-");
+					
+					// If the ID of the enemy matches the given by the param, remove the enemy and place a Floor tile
 					if(Integer.parseInt(code[1]) == ID){
 						this.map_2DArrayList.get(y).set(x, "F");
 					}
 				}
 			}
 		}
-	}
+	}// End of removeEnemy
 	
+	
+	/**
+	 * Given an id of an item, remove the item corresponding to that id from the map
+	 * 
+	 * @param ID
+	 * 			the id of the item that should be removed
+	 */
 	public void removeItem(int ID) {
+		
+		// For each position in the map
 		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
 			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
+				
+				// If the current position contains an enemy...
 				if(this.map_2DArrayList.get(y).get(x).startsWith("I")) {
 					String[] code = this.map_2DArrayList.get(y).get(x).split("-");
-					for(String it: code) {
-						System.out.println(it);
-					}
+
+					
+					// If the ID of the item matches the given by the param, remove the enemy and place a Floor tile
 					if(Integer.parseInt(code[2]) == ID){
 						this.map_2DArrayList.get(y).set(x, "F");
 					}
 				}
 			}
 		}
-	}
+		
+	}// End of removeItem
 		
 	
 }

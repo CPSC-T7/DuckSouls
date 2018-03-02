@@ -129,7 +129,7 @@ public class Map {
 						this.currentMap_2DArrayList.get(y).add(loadWall(mapData.get(y).get(x).substring(1), x, y));
 						break;
 						
-					case 'I':
+					case 'I': //Item
 						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
 						this.items_ArrayList.add(this.loadItem(mapData.get(y).get(x), x, y));
 						break;
@@ -259,8 +259,8 @@ public class Map {
 	 * formatted data.
 	 * 
 	 * @param orient
-	 *            A string representing which unicode box characters to use. Must be
-	 *            one of: H, V, TL, TR, BL, or BR.
+	 *            A string representing which unicode box characters and image to use. Must be
+	 *            one of: L, R, T, B, TL, TR, BL, or BR.
 	 * @param x
 	 *            The X co-ordinate of the wall.
 	 * @param y
@@ -280,17 +280,59 @@ public class Map {
 		
 	} // End of loadWall
 	
-	public Enemy loadEnemy(String code, int x, int y) {
-		String [] codeparts = code.split("-");
-		return new Enemy(x, y, Integer.parseInt(codeparts[1]));
-	}
+	/**
+	 * Loads in data and co-ordinates and returns a new enemy created from the
+	 * formatted data.
+	 * 
+	 * @param data
+	 *            A string formatted "E-S1".
+	 *            <ul>
+	 *            <li>'E' is a character that denotes an enemy should be generated
+	 *            <li>"S1" is a string that represents the enemy ID.
+	 *            </ul>
+	 * @param x
+	 *            The X co-ordinate of the enemy.
+	 * @param y
+	 *            The Y co-ordinate of the enemy.
+	 *            
+	 * @return A new enemy with the specific values.
+	 */
+	public Enemy loadEnemy(String data, int x, int y) {
+		
+		// Split the data string into separate arguments
+		String [] arguments = data.split("-");
+		
+		// Return an enemy made with all of the values
+		return new Enemy(x, y, Integer.parseInt(arguments[1]));
+		
+	}// End of loadEnemy
 	
-	public Item loadItem(String code, int x, int y) {
-		String[] data = code.split("-");
-		for(String it: data) {
-			System.out.println(it);
-		}
-		return new Item(Item.allItems[Integer.parseInt(data[1])], x, y, Integer.parseInt(data[2]));
+	
+	/**
+	 * Loads in data and co-ordinates and returns a new item created from the
+	 * formatted data.
+	 * 
+	 * @param data
+	 *            A string formatted "I-S1-S2".
+	 *            <ul>
+	 *            <li>'I' is a character that denotes an item should be generated
+	 *            <li>"S1" is a string that represents the index of item to be generated 
+	 * 			  <li>"S2" is a string that represents the item ID.
+	 *            </ul>
+	 * @param x
+	 *            The X co-ordinate of the item.
+	 * @param y
+	 *            The Y co-ordinate of the item.
+	 *            
+	 * @return A new item with the specific values.
+	 */
+	public Item loadItem(String data, int x, int y) {
+		
+		// Split the data string into separate arguments
+		String[] arguments = data.split("-");
+		
+		// Return an item made with all of the values
+		return new Item(Item.allItems[Integer.parseInt(arguments[1])], x, y, Integer.parseInt(arguments[2]));
 	}
 	
 	/**
@@ -329,11 +371,19 @@ public class Map {
 					
 				}
 				
-	
+				// For each item in the current map
 				for(Item item: this.items_ArrayList) {
+					
+					// Nothing has been printed yet
 					if(!printed) {
+						
+						// If the item is at the current position...
 						if(item.getX() == x && item.getY()== y) {
+							
+							// Print the character
 							System.out.print(item.getStringRepr());
+							
+							// Something has now been printed
 							printed = true;
 						}
 					}
@@ -343,10 +393,14 @@ public class Map {
 				// If nothing has been printed yet (i.e. no character was at the position)...
 				if (!printed) {
 					
-					// Print the tile representation
+					// If the current position is the position of the player..
 					if(y == this.player.getY() && x==this.player.getX()) {
+						
+						// Print the player
 						System.out.print(player.getStringRepr());
 					}
+					
+					// else print the tile
 					else {
 						System.out.print(this.currentMap_2DArrayList.get(y).get(x).getStringRepr());
 					} 
@@ -395,9 +449,7 @@ public class Map {
 	 * Runs a loop to play the game. Currently runs for 21 turns.
 	 */
 	public void mainloop() {
-		
-		int turnCount = 0;
-		
+
 		// Load the first 3 map files, and then the current (first) map
 		this.loadAllMapFiles(0, 2);
 //		this.loadCurrentMap();
@@ -414,17 +466,33 @@ public class Map {
 			// Run the turn
 			this.runTurn();
 			
-			// Clear the console and increment the turn counter
+			// Run the turn
+			this.runTurn();
+			
+			// Clear the console
 			Utilities.clearConsole();
+			
+			// If an enemy is at the same location as the player...
 			if(this.isEnemyNear() != -1) {
+				
+				// Clear the console and enter battle
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop();
+				
+				// Remove the enemy that is defeated in battle from both characters_ArrayList and mapfile object for the current map
 				this.maps_HashMap.get(currentMapID).removeEnemy(this.characters_ArrayList.get(this.isEnemyNear()).getID());
-				Utilities.clearConsole();
 				this.characters_ArrayList.remove(this.isEnemyNear());
+				
+				// Clear the console 
+				Utilities.clearConsole();
 			}
+			// If an item is at the same location as the player...
 			if(this.isItemNear() != -1) {
+				
+				// Add the item to the player inventory
 				this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
+				
+				// Remove the item that is defeated in battle from both items_ArrayList and mapfile object for the current map
 				this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
 				this.items_ArrayList.remove(this.isItemNear());
 				
@@ -509,49 +577,62 @@ public class Map {
 	} // End of runTurn
 	
 	/**
-	 * Returns a boolean stating whether the player is near an enemy. This is true
-	 * when an enemy is within 1 tile of the player.
+	 * Returns the index of an character that is in the same location of a player. 
+	 * If there is no such character return -1.
 	 * 
-	 * @return A boolean stating whether the player is near an enemy
+	 * @return The index of an character on the same tile as the player, if there is not such character returns -1
+	 * 
 	 */
 	public int isEnemyNear() {
 		
+		//setup index
+		int index = 0;
+		
 		// For each character on the map...
-		int index =0;
 		for (Entity character : this.characters_ArrayList) {
-			// If the character is an enemy and the player is next to the enemy...
+			
+			// If the character is at the same location as the player...
 			if (character.getX() == player.getX() && character.getY() == player.getY()) {
 				
-				// Return true
+				// Return the index in the character_ArrayList corresponding to the enemy
 				return index;
 				
 			}
+			//increment index 
 			index += 1;
 		}
 		
-		// Otherwise return false
+		// Otherwise return -1
 		return -1;
 		
 	} // End of isEnemyNear
 	
+	/**
+	 * Returns the index of an item that is in the same location of a player. 
+	 * If there is no such item return -1.
+	 * 
+	 * @return The index of an item on the same tile as the player, if there is not such item returns -1
+	 */
 	public int isItemNear() {
 		
-		// For each character on the map...
+		// For each item on the map...
 		int index = 0;
 		for (Item item: this.items_ArrayList) {
-			// If the character is an enemy and the player is next to the enemy...
+			
+			// If the item is at the same location as the player...
 			if (item.getX() == player.getX() && item.getY() == player.getY()) {
 				
-				// Return true
+				// Return the index in the items_ArrayList corresponding to the enemy
 				return index;
 				
 			}
+			//increment index 
 			index += 1;
 		}
 		
-		// Otherwise return false
+		// Otherwise return -1
 		return -1;
 		
-	} // End of isEnemyNear
+	} // End of isItemNear
 	
 }

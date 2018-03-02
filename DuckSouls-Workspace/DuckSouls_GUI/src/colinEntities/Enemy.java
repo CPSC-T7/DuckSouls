@@ -45,6 +45,14 @@ public class Enemy extends Entity {
 		
 	}
 	
+	
+	/**
+	 * returns the path to the image file corresponding with the enemies's current state
+	 * 
+	 * @return the String corresponding to the path to the enemy sprite 
+	 * 
+	 * 
+	 */
 	public String getImage() {
 		return "Sprites/Rat/Rat-"+ this.getOrientationName() + ".png";
 	}

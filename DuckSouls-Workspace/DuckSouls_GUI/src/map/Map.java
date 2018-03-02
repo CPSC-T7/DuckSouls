@@ -197,7 +197,7 @@ public class Map {
 	}
 	
 	/**
-	 * Clears all characters from the map, and add the player back.
+	 * Clears all characters from the map.
 	 */
 	public void resetCharacters() {
 		
@@ -375,6 +375,7 @@ public class Map {
 		
 	} // End of getMap
 	
+	
 	/**
 	 * Returns a boolean stating whether or not a particular tile can be moved to.
 	 * 
@@ -390,8 +391,9 @@ public class Map {
 		
 	} // End of canMoveTo
 	
+	
 	/**
-	 * Runs a loop to play the game. Currently runs for 21 turns.
+	 * Runs a loop to play the game. 
 	 */
 	public void mainloop() {
 		
@@ -411,14 +413,22 @@ public class Map {
 			// Run the turn
 			this.runTurn();
 			
-			// Clear the console and increment the turn counter
+			// Clear the console
 			Utilities.clearConsole();
+			
+			// If an enemy is at the same location as the player...
 			if(this.isEnemyNear() != -1) {
+				
+				// Clear the console and enter battle
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop();
+				
+				// Remove the enemy that is defeated in battle from both characters_ArrayList and mapfile object for the current map
 				this.maps_HashMap.get(currentMapID).removeEnemy(this.characters_ArrayList.get(this.isEnemyNear()).getID());
-				Utilities.clearConsole();
 				this.characters_ArrayList.remove(this.isEnemyNear());
+				
+				// Clear the console 
+				Utilities.clearConsole();
 			}
 //			if(this.isItemNear() != -1) {
 //				this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
@@ -509,24 +519,29 @@ public class Map {
 	 * Returns a boolean stating whether the player is near an enemy. This is true
 	 * when an enemy is within 1 tile of the player.
 	 * 
-	 * @return A boolean stating whether the player is near an enemy
+	 * @return The index of an character on the same tile as the player, if there is not such character returns -1
+	 * 
 	 */
 	public int isEnemyNear() {
 		
+		//setup index
+		int index = 0;
+		
 		// For each character on the map...
-		int index =0;
 		for (Entity character : this.characters_ArrayList) {
-			// If the character is an enemy and the player is next to the enemy...
+			
+			// If the character is at the same location as the player...
 			if (character.getX() == player.getX() && character.getY() == player.getY()) {
 				
-				// Return true
+				// Return the index in the character_ArrayList corresponding to the enemy
 				return index;
 				
 			}
+			//increment index 
 			index += 1;
 		}
 		
-		// Otherwise return false
+		// Otherwise return -1
 		return -1;
 		
 	} // End of isEnemyNear

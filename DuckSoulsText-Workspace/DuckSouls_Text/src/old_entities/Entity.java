@@ -98,9 +98,14 @@ public class Entity {
 		
 	} // End of getStringRepr
 	
+	/**
+	 * Returns the orientation of the entity
+	 * 
+	 * @return String, the orientation of the entity in form wasd
+	 */
 	public String getOrientation() {
 		return this.orientation;
-	}
+	}// End of getOrientation
 	
 	/**
 	 * Moves the character to a specified position.
@@ -227,12 +232,28 @@ public class Entity {
 		
 	} // End of isNextTo
 	
+	/**
+	 * Sets an entity's id
+	 * 
+	 * @param Id
+	 *            The int ID to give to the entity
+	 *            
+	 */
 	public void setID(int Id) {
+		
 		this.ID = Id;
-	}
+		
+	}// End of setID
 	
+	/**
+	 * Returns an entity's int id
+	 * 
+	 * @return An int representing the entity's id
+	 * 
+	 */
 	public int getID() {
+		
 		return this.ID;
-	}
-	
+		
+	}// End of getID
 }

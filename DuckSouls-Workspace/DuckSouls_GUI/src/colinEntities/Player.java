@@ -169,21 +169,22 @@ public class Player extends Entity {
 		
 	}// End of move
 	
+	
+	/**
+	 * Accepts a String corresponding to wasd and moves accordingly
+	 * 
+	 * @param map_2DArrayList
+	 *            The map in which the player is moving.
+	 *            
+	 * @param input
+	 * 			  one of w, a, s, d which represents the direction the player is moving
+	 */
 	public void move(ArrayList<ArrayList<Tile>> map_2DArrayList, String input) {
 		
 		// Define some control variables
 		boolean hasMove = false;
 		
-		/*
-		 * 
-		 * Loop:
-		 * 
-		 * Asks the user where they would like to move (wasd for nesw).
-		 * 
-		 * Breaks once the player has moved.
-		 * 
-		 */
-			// For each possible direction...
+		// For each possible direction...
 		for (String direction : super.POSSIBLE_ORIENTATIONS) {
 			
 			// If the input matches...
@@ -193,7 +194,7 @@ public class Player extends Entity {
 			}
 		}
 					
-					// Move the appropriate direction
+		// If the input is valid
 		if(hasMove) {
 			switch (input) {
 					
@@ -280,7 +281,16 @@ public class Player extends Entity {
 //		return this.inventory;
 //	}
 	
+	
+	/**
+	 * returns the path to the image file corresponding with the player's current state
+	 * 
+	 * @return the String corresponding to the path to the player sprite 
+	 * 
+	 */
 	public String getImage() {
+		
 		return "Sprites/Duck/Duck-"+ this.getOrientationName() + ".png";
-	}
+		
+	}//end of getImage
 }

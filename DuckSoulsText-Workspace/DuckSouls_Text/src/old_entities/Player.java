@@ -79,6 +79,7 @@ public class Player extends Entity {
 		 * Loop:
 		 * 
 		 * Asks the user where they would like to move (wasd for nesw).
+		 * Also accepts i to show the player inventory
 		 * 
 		 * Breaks once the player has moved.
 		 * 
@@ -143,12 +144,17 @@ public class Player extends Entity {
 								}
 							}
 							break;
+							
 						case "i":
+							
+							// prints the player's inventory
 							System.out.println("Player Inventory:\n");
 							for(Item item : this.getInventory()) {
 								System.out.println(item.getName());
 							}
 							System.out.println("\nPress Enter To Exit.");
+							
+							// waits for the player to press return
 							scanner.nextLine();
 							hasMoved = true;
 							break;
@@ -170,31 +176,33 @@ public class Player extends Entity {
 		
 	}// End of move
 	
+	/**
+	 * Accepts a String corresponding to wasd and moves accordingly
+	 * 
+	 * @param map_2DArrayList
+	 *            The map in which the player is moving.
+	 *            
+	 * @param input
+	 * 			  one of w, a, s, d which represents the direction the player is moving or i for inventory
+	 */
 	public void move(ArrayList<ArrayList<Tile>> map_2DArrayList, String input) {
 		
 		// Define some control variables
 		boolean hasMove = false;
-		
-		/*
-		 * 
-		 * Loop:
-		 * 
-		 * Asks the user where they would like to move (wasd for nesw).
-		 * 
-		 * Breaks once the player has moved.
-		 * 
-		 */
-			// For each possible direction...
+
+		// For each possible direction...
 		for (String direction : super.POSSIBLE_ORIENTATIONS) {
 			
 			// If the input matches...
 			if (input.equals(direction)) {
+				
+				//Set the control variable to true
 				hasMove = true;
 				
 			}
 		}
 					
-					// Move the appropriate direction
+		// If the input is valid, move accordingly
 		if(hasMove) {
 			switch (input) {
 					
@@ -202,7 +210,7 @@ public class Player extends Entity {
 					 * For each case:
 					 * 
 					 * If the player is within the bounds to move...
-					 * 		Move the player,
+					 * 		Move the player or show inventory,
 					 * 		And set the boolean accordingly.
 					 * 
 					 */
@@ -260,11 +268,15 @@ public class Player extends Entity {
 						break;
 						
 					case "i":
+						
+						// print the player's inventory
 						System.out.println("Player Inventory:\n");
 						for(Item item : this.getInventory()) {
 							System.out.println(item.getName());
 						}
 						System.out.println("\nPress Enter To Exit.");
+						
+						//wait for the player to press return
 						scanner.nextLine();
 						break;
 					
@@ -272,12 +284,28 @@ public class Player extends Entity {
 		}
 	}// End of move
 
-	
+	/**
+	 * Adds an item to the player inventory
+	 * 
+	 * @param item
+	 * 				item to add to the player inventory
+	 */
 	public void addToInventory(Item item) {
+		
 		this.inventory.add(item);
-	}
+		
+	}// End of addToInventory
 	
+	/**
+	 * Return the player's inventory
+	 * 
+	 * @return An arraylist contain the items in the player inventory
+	 * 
+	 * TODO: Fix privacy leak
+	 */
 	public ArrayList<Item> getInventory() {
+		
 		return this.inventory;
-	}
+		
+	}// End of getInventory
 }

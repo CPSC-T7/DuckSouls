@@ -19,11 +19,12 @@ public class Entity {
 	 * 
 	 */
 	
-	private Point	position				= new Point();
-	private String orientation				= "d";
-	private boolean	isPlayer				= false;
-	private String	stringRepr				= new String();
+	private Point	position				            = new Point();
+	private String orientation				        = "d";
+	private boolean	isPlayer				            = false;
+	private String	stringRepr				        = new String();
 	public final String[]	POSSIBLE_ORIENTATIONS	= { "w", "a", "s", "d" };
+	public String[] 	DIRECTORY                        = new String[2];
 	private int ID;
 	
 	/*
@@ -98,9 +99,22 @@ public class Entity {
 		
 	} // End of getStringRepr
 	
+	
+	/**
+	 * Returns the orientation of the entity
+	 * 
+	 * @return String, the orientation of the entity in form wasd
+	 */
 	public String getOrientation() {
 		return this.orientation;
 	}
+	
+	/**
+	 * Returns the orientation of the entity in form {Up, Down, Left Right}
+	 * 
+	 * @return String, the orientation of the entity in form 
+	 * 
+	 */
 	
 	public String getOrientationName() {
 		switch(this.orientation) {
@@ -111,6 +125,8 @@ public class Entity {
 		}
 		return "Down";
 	}
+	
+	
 	/**
 	 * Moves the character to a specified position.
 	 * 
@@ -236,16 +252,44 @@ public class Entity {
 		
 	} // End of isNextTo
 	
+	
+	/**
+	 * Sets an entity's id to an int 
+	 * 
+	 * @param Id
+	 *            The int ID to give to the entity
+	 *            
+	 */
 	public void setID(int Id) {
+		
 		this.ID = Id;
-	}
+		
+	}// End of setID
 	
+	
+	/**
+	 * Returns an entity's int id
+	 * 
+	 * @return An int representing the entity's id
+	 * 
+	 */
 	public int getID() {
+		
 		return this.ID;
-	}
+		
+	}// End of getID
 	
+	
+	/**
+	 * Returns the path to the image file corresponding with the entity's current state
+	 * 
+	 * @return the String corresponding to the path to the entity sprite (default rat sprite)
+	 * 
+	 */
 	public String getImage() {
+		
 		return "Sprites/Rat/Rat-Down.png";
-	}
+		
+	}// End of getImage
 	
 }
