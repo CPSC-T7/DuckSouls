@@ -40,6 +40,7 @@ public class TextLevel {
 	private Point			currentRoomPoint;
 	private int				levelWidth, levelHeight;
 	private int				roomSize;
+	private int				enemySpawnChance;
 	
 	/*
 	 * 
@@ -83,12 +84,15 @@ public class TextLevel {
 	 *            A point defining the position of the player in the room.
 	 * @param roomPoint
 	 *            A point defining the room the player is placed in.
+	 * @param enemySpawnChance
+	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
-	public TextLevel(Player player, Point playerPosition, Point roomPoint) {
+	public TextLevel(Player player, Point playerPosition, Point roomPoint, int enemySpawnChance) {
 		
 		this.levelWidth = DEFAULT_LEVEL_SIZE;
 		this.levelHeight = DEFAULT_LEVEL_SIZE;
 		this.roomSize = DEFAULT_ROOM_SIZE;
+		this.enemySpawnChance = enemySpawnChance;
 		
 		this.genRoomArray();
 		
@@ -229,7 +233,7 @@ public class TextLevel {
 			for (int x = 0; x < this.levelWidth; x++) {
 				
 				// Generate a square, random room
-				this.roomArray[x][y] = new TextRoom(this.getRoomSize());
+				this.roomArray[x][y] = new TextRoom(this.getRoomSize(), enemySpawnChance);
 				
 			}
 		}

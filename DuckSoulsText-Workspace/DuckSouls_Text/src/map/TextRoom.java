@@ -35,7 +35,7 @@ public class TextRoom {
 	
 	private int				internalWidth;
 	private int				internalHeight;
-	private int				enemySpawnChance	= 3;
+	private int				enemySpawnChance	= 1;
 	
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
@@ -52,35 +52,19 @@ public class TextRoom {
 	 */
 	
 	/**
-	 * Creates a square room of set size with, scattered items and enemies. <br>
+	 * Creates a square room of set size with scattered items and enemies. <br>
 	 * This is the constructor used by TextLevel to create rooms.
 	 * 
 	 * @param size
 	 *            Width and height of the room.
+	 * @param enemySpawnChance
+	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
-	public TextRoom(int size) {
+	public TextRoom(int size, int enemySpawnChance) {
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
-		
-		this.genTileArray();
-		this.scatterItems();
-		this.scatterEnemies();
-		
-	}
-	
-	/**
-	 * Creates a room of set width and height, with scattered items and enemies.
-	 * 
-	 * @param width
-	 *            Width of the room.
-	 * @param height
-	 *            Height of the room.
-	 */
-	public TextRoom(int width, int height) {
-		
-		this.internalWidth = width;
-		this.internalHeight = height;
+		this.enemySpawnChance = enemySpawnChance;
 		
 		this.genTileArray();
 		this.scatterItems();

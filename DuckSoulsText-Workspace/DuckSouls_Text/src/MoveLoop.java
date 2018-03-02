@@ -17,7 +17,7 @@ import utils.Utilities;
  * repeats forever until the game is closed, or the player dies.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.2
  */
 public class MoveLoop {
 	
@@ -51,6 +51,8 @@ public class MoveLoop {
 		Point playerPoint = new Point(3, 3);
 		Point roomPoint = new Point(0, 0);
 		Player player = new Player();
+		int levelNum = 1;
+		int difficultyPerLevel = 2;
 		
 		/*
 		 * Loop:
@@ -60,7 +62,11 @@ public class MoveLoop {
 		 */
 		while (true) {
 			
-			currentLevel = new TextLevel(player, playerPoint, roomPoint);
+			// Set the level difficulty
+			int enemySpawnChance = levelNum * difficultyPerLevel - difficultyPerLevel; // Starts at 0
+			
+			// Create the level
+			currentLevel = new TextLevel(player, playerPoint, roomPoint, enemySpawnChance);
 			
 			/*
 			 * Loop:
@@ -83,6 +89,7 @@ public class MoveLoop {
 				
 				// Draw the room
 				Utilities.clearConsole();
+				System.out.println("Level: " + levelNum + "\n");
 				currentLevel.drawMinimap();
 				System.out.println('\n');
 				currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).draw_Text();
@@ -174,6 +181,7 @@ public class MoveLoop {
 			// Switch levels...
 			Utilities.clearConsole();
 			System.out.println("Loading new level...");
+			levelNum++;
 			Utilities.waitMilliseconds(1000);
 			
 		} // End of outer while loop
