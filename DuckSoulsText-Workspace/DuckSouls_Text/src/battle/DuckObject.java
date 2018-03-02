@@ -223,10 +223,10 @@ public class DuckObject extends CharacterBattle {
 		boolean critical = true;
 		System.out.println(accuracyChance);
 		System.out.println("test acc ass");
-		System.out.println(getStats("accuracyPoints"));
+		System.out.println(this.getStats("accuracyPoints"));
 		System.out.println(landed);
 		
-		if (accuracyChance <= getStats("accuracyPoints")) {
+		if (accuracyChance <= this.getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;

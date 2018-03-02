@@ -75,47 +75,61 @@ public class CharacterBattle {
 		
 		case "healthPoints":
 			healthPoints = newVal;
+			break;
 			
 		case "manaPoints":
 			manaPoints = newVal;
+			break;
 			
 		case "attackPoints":
 			attackPoints = newVal;
+			break;
 			
 		case "defencePoints":
 			defencePoints = newVal;
+			break;
 			
 		case "speedPoints":
 			speedPoints = newVal;
+			break;
 			
 		case "accuracyPoints":
 			accuracyPoints = newVal;
+			break;
 			
 		case "criticalHitPoints":
 			criticalHitPoints = newVal;
+			break;
 			
 		//Static time	
 		
 		case "healthPointsStatic":
 			healthPointsStatic = newVal;
+			break;
 			
 		case "manaPointsStatic":
 			manaPointsStatic = newVal;
+			break;
 			
 		case "attackPointsStatic":
 			attackPointsStatic = newVal;
+			break;
 			
 		case "defencePointsStatic":
 			defencePointsStatic = newVal;
+			break;
 			
 		case "speedPointsStatic":
 			speedPointsStatic = newVal;
+			break;
 			
 		case "accuracyPointsStatic":
 			accuracyPointsStatic = newVal;
+			break;
 			
 		case "criticalHitPointsStatic":
 			criticalHitPointsStatic = newVal;
+			break;
 		
 			
 			
@@ -196,7 +210,7 @@ public class CharacterBattle {
 			return criticalHitPointsStatic;
 				
 		}
-		return accuracyPoints;
+		return 0;
 		
 		
 	}
