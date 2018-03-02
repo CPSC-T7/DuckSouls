@@ -7,7 +7,7 @@ package items;
  * 
  * @author Matthew Allwright
  * @author Cassondra Platel
- * @version 2.1.4
+ * @version 2.2
  */
 public class Item {
 	
@@ -17,9 +17,9 @@ public class Item {
 	 * 
 	 */
 	
-	protected String			stringRepr	= "IER";
+	protected String			stringRepr		= "IER";
 	protected String			name;
-	protected int				spawnChance	= 0;																// 0-99
+	protected int				spawnChance		= 0;															// 0-99
 	protected int				price;
 	protected int				health;
 	protected int				mana;
@@ -29,9 +29,10 @@ public class Item {
 	protected int				critChance;
 	protected int				defense;
 	
-	// TODO: Make this better
-	public static final Item[]	allItems	= { new Bugs(), new Crouton(), new Food(), new Goo(), new Knife(),
-			new Sword(), new ClothArmour(), new LeatherArmour(), new MetalArmour() };
+	// TODO: Make this better, again...
+	public static final Item[]	allConsumables	= { new Bugs(), new Crouton(), new Food(), new Goo() };
+	public static final Item[]	allWeapons		= { new Knife(), new Sword() };
+	public static final Item[]	allArmour		= { new ClothArmour(), new LeatherArmour(), new MetalArmour() };
 	
 	/*
 	 * 
@@ -63,7 +64,8 @@ public class Item {
 	/**
 	 * Copies an item.
 	 * 
-	 * @param item The item to copy.
+	 * @param item
+	 *            The item to copy.
 	 */
 	public Item(Item item) {
 		

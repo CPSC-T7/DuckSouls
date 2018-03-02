@@ -246,7 +246,8 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Returns the point of an enemy within 1 tile of the player, if one exists. Otherwise, returns null.
+	 * Returns the point of an enemy within 1 tile of the player, if one exists.
+	 * Otherwise, returns null.
 	 * 
 	 * @return The point of an enemy within 1 tile of the player, if one exists.
 	 */
@@ -262,13 +263,13 @@ public class TextRoom {
 				// If there is an enemy...
 				if (this.entityArray[x][y] instanceof Enemy) {
 					
-					//Note its position
+					// Note its position
 					Point enemyPoint = new Point(x, y);
 					
 					// If the enemy is within 1 tile of the player//
 					if (this.playerPoint.distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
 						
-						//Return the enemy's position
+						// Return the enemy's position
 						return enemyPoint;
 						
 					}
@@ -547,12 +548,21 @@ public class TextRoom {
 	 */
 	public void scatterItems() {
 		
+		// Random number containers
 		int itemTypeNumber, randomItemNumber;
 		
 		// For each position...
 		for (int x = 1; x < this.internalWidth + 1; x++) {
 			for (int y = 1; y < this.internalHeight + 1; y++) {
 				
+				// This is used to pick what type of item will be spawned.
+				/*
+				 * There are 3 types of item: Consumable, Weapon, and Armour. The random number
+				 * is from 0 to 5 so that some types of item will be favored over others.
+				 * 
+				 * As it is configured right now, 3/6 times consumable will be chosen, 2/6 for
+				 * weapon, and 1/6 for armour.
+				 */
 				itemTypeNumber = _random.nextInt(6);
 				
 				switch (itemTypeNumber) {
@@ -561,8 +571,9 @@ public class TextRoom {
 					case 0:
 					case 1:
 					case 2:
+						// Generate a random consumable. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE FIXED!
 						randomItemNumber = _random.nextInt(4);
-						if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allConsumables[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
@@ -590,8 +601,9 @@ public class TextRoom {
 					// Weapons
 					case 3:
 					case 4:
+						// Generate a random weapon. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE FIXED!
 						randomItemNumber = _random.nextInt(2);
-						if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allWeapons[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
@@ -610,8 +622,9 @@ public class TextRoom {
 					
 					// Armour
 					case 5:
+						// Generate a random armour. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE FIXED!
 						randomItemNumber = _random.nextInt(3);
-						if (_random.nextInt(100) < Item.allItems[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allArmour[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
