@@ -4,19 +4,39 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import items.Item;
+import utils.Orientation;
 
+/**
+ * This class is used to represent living entities within DuckSouls. Each entity
+ * has a position, string representation, orientation, and inventory.
+ * 
+ * @author Matthew Allwright
+ * @version 1.2.2
+ */
 public class Entity {
+	
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
 	
 	private Point			position	= new Point();
 	private String			stringRepr	= "EER";
 	private Orientation		orientation	= Orientation.SOUTH;
 	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	
+	/*
+	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+	
 	/**
 	 * Creates an entity.
 	 * 
 	 * @param stringRepr
-	 *            The 3-character string used to print the tile.
+	 *            The 3-character string used to print the entity.
 	 */
 	protected Entity(String stringRepr) {
 		
@@ -24,46 +44,65 @@ public class Entity {
 		
 	}
 	
-	/**
-	 * Returns the string representation of the character.
+	/*
 	 * 
-	 * @return The string representation of the character.
+	 * METHODS
+	 * 
+	 */
+	
+	/**
+	 * Returns a copy of the entity's string representation.
+	 * 
+	 * @return A copy of the entity's string representation.
 	 */
 	public String getStringRepr() {
 		
 		return new String(this.stringRepr);
 		
-	} // End of getStringRepr
+	}
 	
 	/**
-	 * Returns the position of the character.
+	 * Returns a copy of the entity's position.
 	 * 
-	 * @return The position of the character.
+	 * @return A copy of the entity's position.
 	 */
 	public Point getPosition() {
 		
 		return new Point(this.position);
 		
-	} // End of getPosition
+	}
 	
 	/**
-	 * Returns the position of the character. <br>
-	 * TODO: Privacy Leak?
+	 * Returns the orientation of the entity.
 	 * 
-	 * @return The position of the character.
+	 * @return The orientation of the entity.
 	 */
 	public Orientation getOrientation() {
 		
 		return this.orientation;
 		
-	} // End of getPosition
-
-	public void addToInventory(Item item) {
-		this.inventory.add(item);
 	}
 	
+	/**
+	 * Adds an item to the entity's inventory.
+	 * 
+	 * @param item The item to add.
+	 */
+	public void addToInventory(Item item) {
+		
+		this.inventory.add(item);
+		
+	}
+	
+	/**
+	 * Returns a copy of the entity's inventory.
+	 * 
+	 * @return A copy of the entity's inventory.
+	 */
 	public ArrayList<Item> getInventory() {
-		return this.inventory;
+		
+		return new ArrayList<Item>(this.inventory);
+		
 	}
 	
 }

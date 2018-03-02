@@ -1,10 +1,25 @@
 package items;
 
+/**
+ * This class represents an item in DuckSouls. The item has a name, string
+ * representation, price, and spawn chance by default. Items can also have stat
+ * modifiers that are put into place when used/equipped.
+ * 
+ * @author Matthew Allwright
+ * @author Cassondra Platel
+ * @version 2.1.4
+ */
 public class Item {
 	
-	protected String			stringRepr		= "IER";
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
+	
+	protected String			stringRepr	= "IER";
 	protected String			name;
-	protected int				spawnChance		= 0;																// 0-99
+	protected int				spawnChance	= 0;																// 0-99
 	protected int				price;
 	protected int				health;
 	protected int				mana;
@@ -18,11 +33,23 @@ public class Item {
 	public static final Item[]	allItems	= { new Bugs(), new Crouton(), new Food(), new Goo(), new Knife(),
 			new Sword(), new ClothArmour(), new LeatherArmour(), new MetalArmour() };
 	
-	/**
-	 * Creates an item.
+	/*
 	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+	
+	/**
+	 * Creates a new item with defined basic values.
+	 * 
+	 * @param name
+	 *            The name of the item.
 	 * @param stringRepr
-	 *            The 3-character string used to print the tile.
+	 *            The 3 character string used to print the item.
+	 * @param price
+	 *            The price of the item.
+	 * @param spawnChance
+	 *            The spawn chance of the item. Must be from 0 to 100
 	 */
 	protected Item(String name, String stringRepr, int price, int spawnChance) {
 		
@@ -36,9 +63,10 @@ public class Item {
 	/**
 	 * Copies an item.
 	 * 
-	 * @param item
+	 * @param item The item to copy.
 	 */
 	public Item(Item item) {
+		
 		this.stringRepr = item.stringRepr;
 		this.name = item.name;
 		this.spawnChance = item.spawnChance;
@@ -50,22 +78,46 @@ public class Item {
 		this.accuracy = item.accuracy;
 		this.critChance = item.critChance;
 		this.defense = item.defense;
-	}
-	
-	public Item() {
 		
 	}
 	
-	public String getStringRepr() {
-		return new String(this.stringRepr);
-	}
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
 	
+	/**
+	 * Returns a copy of the item's name.
+	 * 
+	 * @return A copy of the item's name.
+	 */
 	public String getName() {
+		
 		return new String(this.name);
+		
 	}
 	
+	/**
+	 * Returns the item's spawn chance.
+	 * 
+	 * @return The item's spawn chance.
+	 */
 	public int getSpawnChance() {
-		return new Integer(this.spawnChance);
+		
+		return this.spawnChance;
+		
+	}
+	
+	/**
+	 * Returns a copy of the item's string representation.
+	 * 
+	 * @return A copy of the item's string representation.
+	 */
+	public String getStringRepr() {
+		
+		return new String(this.stringRepr);
+		
 	}
 	
 }

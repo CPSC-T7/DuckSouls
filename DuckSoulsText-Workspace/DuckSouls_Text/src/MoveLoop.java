@@ -8,6 +8,7 @@ import items.Item;
 import map.TextLevel;
 import map.TextRoom;
 import tiles.Stairs;
+import utils.Orientation;
 import utils.Utilities;
 
 public class MoveLoop {
@@ -69,7 +70,7 @@ public class MoveLoop {
 					case "W":
 					case "NORTH":
 						if (playerPoint.y == 0) {
-							currentLevel.moveRoom_Direction('u');
+							currentLevel.moveRoom_Direction(Orientation.NORTH);
 						} else {
 							currentRoom.moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y - 1));
 						}
@@ -78,7 +79,7 @@ public class MoveLoop {
 					case "S":
 					case "SOUTH":
 						if (playerPoint.y == currentLevel.getRoomSize() + 1) {
-							currentLevel.moveRoom_Direction('d');
+							currentLevel.moveRoom_Direction(Orientation.SOUTH);
 						} else {
 							currentRoom.moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y + 1));
 						}
@@ -87,7 +88,7 @@ public class MoveLoop {
 					case "D":
 					case "EAST":
 						if (playerPoint.x == currentLevel.getRoomSize() + 1) {
-							currentLevel.moveRoom_Direction('r');
+							currentLevel.moveRoom_Direction(Orientation.EAST);
 						} else {
 							currentRoom.moveEntity(playerPoint, new Point(playerPoint.x + 1, playerPoint.y));
 						}
@@ -96,7 +97,7 @@ public class MoveLoop {
 					case "A":
 					case "WEST":
 						if (playerPoint.x == 0) {
-							currentLevel.moveRoom_Direction('l');
+							currentLevel.moveRoom_Direction(Orientation.WEST);
 						} else {
 							currentRoom.moveEntity(playerPoint, new Point(playerPoint.x - 1, playerPoint.y));
 						}

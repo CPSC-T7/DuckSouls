@@ -36,4 +36,5 @@
 <fullyQualifiedTypeName name="items.ClothArmour"/>
 <fullyQualifiedTypeName name="items.LeatherArmour"/>
 <fullyQualifiedTypeName name="items.MetalArmour"/>
+<fullyQualifiedTypeName name="utils.Orientation"/>
 </qualifiedTypeNameHistroy>

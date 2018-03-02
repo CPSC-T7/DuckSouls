@@ -6,6 +6,7 @@ import java.util.Random;
 
 import entities.*;
 import tiles.Stairs;
+import utils.Orientation;
 
 public class TextLevel {
 	
@@ -251,9 +252,8 @@ public class TextLevel {
 	/**
 	 * 
 	 * @param direction
-	 *            Must be one of: 'u', 'd', 'l', or 'r'.
 	 */
-	public void moveRoom_Direction(char direction) {
+	public void moveRoom_Direction(Orientation direction) {
 		
 		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
 		Player player = (Player) this.roomAt(this.getCurrentRoomPoint())
@@ -264,22 +264,22 @@ public class TextLevel {
 		
 		switch (direction) {
 			
-			case 'u':
+			case NORTH:
 				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x, this.getCurrentRoomPoint().y - 1));
 				newPlayerPoint.y = this.getRoomSize() + 1;
 				break;
 			
-			case 'd':
+			case SOUTH:
 				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x, this.getCurrentRoomPoint().y + 1));
 				newPlayerPoint.y = 0;
 				break;
 			
-			case 'l':
+			case WEST:
 				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x - 1, this.getCurrentRoomPoint().y));
 				newPlayerPoint.x = this.getRoomSize() + 1;
 				break;
 			
-			case 'r':
+			case EAST:
 				this.setCurrentRoomPoint(new Point(this.getCurrentRoomPoint().x + 1, this.getCurrentRoomPoint().y));
 				newPlayerPoint.x = 0;
 				break;

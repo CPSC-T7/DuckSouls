@@ -9,14 +9,13 @@ import items.*;
 import tiles.*;
 import utils.Utilities;
 
-//TODO: Fill in JavaDocs
-
 /**
- * Text-based room class.
+ * This class represents a text-based room in DuckSouls. Each room is a
+ * rectangle of a desired width and height, and can hold one item and entity in
+ * each inner tile.
  * 
  * @author Matthew Allwright
- * @requires java.awt.Point
- * @version 1.6.2
+ * @version 1.8.4
  */
 public class TextRoom {
 	
@@ -36,8 +35,9 @@ public class TextRoom {
 	
 	private final int		DEFAULT_ROOM_SIZE	= 5;
 	
-	private int				internalWidth, internalHeight;
-	private int				enemySpawnChance	= 0;
+	private int				internalWidth;
+	private int				internalHeight;
+	private int				enemySpawnChance	= 3;
 	
 	private Tile[][]		tileArray;
 	private Item[][]		itemArray;
@@ -54,11 +54,11 @@ public class TextRoom {
 	 */
 	
 	/**
-	 * Creates a square room of set size with scattered items. <br>
+	 * Creates a square room of set size with, scattered items and enemies. <br>
 	 * This is the constructor used by TextLevel to create rooms.
 	 * 
 	 * @param size
-	 *            Width and height of the room. Must be 0 < width < 32.
+	 *            Width and height of the room.
 	 */
 	public TextRoom(int size) {
 		
@@ -72,125 +72,51 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Creates an empty room of set size.
+	 * Creates a room of set width and height, with scattered items and enemies.
 	 * 
 	 * @param width
-	 *            Width of the room. Must be 0 < width < 32.
+	 *            Width of the room.
 	 * @param height
-	 *            Height of the room. Must be 0 < height < 32.
+	 *            Height of the room.
 	 */
 	public TextRoom(int width, int height) {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
+		
 		this.genTileArray();
+		this.scatterItems();
+		this.scatterEnemies();
 		
 	}
 	
 	/**
-	 * Creates an empty, doorless room of default size.
+	 * Creates a room of set width and height, with scattered items and enemies, and
+	 * specified door points.
 	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
-	 */
-	public TextRoom(String name) {
-		
-		this.roomName = name;
-		this.internalWidth = DEFAULT_ROOM_SIZE;
-		this.internalHeight = DEFAULT_ROOM_SIZE;
-		this.genTileArray();
-		
-	}
-	
-	/**
-	 * Creates an empty room of set size.
-	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
 	 * @param width
-	 *            Width of the room. Must be 0 < width < 32.
+	 *            Width of the room.
 	 * @param height
-	 *            Height of the room. Must be 0 < height < 32.
-	 */
-	public TextRoom(String name, int width, int height) {
-		
-		this.internalWidth = width;
-		this.internalHeight = height;
-		this.genTileArray();
-		
-	}
-	
-	/**
-	 * Creates an empty room of default size, with specified door points.
-	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
+	 *            Height of the room.
 	 * @param doors
 	 *            A java.awt.Point array of door co-ordinates. Acceptable points lie
 	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
 	 *            with (0, 0) as the top-left.
 	 */
-	public TextRoom(String name, Point[] doors) {
-		
-		this.internalWidth = DEFAULT_ROOM_SIZE;
-		this.internalHeight = DEFAULT_ROOM_SIZE;
-		this.genTileArray();
-		
-		this.placeDoors(doors);
-		
-	}
-	
-	/**
-	 * Creates an empty room of specified size, with specified door points.
-	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
-	 * @param width
-	 *            Width of the room. Must be 0 < width < 32.
-	 * @param height
-	 *            Height of the room. Must be 0 < height < 32.
-	 * @param doors
-	 *            A java.awt.Point array of door co-ordinates. Acceptable points lie
-	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
-	 *            with (0, 0) as the top-left.
-	 */
-	public TextRoom(String name, int width, int height, Point[] doors) {
-		
-		this.internalWidth = width;
-		this.internalHeight = height;
-		this.genTileArray();
-		
-		this.placeDoors(doors);
-		
-	}
-	
-	/**
-	 * Creates an empty room of specified size, with specified door points, and
-	 * places a player.
-	 * 
-	 * @param name
-	 *            The name of the room. (Used for file i/o)
-	 * @param width
-	 *            Width of the room. Must be 0 < width < 32.
-	 * @param height
-	 *            Height of the room. Must be 0 < height < 32.
-	 * @param doors
-	 *            A java.awt.Point array of door co-ordinates. Acceptable points lie
-	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
-	 *            with (0, 0) as the top-left.
-	 */
-	public TextRoom(String name, int width, int height, Point[] doors, Point playerPosition) {
+	public TextRoom(int width, int height, Point[] doors) {
 		
 		this.internalWidth = width;
 		this.internalHeight = height;
 		
-		this.placeEntity(playerPosition, new Player());
 		this.genTileArray();
+		this.scatterItems();
+		this.scatterEnemies();
 		
 		this.placeDoors(doors);
 		
 	}
 	
+	// TODO: Refurbish file reading constructor
 	// /**
 	// * Creates a room from a specified file.
 	// *
@@ -262,10 +188,6 @@ public class TextRoom {
 	 * 
 	 */
 	
-	/*
-	 * PRIVATE METHODS
-	 */
-	
 	/**
 	 * Generates and appends a tile array to the instance. Makes the tile array 2
 	 * units larger in both the x and y direction from the internal size to
@@ -323,31 +245,46 @@ public class TextRoom {
 		
 	}
 	
-	/*
-	 * PUBLIC METHODS
+	/**
+	 * Returns the point of an enemy within 1 tile of the player, if one exists. Otherwise, returns null.
+	 * 
+	 * @return The point of an enemy within 1 tile of the player, if one exists.
 	 */
-	
+	/*
+	 * TODO: Make this better.
+	 */
 	public Point checkForBattlePoint() {
 		
+		// For each position...
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				if (this.entityArray[x][y] != null && this.entityArray[x][y] instanceof Enemy) {
+				// If there is an enemy...
+				if (this.entityArray[x][y] instanceof Enemy) {
+					
+					//Note its position
 					Point enemyPoint = new Point(x, y);
-					if (this.playerPoint.distance(enemyPoint) < 1.5) {
+					
+					// If the enemy is within 1 tile of the player//
+					if (this.playerPoint.distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
+						
+						//Return the enemy's position
 						return enemyPoint;
+						
 					}
+					
 				}
 				
 			}
 		}
 		
+		// If there are no enemies within 1 tile...
 		return null;
 		
 	}
 	
 	/**
-	 * Draws the room to the console
+	 * Draws the room to the console.
 	 */
 	public void draw_Text() {
 		
@@ -355,17 +292,17 @@ public class TextRoom {
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				if (this.entityArray[x][y] != null) {
+				if (this.entityArray[x][y] != null) { // If there is a enemy...
 					
 					// Print the entity
 					System.out.print(this.entityArray[x][y].getStringRepr());
 					
-				} else if (this.itemArray[x][y] != null) {
+				} else if (this.itemArray[x][y] != null) { // Or if there is an item...
 					
 					// Print the item
 					System.out.print(this.itemArray[x][y].getStringRepr());
 					
-				} else {
+				} else { // Otherwise just print the tile
 					
 					// Print the tile
 					System.out.print(this.tileArray[x][y].getStringRepr());
@@ -382,11 +319,11 @@ public class TextRoom {
 	}
 	
 	/**
-	 * Gets the tile at a specific point in a room.
+	 * Gets the entity at a specific point in a room.
 	 * 
 	 * @param pos
 	 *            The position to look at.
-	 * @return The tile at position.
+	 * @return The entity at position.
 	 */
 	public Entity entityAt(Point pos) {
 		
@@ -409,7 +346,7 @@ public class TextRoom {
 	
 	/**
 	 * Moves an entity from one point to another, throwing a tantrum, I mean
-	 * message, if the ending tile cannot be moved to (walls).
+	 * message, if the ending tile cannot be moved to (walls, etc.).
 	 * 
 	 * @param toMove
 	 *            Point of the entity that should be moved.
@@ -425,17 +362,17 @@ public class TextRoom {
 			this.placeEntity(moveTo, this.entityAt(toMove));
 			this.placeEntity(toMove, null);
 			
-			if (this.entityAt(moveTo) instanceof Player) {// .equals("PLAYER")) {
+			// Note the new position if the player is moved
+			if (this.entityAt(moveTo) instanceof Player) {
 				this.playerPoint = moveTo;
 			}
 			
+			// Set path tiles...
+			// Path tile indicates it has been stepped on
 			if (this.tileAt(toMove) instanceof Floor) {
-				// Path tile indicates it has been stepped on
 				this.setTile(toMove, new Path());
 			}
-			
 			if (this.tileAt(moveTo) instanceof Floor) {
-				// Path tile indicates it has been stepped on
 				this.setTile(moveTo, new Path());
 			}
 			
@@ -474,8 +411,10 @@ public class TextRoom {
 	 */
 	public void placeDoors(Point[] doors) {
 		
+		// For each door...
 		for (Point pos : doors) {
 			
+			// Place the door
 			if (pos != null) {
 				this.setTile(pos, new Door());
 			}
@@ -494,10 +433,12 @@ public class TextRoom {
 	 */
 	public void placeEntity(Point position, Entity entity) {
 		
-		if (entity != null && entity instanceof Player) {
+		// Note the position if the player is moved
+		if (entity instanceof Player) {
 			
 			this.playerPoint = position;
 			
+			// Pickup the item that is about to be stepped on
 			if (this.itemArray[position.x][position.y] != null) {
 				entity.addToInventory(this.itemArray[position.x][position.y]);
 				this.itemArray[position.x][position.y] = null;
@@ -576,15 +517,21 @@ public class TextRoom {
 		
 	}
 	
+	/**
+	 * Scatters enemies at random throughout the room.
+	 */
 	public void scatterEnemies() {
 		
 		// For each position...
 		for (int x = 1; x < this.internalWidth + 1; x++) {
 			for (int y = 1; y < this.internalHeight + 1; y++) {
 				
+				// If the spawn chance is high enough...
 				if (_random.nextInt(100) < this.enemySpawnChance) {
-					Point point = new Point(x, y);
-					this.placeEntity(point, new Enemy());
+					
+					// Place the entity
+					this.placeEntity(new Point(x, y), new Enemy());
+					
 				}
 				
 			}
@@ -592,7 +539,12 @@ public class TextRoom {
 		
 	}
 	
-	// TODO: Probably redo
+	/**
+	 * Scatters items at random throughout the level.
+	 */
+	/*
+	 * TODO: Probably redo
+	 */
 	public void scatterItems() {
 		
 		int itemTypeNumber, randomItemNumber;
