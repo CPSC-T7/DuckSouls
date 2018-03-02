@@ -342,10 +342,14 @@ public class Map {
 				// If nothing has been printed yet (i.e. no character was at the position)...
 				if (!printed) {
 					
-					// Print the tile representation
+					// If the current position is the position of the player..
 					if(y == this.player.getY() && x==this.player.getX()) {
+						
+						// Print the player
 						System.out.print(player.getStringRepr());
 					}
+					
+					// else print the tile
 					else {
 						System.out.print(this.currentMap_2DArrayList.get(y).get(x).getStringRepr());
 					} 
@@ -514,10 +518,84 @@ public class Map {
 		}
 		
 	} // End of runTurn
+
+	
+	public void runTurn(String input) {
+		
+		// To keep track of the maps
+		String mapID = new String();
+		
+		// To keep track of whether the player has moved between maps in this turn
+		boolean hasMovedMaps = false;
+		/*
+		 * This is used to prevent the player landing on a door, which teleports them to
+		 * another door in another room, which then teleports them back and so on and so
+		 * forth forever. Once this is set to true, a player cannot teleport with a door
+		 * again the the same turn (1 map change per turn).
+		 */
+		
+		// Print the map
+		if(!input.equals("!"))
+			this.player.move(this.currentMap_2DArrayList, input);
+		// For each position on the map...
+		for (int y = 0; y < this.currentMap_2DArrayList.size(); y++) {
+			for (int x = 0; x < this.currentMap_2DArrayList.get(y).size(); x++) {
+				
+				// If the player is at that position and the position is a door...
+				if (x == player.getX() && y == player.getY()
+						&& currentMap_2DArrayList.get(y).get(x).getType().equals("Door")) {
+					
+					// If the character hasn't already been moved to a different map in this turn...
+					if (!hasMovedMaps) {
+						
+						// Set the map ID to the map the door the character is standing on links to
+						mapID = currentMap_2DArrayList.get(y).get(x).getMapID();
+						
+						// The player has now moved maps in this turn
+						hasMovedMaps = true;
+						
+					}
+					
+				}
+				
+			}
+			
+
+				
+			}
+			
+		
+		// If an enemy is at the same location as the player...
+		if(this.isEnemyNear() != -1) {
+			
+			// Clear the console and enter battle
+//			Utilities.clearConsole();
+			BattleWorldTest.battleLoop();
+			
+			// Remove the enemy that is defeated in battle from both characters_ArrayList and mapfile object for the current map
+			this.maps_HashMap.get(currentMapID).removeEnemy(this.characters_ArrayList.get(this.isEnemyNear()).getID());
+			this.characters_ArrayList.remove(this.isEnemyNear());
+		}
+//		if(this.isItemNear() != -1) {
+//			this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
+//			this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
+//			this.items_ArrayList.remove(this.isItemNear());
+//			
+//		}
+		
+		// If the player is on a different map than they started on...
+		if (hasMovedMaps) {
+			
+			// Clear the old map and setup the new map
+			this.clearMap();
+			this.resetCharacters();
+			this.loadNewMap(mapID);
+		}
+		
+	} // End of runTurn
 	
 	/**
-	 * Returns a boolean stating whether the player is near an enemy. This is true
-	 * when an enemy is within 1 tile of the player.
+	 * Returns the index of an character that is in the same loaction of a player. If there is no such character return -1.
 	 * 
 	 * @return The index of an character on the same tile as the player, if there is not such character returns -1
 	 * 
@@ -545,6 +623,60 @@ public class Map {
 		return -1;
 		
 	} // End of isEnemyNear
+	
+	
+	/**
+	 * 
+	 * @param size
+	 * 				the size of the 
+	 * @return
+	 */
+	public ArrayList<ArrayList<ArrayList<String>>> getImages(int size){
+		
+		ArrayList<ArrayList<ArrayList<String>>> images = new ArrayList<ArrayList<ArrayList<String>>>();
+		int x = 0;
+		int y = 0;
+		
+		for(int i = this.player.getY() - (size/2); i<= this.player.getY() + (size/2); i++) {
+			images.add(new ArrayList<ArrayList<String>>());
+			for(int j = this.player.getX() - (size/2); j <= this.player.getX() + (size/2); j++) {
+				images.get(y).add(new ArrayList<String>());
+				
+				System.out.println(this.player.getY());
+				System.out.println(x);
+				System.out.println(y);
+				System.out.println(" ");
+				if(i<0 || i>this.currentMap_2DArrayList.size()) {
+					images.get(y).get(x).add("Tiles/Sewer/Empty.png");
+				}
+				
+				else if(i>0 && i<this.currentMap_2DArrayList.size()){
+					if(j<0 || j>this.currentMap_2DArrayList.get(i).size()) {
+						images.get(y).get(x).add("Tiles/Sewer/Empty.png");
+					}
+					else if(j>0 && j<this.currentMap_2DArrayList.get(i).size()){
+							images.get(y).get(x).add(this.currentMap_2DArrayList.get(i).get(j).getImage());
+					}
+				}
+				
+				for(Entity character: this.characters_ArrayList) {
+					if(character.getY() == i && character.getX() == j){
+						images.get(y).get(x).add(character.getImage());
+					}
+				}
+				
+				if(this.player.getY() == i && this.player.getX() == j) {
+					images.get(y).get(x).add(this.player.getImage());
+				}
+				x += 1;
+			}
+			x = 0;
+			y += 1;
+		}
+		
+		return images;
+		
+	}
 	
 //	public int isItemNear() {
 //		

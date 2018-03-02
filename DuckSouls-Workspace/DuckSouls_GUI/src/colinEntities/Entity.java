@@ -107,7 +107,7 @@ public class Entity {
 	 */
 	public String getOrientation() {
 		return this.orientation;
-	}
+	}// End of getOrientation
 	
 	/**
 	 * Returns the orientation of the entity in form {Up, Down, Left Right}
@@ -119,8 +119,8 @@ public class Entity {
 	public String getOrientationName() {
 		switch(this.orientation) {
 		case "w": return "Up";
-		case "a": return "Right";
-		case "d" :return "Left";
+		case "a": return "Left";
+		case "d" :return "Right";
 		case "s": return "Down";
 		}
 		return "Down";
@@ -254,7 +254,7 @@ public class Entity {
 	
 	
 	/**
-	 * Sets an entity's id to an int 
+	 * Sets an entity's id
 	 * 
 	 * @param Id
 	 *            The int ID to give to the entity

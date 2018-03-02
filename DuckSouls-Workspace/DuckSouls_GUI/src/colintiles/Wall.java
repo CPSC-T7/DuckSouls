@@ -44,7 +44,7 @@ public class Wall extends Tile {
 		// Players cannot walk through walls!
 		this.setCanMoveOn(false);
 		
-		// Set the string representation to the appropriate unicode box characters
+		// Set the string representation to the appropriate unicode box characters and set the image to the appropriate sprite
 		switch (orientation) {
 			
 			case "L":

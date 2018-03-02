@@ -197,12 +197,17 @@ public class Map {
 	}
 	
 	/**
-	 * Clears all characters from the map, and add the player back.
+	 * Clears all characters from the map.
 	 */
 	public void resetCharacters() {
 		
 		this.characters_ArrayList.clear();
 		
+	}
+	
+	public void resetItems() {
+		
+		this.items_ArrayList.clear();
 	}
 	
 	/**
@@ -466,9 +471,6 @@ public class Map {
 			// Run the turn
 			this.runTurn();
 			
-			// Run the turn
-			this.runTurn();
-			
 			// Clear the console
 			Utilities.clearConsole();
 			
@@ -571,6 +573,7 @@ public class Map {
 			// Clear the old map and setup the new map
 			this.clearMap();
 			this.resetCharacters();
+			this.resetItems();
 			this.loadNewMap(mapID);
 		}
 		
