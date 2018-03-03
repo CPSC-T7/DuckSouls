@@ -6,7 +6,7 @@ package items;
  * @author Matthew Allwright
  * @version 1.1
  */
-public class Food extends Consumable {
+public class Fish extends Consumable {
 
 	/*
 	 * 
@@ -14,7 +14,7 @@ public class Food extends Consumable {
 	 * 
 	 */
 	
-	private static String	name		= "Some Half-Eaten Food";
+	private static String	name		= "A Half-Eaten Fish";
 	private static String	stringRepr	= " F ";
 	private static int		price		= 20;
 	private static int		spawnChance	= 8;
@@ -28,9 +28,9 @@ public class Food extends Consumable {
 	 */
 	
 	/**
-	 * Creates a new food item.
+	 * Creates a new fish item.
 	 */
-	public Food() {
+	public Fish() {
 		super(name, stringRepr, price, spawnChance, health, mana);
 	}
 	

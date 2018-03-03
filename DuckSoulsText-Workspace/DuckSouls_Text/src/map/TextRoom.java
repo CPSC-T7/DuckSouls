@@ -570,7 +570,7 @@ public class TextRoom {
 									break;
 								
 								case 2:
-									this.placeItem(new Point(x, y), new Food());
+									this.placeItem(new Point(x, y), new Fish());
 									break;
 								
 								case 3:

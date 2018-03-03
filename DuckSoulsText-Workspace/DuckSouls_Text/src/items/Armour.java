@@ -28,7 +28,7 @@ public class Armour extends Item {
 	 * @param defense
 	 *            The defense that the armour provides.
 	 */
-	public Armour(String name, String stringRepr, int price, int spawnChance, int defense) {
+	protected Armour(String name, String stringRepr, int price, int spawnChance, int defense) {
 		
 		super(name, stringRepr, price, spawnChance);
 		this.defense = defense;

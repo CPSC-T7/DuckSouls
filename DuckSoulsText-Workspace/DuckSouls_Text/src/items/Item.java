@@ -30,7 +30,7 @@ public class Item {
 	protected int				defense;
 	
 	// TODO: Make this better, again...
-	public static final Item[]	allConsumables	= { new Bugs(), new Crouton(), new Food(), new Goo() };
+	public static final Item[]	allConsumables	= { new Bugs(), new Crouton(), new Fish(), new Goo() };
 	public static final Item[]	allWeapons		= { new Knife(), new Sword() };
 	public static final Item[]	allArmour		= { new ClothArmour(), new LeatherArmour(), new MetalArmour() };
 	
