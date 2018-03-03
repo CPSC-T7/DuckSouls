@@ -4,21 +4,21 @@ package items;
  * This class represents the armour item leather armour.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.1.1
  */
 public class LeatherArmour extends Armour {
-
+	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private static String	name		= "An Old Leather Tunic";
-	private static String	stringRepr	= " LA";
-	private static int		price		= 2;
-	private static int		spawnChance	= 6;
-	private static int		defense		= 10;
+	private static final String	name		= "An Old Leather Tunic";
+	private static final String	stringRepr	= " LA";
+	private static final int	price		= 2;
+	private static final int	spawnChance	= 6;
+	private static final int	defense		= 10;
 	
 	/*
 	 * 

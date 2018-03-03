@@ -4,22 +4,22 @@ package items;
  * This class represents the consumable item food.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.1.1
  */
 public class Fish extends Consumable {
-
+	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private static String	name		= "A Half-Eaten Fish";
-	private static String	stringRepr	= " F ";
-	private static int		price		= 20;
-	private static int		spawnChance	= 8;
-	private static int		health		= 15;
-	private static int		mana		= 0;
+	private static final String	name		= "A Half-Eaten Fish";
+	private static final String	stringRepr	= " F ";
+	private static final int	price		= 20;
+	private static final int	spawnChance	= 8;
+	private static final int	health		= 15;
+	private static final int	mana		= 0;
 	
 	/*
 	 * 

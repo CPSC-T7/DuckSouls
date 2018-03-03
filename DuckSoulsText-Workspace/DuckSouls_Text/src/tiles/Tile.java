@@ -1,11 +1,29 @@
 package tiles;
 
+/**
+ * This class represents the tiles for DuckSouls.
+ * 
+ * @author Matthew Allwright
+ * @version 1.2.2
+ */
 public class Tile {
 	
-	private String		stringRepr	= "TER";
-	protected boolean	canWalkOn	= true;
-	private char		fileCharacter;
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
 	
+	private String		stringRepr	= "TER";
+	private char		fileCharacter;
+	protected boolean	canWalkOn	= true;
+
+	/*
+	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+
 	/**
 	 * Creates a tile.
 	 * 
@@ -22,6 +40,12 @@ public class Tile {
 		
 	}
 	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
+	
 	/**
 	 * Returns the string representation of the tile.
 	 * 
@@ -31,18 +55,18 @@ public class Tile {
 		
 		return new String(this.stringRepr);
 		
-	} // End of getStringRepr
+	}
 	
 	/**
 	 * Returns the file character of the tile.
 	 * 
 	 * @return The file character of the tile.
 	 */
-	public char getFileChar() {
+	public char getFileCharacter() {
 		
-		return new Character(this.fileCharacter);
+		return this.fileCharacter;
 		
-	} // End of getStringRepr
+	}
 	
 	/**
 	 * Returns whether the tile can be walked on or not.
@@ -51,8 +75,8 @@ public class Tile {
 	 */
 	public boolean getCanWalkOn() {
 		
-		return new Boolean(this.canWalkOn);
+		return this.canWalkOn;
 		
-	} // End of getStringRepr
+	}
 	
 }

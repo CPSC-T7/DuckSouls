@@ -4,7 +4,7 @@ package items;
  * This class defines the consumable item bugs.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.1.1
  */
 public class Bugs extends Consumable {
 	
@@ -14,12 +14,12 @@ public class Bugs extends Consumable {
 	 * 
 	 */
 	
-	private static String	name		= "De Bugs";
-	private static String	stringRepr	= " B ";
-	private static int		price		= 5;
-	private static int		spawnChance	= 50;
-	private static int		health		= 5;
-	private static int		mana		= 5;
+	private static final String	name		= "De Bugs";
+	private static final String	stringRepr	= " B ";
+	private static final int	price		= 5;
+	private static final int	spawnChance	= 50;
+	private static final int	health		= 5;
+	private static final int	mana		= 5;
 	
 	/*
 	 * 

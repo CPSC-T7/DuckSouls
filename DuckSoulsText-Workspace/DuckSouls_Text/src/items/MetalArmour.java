@@ -4,21 +4,21 @@ package items;
  * This class represents the armour item metal armour.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.1.1
  */
 public class MetalArmour extends Armour {
-
+	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private static String	name		= "An Old Washing Machine";
-	private static String	stringRepr	= " MA";
-	private static int		price		= 35;
-	private static int		spawnChance	= 4;
-	private static int		defense		= 20;
+	private static final String	name		= "An Old Washing Machine";
+	private static final String	stringRepr	= " MA";
+	private static final int	price		= 35;
+	private static final int	spawnChance	= 4;
+	private static final int	defense		= 20;
 	
 	/*
 	 * 

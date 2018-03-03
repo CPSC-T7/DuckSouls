@@ -1,9 +1,27 @@
 package tiles;
 
+/**
+ * This class represents all of the wall tiles for DuckSouls.
+ * 
+ * @author Matthew Allwright
+ * @version 1.1.2
+ */
 public class Wall extends Tile {
 	
-	public Wall(String STR) {
-		super(STR, false);
+	/*
+	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+	
+	/**
+	 * Creates a wall tile.
+	 * 
+	 * @param stringRepr
+	 *            The 3-character string used to print the tile.
+	 */
+	protected Wall(String stringRepr) {
+		super(stringRepr, false);
 	}
-
+	
 }

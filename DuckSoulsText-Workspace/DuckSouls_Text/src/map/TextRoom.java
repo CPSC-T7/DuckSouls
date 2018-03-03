@@ -486,7 +486,7 @@ public class TextRoom {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
 				// Format the line
-				temp += this.tileArray[x][y].getFileChar() + ",";
+				temp += this.tileArray[x][y].getFileCharacter() + ",";
 				
 			}
 			

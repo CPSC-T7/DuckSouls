@@ -4,22 +4,22 @@ package items;
  * This class represents the consumable item goo.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.1.1
  */
 public class Goo extends Consumable {
-
+	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private static String	name		= "Some Weird Goo";
-	private static String	stringRepr	= " G ";
-	private static int		price		= 10;
-	private static int		spawnChance	= 15;
-	private static int		health		= 0;
-	private static int		mana		= 20;
+	private static final String	name		= "Some Weird Goo";
+	private static final String	stringRepr	= " G ";
+	private static final int	price		= 10;
+	private static final int	spawnChance	= 15;
+	private static final int	health		= 0;
+	private static final int	mana		= 20;
 	
 	/*
 	 * 
