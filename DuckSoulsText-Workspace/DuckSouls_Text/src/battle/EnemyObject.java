@@ -138,7 +138,7 @@ public class EnemyObject extends CharacterBattle {
 	public boolean enemyMove(DuckObject player) {
 		
 		Random random = new Random();
-		int move = random.nextInt(1);
+		int move = random.nextInt(2);
 		//A random chance for the enemy to choose a move
 		
 		if (move == 0) {

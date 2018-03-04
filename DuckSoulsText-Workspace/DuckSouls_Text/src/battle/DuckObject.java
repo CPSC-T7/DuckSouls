@@ -402,7 +402,7 @@ public class DuckObject extends CharacterBattle {
 			//Add money to the player
 			Utilities.waitMilliseconds(800);
 			
-			//levelUp();
+			levelUp();
 			resetStats();
 			enemy.resetStats();
 			System.out.println("The battle has ended.");
@@ -420,7 +420,7 @@ public class DuckObject extends CharacterBattle {
 	
 	/**
 	 * Level up the player and increase their stats as a reward.
-	 *
+	 */
 	private void levelUp() {
 		
 		if (experience >= 50) {
@@ -448,7 +448,7 @@ public class DuckObject extends CharacterBattle {
 			
 		}
 
-	}*/
+	}
 	
 	public static void cleanup() {
 		scanner.close();

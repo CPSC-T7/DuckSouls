@@ -138,29 +138,6 @@ public class CharacterBattle {
 	}
 	
 	public double getStats(String stat) {
-		/*
-		if(stat.equals("healthPoints")) {
-			return healthPoints;
-		}
-		
-		else if(stat.equals("manaPoints")) {
-			return manaPoints;
-		}
-		else if(stat.equals("attackPoints")) {
-			return attackPoints;
-		}
-		else if(stat.equals("defencePoints")) {
-			return defencePoints;
-		}
-		else if(stat.equals("speedPoints")) {
-			return speedPoints;
-		}
-		else if(stat.equals("accuracyPoints")) {
-			return accuracyPoints;
-		}
-		else {
-			return criticalHitPoints;
-		}*/
 		
 		
 		switch (stat) {

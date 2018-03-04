@@ -1,15 +1,15 @@
-package character;
+package old_entities;
 
 import java.util.ArrayList;
 
-import tiles.Tile;
+import old_tiles.Tile;
 
 /**
  * This class represents an enemy character.
  * 
  * @author Colin Yeung
  */
-public class Enemy extends Character {
+public class Enemy extends Entity {
 	
 	/*
 	 * 

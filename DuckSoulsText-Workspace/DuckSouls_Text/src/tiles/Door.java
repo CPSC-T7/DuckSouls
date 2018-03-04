@@ -1,11 +1,12 @@
 package tiles;
 
-import java.util.ArrayList;
+import utils.Orientation;
 
 /**
- * This class represents a door tile.
+ * This class represents all of the door for DuckSouls.
  * 
- * @author Colin Yeung
+ * @author Matthew Allwright
+ * @version 1.3
  */
 public class Door extends Tile {
 	
@@ -15,9 +16,9 @@ public class Door extends Tile {
 	 * 
 	 */
 	
-	private boolean	isLocked	= false;
-	private String	mapID		= new String();
-	private String	keyID		= new String();
+	private String		key;			// TODO: Make keys an enum.
+	private Orientation	orientation;	// TODO: Implement.
+	private boolean		locked	= false;
 	
 	/*
 	 * 
@@ -26,33 +27,23 @@ public class Door extends Tile {
 	 */
 	
 	/**
-	 * Creates a new door with all of the required information
-	 * 
-	 * @param x
-	 *            The X co-ordinate of the door.
-	 * @param y
-	 *            The Y co-ordinate of the door.
-	 * @param isLocked
-	 *            Whether the door is locked or not.
-	 * @param mapID
-	 *            The ID of the map this door is on.
-	 * @param isVertical
-	 *            Whether or not this door is on a vertical (side) wall.
-	 * @param keyID
-	 *            The ID of the key that unlocks this door.
+	 * Creates a new unlocked door.
 	 */
-	public Door(int x, int y, boolean isLocked, String mapID, boolean isVertical, String keyID) {
-		
-		// Create a tile at the position
-		super(x, y, false, " D ");
-		
-		// Set the other values accordingly
-		this.isLocked = isLocked;
-		this.setCanMoveOn(!this.isLocked);
-		this.mapID = mapID;
-		this.keyID = keyID;
-		
-	} // End of constructor
+	public Door() {
+		super(" D ", true);
+	}
+	
+	/**
+	 * Creates a new locked door.
+	 * 
+	 * @param key
+	 *            The key that can be used to unlock the door.
+	 */
+	public Door(String key) {
+		super(" D ", false);
+		this.locked = true;
+		this.key = key;
+	}
 	
 	/*
 	 * 
@@ -61,63 +52,48 @@ public class Door extends Tile {
 	 */
 	
 	/**
-	 * Returns the type of the tile.
+	 * Checks to see if the door can be unlocked with a key. If it can, the door is
+	 * then unlocked. If it can't, then the door remains locked.
 	 * 
-	 * @return "Door".
+	 * @param key
+	 *            The key to try on the door.
+	 * @return whether the door was unlocked with the key or not.
 	 */
-	public String getType() {
+	public boolean tryUnlock(String key) {
 		
-		return "Door";
-		
-	} // End of getType
-	
-	/**
-	 * Unlocks the door.
-	 */
-	public void unlock() {
-		
-		this.isLocked = false;
-		
-		// The player can now move through this door
-		this.setCanMoveOn(true);
-		
-	} // End of unlock
-	
-	/**
-	 * Returns the ID of the map the door is on.
-	 * 
-	 * @return The ID of the map the door is on.
-	 */
-	public String getMapID() {
-		
-		return mapID;
-	
-	} // End of getMapID
-	
-	/**
-	 * Sees if the door can be unlocked with any key in an array list of keys.
-	 * 
-	 * @param keyIDs The array list of keys to check.
-	 * @return Whether or not the door can be unlocked with a key in keyIDs.
-	 */
-	public boolean canUnlockWith(ArrayList<String> keyIDs) {
-		
-		// For each key...
-		for (String key : keyIDs) {
+		// If it can be unlocked...
+		if (key.equals(this.key)) {
 			
-			// If the key is the needed key...
-			if (key.equals(keyID)) {
-				
-				// The door can be unlocked
-				return true;
-				
-			}
-				
+			// Unlock the door
+			this.locked = false;
+			this.canWalkOn = true;
+			return true;
+			
+		} else { // If it can't...
+			
+			// Don't
+			return false;
+			
 		}
 		
-		// Otherwise the door cannot be unlocked
-		return false;
+	}
 	
-	} // End of canUnlockWith
+	/**
+	 * Returns whether the door is locked or not.
+	 * 
+	 * @return Whether the door is locked or not.
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+	
+	/**
+	 * Returns a copy of the key that this door is locked with.
+	 * 
+	 * @return A copy of the key that this door is locked with.
+	 */
+	public String getKey() {
+		return new String(this.key);
+	}
 	
 }

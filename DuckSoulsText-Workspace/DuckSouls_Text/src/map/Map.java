@@ -5,9 +5,8 @@ import utils.Utilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import character.*;
-import character.Character;
-import tiles.*;
+import old_entities.*;
+import old_tiles.*;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile
@@ -26,9 +25,9 @@ public class Map {
 	 */
 	
 	private ArrayList<ArrayList<Tile>>	currentMap_2DArrayList	= new ArrayList<ArrayList<Tile>>(0);
-	private ArrayList<Character>		characters_ArrayList	= new ArrayList<Character>(0);
+	private ArrayList<Entity>		characters_ArrayList	= new ArrayList<Entity>(0);
 	private HashMap<String, Mapfile>	maps_HashMap			= new HashMap<String, Mapfile>();
-	private PlayerCharacter						player					= new PlayerCharacter();
+	private Player						player					= new Player();
 	private String						currentMapID;
 	
 	/*
@@ -289,7 +288,7 @@ public class Map {
 				printed = false;
 				
 				// For each character in the current map...
-				for (Character character : this.characters_ArrayList) {
+				for (Entity character : this.characters_ArrayList) {
 					
 					// If nothing has been printed yet...
 					if (!printed) {
@@ -423,7 +422,7 @@ public class Map {
 		this.print();
 		
 		// For each character in the map...
-		for (Character character : this.characters_ArrayList) {
+		for (Entity character : this.characters_ArrayList) {
 			
 			// TODO: What does this do?
 			character.move(this.currentMap_2DArrayList);
@@ -476,7 +475,7 @@ public class Map {
 	public boolean isEnemyNear() {
 		
 		// For each character on the map...
-		for (Character character : this.characters_ArrayList) {
+		for (Entity character : this.characters_ArrayList) {
 			
 			// If the character is an enemy and the player is next to the enemy...
 			if (!character.isPlayer() && character.isNextTo(this.player.getX(), this.player.getY())) {
