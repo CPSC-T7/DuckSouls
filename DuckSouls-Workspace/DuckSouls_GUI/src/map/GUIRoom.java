@@ -554,34 +554,8 @@ public class GUIRoom {
 	}
 	
 	/**
-	 * Saves the current room object to a text file
+	 * 
 	 */
-	public void saveToTextFile() {
-		
-		// Get info for the file
-		String fileName = "../TextRooms/" + this.roomName + ".txt", temp;
-		ArrayList<String> lines = new ArrayList<String>();
-		
-		// Print all of the lines to the file
-		for (int y = 0; y < this.internalHeight + 2; y++) {
-			temp = "";
-			for (int x = 0; x < this.internalWidth + 2; x++) {
-				
-				// Format the line
-				temp += this.tileArray[x][y].FILE_CHAR + ",";
-				
-			}
-			
-			temp = temp.substring(0, temp.length() - 1);
-			lines.add(temp);
-			
-		}
-		
-		// Write the line
-		Utilities.writeFile(fileName, lines);
-		
-	}
-
 	public void scatterEnemies() {
 		
 		// For each position...

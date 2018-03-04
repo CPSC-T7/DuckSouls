@@ -8,7 +8,7 @@ public class Enemy extends Entity {
 		super(" E ");
 		this.type = "ENEMY";
 		this.DIRECTION = "Down";
-		this.DIRECTORY[0] = "Sprites/Rat/Rat-";
+		this.DIRECTORY[0] = "../Sprites/Entities/Rat/Rat-";
 		this.DIRECTORY[1] = ".png";
 		this.newImage();
 	}
