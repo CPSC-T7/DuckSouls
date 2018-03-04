@@ -1,45 +1,32 @@
 package tiles;
 
 /**
- * This class represents a floor tile.
+ * This class represents all of the floor tiles for DuckSouls.
  * 
- * @author Colin Yeung
+ * @author Matthew Allwright
+ * @version 1.1
  */
 public class Floor extends Tile {
+	
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
+	
+	private static final String stringRepr = "   ";
 	
 	/*
 	 * 
 	 * CONSTRUCTORS
 	 * 
 	 */
-
-	/**
-	 * Creates a new floor tile at a given position.
-	 * 
-	 * @param x The X co-ordinate of the floor tile.
-	 * @param y The Y co-ordinate of the floor tile.
-	 */
-	public Floor(int x, int y) {
-		
-		super(x, y, true, " . ");
-	
-	} // End of constructor
-
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
 	
 	/**
-	 * Returns the type of the tile.
-	 * 
-	 * @return "Floor".
+	 * Creates a floor tile.
 	 */
-	public String getType() {
-		
-		return "Floor";
-		
-	} // End of getType
+	public Floor() {
+		super(stringRepr, true);
+	}
 
 }
