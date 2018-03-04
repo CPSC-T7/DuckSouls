@@ -70,43 +70,43 @@ public class DuckObject {
 		switch (duckSprite) {
 		
 			case ("fight"):
-				Utilities.printSprite("UI/Banner/fight", "", "");
+				Utilities.printSprite_Text("UI/Banner/fight", "", "");
 				break;
 			
 			case ("stand"):
-				Utilities.printSprite("Duck/Stand/duckStand_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Stand/duckStand_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("taunt"):
-				Utilities.printSprite("Duck/Taunt/duckDance_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Taunt/duckDance_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("quack"):
-				Utilities.printSprite("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Quack/duckQuack_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("attack1"):
-				Utilities.printSprite("Duck/Attack/duckAttack_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Attack/duckAttack_One_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("attack2"):
-				Utilities.printSprite("Duck/Attack/duckAttack_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Attack/duckAttack_Two_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("hurt"):
-				Utilities.printSprite("Duck/Hurt/duckHurt_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Hurt/duckHurt_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("dead"):
-				Utilities.printSprite("Duck/Dead/duckDead_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Dead/duckDead_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("run_1"):
-				Utilities.printSprite("Duck/Run/duckRun_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Run/duckRun_One_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("run_2"):
-				Utilities.printSprite("Duck/Run/duckRun_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text("Duck/Run/duckRun_Two_" + direction, xPadding, yPadding);
 				break;
 			
 			default:

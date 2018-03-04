@@ -13,7 +13,7 @@ import map.GUILevel;
  * @author Wylee
  * @author Matt
  */
-public class DuckSouls extends Application {	
+public class DuckSoulsGUI extends Application {	
 
 	private int windowSize = 800;
 	

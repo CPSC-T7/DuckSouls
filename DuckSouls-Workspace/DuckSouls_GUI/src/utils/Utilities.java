@@ -121,7 +121,7 @@ public class Utilities {
 	 * @throws FileNotFoundException
 	 *             If the file is not found.
 	 */
-	public static void printSprite(String sprite, String xPadding, String yPadding) {
+	public static void printSprite_Text(String sprite, String xPadding, String yPadding) {
 		
 		// Locate and read the sprite file in the TextSprites folder above bin
 		String fileName = "../TextSprites/" + sprite + ".txt";

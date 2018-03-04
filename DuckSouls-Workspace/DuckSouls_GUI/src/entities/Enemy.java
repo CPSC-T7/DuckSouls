@@ -1,4 +1,4 @@
-package mattEntities;
+package entities;
 
 /**
  * The enemy class.

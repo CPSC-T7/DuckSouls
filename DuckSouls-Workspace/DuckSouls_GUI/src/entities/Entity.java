@@ -1,4 +1,4 @@
-package mattEntities;
+package entities;
 
 import java.awt.Point;
 
@@ -45,9 +45,9 @@ public class Entity {
 	 * @param position
 	 * 			Entity Position
 	 */
-	public void drawEntity(GraphicsContext gc, int[] position) {
+	public void drawEntity(GraphicsContext gc, Point position) {
 		
-		gc.drawImage(this.IMAGE, position[0], position[1]);
+		gc.drawImage(this.IMAGE, position.x, position.y);
 		
 	}
 	

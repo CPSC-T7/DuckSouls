@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 
 import battle.BattleWorldTest;
-import mattEntities.*;
+import entities.*;
 import utils.Utilities;
 
 

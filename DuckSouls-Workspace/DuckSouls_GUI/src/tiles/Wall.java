@@ -1,4 +1,4 @@
-package mattTiles;
+package tiles;
 
 import javafx.application.Application;
 import javafx.scene.Group;

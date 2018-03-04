@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+import entities.*;
+import items.*;
 //JavaFX
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -12,10 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import mattEntities.*;
-import mattTiles.*;
-import mattItems.*;
+import tiles.*;
 import utils.Utilities;
 
 //TODO: Fill in JavaDocs
@@ -309,7 +308,7 @@ public class GUIRoom {
 				//Print Entities
 				if(entityAt(new Point(x,y)) != null) {
 					Entity entity = entityAt(new Point(x,y));
-					entity.drawEntity(gc, new int[] {x*this.tileSize, y*this.tileSize});
+					entity.drawEntity(gc, new Point(x*this.tileSize, y*this.tileSize));
 				}
 				
 			}

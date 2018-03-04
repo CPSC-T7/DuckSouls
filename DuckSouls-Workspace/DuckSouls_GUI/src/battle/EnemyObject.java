@@ -91,48 +91,48 @@ public class EnemyObject {
 		switch (enemySprite) {
 			// Fight banner to be replaced with stats
 			case ("fight"):
-				Utilities.printSprite("UI/Banner/fight", "", "");
+				Utilities.printSprite_Text("UI/Banner/fight", "", "");
 				;
 				break;
 			
 			case ("stand"):
-				Utilities.printSprite(enemyType + "/Stand/stand_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Stand/stand_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("taunt1"):
-				Utilities.printSprite(enemyType + "/Taunt/taunt_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Taunt/taunt_One_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("taunt2"):
-				Utilities.printSprite(enemyType + "/Taunt/taunt_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Taunt/taunt_Two_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("hurt"):
-				Utilities.printSprite(enemyType + "/Hurt/hurt_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Hurt/hurt_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("attack1"):
-				Utilities.printSprite(enemyType + "/Attack/attack_One", xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Attack/attack_One", xPadding, yPadding);
 				break;
 			
 			case ("attack2"):
-				Utilities.printSprite(enemyType + "/Attack/attack_Two", xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Attack/attack_Two", xPadding, yPadding);
 				break;
 			
 			case ("attack3"):
-				Utilities.printSprite(enemyType + "/Attack/attack_Three", xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Attack/attack_Three", xPadding, yPadding);
 				break;
 			
 			case ("dead"):
-				Utilities.printSprite(enemyType + "/Dead/dead_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Dead/dead_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("run_1"):
-				Utilities.printSprite(enemyType + "/Run/run_One_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Run/run_One_" + direction, xPadding, yPadding);
 				break;
 			
 			case ("run_2"):
-				Utilities.printSprite(enemyType + "/Run/run_Two_" + direction, xPadding, yPadding);
+				Utilities.printSprite_Text(enemyType + "/Run/run_Two_" + direction, xPadding, yPadding);
 				break;
 			
 			default:
