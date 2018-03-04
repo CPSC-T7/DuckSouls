@@ -7,13 +7,19 @@ import javafx.stage.Stage;
 
 import map.GUILevel;
 
-public class LevelTestsGUI extends Application {	
+/**
+ * A test start for DuckSouls.
+ * 
+ * @author Wylee
+ * @author Matt
+ */
+public class DuckSouls extends Application {	
 
 	private int windowSize = 800;
 	
-	/*
-	 * Start of JavaFX
-	 */
+	/**
+	* Sets up a JavaFX window and creates a new level.
+	*/
 	@Override
 	public void start(Stage testStage) throws Exception {
 		Group root = new Group();

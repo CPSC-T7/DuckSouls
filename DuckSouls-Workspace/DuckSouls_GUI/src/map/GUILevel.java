@@ -12,6 +12,14 @@ import battle.BattleWorldTest;
 import mattEntities.*;
 import utils.Utilities;
 
+
+/**
+ * The GUI level creator and runner.
+ * Creates the rooms and handles events.
+ * 
+ * @author Wylee
+ * @author Matt
+ */
 public class GUILevel {
 	
 	/*

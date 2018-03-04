@@ -203,81 +203,6 @@ public class GUIRoom {
 		
 	}
 	
-	// /**
-	// * Creates a room from a specified file.
-	// *
-	// * @param name
-	// * The name of the room. (Used for file i/o)
-	// * @param fileName
-	// * The file containing the data for the room.
-	// */
-	// public TextRoom(String name, String fileName) {
-	//
-	// // Read the file
-	// String[] lines = Utilities.readLines(fileName);
-	//
-	// // Width of the room is the number of characters in a row, minus the walls
-	// this.internalWidth = lines[0].split(",").length - 2;
-	//
-	// // Height of the room is the number of lines, minus the walls
-	// this.internalHeight = lines.length - 2;
-	//
-	// // Generate an array for reading the file
-	// String[][] textTileArray = new String[this.internalWidth +
-	// 2][this.internalHeight + 2];
-	//
-	// // Generate the room's tile array
-	// this.genTileArray();
-	//
-	// // Split all the lines of the file by commas to get the tile strings
-	// for (int i = 0; i < this.internalHeight + 2; i++) {
-	//
-	// textTileArray[i] = lines[i].split(",");
-	//
-	// }
-	//
-	// // For each position in the room...
-	// for (int y = 0; y < this.internalHeight + 2; y++) {
-	// for (int x = 0; x < this.internalWidth + 2; x++) {
-	//
-	// // For each type of tile possible...
-	// for (Tile tile : Tile.values()) {
-	//
-	// // If the file says there should be said tile there...
-	// if (textTileArray[x][y].equals(tile.FILE_CHAR)) {
-	//
-	// // Place said tile
-	// this.tileArray[x][y] = tile;
-	//
-	// // TODO: Delete?
-	// // Record where the player was placed
-	// // if (tile == Tile.PLAYER) {
-	// // this.playerPosition = new Point(x, y);
-	// // }
-	//
-	// // Stop searching through tile types
-	// break;
-	//
-	// }
-	//
-	// }
-	//
-	// }
-	//
-	// }
-	//
-	// }
-	
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
-	
-	/*
-	 * PRIVATE METHODS
-	 */
-	
 	/**
 	 * Generates and appends a tile array to the instance. Makes the tile array 2
 	 * units larger in both the x and y direction from the internal size to
@@ -352,7 +277,7 @@ public class GUIRoom {
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				if (this.entityArray[x][y] != null && this.entityArray[x][y].type.equals("ENEMY")) {
+				if (this.entityArray[x][y] != null && this.entityArray[x][y].getType().equals("ENEMY")) {
 					Point enemyPoint = new Point(x, y);
 					if (this.playerPoint.distance(enemyPoint) < 1.5) {
 						return enemyPoint;
@@ -431,13 +356,13 @@ public class GUIRoom {
 	public void moveEntity(Point toMove, Point moveTo) {
 		
 		// If the player can walk on the tile...
-		if (this.tileAt(moveTo).CAN_WALK_ON) {
+		if (this.tileAt(moveTo).getWalkability()) {
 			
 			// Move the entity
 			this.placeEntity(moveTo, this.entityAt(toMove));
 			this.placeEntity(toMove, null);
 			
-			if (this.entityAt(moveTo).type.equals("PLAYER")) {
+			if (this.entityAt(moveTo).getType().equals("PLAYER")) {
 				this.playerPoint = moveTo;
 			}
 			
@@ -509,7 +434,7 @@ public class GUIRoom {
 		
 		this.entityArray[position.x][position.y] = entity;
 		
-		if (entity != null && entity.type.equals("PLAYER")) {
+		if (entity != null && entity.getType().equals("PLAYER")) {
 			this.playerPoint = position;
 		}
 		

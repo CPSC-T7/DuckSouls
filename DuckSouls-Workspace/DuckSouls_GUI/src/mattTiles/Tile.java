@@ -3,12 +3,19 @@ package mattTiles;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+
+/**
+ * The GUI tile class.
+ * 
+ * @author Wylee
+ * @author Matt
+ */
 public class Tile {
 	
-	public Image	IMAGE;
-	public String	STRING_REPR	= "TER";
-	public String	FILE_CHAR;
-	public boolean	CAN_WALK_ON	= true;
+	protected Image	IMAGE;
+	protected String	STRING_REPR	= "TER";
+	protected String	FILE_CHAR;
+	protected boolean	CAN_WALK_ON	= true;
 	
 	/**
 	 * Creates a tile.
@@ -31,6 +38,10 @@ public class Tile {
 	
 	public void drawTile(GraphicsContext gc, int[] position) {
 		gc.drawImage(this.IMAGE, position[0], position[1]);
+	}
+	
+	public boolean getWalkability() {
+		return(this.CAN_WALK_ON);
 	}
 	
 }

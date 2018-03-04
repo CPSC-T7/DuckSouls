@@ -6,14 +6,23 @@ import java.awt.Point;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 
+
+/**
+ * The GUI Entity class.
+ * Creates interactive entities that spawn on top of
+ * the room tiles.
+ * 
+ * @author Wylee
+ * @author Matt
+ */
 public class Entity {
 	
-	public Image		IMAGE;
-	protected String	DIRECTION;
-	public String[] 	DIRECTORY = new String[2];
-	public String 		STRING_REPR = "EER";
-	public String 		type = "NUN";
-	public Point 		POS;
+	protected Image			IMAGE;
+	protected String		DIRECTION;
+	protected String[] 		DIRECTORY = new String[2];
+	protected String 		STRING_REPR = "EER";
+	protected String 		type = "NUN";
+	protected Point 		POS;
 	
 	
 	/**
@@ -54,5 +63,9 @@ public class Entity {
 	
 	public void setDirection(String s) {
 		this.DIRECTION = s;
+	}
+	
+	public String getType() {
+		return(this.type);
 	}
 }

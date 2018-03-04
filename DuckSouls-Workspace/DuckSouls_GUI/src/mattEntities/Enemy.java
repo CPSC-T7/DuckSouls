@@ -1,7 +1,11 @@
 package mattEntities;
 
-import javafx.scene.image.Image;
-
+/**
+ * The enemy class.
+ * 
+ * @author Wylee
+ * @author Matt
+ */
 public class Enemy extends Entity {
 	
 	public Enemy() {

@@ -1,5 +1,11 @@
 package mattEntities;
 
+/**
+ * The GUI player class.
+ * 
+ * @author Wylee
+ * @author Matt
+ */
 public class Player extends Entity {
 	
 	public Player() {
