@@ -5,7 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import items.Clothes;
 import items.Item;
+import items.Unarmed;
 import utils.Orientation;
 
 /**
@@ -14,6 +16,7 @@ import utils.Orientation;
  * 
  * @author Matthew Allwright
  * @author Wylee McAndrews
+ * @author Nadhif Satriana
  * @version 1.4
  */
 public class Entity {
@@ -28,6 +31,9 @@ public class Entity {
 	private String			stringRepr	= "EER";
 	private Orientation		orientation	= Orientation.SOUTH;
 	private ArrayList<Item>	inventory	= new ArrayList<Item>();
+	
+	private Item			weapon		= new Unarmed();
+	private Item			armour		= new Clothes();
 	
 	private Image			image;
 	private String			pathToImage;
@@ -48,7 +54,7 @@ public class Entity {
 		
 		this.stringRepr = stringRepr;
 		this.pathToImage = pathToImage;
-//		this.updateImage();
+		// this.updateImage();
 		
 	}
 	
@@ -62,9 +68,9 @@ public class Entity {
 	 * Draw the entity to the screen at a position (x,y)
 	 * 
 	 * @param gc
-	 * 			Graphics Context
+	 *            Graphics Context
 	 * @param position
-	 * 			Entity Position
+	 *            Entity Position
 	 */
 	public void drawEntity(GraphicsContext gc, Point position) {
 		
@@ -73,10 +79,11 @@ public class Entity {
 	}
 	
 	/**
-	 * Create a new image depending on the image directory and direction of the entity.
+	 * Create a new image depending on the image directory and direction of the
+	 * entity.
 	 */
 	public void updateImage() {
-
+		
 		this.image = new Image((this.pathToImage + this.orientation.str + ".png").substring(3));
 		
 	}
@@ -128,7 +135,8 @@ public class Entity {
 	/**
 	 * Adds an item to the entity's inventory.
 	 * 
-	 * @param item The item to add.
+	 * @param item
+	 *            The item to add.
 	 */
 	public void addToInventory(Item item) {
 		
@@ -145,6 +153,48 @@ public class Entity {
 		
 		return new ArrayList<Item>(this.inventory);
 		
+	}
+	
+	/**
+	 * Returns the weapon of the entity.
+	 * 
+	 * @return the weapon of the entity.
+	 */
+	
+	public Item getWeapon() {
+		return this.weapon;
+	}
+	
+	/**
+	 * Returns the armour of the entity.
+	 * 
+	 * @return the armour of the entity.
+	 */
+	
+	public Item getArmour() {
+		return this.armour;
+	}
+	
+	/**
+	 * Replaces the weapon of the entity
+	 * 
+	 * @param newWeapon
+	 *            The new weapon to be stored
+	 */
+	
+	public void setWeapon(Item newWeapon) {
+		this.weapon = newWeapon;
+	}
+	
+	/**
+	 * Replaces the armour of the entity
+	 * 
+	 * @param newArmour
+	 *            The new armour to be stored
+	 */
+	
+	public void setArmour(Item newArmour) {
+		this.armour = newArmour;
 	}
 	
 }

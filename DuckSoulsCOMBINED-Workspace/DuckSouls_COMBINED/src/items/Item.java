@@ -17,9 +17,9 @@ public class Item {
 	 * 
 	 */
 	
-	protected String			stringRepr		= "IER";
+	protected String			stringRepr				= "IER";
 	protected String			name;
-	protected int				spawnChance		= 0;																// 0-99
+	protected int				spawnChance				= 0;															// 0-99
 	protected int				price;
 	protected int				health;
 	protected int				mana;
@@ -33,11 +33,11 @@ public class Item {
 	private int					id;
 	
 	// TODO: Make this better, again...
-	public static final Item[]	allItems		= { new Bugs(), new Crouton(), new Fish(), new Goo(), new Knife(),
-			new Sword(), new ClothArmour(), new LeatherArmour(), new MetalArmour() };
-	public static final Item[]	allConsumables	= { new Bugs(), new Crouton(), new Fish(), new Goo() };
-	public static final Item[]	allWeapons		= { new Knife(), new Sword() };
-	public static final Item[]	allArmour		= { new ClothArmour(), new LeatherArmour(), new MetalArmour() };
+	public static final Item[]	allSpawnableItems		= { new Bugs(), new Crouton(), new Fish(), new Goo(),
+			new Knife(), new Sword(), new ClothArmour(), new LeatherArmour(), new MetalArmour() };
+	public static final Item[]	allSpawnableConsumables	= { new Bugs(), new Crouton(), new Fish(), new Goo() };
+	public static final Item[]	allSpawnableWeapons		= { new Knife(), new Sword() };
+	public static final Item[]	allSpawnableArmour		= { new ClothArmour(), new LeatherArmour(), new MetalArmour() };
 	
 	/*
 	 * 
@@ -165,6 +165,34 @@ public class Item {
 	
 	public int getID() {
 		return this.id;
+	}
+	
+	/**
+	 * Gets a specified stat.
+	 * 
+	 * @param stat
+	 *            The stat that will be returned
+	 * @return the value of the stat
+	 */
+	
+	public int getExtraStats(String stat) {
+		
+		switch (stat) {
+			
+			case "attack":
+				return this.attack;
+			case "accuracy":
+				return this.accuracy;
+			case "speed":
+				return this.speed;
+			case "critChance":
+				return this.critChance;
+			case "defense":
+				return this.defense;
+			default:
+				return 0;
+		}
+		
 	}
 	
 }

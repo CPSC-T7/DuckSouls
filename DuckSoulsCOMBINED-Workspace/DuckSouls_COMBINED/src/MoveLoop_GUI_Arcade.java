@@ -1,6 +1,8 @@
 import java.awt.Point;
 
 import battle.BattleWorldTest;
+import battle.DuckObject;
+import battle.EnemyObject;
 import entities.Player;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -52,7 +54,6 @@ public class MoveLoop_GUI_Arcade extends Application {
 	public void start(Stage mainStage) throws Exception {
 		
 		// JavaFX
-		
 		final int windowSize = 64 * 7;
 		Group root = new Group();
 		Scene scene = new Scene(root);
@@ -62,6 +63,9 @@ public class MoveLoop_GUI_Arcade extends Application {
 		mainStage.setTitle("DuckSouls");
 		mainStage.setScene(scene);
 		mainStage.show();
+		
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		// Set the level difficulty
 		enemySpawnChance = levelNum * difficultyPerLevel - difficultyPerLevel; // Starts at 0
@@ -215,7 +219,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 				System.out.println("Entering battle...");
 				
 				Utilities.clearConsole();
-				BattleWorldTest.battleLoop();
+				BattleWorldTest.battleLoop(Player, Enemy, player.getWeapon(), player.getArmour());
 				
 				currentRoom.removeEntity(battlePoint);
 				currentRoom.draw_GUI(gc);

@@ -9,8 +9,9 @@ import java.util.Random;
  * @author Wylee McAndrews
  * @author Rahmanta Satriana
  */
-public class DuckObject {
+public class DuckObject extends CharacterBattle {
 	
+
 	// Private Variables
 	
 	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
@@ -21,30 +22,16 @@ public class DuckObject {
 	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
 	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
-	// Player Stats (All fixed values for DEMO 1)
-	// Stats for resetting (Will probably be set through a constructor later)
-	private double			HEALTH_POINTS		= 20;
-	private double			MANA_POINTS			= 15;
-	private double			ATTACK_POINTS		= 5;
-	private double			DEFENCE_POINTS		= 5;
-	private double			SPEED_POINTS		= 5;
-	private double			ACCURACY_POINTS		= 70;
-	private double			CRITICAL_HIT_POINTS	= 16;
-	
-	// Stats that will change during the battle
-	private double			healthPoints		= 20;
-	private double			manaPoints			= 15;
-	private double			attackPoints		= 5;
-	private double			defencePoints		= 5;
-	private double			speedPoints			= 5;
-	private double			accuracyPoints		= 70;
-	private double			criticalHitPoints	= 16;
+	//private double  acc = 71;
+
 	private int				level				= 1;
 	private int				experience			= 0;
 	private int				money				= 0;
 	
-	private boolean hasWeapon = false;
-	private boolean hasArmour = false;
+	
+	
+	//private boolean hasWeapon = false;
+	//private boolean hasArmour = false;
 	
 	private static String	direction			= "Right";	// The direction that the sprite is facing
 
@@ -52,6 +39,12 @@ public class DuckObject {
 	
 	public static void main(String[] args) {
 		
+	}
+	
+	
+	
+	public DuckObject(double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
+		super(health, mana, attack, defence, speed, accuracy, crit);
 	}
 	
 	/**
@@ -125,24 +118,26 @@ public class DuckObject {
 		
 		boolean selection = true;
 		String move = "";
+		//Tell the player when to make a move
+		System.out.print("\nEnter a move: ");
 		
 		while (selection) {
 			move = scanner.nextLine();
 			move = move.toLowerCase();
 			//Get input from the user
 			
-			if (move.contains("quack")) {
+			if (move.equals("quack")) {
 				quack(enemy);
 				selection = false;
-			} else if (move.contains("attack")) {
+			} else if (move.equals("attack")) {
 				attack(enemy);
 				selection = false;
-			} else if (move.contains("taunt")) {
+			} else if (move.equals("taunt")) {
 				taunt(enemy);
 				selection = false;
-			} else if (move.contains("fly")) {
+			} else if (move.equals("fly")) {
 				selection = false;
-			} else if (move.contains("help")) {
+			} else if (move.equals("help")) {
 				System.out.println(" 'attack', 'taunt', 'quack': ");
 				System.out.print("\nEnter a move: ");
 			}else {
@@ -228,15 +223,18 @@ public class DuckObject {
 		//Get random numbers
 		boolean landed = true;
 		boolean critical = true;
+
 		
-		if (accuracyChance <= accuracyPoints) {
+		if (accuracyChance <= this.getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;
 		}
 		//To see if it will be a successful attack or not
+
 		
-		if (criticalHitChance <= criticalHitPoints) {
+		
+		if (criticalHitChance <= getStats("criticalHitPoints")) {
 			critical = true;
 		} else {
 			critical = false;
@@ -244,9 +242,11 @@ public class DuckObject {
 		//To see if it will deal bonus damage or not
 		
 		double damage;
-		damage = (attackPoints * 2.5) - enemy.getDefence();
+		damage = (getStats("attackPoints") * 2.5) - enemy.getStats("defencePoints");
+		
+		damage = attackBonus(damage);
 		//Temporary damage formula
-		double enemyHealth = enemy.getHealth();
+		double enemyHealth = enemy.getStats("healthPoints");
 		//Gets enemy's health
 		if (critical) {
 			damage = damage * 1.5;
@@ -254,7 +254,7 @@ public class DuckObject {
 		}
 		if (landed) {
 			double newHealth = enemyHealth - damage;
-			enemy.setHealth(Math.round(newHealth));
+			enemy.setStats("healthPoints", (Math.round(newHealth)));
 			//If successful attack then minus the enemy health
 		}
 		
@@ -270,22 +270,17 @@ public class DuckObject {
 		//Enemy flinches
 		enemy.flinch(this);
 		
-		//If the hit was unsuccessful, tell the player
-		if (!landed) {
-
-			System.out.println("You missed!");
-		
-		//If the hit was successful, tell the player
-		}else if (landed) {
-			
+		if (landed) {
 			if (critical) {
-				
 				System.out.println("It's a critical hit!");
 			}
-			
 			System.out.print("You dealt ");
 			System.out.print(Math.round(damage));
-			System.out.print(" damage to the enemy!");
+			System.out.println(" damage to the enemy!");
+		}
+		
+		else {
+			System.out.println("You missed!");
 		}
 		
 		//Wait before clearing the console
@@ -325,10 +320,10 @@ public class DuckObject {
 	 */
 	public void taunt(EnemyObject enemy) {
 		
-		double enemyAttack = enemy.getAttack();
-		double enemyDefence = enemy.getDefence();
-		enemy.setAttack(enemyAttack + 5);
-		enemy.setDefence(enemyDefence - 5);
+		double enemyAttack = enemy.getStats("attackPoints");
+		double enemyDefence = enemy.getStats("defencePoints");
+		enemy.setStats("attackPoints", (enemyAttack + 5));
+		enemy.setStats("defencePoints", (enemyDefence - 5));
 		//Increases and decreases the enemy's stats
 		
 		for (int i = 0; i <= 2; i++) {
@@ -353,17 +348,7 @@ public class DuckObject {
 		Utilities.clearConsole();
 	}// End of taunt
 	
-	public void resetStats() {
-		//Resets the stats after battle
-		healthPoints = HEALTH_POINTS + 0;
-		manaPoints = MANA_POINTS + 0;
-		attackPoints = ATTACK_POINTS + 0;
-		defencePoints = DEFENCE_POINTS + 0;
-		speedPoints = SPEED_POINTS + 0;
-		accuracyPoints = ACCURACY_POINTS + 0;
-		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
-		
-	}
+
 	
 	/**
 	 * 
@@ -374,13 +359,13 @@ public class DuckObject {
 	
 	private boolean finishBattle(EnemyObject enemy, String move) {
 		//Two ways of the battles finishing on player's turn
-		double enemyHealth = enemy.getHealth();
+		double enemyHealth = enemy.getStats("healthPoints");
 		
 		if (move.equals("fly")) {
 			//Player runs away
 			
 			System.out.println("You flew away from battle...");
-			resetStats();
+			super.resetStats();
 			enemy.resetStats();
 			//resets both player's and enemy's stats
 			System.out.println("The battle has ended.");
@@ -440,13 +425,13 @@ public class DuckObject {
 			
 			level += 1;
 			experience -= 50;
-			HEALTH_POINTS += 2;
-			MANA_POINTS += 2;
-			ATTACK_POINTS += 1;
-			DEFENCE_POINTS += 1;
-			SPEED_POINTS += 1;
-			ACCURACY_POINTS += 1;
-			CRITICAL_HIT_POINTS += 1;
+			setStats("healthPointsStatic", (getStats("healthPointsStatic") + 2));
+			setStats("manaPointsStatic", (getStats("manaPointsStatic") + 2));
+			setStats("attackPointsStatic", (getStats("attackPointsStatic") + 1));
+			setStats("defencePointsStatic", (getStats("defencePointsStatic") + 1));
+			setStats("speedPointsStatic", (getStats("speedPointsStatic") + 1));
+			setStats("accuracyPointsStatic", (getStats("accuracyPointsStatic") + 1));
+			setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 1));
 			
 			System.out.println("You have levelled up!");
 			Utilities.waitMilliseconds(800);
@@ -460,75 +445,17 @@ public class DuckObject {
 			Utilities.clearConsole();
 			
 		}
-		
+
 	}
+	
 	
 	public static void cleanup() {
 		scanner.close();
 	}
 	
-	//A lot of getters and setters for the stats, will be
-	//cleaned up for Demo 2
-	
-	public double getDefence() {
-		return defencePoints;
+	public int getMoney() {
+		return money;
 	}
 	
-	public double getCriticalHit() {
-		return criticalHitPoints;
-	}
-	
-	public double getAttack() {
-		return attackPoints;
-	}
-	
-	public double getHealth() {
-		return healthPoints;
-	}
-	
-	public double getMana() {
-		return manaPoints;
-	}
-	
-	public double getSpeed() {
-		return speedPoints;
-	}
-	
-	public double getAccuracy() {
-		return accuracyPoints;
-	}
-	
-	/**
-	 * 
-	 * @param newValue
-	 *
-	 */
-	public void setDefence(double newValue) {
-		defencePoints = newValue;
-	}
-	
-	public void setCriticalHit(double newValue) {
-		criticalHitPoints = newValue;
-	}
-	
-	public void setAttack(double newValue) {
-		attackPoints = newValue;
-	}
-	
-	public void setHealth(double newValue) {
-		healthPoints = newValue;
-	}
-	
-	public void setMana(double newValue) {
-		manaPoints = newValue;
-	}
-	
-	public void setSpeed(double newValue) {
-		speedPoints = newValue;
-	}
-	
-	public void setAccuracy(double newValue) {
-		accuracyPoints = newValue;
-	}
 	
 }

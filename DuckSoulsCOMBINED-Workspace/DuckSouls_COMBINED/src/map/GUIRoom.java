@@ -514,7 +514,7 @@ public class GUIRoom {
 						// Generate a random consumable. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO
 						// BE FIXED!
 						randomItemNumber = _random.nextInt(4);
-						if (_random.nextInt(100) < Item.allConsumables[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allSpawnableConsumables[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
@@ -545,7 +545,7 @@ public class GUIRoom {
 						// Generate a random weapon. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE
 						// FIXED!
 						randomItemNumber = _random.nextInt(2);
-						if (_random.nextInt(100) < Item.allWeapons[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allSpawnableWeapons[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
@@ -567,7 +567,7 @@ public class GUIRoom {
 						// Generate a random armour. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE
 						// FIXED!
 						randomItemNumber = _random.nextInt(3);
-						if (_random.nextInt(100) < Item.allArmour[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allSpawnableArmour[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								

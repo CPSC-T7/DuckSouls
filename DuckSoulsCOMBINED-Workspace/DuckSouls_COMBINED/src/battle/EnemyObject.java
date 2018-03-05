@@ -3,7 +3,6 @@ package battle;
 //IOException for use with CMD in Windows
 import java.io.IOException;
 import java.util.Random;
-
 import utils.Utilities;
 
 /**
@@ -13,7 +12,7 @@ import utils.Utilities;
  * @author add name if modified
  *
  */
-public class EnemyObject {
+public class EnemyObject extends CharacterBattle {
 	
 	/** Public Variables */
 	
@@ -23,23 +22,7 @@ public class EnemyObject {
 	
 	/** Private Variables */
 	
-	// Enemy Default Stats
-	final private double	HEALTH_POINTS		= 10;
-	final private double	MANA_POINTS			= 15;
-	final private double	ATTACK_POINTS		= 5;
-	final private double	DEFENCE_POINTS		= 5;
-	final private double	SPEED_POINTS		= 5;
-	final private double	ACCURACY_POINTS		= 70;
-	final private double	CRITICAL_HIT_POINTS	= 16;
-	
-	// Enemy Battle Stats (will change with the game)
-	private double			healthPoints		= 10;
-	private double			manaPoints			= 15;
-	private double			attackPoints		= 5;
-	private double			defencePoints		= 5;
-	private double			speedPoints			= 5;
-	private double			accuracyPoints		= 70;
-	private double			criticalHitPoints	= 16;
+
 	
 	//Amount of XP and Money to give the player upon death
 	private int				giveXP				= 25;
@@ -61,8 +44,10 @@ public class EnemyObject {
 	 * @param enemy
 	 *            The type of enemy to display (Will affect sprite used & move type)
 	 */
-	public EnemyObject(String enemy) {
+	public EnemyObject(String enemy, double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
+		super(health, mana, attack, defence, speed, accuracy, crit);
 		enemyType = enemy;
+		
 	}
 	
 	/**
@@ -244,27 +229,31 @@ public class EnemyObject {
 		boolean landed = true;
 		boolean critical = true;
 		
-		if (accuracyChance <= accuracyPoints) {
+		if (accuracyChance <= getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;
 		}
 		
-		if (criticalHitChance <= criticalHitPoints) {
+		
+		if (criticalHitChance <= getStats("criticalHitPoints")) {
 			critical = true;
 		} else {
 			critical = false;
 		}
 		
 		double damage;
-		damage = (attackPoints * 2.5) - player.getDefence();
-		double playerHealth = player.getHealth();
+		damage = (getStats("attackPoints") * 2.5) - player.getStats("defencePoints");
+		double playerHealth = player.getStats("healthPoints");
 		if (critical) {
 			damage = damage * 1.5;
 		}
+		
+		damage = attackBonus(damage);
+		
 		if (landed) {
 			double newHealth = playerHealth - damage;
-			player.setHealth(Math.round(newHealth));
+			player.setStats("healthPoints", (Math.round(newHealth)));
 		}
 		
 		System.out.println("The enemy attacked you...");
@@ -297,10 +286,10 @@ public class EnemyObject {
 	 */
 	public void taunt(DuckObject player) {
 		
-		double playerAttack = player.getAttack();
-		double playerDefence = player.getDefence();
-		player.setAttack(playerAttack + 5);
-		player.setDefence(playerDefence - 5);
+		double playerAttack = player.getStats("attackPoints");
+		double playerDefence = player.getStats("defencePoints");
+		player.setStats("attackPoints", (playerAttack + 5));
+		player.setStats("defencePoints", (playerDefence - 5));
 		//Increases and decreases the player's stats
 		
 		for (int i = 0; i <= 3; i++) {
@@ -362,20 +351,8 @@ public class EnemyObject {
 		}
 	}
 	
-	/**
-	 * Resets stats to original values.
-	 */
-	public void resetStats() {
-		
-		healthPoints = HEALTH_POINTS + 0;
-		manaPoints = MANA_POINTS + 0;
-		attackPoints = ATTACK_POINTS + 0;
-		defencePoints = DEFENCE_POINTS + 0;
-		speedPoints = SPEED_POINTS + 0;
-		accuracyPoints = ACCURACY_POINTS + 0;
-		criticalHitPoints = CRITICAL_HIT_POINTS + 0;
-	}
-	
+
+
 	/**
 	 * 
 	 * @param player
@@ -384,7 +361,7 @@ public class EnemyObject {
 	 */
 	private boolean finishBattle(DuckObject player, int move) {
 		
-		double playerHealth = player.getHealth();
+		double playerHealth = player.getStats("healthPoints");
 		
 		/*
 		 * if (move == 2) { System.out.println("The enemy ran away from battle...");
@@ -414,72 +391,13 @@ public class EnemyObject {
 		
 	}
 	
-	//Getters and setters for the stats
-	
-	public double getDefence() {
-		return defencePoints;
-	}
-	
-	public double getCriticalHit() {
-		return criticalHitPoints;
-	}
-	
-	public double getAttack() {
-		return attackPoints;
-	}
-	
-	public double getHealth() {
-		return healthPoints;
-	}
-	
-	public double getMana() {
-		return manaPoints;
-	}
-	
-	public double getSpeed() {
-		return speedPoints;
-	}
-	
-	public double getAccuracy() {
-		return accuracyPoints;
+	public int getMoney() {
+		return giveMoney;
 	}
 	
 	public int getXP() {
 		return giveXP;
 	}
-	
-	public int getMoney() {
-		return giveMoney;
-	}
-	
-	public void setDefence(double newValue) {
-		defencePoints = newValue;
-	}
-	
-	public void setCriticalHit(double newValue) {
-		criticalHitPoints = newValue;
-	}
-	
-	public void setAttack(double newValue) {
-		attackPoints = newValue;
-	}
-	
-	public void setHealth(double newValue) {
-		healthPoints = newValue;
-	}
-	
-	public void setMana(double newValue) {
-		manaPoints = newValue;
-	}
-	
-	public void setSpeed(double newValue) {
-		speedPoints = newValue;
-	}
-	
-	public void setAccuracy(double newValue) {
-		accuracyPoints = newValue;
-		Utilities.waitMilliseconds(50);
-		Utilities.clearConsole();
-	}
+
 	
 }

@@ -16,7 +16,8 @@ import utils.Utilities;
  * each inner tile.
  * 
  * @author Matthew Allwright
- * @version 1.10.1
+ * @author Nadhif Satriana
+ * @version 1.11
  */
 public class TextRoom {
 	
@@ -446,6 +447,17 @@ public class TextRoom {
 			// Pickup the item that is about to be stepped on
 			if (this.itemArray[position.x][position.y] != null) {
 				entity.addToInventory(this.itemArray[position.x][position.y]);
+				
+				// TODO:
+				// If weapon or armour automatically equip it NADHIF FIX PLS
+				// Don't put/ Put it in inventory if equipped
+				// Give player choice
+				if (this.itemArray[position.x][position.y].getClass().getSuperclass() == Weapon.class) {
+					entity.setWeapon(this.itemArray[position.x][position.y]);
+				} else if (this.itemArray[position.x][position.y].getClass().getSuperclass() == Armour.class) {
+					entity.setArmour(this.itemArray[position.x][position.y]);
+				}
+				
 				this.itemArray[position.x][position.y] = null;
 			}
 			
@@ -579,7 +591,7 @@ public class TextRoom {
 						// Generate a random consumable. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO
 						// BE FIXED!
 						randomItemNumber = _random.nextInt(4);
-						if (_random.nextInt(100) < Item.allConsumables[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allSpawnableConsumables[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
@@ -610,7 +622,7 @@ public class TextRoom {
 						// Generate a random weapon. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE
 						// FIXED!
 						randomItemNumber = _random.nextInt(2);
-						if (_random.nextInt(100) < Item.allWeapons[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allSpawnableWeapons[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								
@@ -632,7 +644,7 @@ public class TextRoom {
 						// Generate a random armour. MUST BE IN THE RIGHT ORDER. I KNOW, IT NEEDS TO BE
 						// FIXED!
 						randomItemNumber = _random.nextInt(3);
-						if (_random.nextInt(100) < Item.allArmour[randomItemNumber].getSpawnChance()) {
+						if (_random.nextInt(100) < Item.allSpawnableArmour[randomItemNumber].getSpawnChance()) {
 							
 							switch (randomItemNumber) {
 								

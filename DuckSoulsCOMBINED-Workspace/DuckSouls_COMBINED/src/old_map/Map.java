@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import battle.BattleWorldTest;
+import battle.DuckObject;
+import battle.EnemyObject;
+import items.Clothes;
+import items.Unarmed;
 import old_entities.*;
 import old_tiles.*;
 
@@ -393,6 +397,9 @@ public class Map {
 	 */
 	public void mainloop() {
 		
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+		
 		// Load the first 3 map files, and then the current (first) map
 		this.loadAllMapFiles(0, 2);
 		// this.loadCurrentMap();
@@ -417,7 +424,7 @@ public class Map {
 				
 				// Clear the console and enter battle
 				Utilities.clearConsole();
-				BattleWorldTest.battleLoop();
+				BattleWorldTest.battleLoop(Player, Enemy, new Unarmed(), new Clothes());
 				
 				// Remove the enemy that is defeated in battle from both characters_ArrayList
 				// and mapfile object for the current map
@@ -511,6 +518,9 @@ public class Map {
 	} // End of runTurn
 	
 	public void runTurn(String input) {
+
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		// To keep track of the maps
 		String mapID = new String();
@@ -557,7 +567,7 @@ public class Map {
 			
 			// Clear the console and enter battle
 			// Utilities.clearConsole();
-			BattleWorldTest.battleLoop();
+			BattleWorldTest.battleLoop(Player, Enemy, new Unarmed(), new Clothes());
 			
 			// Remove the enemy that is defeated in battle from both characters_ArrayList
 			// and mapfile object for the current map
