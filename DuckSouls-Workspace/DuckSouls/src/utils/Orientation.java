@@ -17,8 +17,8 @@ public enum Orientation {
 	
 	public String str;
 	
-	private Orientation(String DIR) {
-		this.str = DIR;
+	private Orientation(String str) {
+		this.str = str;
 	}
 	
 }
