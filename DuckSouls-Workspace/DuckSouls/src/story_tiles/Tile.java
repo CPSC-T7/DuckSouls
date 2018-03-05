@@ -1,4 +1,4 @@
-package old_tiles;
+package story_tiles;
 
 import java.awt.Point;
 

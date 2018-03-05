@@ -1,4 +1,4 @@
-package old_tiles;
+package story_tiles;
 
 /**
  * This class represents a floor tile.

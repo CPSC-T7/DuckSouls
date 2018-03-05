@@ -1,4 +1,4 @@
-import old_map.Map;
+import story_map.Map;
 import utils.Utilities;
 
 public class MoveLoop_Text_Story {

@@ -1,4 +1,4 @@
-package old_map;
+package story_map;
 
 import utils.Utilities;
 
@@ -10,8 +10,8 @@ import battle.DuckObject;
 import battle.EnemyObject;
 import items.Clothes;
 import items.Unarmed;
-import old_entities.*;
-import old_tiles.*;
+import story_entities.*;
+import story_tiles.*;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile

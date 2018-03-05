@@ -1,4 +1,4 @@
-package old_map;
+package story_map;
 
 import java.util.ArrayList;
 

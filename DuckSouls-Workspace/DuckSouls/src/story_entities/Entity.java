@@ -1,9 +1,9 @@
-package old_entities;
+package story_entities;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
-import old_tiles.Tile;
+import story_tiles.Tile;
 
 /**
  * This class represents a default character, and is used as a super class for

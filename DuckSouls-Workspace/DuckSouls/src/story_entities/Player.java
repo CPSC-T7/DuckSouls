@@ -1,9 +1,9 @@
-package old_entities;
+package story_entities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import old_tiles.*;
+import story_tiles.*;
 
 /**
  * This class represents a player character.
