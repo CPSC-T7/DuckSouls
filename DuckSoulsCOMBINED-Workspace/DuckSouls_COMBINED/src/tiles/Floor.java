@@ -25,6 +25,9 @@ public class Floor extends Tile {
 	
 	/**
 	 * Creates a floor tile.
+	 * 
+	 * @param isGUI
+	 *            Whether this is a GUI tile or not.
 	 */
 	public Floor(boolean isGUI) {
 		super(isGUI, stringRepr, true, pathToImage);

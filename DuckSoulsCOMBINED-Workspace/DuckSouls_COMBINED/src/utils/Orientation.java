@@ -5,7 +5,7 @@ package utils;
  * having to pass characters or stings to determine direction.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @version 1.2.1
  *
  */
 public enum Orientation {

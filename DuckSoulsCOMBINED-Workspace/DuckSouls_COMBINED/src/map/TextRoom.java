@@ -16,7 +16,7 @@ import utils.Utilities;
  * each inner tile.
  * 
  * @author Matthew Allwright
- * @version 1.9
+ * @version 1.10.1
  */
 public class TextRoom {
 	

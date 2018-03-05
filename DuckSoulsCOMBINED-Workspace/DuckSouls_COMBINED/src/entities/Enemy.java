@@ -4,7 +4,8 @@ package entities;
  * This class represents an enemy entity.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @author Wylee McAndrews
+ * @version 1.2
  */
 public class Enemy extends Entity {
 	

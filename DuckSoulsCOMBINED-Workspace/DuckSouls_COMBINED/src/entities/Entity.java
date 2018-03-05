@@ -13,7 +13,8 @@ import utils.Orientation;
  * has a position, string representation, orientation, and inventory.
  * 
  * @author Matthew Allwright
- * @version 1.2.2
+ * @author Wylee McAndrews
+ * @version 1.4
  */
 public class Entity {
 	

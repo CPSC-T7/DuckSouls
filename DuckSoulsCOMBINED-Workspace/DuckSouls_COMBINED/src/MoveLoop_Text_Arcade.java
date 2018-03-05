@@ -17,9 +17,9 @@ import utils.Utilities;
  * repeats forever until the game is closed, or the player dies.
  * 
  * @author Matthew Allwright
- * @version 1.2
+ * @version 1.3
  */
-public class MoveLoop_Text {
+public class MoveLoop_Text_Arcade {
 	
 	/*
 	 * 
@@ -37,11 +37,8 @@ public class MoveLoop_Text {
 	
 	/**
 	 * Runs the move loop.
-	 * 
-	 * @param args
-	 *            Not explicitly used.
 	 */
-	public static void main(String[] args) {
+	public static void play() {
 		
 		// Container variables
 		

@@ -29,6 +29,11 @@ public class Door extends Tile {
 	
 	/**
 	 * Creates a new unlocked door.
+	 * 
+	 * @param isGUI
+	 *            Whether this is a GUI tile or not.
+	 * @param orientation
+	 *            The orientation the door is facing.
 	 */
 	public Door(boolean isGUI, Orientation orientation) {
 		super(isGUI, " D ", true, pathToImage + orientation.str + ".png");
@@ -38,6 +43,10 @@ public class Door extends Tile {
 	/**
 	 * Creates a new locked door.
 	 * 
+	 * @param isGUI
+	 *            Whether this is a GUI tile or not.
+	 * @param orientation
+	 *            The orientation the door is facing.
 	 * @param key
 	 *            The key that can be used to unlock the door.
 	 */

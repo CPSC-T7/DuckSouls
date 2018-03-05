@@ -12,7 +12,7 @@ import utils.Orientation;
  * This class represents a text level; A 2D grid of text rooms.
  * 
  * @author Matthew Allwright
- * @version 1.5
+ * @version 1.6
  */
 public class TextLevel {
 	

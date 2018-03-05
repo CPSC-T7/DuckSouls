@@ -216,7 +216,6 @@ public class GUILevel {
 	 * @return The room at that position.
 	 */
 	public GUIRoom roomAt(Point position) {
-		System.out.println(position);
 		return this.roomArray[position.x][position.y];
 	}
 	

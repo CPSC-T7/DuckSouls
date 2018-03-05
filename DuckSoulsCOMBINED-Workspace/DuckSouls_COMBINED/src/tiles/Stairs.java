@@ -25,6 +25,9 @@ public class Stairs extends Tile {
 	
 	/**
 	 * Creates a stairs tile.
+	 * 
+	 * @param isGUI
+	 *            Whether this is a GUI tile or not.
 	 */
 	public Stairs(boolean isGUI) {
 		super(isGUI, stringRepr, true, pathToImage);

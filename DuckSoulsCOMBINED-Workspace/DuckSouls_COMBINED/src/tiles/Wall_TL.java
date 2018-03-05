@@ -4,7 +4,8 @@ package tiles;
  * This class represents all of the top left corner wall tiles for DuckSouls.
  * 
  * @author Matthew Allwright
- * @version 1.1
+ * @author Wylee McAndrews
+ * @version 1.2
  */
 public class Wall_TL extends Wall {
 	
@@ -25,6 +26,9 @@ public class Wall_TL extends Wall {
 	
 	/**
 	 * Creates a top left corner wall tile.
+	 * 
+	 * @param isGUI
+	 *            Whether this is a GUI tile or not.
 	 */
 	public Wall_TL(boolean isGUI) {
 		super(isGUI, stringRepr, pathToImage);

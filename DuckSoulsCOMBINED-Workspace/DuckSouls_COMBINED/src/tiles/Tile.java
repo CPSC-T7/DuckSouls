@@ -9,7 +9,8 @@ import javafx.scene.image.Image;
  * This class represents the tiles for DuckSouls.
  * 
  * @author Matthew Allwright
- * @version 1.2.2
+ * @author Wylee McAndrews
+ * @version 1.3
  */
 public class Tile {
 	
@@ -39,6 +40,8 @@ public class Tile {
 	 *            The 3-character string used to print the tile.
 	 * @param canWalkOn
 	 *            Whether or not a player can walk on the tile.
+	 * @param isGUI
+	 *            Whether this is a GUI tile or not.
 	 */
 	protected Tile(boolean isGUI, String stringRepr, boolean canWalkOn, String pathToImage) {
 		
@@ -56,9 +59,9 @@ public class Tile {
 	 * Draw the tile to the screen at a position (x,y)
 	 * 
 	 * @param gc
-	 * 			Graphics Context
+	 *            Graphics Context
 	 * @param position
-	 * 			Entity Position
+	 *            Entity Position
 	 */
 	public void drawTile(GraphicsContext gc, Point position) {
 		
@@ -67,7 +70,8 @@ public class Tile {
 	}
 	
 	/**
-	 * Create a new image depending on the image directory and direction of the entity.
+	 * Create a new image depending on the image directory and direction of the
+	 * entity.
 	 */
 	public void updateImage() {
 		

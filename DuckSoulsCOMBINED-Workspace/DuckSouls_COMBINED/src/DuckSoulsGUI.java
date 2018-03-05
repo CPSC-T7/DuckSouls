@@ -18,7 +18,7 @@ import battle.DuckObject;
  * @author Colin Yeung
  *
  */
-public class DuckSoulsText {
+public class DuckSoulsGUI {
 	
 	/**
 	 * Plays DuckSouls.
@@ -34,12 +34,12 @@ public class DuckSoulsText {
 		initialize();
 		System.out.println("Intitialization Done.");
 		
-		System.out.println("Pre-Loop Starting...");
+		System.out.println("Pre-Loop Staring...");
 		preLoop();
 		System.out.println("Pre-Loop Done.");
 		
 		System.out.println("Game Loop Starting...");
-		loop(Integer.parseInt(args[0]));
+		loop();
 		System.out.println("Game Loop Done.");
 		
 		System.out.println("Post-Loop Starting...");
@@ -68,30 +68,14 @@ public class DuckSoulsText {
 		
 		// TODO: Pre Main Game Loop
 		
-		TitleScreen.displayMenu();
-		
 	}
 	
 	/**
 	 * Runs what needs to be continuously run for the game to work.
 	 */
-	private static void loop(int mode) {
+	private static void loop() {
 
-		switch(mode) {
-			
-			case 0:
-				MoveLoop_Text_Story.play();
-				break;
-			
-			case 1:
-				MoveLoop_Text_Arcade.play();
-				break;
-				
-			default:
-				System.out.println("Mode not recognized. Exiting...");
-				break;
-			
-		}
+		// TODO: Main Game Loop
 		
 	}
 	
