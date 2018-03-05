@@ -25,7 +25,7 @@ import utils.Utilities;
  * @author Wylee McAndrews
  * @version 2.0
  */
-public class MoveLoop_GUI extends Application {
+public class MoveLoop_GUI_Arcade extends Application {
 	
 	/*
 	 * 

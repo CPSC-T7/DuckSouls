@@ -1,10 +1,7 @@
 import ui.TitleScreen;
-import utils.Utilities;
 import map.TextLevel;
-import map.TextRoom;
-import old_map.Map;
-import battle.BattleWorldTest;
 import battle.DuckObject;
+import javafx.application.Application;
 
 /**
  * The main class to play DuckSouls.
@@ -34,12 +31,12 @@ public class DuckSoulsGUI {
 		initialize();
 		System.out.println("Intitialization Done.");
 		
-		System.out.println("Pre-Loop Staring...");
+		System.out.println("Pre-Loop Starting...");
 		preLoop();
 		System.out.println("Pre-Loop Done.");
 		
 		System.out.println("Game Loop Starting...");
-		loop();
+		loop(Integer.parseInt(args[0]));
 		System.out.println("Game Loop Done.");
 		
 		System.out.println("Post-Loop Starting...");
@@ -68,14 +65,30 @@ public class DuckSoulsGUI {
 		
 		// TODO: Pre Main Game Loop
 		
+		TitleScreen.displayMenu();
+		
 	}
 	
 	/**
 	 * Runs what needs to be continuously run for the game to work.
 	 */
-	private static void loop() {
+	private static void loop(int mode) {
 
-		// TODO: Main Game Loop
+		switch(mode) {
+			
+			case 0:
+				Application.launch(MoveLoop_GUI_Story.class, new String[0]);
+				break;
+			
+			case 1:
+				Application.launch(MoveLoop_GUI_Arcade.class, new String[0]);
+				break;
+				
+			default:
+				System.out.println("Mode not recognized. Exiting...");
+				break;
+			
+		}
 		
 	}
 	
