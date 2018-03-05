@@ -2,6 +2,8 @@ import java.awt.Point;
 import java.util.Scanner;
 
 import battle.BattleWorldTest;
+import battle.DuckObject;
+import battle.EnemyObject;
 import entities.Player;
 import items.Item;
 import map.TextLevel;
@@ -53,6 +55,9 @@ public class MoveLoop {
 		Player player = new Player();
 		int levelNum = 1;
 		int difficultyPerLevel = 2;
+		
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		/*
 		 * Loop:
@@ -149,6 +154,14 @@ public class MoveLoop {
 						System.out.println("\nPress Enter To Exit.");
 						_scanner.nextLine();
 						break;
+						
+					case "E":
+						System.out.println("Player Equipment:\n");
+						System.out.println(currentRoom.entityAt(playerPoint).getWeapon().getName());
+						System.out.println(currentRoom.entityAt(playerPoint).getArmour().getName());
+						System.out.println("\nPress Enter To Exit.");
+						_scanner.nextLine();
+						break;
 					
 					// Room commands...
 					
@@ -170,7 +183,7 @@ public class MoveLoop {
 				if (battlePoint != null) {
 					
 					Utilities.clearConsole();
-					BattleWorldTest.battleLoop();
+					BattleWorldTest.battleLoop(Player, Enemy, player.getWeapon(), player.getArmour());
 					
 					currentRoom.removeEntity(battlePoint);
 					

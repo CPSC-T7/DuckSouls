@@ -18,10 +18,11 @@ public class Knife extends Weapon {
 	private static final String	stringRepr	= " K ";
 	private static final int	price		= 20;
 	private static final int	spawnChance	= 3;
-	private static final int	attack		= 10;
-	private static final int	accuracy	= 95;
-	private static final int	speed		= 90;
-	private static final int	critchance	= 10;
+	private static final int	attack		= 2;
+	private static final int	accuracy	= 8;
+	private static final int	speed		= 4;
+	private static final int	critchance	= 3;
+	private static final char	type		= 'w';
 	
 	/*
 	 * 
@@ -33,7 +34,7 @@ public class Knife extends Weapon {
 	 * Creates a new knife item.
 	 */
 	public Knife() {
-		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
+		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, type);
 	}
 	
 }

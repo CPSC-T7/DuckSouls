@@ -30,19 +30,22 @@ public class Weapon extends Item {
 	 * @param accuracy
 	 *            The accuracy of the weapon. Must be from 0 to 100.
 	 * @param speed
-	 *            The speed of the weapon. Must be from 0 to 100.
+	 *            The speed of the weapon.
 	 * @param critChance
 	 *            The critical strike chance of the weapon. Must be from 0 to 100.
+	 * @param type
+	 * 			  The type of item it is
 	 */
 	public Weapon(String name, String stringRepr, int price, int spawnChance, int attack, int accuracy, int speed,
-			int critChance) {
+			int critChance, char type) {
 		
-		super(name, stringRepr, price, spawnChance);
+		super(name, stringRepr, price, spawnChance, type);
 		this.attack = attack;
 		this.accuracy = accuracy;
 		this.speed = speed;
 		this.critChance = critChance;
 		
 	}
+	
 	
 }

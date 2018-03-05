@@ -18,7 +18,8 @@ public class LeatherArmour extends Armour {
 	private static final String	stringRepr	= " LA";
 	private static final int	price		= 2;
 	private static final int	spawnChance	= 6;
-	private static final int	defense		= 10;
+	private static final int	defense		= 7;
+	private static final char	type		= 'a';
 	
 	/*
 	 * 
@@ -30,7 +31,7 @@ public class LeatherArmour extends Armour {
 	 * Creates a new leather armour item.
 	 */
 	public LeatherArmour() {
-		super(name, stringRepr, price, spawnChance, defense);
+		super(name, stringRepr, price, spawnChance, defense, type);
 	}
 	
 }

@@ -27,10 +27,12 @@ public class Armour extends Item {
 	 *            The spawn chance of the armour. Must be from 0 to 100.
 	 * @param defense
 	 *            The defense that the armour provides.
+	 * @param type
+	 * 			  The type of item it is
 	 */
-	protected Armour(String name, String stringRepr, int price, int spawnChance, int defense) {
+	protected Armour(String name, String stringRepr, int price, int spawnChance, int defense, char type) {
 		
-		super(name, stringRepr, price, spawnChance);
+		super(name, stringRepr, price, spawnChance, type);
 		this.defense = defense;
 		
 	}

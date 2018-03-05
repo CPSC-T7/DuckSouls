@@ -20,6 +20,7 @@ public class Bugs extends Consumable {
 	private static final int	spawnChance	= 50;
 	private static final int	health		= 5;
 	private static final int	mana		= 5;
+	private static final char	type		= 'c';
 	
 	/*
 	 * 
@@ -31,7 +32,7 @@ public class Bugs extends Consumable {
 	 * Creates a new bugs item.
 	 */
 	public Bugs() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, stringRepr, price, spawnChance, health, mana, type);
 	}
 	
 }

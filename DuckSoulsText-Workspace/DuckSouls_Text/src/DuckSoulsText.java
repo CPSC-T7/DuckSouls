@@ -82,7 +82,7 @@ public class DuckSoulsText {
 			map.runTurn();
 			if(map.isEnemyNear()){
 				Utilities.clearConsole();
-				BattleWorldTest.battleLoop();
+				//BattleWorldTest.battleLoop();
 				battleDone = true;
 			}
 		}while (!battleDone);

@@ -1,7 +1,9 @@
 package battle;
 
 
+import entities.Entity;
 import utils.Utilities;
+import items.Item;
 
 /**
  * Called when the player walks over an enemy tile, this class prints
@@ -18,8 +20,8 @@ import utils.Utilities;
 public class BattleWorldTest {
 	
 	//Create player and enemy objects.
-	private static DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
-	private static EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16); //Enemy will be more random in later versions
+	//private static DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+	//private static EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16); //Enemy will be more random in later versions
 	
 	/**
 	 * Clear the console on startup and start the battle loop.
@@ -28,13 +30,13 @@ public class BattleWorldTest {
 	 */
 	public static void main(String[] args) {
 		Utilities.clearConsole();
-		battleLoop();
+		//battleLoop();
 	}
 	
 	/**
 	 * Draw the move options ("Fight" banner for now), Enemy, and player in default positions
 	 */
-	public static void drawSprites() {
+	public static void drawSprites(DuckObject Player, EnemyObject Enemy) {
 		Enemy.getSprite("fight");
 		Enemy.getSprite("stand");
 		Player.getSprite("stand");
@@ -42,10 +44,21 @@ public class BattleWorldTest {
 	
 	/**
 	 * While the player and enemy are alive, keep the battle going.
-	 * The player takes the first move, then if the enemy is still alive
-	 * it will move.
+	 * The speed determines who moves first
 	 */
-	public static void battleLoop() {
+	public static void battleLoop(DuckObject Player, EnemyObject Enemy, Item wep, Item arm) {
+		
+		System.out.print(wep);
+		System.out.print(arm);
+		Utilities.waitMilliseconds(5000);
+		
+		//Add stats from weapon and armour before the battle, it gets reset at the end
+		Player.setStats("attackPoints", (Player.getStats("attackPoints") + wep.getExtraStats("attack")));
+		Player.setStats("accuracyPoints", (Player.getStats("accuracyPoints") + wep.getExtraStats("accuracy")));
+		Player.setStats("speedPoints", (Player.getStats("speedPoints") + wep.getExtraStats("speed")));
+		Player.setStats("criticalHitPoints", (Player.getStats("criticalHitPoints") + wep.getExtraStats("critChance")));
+
+		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
 		
 		boolean inBattle = true;
 		int startingPerson = 1;
@@ -60,7 +73,7 @@ public class BattleWorldTest {
 		while (inBattle) {
 			
 			//Start the battle in default positions
-			drawSprites();
+			drawSprites(Player, Enemy);
 			Utilities.waitMilliseconds(10);
 			
 			if (startingPerson == 1) {

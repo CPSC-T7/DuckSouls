@@ -15,6 +15,7 @@ import utils.Utilities;
  * each inner tile.
  * 
  * @author Matthew Allwright
+ * @author Rahmanta Satriana
  * @version 1.9
  */
 public class TextRoom {
@@ -368,6 +369,7 @@ public class TextRoom {
 				
 				this.placeItem(moveTo, null);
 				
+				
 			}
 			
 		} else {
@@ -424,6 +426,17 @@ public class TextRoom {
 			// Pickup the item that is about to be stepped on
 			if (this.itemArray[position.x][position.y] != null) {
 				entity.addToInventory(this.itemArray[position.x][position.y]);
+				
+				//TODO: 
+				//If weapon or armour automatically equip it NADHIF FIX PLS
+				//Don't put/ Put it in inventory if equipped
+				//Give player choice
+				if (this.itemArray[position.x][position.y].getType() == 'w') {
+					entity.setWeapon(this.itemArray[position.x][position.y]);
+				}
+				else if(this.itemArray[position.x][position.y].getType() == 'a') {
+					entity.setArmour(this.itemArray[position.x][position.y]);
+				}
 				this.itemArray[position.x][position.y] = null;
 			}
 			

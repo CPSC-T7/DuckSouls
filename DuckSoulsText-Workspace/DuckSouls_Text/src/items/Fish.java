@@ -20,6 +20,7 @@ public class Fish extends Consumable {
 	private static final int	spawnChance	= 8;
 	private static final int	health		= 15;
 	private static final int	mana		= 0;
+	private static final char	type		= 'c';
 	
 	/*
 	 * 
@@ -31,7 +32,7 @@ public class Fish extends Consumable {
 	 * Creates a new fish item.
 	 */
 	public Fish() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, stringRepr, price, spawnChance, health, mana, type);
 	}
 	
 }

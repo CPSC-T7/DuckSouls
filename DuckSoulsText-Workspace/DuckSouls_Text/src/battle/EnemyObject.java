@@ -229,19 +229,12 @@ public class EnemyObject extends CharacterBattle {
 		boolean landed = true;
 		boolean critical = true;
 		
-		System.out.println(accuracyChance);
-		System.out.println(getStats("accuracyPoints"));
-		System.out.println(getStats("criticalHitPoints"));
-		System.out.println(landed);
-		
 		if (accuracyChance <= getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;
 		}
 		
-		System.out.println(landed);
-		Utilities.waitMilliseconds(1500);
 		
 		if (criticalHitChance <= getStats("criticalHitPoints")) {
 			critical = true;

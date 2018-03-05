@@ -3,7 +3,9 @@ package entities;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import items.Clothes;
 import items.Item;
+import items.Unarmed;
 import utils.Orientation;
 
 /**
@@ -11,6 +13,7 @@ import utils.Orientation;
  * has a position, string representation, orientation, and inventory.
  * 
  * @author Matthew Allwright
+ * @author Rahmanta Satriana
  * @version 1.2.2
  */
 public class Entity {
@@ -25,6 +28,8 @@ public class Entity {
 	private String			stringRepr	= "EER";
 	private Orientation		orientation	= Orientation.SOUTH;
 	private ArrayList<Item>	inventory	= new ArrayList<Item>();
+	private Item			weapon		= new Unarmed();
+	private Item			armour		= new Clothes();
 	
 	/*
 	 * 
@@ -103,6 +108,46 @@ public class Entity {
 		
 		return new ArrayList<Item>(this.inventory);
 		
+	}
+	
+	/**
+	 * Returns the weapon of the entity.
+	 * 
+	 * @return the weapon of the entity.
+	 */
+	
+	public Item getWeapon() {
+		return this.weapon;
+	}
+	
+	/**
+	 * Returns the armour of the entity.
+	 * 
+	 * @return the armour of the entity.
+	 */
+	
+	public Item getArmour() {
+		return this.armour;
+	}
+	
+	/**
+	 * Replaces the weapon of the entity
+	 * 
+	 * @param newWeapon The new weapon to be stored
+	 */
+	
+	public void setWeapon(Item newWeapon) {
+		this.weapon = newWeapon;
+	}
+	
+	/**
+	 * Replaces the armour of the entity
+	 * 
+	 * @param newArmour The new armour to be stored
+	 */
+	
+	public void setArmour(Item newArmour) {
+		this.armour = newArmour;
 	}
 	
 }

@@ -19,6 +19,7 @@ public class Item {
 	
 	protected String			stringRepr		= "IER";
 	protected String			name;
+	protected char				type;
 	protected int				spawnChance		= 0;															// 0-99
 	protected int				price;
 	protected int				health;
@@ -31,8 +32,8 @@ public class Item {
 	
 	// TODO: Make this better, again...
 	public static final Item[]	allConsumables	= { new Bugs(), new Crouton(), new Fish(), new Goo() };
-	public static final Item[]	allWeapons		= { new Knife(), new Sword() };
-	public static final Item[]	allArmour		= { new ClothArmour(), new LeatherArmour(), new MetalArmour() };
+	public static final Item[]	allWeapons		= { new Unarmed(), new Knife(), new Sword() };
+	public static final Item[]	allArmour		= { new Clothes(), new ClothArmour(), new LeatherArmour(), new MetalArmour() };
 	
 	/*
 	 * 
@@ -52,12 +53,13 @@ public class Item {
 	 * @param spawnChance
 	 *            The spawn chance of the item. Must be from 0 to 100
 	 */
-	protected Item(String name, String stringRepr, int price, int spawnChance) {
+	protected Item(String name, String stringRepr, int price, int spawnChance, char type) {
 		
 		this.name = name;
 		this.stringRepr = stringRepr;
 		this.price = price;
 		this.spawnChance = spawnChance;
+		this.type = type;
 		
 	}
 	
@@ -80,6 +82,7 @@ public class Item {
 		this.accuracy = item.accuracy;
 		this.critChance = item.critChance;
 		this.defense = item.defense;
+		this.type = item.type;
 		
 	}
 	
@@ -121,5 +124,37 @@ public class Item {
 		return new String(this.stringRepr);
 		
 	}
+	
+	/**
+	 * 
+	 * @param stat
+	 * 			  The stat that will be returned
+	 * @return the value of the stat
+	 */
+	
+	public int getExtraStats(String stat) {
+		
+		switch (stat) {
+		
+		case "attack":
+			return this.attack;
+		case "accuracy":
+			return this.accuracy;
+		case "speed":
+			return this.speed;
+		case "critChance":
+			return this.critChance;
+		case "defense":
+			return this.defense;
+		default:
+			return 0;
+		}
+		
+	}
+	
+	public char getType() {
+		return this.type;
+	}
+	
 	
 }

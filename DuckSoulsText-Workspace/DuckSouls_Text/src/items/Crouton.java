@@ -20,6 +20,7 @@ public class Crouton extends Consumable {
 	private static final int	spawnChance	= 30;
 	private static final int	health		= 1;
 	private static final int	mana		= 0;
+	private static final char	type		= 'c';
 	
 	/*
 	 * 
@@ -31,7 +32,7 @@ public class Crouton extends Consumable {
 	 * Creates a new croutons item.
 	 */
 	public Crouton() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, stringRepr, price, spawnChance, health, mana, type);
 	}
 	
 }

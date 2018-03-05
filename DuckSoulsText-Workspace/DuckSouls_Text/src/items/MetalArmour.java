@@ -18,7 +18,8 @@ public class MetalArmour extends Armour {
 	private static final String	stringRepr	= " MA";
 	private static final int	price		= 35;
 	private static final int	spawnChance	= 4;
-	private static final int	defense		= 20;
+	private static final int	defense		= 9;
+	private static final char	type		= 'a';
 	
 	/*
 	 * 
@@ -30,7 +31,7 @@ public class MetalArmour extends Armour {
 	 * Creates a new metal armour item.
 	 */
 	public MetalArmour() {
-		super(name, stringRepr, price, spawnChance, defense);
+		super(name, stringRepr, price, spawnChance, defense, type);
 	}
 	
 }

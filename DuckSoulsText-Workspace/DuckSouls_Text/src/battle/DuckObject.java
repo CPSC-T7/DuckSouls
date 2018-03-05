@@ -28,6 +28,8 @@ public class DuckObject extends CharacterBattle {
 	private int				experience			= 0;
 	private int				money				= 0;
 	
+	
+	
 	//private boolean hasWeapon = false;
 	//private boolean hasArmour = false;
 	
@@ -221,10 +223,7 @@ public class DuckObject extends CharacterBattle {
 		//Get random numbers
 		boolean landed = true;
 		boolean critical = true;
-		System.out.println(accuracyChance);
-		System.out.println("test acc ass");
-		System.out.println(this.getStats("accuracyPoints"));
-		System.out.println(landed);
+
 		
 		if (accuracyChance <= this.getStats("accuracyPoints")) {
 			landed = true;
@@ -232,8 +231,7 @@ public class DuckObject extends CharacterBattle {
 			landed = false;
 		}
 		//To see if it will be a successful attack or not
-		System.out.println(landed);
-		Utilities.waitMilliseconds(1500);
+
 		
 		
 		if (criticalHitChance <= getStats("criticalHitPoints")) {
@@ -449,6 +447,7 @@ public class DuckObject extends CharacterBattle {
 		}
 
 	}
+	
 	
 	public static void cleanup() {
 		scanner.close();

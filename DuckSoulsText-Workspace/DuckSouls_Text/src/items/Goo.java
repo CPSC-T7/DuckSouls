@@ -20,6 +20,7 @@ public class Goo extends Consumable {
 	private static final int	spawnChance	= 15;
 	private static final int	health		= 0;
 	private static final int	mana		= 20;
+	private static final char	type		= 'c';
 	
 	/*
 	 * 
@@ -31,7 +32,7 @@ public class Goo extends Consumable {
 	 * Creates a new goo item.
 	 */
 	public Goo() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, stringRepr, price, spawnChance, health, mana, type);
 	}
 	
 }

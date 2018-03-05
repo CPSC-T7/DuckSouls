@@ -29,10 +29,12 @@ public class Consumable extends Item {
 	 *            The health modifier of the item upon use.
 	 * @param mana
 	 *            The mana modifier of the item upon use.
+	 * @param type
+	 * 			  The type of item it is
 	 */
-	public Consumable(String name, String stringRepr, int price, int spawnChance, int health, int mana) {
+	public Consumable(String name, String stringRepr, int price, int spawnChance, int health, int mana, char type) {
 		
-		super(name, stringRepr, price, spawnChance);
+		super(name, stringRepr, price, spawnChance, type);
 		this.health = health;
 		this.mana = mana;
 		
