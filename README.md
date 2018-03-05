@@ -1,9 +1,13 @@
 # Duck Souls
 
 ## How To Play (Linux)
-1. Open the directory in a terminal
-2. Run ```chmod +x PlayDuckSouls.sh``` to make sure you can run the play game script
-3. Run ```./PlayDuckSouls.sh``` to play the game!
+1. Open the ```_LaunchScripts``` directory in a terminal
+2. Run ```chmod +x PlayDuckSouls_[UI Type]_[Game Mode].sh``` to make sure you can run the play game script
+3. Run ```./PlayDuckSouls_[UI Type]_[Game Mode].sh``` to play the game!
+
+## How To Play (Windows)
+1. Open the ```_LaunchScripts``` directory
+3. Run ```PlayDuckSouls_[UI Type]_[Game Mode].bat``` to play the game!
 
 Doc: https://docs.google.com/document/d/1p-Nk1LrWiWLer6nU0gxNX2OJi1CRkTjvPulrSzkJF9M/edit
 
