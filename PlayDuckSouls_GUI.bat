@@ -1,5 +1,4 @@
 echo "Playing Duck Souls: GUI Edition..."
-cd .\DuckSouls-Workspace\DuckSouls_GUI\src\
-javac *.java
+cd .\DuckSouls-Workspace\DuckSouls_GUI\bin
 java DuckSoulsGUI
 PAUSE
