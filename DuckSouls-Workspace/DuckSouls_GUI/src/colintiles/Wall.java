@@ -108,7 +108,15 @@ public class Wall extends Tile {
 		
 	} // End of getType
 	
-	public String getImage() {
+	
+	/**
+	 * Returns the path to the image file corresponding with the tile's current state
+	 * 
+	 * @return the String corresponding to the path to the tile sprite 
+	 * 
+	 */	public String getImage() {
+		 
 		return this.image;
-	}
+		
+	}// End of getImage
 }

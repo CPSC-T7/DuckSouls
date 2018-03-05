@@ -150,7 +150,6 @@ public class Map {
 	 *            The map ID of the map to load in.
 	 */
 	public void loadNewMap(String mapID) {
-		System.out.println("Too many");
 		// If the given map ID is in the hash map of maps
 		if (this.maps_HashMap.containsKey(mapID)) {
 			
@@ -626,10 +625,11 @@ public class Map {
 	
 	
 	/**
+	 * Returns a 3D arraylist of strings containing the path information for the game sprites 
 	 * 
 	 * @param size
-	 * 				the size of the 
-	 * @return
+	 * 				the dimensions of map to display
+	 * @return a 3D arraylist of strings containing paths to the game sprites
 	 */
 	public ArrayList<ArrayList<ArrayList<String>>> getImages(int size){
 		
@@ -642,20 +642,20 @@ public class Map {
 			for(int j = this.player.getX() - (size/2); j <= this.player.getX() + (size/2); j++) {
 				images.get(y).add(new ArrayList<String>());
 				
-				System.out.println(this.player.getY());
-				System.out.println(x);
-				System.out.println(y);
-				System.out.println(" ");
-				if(i<0 || i>this.currentMap_2DArrayList.size()) {
+				if(i<0 || i>=this.currentMap_2DArrayList.size()) {
 					images.get(y).get(x).add("Tiles/Sewer/Empty.png");
 				}
 				
-				else if(i>0 && i<this.currentMap_2DArrayList.size()){
-					if(j<0 || j>this.currentMap_2DArrayList.get(i).size()) {
+				else if(i>=0 && i<this.currentMap_2DArrayList.size()){
+					if(j<0 || j>=this.currentMap_2DArrayList.get(i).size()) {
 						images.get(y).get(x).add("Tiles/Sewer/Empty.png");
 					}
-					else if(j>0 && j<this.currentMap_2DArrayList.get(i).size()){
-							images.get(y).get(x).add(this.currentMap_2DArrayList.get(i).get(j).getImage());
+					else if(j>=0 && j<this.currentMap_2DArrayList.get(i).size()){
+						images.get(y).get(x).add(this.currentMap_2DArrayList.get(i).get(j).getImage());
+							if(this.currentMap_2DArrayList.get(i).get(j).getImage() == (null)) {
+								System.out.println(this.currentMap_2DArrayList.get(i).get(j).getType());
+							}
+
 					}
 				}
 				
@@ -673,7 +673,23 @@ public class Map {
 			x = 0;
 			y += 1;
 		}
-		
+
+
+//		y = 0;
+//		x = 0;
+//		for(ArrayList<ArrayList<String>> column: images){
+//			for(ArrayList<String> row: column){
+//				System.out.println("column " + x + " row " + y);
+//				for(String item:row) {
+//					System.out.println(item);
+//				}
+//				System.out.println();
+//				x += 1;
+//			}
+//			x = 0;
+//			y += 1;
+//		}
+
 		return images;
 		
 	}

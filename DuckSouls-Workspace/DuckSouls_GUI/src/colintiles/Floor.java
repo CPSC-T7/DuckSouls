@@ -42,8 +42,17 @@ public class Floor extends Tile {
 		
 	} // End of getType
 	
+	
+	/**
+	 * Returns the path to the image file corresponding with the tile's current state
+	 * 
+	 * @return the String corresponding to the path to the tile sprite 
+	 * 
+	 */
 	public String getImage() {
+		
 		return "Tiles/Sewer/Floor.png";
-	}
+		
+	}// End of getImage
 
 }

@@ -122,6 +122,13 @@ public class Door extends Tile {
 	
 	} // End of canUnlockWith
 	
+	
+	/**
+	 * Returns the path to the image file corresponding with the tile's current state
+	 * 
+	 * @return the String corresponding to the path to the tile sprite 
+	 * 
+	 */
 	public String getImage() {
 		String direction = "Left";
 		switch(this.orientation) {
@@ -132,6 +139,6 @@ public class Door extends Tile {
 			
 		}
 		return "Tiles/Sewer/Door-" + direction + ".png";
-	}
+	}// End of getImage
 	
 }
