@@ -36,4 +36,8 @@ public class Knife extends Weapon {
 		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
 	}
 	
+	public Knife(int x, int y, int id) {
+		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, x, y, id);
+	}
+	
 }

@@ -19,7 +19,7 @@ public class Item {
 	
 	protected String			stringRepr		= "IER";
 	protected String			name;
-	protected int				spawnChance		= 0;															// 0-99
+	protected int				spawnChance		= 0;																// 0-99
 	protected int				price;
 	protected int				health;
 	protected int				mana;
@@ -28,8 +28,13 @@ public class Item {
 	protected int				accuracy;
 	protected int				critChance;
 	protected int				defense;
+	private int					x;
+	private int					y;
+	private int					id;
 	
 	// TODO: Make this better, again...
+	public static final Item[]	allItems		= { new Bugs(), new Crouton(), new Fish(), new Goo(), new Knife(),
+			new Sword(), new ClothArmour(), new LeatherArmour(), new MetalArmour() };
 	public static final Item[]	allConsumables	= { new Bugs(), new Crouton(), new Fish(), new Goo() };
 	public static final Item[]	allWeapons		= { new Knife(), new Sword() };
 	public static final Item[]	allArmour		= { new ClothArmour(), new LeatherArmour(), new MetalArmour() };
@@ -61,6 +66,18 @@ public class Item {
 		
 	}
 	
+	protected Item(String name, String stringRepr, int price, int spawnChance, int x, int y, int id) {
+		
+		this.name = name;
+		this.stringRepr = stringRepr;
+		this.price = price;
+		this.spawnChance = spawnChance;
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		
+	}
+	
 	/**
 	 * Copies an item.
 	 * 
@@ -81,6 +98,22 @@ public class Item {
 		this.critChance = item.critChance;
 		this.defense = item.defense;
 		
+	}
+	
+	public Item(Item item, int x, int y, int id) {
+		this.stringRepr = item.stringRepr;
+		this.name = item.name;
+		this.spawnChance = item.spawnChance;
+		this.price = item.price;
+		this.health = item.health;
+		this.mana = item.mana;
+		this.attack = item.attack;
+		this.speed = item.speed;
+		this.accuracy = item.accuracy;
+		this.critChance = item.critChance;
+		this.defense = item.defense;
+		this.x = x;
+		this.y = y;
 	}
 	
 	/*
@@ -120,6 +153,18 @@ public class Item {
 		
 		return new String(this.stringRepr);
 		
+	}
+	
+	public int getX() {
+		return this.x;
+	}
+	
+	public int getY() {
+		return this.y;
+	}
+	
+	public int getID() {
+		return this.id;
 	}
 	
 }

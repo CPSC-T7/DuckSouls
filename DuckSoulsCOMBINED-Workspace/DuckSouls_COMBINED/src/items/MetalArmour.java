@@ -33,4 +33,8 @@ public class MetalArmour extends Armour {
 		super(name, stringRepr, price, spawnChance, defense);
 	}
 	
+	public MetalArmour(int x, int y, int id) {
+		super(name, stringRepr, price, spawnChance, defense, x , y, id);
+	}
+	
 }

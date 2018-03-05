@@ -34,4 +34,8 @@ public class Goo extends Consumable {
 		super(name, stringRepr, price, spawnChance, health, mana);
 	}
 	
+	public Goo(int x, int y, int id) {
+		super(name, stringRepr, price, spawnChance, health, mana, x, y, id);
+	}
+	
 }

@@ -33,4 +33,8 @@ public class ClothArmour extends Armour {
 		super(name, stringRepr, price, spawnChance, defense);
 	}
 	
+	public ClothArmour(int x, int y, int id) {
+		super(name, stringRepr, price, spawnChance, defense, x, y, id);
+	}
+	
 }

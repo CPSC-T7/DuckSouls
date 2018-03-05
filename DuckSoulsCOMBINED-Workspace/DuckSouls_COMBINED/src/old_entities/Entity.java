@@ -19,11 +19,13 @@ public class Entity {
 	 * 
 	 */
 	
-	private Point	position				= new Point();
-	private char	orientation				= 'E';
-	private boolean	isPlayer				= false;
-	private String	stringRepr				= new String();
-	private char[]	possibleOrientations	= { 'N', 'E', 'S', 'W' };
+	private Point			position				= new Point();
+	private String			orientation				= "d";
+	private boolean			isPlayer				= false;
+	private String			stringRepr				= new String();
+	public final String[]	POSSIBLE_ORIENTATIONS	= { "w", "a", "s", "d" };
+	public String[]			DIRECTORY				= new String[2];
+	private int				ID;
 	
 	/*
 	 * 
@@ -60,6 +62,26 @@ public class Entity {
 		
 	} // End of constructor
 	
+	public Entity(int x, int y, boolean isPlayer, int ID) {
+		
+		// Set the character characteristics
+		this.position.setLocation(x, y);
+		this.isPlayer = isPlayer;
+		this.ID = ID;
+		
+		// Set the appropriate string representation
+		if (this.isPlayer) {
+			
+			this.stringRepr = " @ "; // Player
+			
+		} else {
+			
+			this.stringRepr = " E "; // Enemy
+			
+		}
+		
+	} // End of constructor
+	
 	/*
 	 * 
 	 * METHODS
@@ -78,6 +100,36 @@ public class Entity {
 	} // End of getStringRepr
 	
 	/**
+	 * Returns the orientation of the entity
+	 * 
+	 * @return String, the orientation of the entity in form wasd
+	 */
+	public String getOrientation() {
+		return this.orientation;
+	}// End of getOrientation
+	
+	/**
+	 * Returns the orientation of the entity in form {Up, Down, Left Right}
+	 * 
+	 * @return String, the orientation of the entity in form
+	 * 
+	 */
+	
+	public String getOrientationName() {
+		switch (this.orientation) {
+			case "w":
+				return "Up";
+			case "a":
+				return "Left";
+			case "d":
+				return "Right";
+			case "s":
+				return "Down";
+		}
+		return "Down";
+	}
+	
+	/**
 	 * Moves the character to a specified position.
 	 * 
 	 * @param x
@@ -90,8 +142,7 @@ public class Entity {
 	public void setPos(int x, int y, ArrayList<ArrayList<Tile>> mapdata) {
 		
 		// Move the character
-		//this.position.setLocation(x, y);
-		
+		// this.position.setLocation(x, y);
 		
 		// If the specific point can be moved to...
 		if (mapdata.get(y).get(x).canMove()) {
@@ -117,8 +168,7 @@ public class Entity {
 	public void move(int y, int x, ArrayList<ArrayList<Tile>> mapdata) {
 		
 		// Move the character
-		//this.position.setLocation(x, y);
-		
+		// this.position.setLocation(x, y);
 		
 		// If the specific point can be moved to...
 		if (mapdata.get(y).get(x).canMove()) {
@@ -134,12 +184,12 @@ public class Entity {
 	 * Turn the character.
 	 * 
 	 * @param direction
-	 *            The direction to face. Must be one of: N, E, S, or W.
+	 *            The direction to face. Must be one of: w, a, s, or d.
 	 */
-	public void turn(char direction) {
+	public void turn(String direction) {
 		
 		// For each possible direction...
-		for (char i : this.possibleOrientations) {
+		for (String i : this.POSSIBLE_ORIENTATIONS) {
 			
 			// If the direction matches the one given...
 			if (direction == i) {
@@ -186,11 +236,6 @@ public class Entity {
 		
 	} // End of isPlayer
 	
-	// TODO: What does this do?
-	public void move(ArrayList<ArrayList<Tile>> map) {
-		
-	}
-	
 	/**
 	 * Returns whether the character is next to a specific position.
 	 * 
@@ -206,5 +251,44 @@ public class Entity {
 		return (Math.abs(this.position.y - y) <= 1) && (Math.abs(this.position.x - x) <= 1);
 		
 	} // End of isNextTo
+	
+	/**
+	 * Sets an entity's id
+	 * 
+	 * @param Id
+	 *            The int ID to give to the entity
+	 * 
+	 */
+	public void setID(int Id) {
+		
+		this.ID = Id;
+		
+	}// End of setID
+	
+	/**
+	 * Returns an entity's int id
+	 * 
+	 * @return An int representing the entity's id
+	 * 
+	 */
+	public int getID() {
+		
+		return this.ID;
+		
+	}// End of getID
+	
+	/**
+	 * Returns the path to the image file corresponding with the entity's current
+	 * state
+	 * 
+	 * @return the String corresponding to the path to the entity sprite (default
+	 *         rat sprite)
+	 * 
+	 */
+	public String getImage() {
+		
+		return "Sprites/Entities/Rat/Rat-Down.png";
+		
+	}// End of getImage
 	
 }

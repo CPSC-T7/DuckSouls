@@ -25,10 +25,10 @@ public class Enemy extends Entity {
 	 * @param y
 	 *            The Y co-ordinate of the enemy.
 	 */
-	public Enemy(int x, int y) {
+	public Enemy(int x, int y, int ID) {
 		
 		// Create a new character
-		super(x, y, false);
+		super(x, y, false, ID);
 		
 		// TODO: Fill in constructor.
 		
@@ -45,4 +45,15 @@ public class Enemy extends Entity {
 		
 	}
 	
+	
+	/**
+	 * returns the path to the image file corresponding with the enemies's current state
+	 * 
+	 * @return the String corresponding to the path to the enemy sprite 
+	 * 
+	 * 
+	 */
+	public String getImage() {
+		return "Sprites/Entities/Rat/Rat-"+ this.getOrientationName() + ".png";
+	}
 }

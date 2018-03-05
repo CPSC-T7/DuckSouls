@@ -33,4 +33,8 @@ public class LeatherArmour extends Armour {
 		super(name, stringRepr, price, spawnChance, defense);
 	}
 	
+	public LeatherArmour(int x, int y, int id) {
+		super(name, stringRepr, price, spawnChance, defense, x, y, id);
+	}
+	
 }

@@ -150,4 +150,17 @@ public class Tile {
 		
 	}
 	
+	
+	/**
+	 * Returns the path to the image file corresponding with the entity's current state
+	 * 
+	 * @return the String corresponding to the path to the entity sprite (default floor sprite)
+	 * 
+	 */
+	public String getImage() {
+		
+		return "Sprites/Tiles/Sewer/Floor.png";
+		
+	}// End of getImage
+	
 }

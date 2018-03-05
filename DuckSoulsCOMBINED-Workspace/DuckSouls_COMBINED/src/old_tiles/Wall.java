@@ -15,6 +15,7 @@ public class Wall extends Tile {
 	 */
 	
 	private String orientation;
+	private String image;
 	
 	/*
 	 * 
@@ -43,31 +44,47 @@ public class Wall extends Tile {
 		// Players cannot walk through walls!
 		this.setCanMoveOn(false);
 		
-		// Set the string representation to the appropriate unicode box characters
+		// Set the string representation to the appropriate unicode box characters and set the image to the appropriate sprite
 		switch (orientation) {
 			
-			case "V":
+			case "L":
 				this.setStringRepr(" ║ ");
+				this.image = "Sprites/Tiles/Sewer/Wall-Left.png";
+				break;
+			
+			case "R":
+				this.setStringRepr(" ║ ");
+				this.image = "Sprites/Tiles/Sewer/Wall-Right.png";
 				break;
 				
-			case "H":
+			case "T":
 				this.setStringRepr("═══");
+				this.image = "Sprites/Tiles/Sewer/Wall-Top.png";
+				break;
+				
+			case "B":
+				this.setStringRepr("═══");
+				this.image = "Sprites/Tiles/Sewer/Wall-Bottom.png";
 				break;
 				
 			case "TR":
 				this.setStringRepr("═╗ ");
+				this.image = "Sprites/Tiles/Sewer/Wall-Top-Right.png";
 				break;
 				
 			case "TL":
 				this.setStringRepr(" ╔═");
+				this.image = "Sprites/Tiles/Sewer/Wall-Top-Left.png";
 				break;
 				
 			case "BL":
 				this.setStringRepr(" ╚═");
+				this.image = "Sprites/Tiles/Sewer/Wall-Bottom-Left.png";
 				break;
 				
 			case "BR":
 				this.setStringRepr("═╝ ");
+				this.image = "Sprites/Tiles/Sewer/Wall-Bottom-Right.png";
 				break;
 				
 		}
@@ -91,4 +108,15 @@ public class Wall extends Tile {
 		
 	} // End of getType
 	
+	
+	/**
+	 * Returns the path to the image file corresponding with the tile's current state
+	 * 
+	 * @return the String corresponding to the path to the tile sprite 
+	 * 
+	 */	public String getImage() {
+		 
+		return this.image;
+		
+	}// End of getImage
 }

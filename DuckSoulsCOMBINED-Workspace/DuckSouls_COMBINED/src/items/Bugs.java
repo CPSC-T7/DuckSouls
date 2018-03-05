@@ -34,4 +34,8 @@ public class Bugs extends Consumable {
 		super(name, stringRepr, price, spawnChance, health, mana);
 	}
 	
+	public Bugs(int x, int y, int id) {
+		super(name, stringRepr, price, spawnChance, health, mana, x, y, id);
+	}
+	
 }

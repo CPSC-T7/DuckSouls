@@ -18,6 +18,7 @@ public class Player extends Entity {
 	 * 
 	 */
 	
+//	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	private Scanner scanner = new Scanner(System.in);
 	
 	/*
@@ -69,7 +70,7 @@ public class Player extends Entity {
 	public void move(ArrayList<ArrayList<Tile>> map_2DArrayList) {
 		
 		// Define some control variables
-		String[] possibleInput = { "w", "a", "s", "d" };
+		String[] possibleInput = { "w", "a", "s", "d"};
 		boolean hasMoved = false;
 		
 		/*
@@ -141,6 +142,15 @@ public class Player extends Entity {
 								}
 							}
 							break;
+//						case "i":
+//							System.out.println("Player Inventory:\n");
+//							for(Item item : this.getInventory()) {
+//								System.out.println(item.getName());
+//							}
+//							System.out.println("\nPress Enter To Exit.");
+//							scanner.nextLine();
+//							hasMoved = true;
+//							break;
 						
 					}
 					
@@ -158,4 +168,129 @@ public class Player extends Entity {
 		} while (!hasMoved);
 		
 	}// End of move
+	
+	
+	/**
+	 * Accepts a String corresponding to wasd and moves accordingly
+	 * 
+	 * @param map_2DArrayList
+	 *            The map in which the player is moving.
+	 *            
+	 * @param input
+	 * 			  one of w, a, s, d which represents the direction the player is moving
+	 */
+	public void move(ArrayList<ArrayList<Tile>> map_2DArrayList, String input) {
+		
+		// Define some control variables
+		boolean hasMove = false;
+		
+		// For each possible direction...
+		for (String direction : super.POSSIBLE_ORIENTATIONS) {
+			
+			// If the input matches...
+			if (input.equals(direction)) {
+				hasMove = true;
+				
+			}
+		}
+					
+		// If the input is valid
+		if(hasMove) {
+			switch (input) {
+					
+					/*
+					 * For each case:
+					 * 
+					 * If the player is within the bounds to move...
+					 * 		Move the player,
+					 * 		And set the boolean accordingly.
+					 * 
+					 */
+					
+					case "w":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("w");
+						}
+						else {
+							if(this.getY() >= 1) {
+								if(map_2DArrayList.get(this.getY()-1).get(this.getX()).canMove()) {
+									super.move(this.getY()-1, this.getX(), map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+					case "s":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("s");
+						}
+						else {
+							if(this.getY() < map_2DArrayList.size()-1) {
+								if(map_2DArrayList.get(this.getY()+1).get(this.getX()).canMove()) {
+									super.move(this.getY()+1, this.getX(), map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+					case "a":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("a");
+						}
+						else {
+							if(this.getX() > 0) {
+								if(map_2DArrayList.get(this.getY()).get(this.getX()-1).canMove()) {
+									super.move(this.getY(), this.getX()-1, map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+					case "d":
+						if(!input.equals(this.getOrientation())) {
+							this.turn("d");
+						}
+						else {
+							if(this.getX() < map_2DArrayList.get(this.getY()).size()-1) {
+								if(map_2DArrayList.get(this.getY()).get(this.getX()+1).canMove()) {
+									super.move(this.getY(), this.getX()+1, map_2DArrayList);
+								}
+							}
+						}
+						break;
+						
+//					case "i":
+//						System.out.println("Player Inventory:\n");
+//						for(Item item : this.getInventory()) {
+//							System.out.println(item.getName());
+//						}
+//						System.out.println("\nPress Enter To Exit.");
+//						scanner.nextLine();
+//						break;
+					
+				}
+		}
+	}// End of move
+
+	
+//	public void addToInventory(Item item) {
+//		this.inventory.add(item);
+//	}
+//	
+//	public ArrayList<Item> getInventory() {
+//		return this.inventory;
+//	}
+	
+	
+	/**
+	 * returns the path to the image file corresponding with the player's current state
+	 * 
+	 * @return the String corresponding to the path to the player sprite 
+	 * 
+	 */
+	public String getImage() {
+		
+		return "Sprites/Entities/Duck/Duck-"+ this.getOrientationName() + ".png";
+		
+	}//end of getImage
 }

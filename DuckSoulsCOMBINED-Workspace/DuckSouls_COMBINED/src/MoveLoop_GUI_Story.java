@@ -1,13 +1,30 @@
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import old_map.GUImap;
 
-public class MoveLoop_GUI_Story extends Application {
+public class MoveLoop_GUI_Story extends Application {	
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		// TODO Fill in.
-		
-	}
+	private int windowSize = 64*7;
 	
+	/*
+	 * Start of JavaFX
+	 */
+	@Override
+	public void start(Stage testStage) throws Exception {
+		Group root = new Group();
+		Scene scene = new Scene(root);
+		Canvas canvas = new Canvas(this.windowSize, this.windowSize);
+		root.getChildren().add(canvas);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		testStage.setTitle("DuckSouls");
+		testStage.setScene(scene);
+		testStage.show();
+		
+		GUImap tl = new GUImap();
+		tl.mainloop(gc, scene);
+	}
 }
