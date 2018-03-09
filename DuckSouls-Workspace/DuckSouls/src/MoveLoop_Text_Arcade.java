@@ -1,14 +1,14 @@
 import java.awt.Point;
 import java.util.Scanner;
 
+import arcade_entities.Player;
+import arcade_map.TextLevel;
+import arcade_map.TextRoom;
+import arcade_tiles.Stairs;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
-import entities.Player;
 import items.Item;
-import map.TextLevel;
-import map.TextRoom;
-import tiles.Stairs;
 import utils.Orientation;
 import utils.Utilities;
 

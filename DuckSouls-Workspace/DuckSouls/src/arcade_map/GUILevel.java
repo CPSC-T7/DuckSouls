@@ -1,20 +1,28 @@
-package map;
+package arcade_map;
 
 import java.awt.Point;
 import java.util.Scanner;
+
+import arcade_entities.*;
+import arcade_tiles.Stairs;
+import battle.BattleWorldTest;
+
 import java.util.Random;
 
-import entities.*;
-import tiles.Stairs;
+import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import utils.Orientation;
+import utils.Utilities;
 
 /**
- * This class represents a text level; A 2D grid of text rooms.
+ * This class represents a GUI level; A 2D grid of GUI rooms.
  * 
  * @author Matthew Allwright
- * @version 1.6
+ * @author Wylee McAndrews
+ * @version 2.0
  */
-public class TextLevel {
+public class GUILevel {
 	
 	/*
 	 * 
@@ -34,13 +42,13 @@ public class TextLevel {
 	private final int		DEFAULT_LEVEL_SIZE	= 3;
 	private final int		DEFAULT_ROOM_SIZE	= 5;
 	
-	private TextRoom[][]	roomArray;
-	private char[][]		minimapArray;
+	private GUIRoom[][]		roomArray;
 	
 	private Point			currentRoomPoint;
 	private int				levelWidth, levelHeight;
-	private int				roomSize;
 	private int				enemySpawnChance;
+	
+	public int				roomSize;
 	
 	/*
 	 * 
@@ -54,7 +62,7 @@ public class TextLevel {
 	 * set as the current room, and a new player is placed in the middle of the
 	 * room.
 	 */
-	public TextLevel() {
+	public GUILevel() {
 		
 		this.levelWidth = DEFAULT_LEVEL_SIZE;
 		this.levelHeight = DEFAULT_LEVEL_SIZE;
@@ -67,8 +75,6 @@ public class TextLevel {
 		// Place the player
 		this.roomAt(this.getCurrentRoomPoint())
 				.placeEntity(new Point(this.getRoomSize() / 2 + 1, this.getRoomSize() / 2 + 1), new Player());
-		
-		this.genMinimapArray();
 		
 	}
 	
@@ -87,7 +93,7 @@ public class TextLevel {
 	 * @param enemySpawnChance
 	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
-	public TextLevel(Player player, Point playerPosition, Point roomPoint, int enemySpawnChance) {
+	public GUILevel(Player player, Point playerPosition, Point roomPoint, int enemySpawnChance) {
 		
 		this.levelWidth = DEFAULT_LEVEL_SIZE;
 		this.levelHeight = DEFAULT_LEVEL_SIZE;
@@ -101,8 +107,6 @@ public class TextLevel {
 		// Place the player
 		this.roomAt(this.getCurrentRoomPoint()).placeEntity(playerPosition, player);
 		
-		this.genMinimapArray();
-		
 	}
 	
 	/*
@@ -112,128 +116,18 @@ public class TextLevel {
 	 */
 	
 	/**
-	 * Draws the text minimap of the level. Unvisited rooms are filled with ' ',
-	 * visited rooms are filled with '.', and the player's room is filled with '@'.
-	 * <br>
-	 * Looks Like: <br>
-	 * ┌─┬─┐<br>
-	 * │. @│<br>
-	 * ├ ┼ ┤<br>
-	 * │ │<br>
-	 * └─┴─┘<br>
-	 * (Aligns with monospace font)
-	 */
-	public void drawMinimap() {
-		
-		// Width and height of the minimap text.
-		// This accommodates a text border around each room.
-		int yMax = 2 * this.levelHeight + 1, xMax = 2 * this.levelWidth + 1;
-		
-		// For each character...
-		for (int y = 0; y < yMax; y++) {
-			for (int x = 0; x < xMax; x++) {
-				
-				if (y == 0) { // Top Row
-					
-					if (x == 0) {
-						System.out.print("┌"); // Left
-					} else if (x == xMax - 1) {
-						System.out.print("┐"); // Right
-					} else if (x % 2 == 0) {
-						System.out.print("┬"); // Above Dividers
-					} else {
-						System.out.print("─"); // Above Rooms
-					}
-					
-				} else if (y == yMax - 1) { // Bottom row
-					
-					if (x == 0) {
-						System.out.print("└"); // Left
-					} else if (x == xMax - 1) {
-						System.out.print("┘"); // Right
-					} else if (x % 2 == 0) {
-						System.out.print("┴"); // Below Dividers
-					} else {
-						System.out.print("─"); // Below Rooms
-					}
-					
-				} else if (y % 2 == 0) { // Rows Between Rooms
-					
-					if (x == 0) {
-						System.out.print("├"); // Left
-					} else if (x == xMax - 1) {
-						System.out.print("┤"); // Right
-					} else if (x % 2 == 0) {
-						System.out.print("┼"); // Above / Below Dividers
-					} else {
-						System.out.print(" "); // Above / Below Rooms
-					}
-					
-				} else { // Rows With Rooms
-					
-					if (x == 0) {
-						System.out.print("│"); // Left
-					} else if (x == xMax - 1) {
-						System.out.print("│"); // Right
-					} else if (x % 2 == 0) {
-						System.out.print(" "); // Between Rooms
-					} else {
-						System.out.print(this.minimapArray[(x - 1) / 2][(y - 1) / 2]); // The Room's Character
-					}
-					
-				}
-				
-			}
-			
-			// Row has been printed, wrap the line
-			System.out.println();
-		}
-		
-	}
-	
-	/**
-	 * Generate's a level's minimap array. This array stores a character for each
-	 * room, indicating the room's status. Unvisited rooms are filled with ' ',
-	 * visited rooms are filled with '.', and the player's room is filled with '@'.
-	 */
-	private void genMinimapArray() {
-		
-		this.minimapArray = new char[this.levelWidth][this.levelHeight];
-		
-		// For each position...
-		for (int x = 0; x < this.levelWidth; x++) {
-			for (int y = 0; y < this.levelHeight; y++) {
-				
-				// If the room is the first room the player is in...
-				if (x == this.getCurrentRoomPoint().x && y == this.getCurrentRoomPoint().y) {
-					
-					this.minimapArray[x][y] = '@';
-					
-				} else { // If the room hasn't been visited yet...
-					
-					this.minimapArray[x][y] = ' ';
-					
-				}
-				
-			}
-			
-		}
-		
-	}
-	
-	/**
 	 * Generates an array of text rooms for the level to use.
 	 */
 	private void genRoomArray() {
 		
-		this.roomArray = new TextRoom[this.levelWidth][this.levelHeight];
+		this.roomArray = new GUIRoom[this.levelWidth][this.levelHeight];
 		
 		// For each room space...
 		for (int y = 0; y < this.levelHeight; y++) {
 			for (int x = 0; x < this.levelWidth; x++) {
 				
 				// Generate a square, random room
-				this.roomArray[x][y] = new TextRoom(this.getRoomSize(), enemySpawnChance);
+				this.roomArray[x][y] = new GUIRoom(this.getRoomSize(), enemySpawnChance);
 				
 			}
 		}
@@ -247,10 +141,10 @@ public class TextLevel {
 		int stairsTileX = _random.nextInt(this.getRoomSize()) + 1;
 		int stairsTileY = _random.nextInt(this.getRoomSize()) + 1;
 		Point stairsPoint = new Point(stairsTileX, stairsTileY);
-		TextRoom stairsRoom = this.roomArray[stairsRoomX][stairsRoomY];
+		GUIRoom stairsRoom = this.roomArray[stairsRoomX][stairsRoomY];
 		
 		// Place the stairs, and remove anything of top of them
-		stairsRoom.setTile(stairsPoint, new Stairs(false));
+		stairsRoom.setTile(stairsPoint, new Stairs(true));
 		stairsRoom.removeEntity(stairsPoint);
 		stairsRoom.removeItem(stairsPoint);
 		
@@ -321,7 +215,7 @@ public class TextLevel {
 	 *            The position of the room to get.
 	 * @return The room at that position.
 	 */
-	public TextRoom roomAt(Point position) {
+	public GUIRoom roomAt(Point position) {
 		return this.roomArray[position.x][position.y];
 	}
 	
@@ -340,16 +234,17 @@ public class TextLevel {
 	 * @param direction
 	 *            An Orientation designating the direction to move in the room
 	 *            array.
+	 * @param gc
+	 *            Graphics Context
 	 */
-	public void moveRoom_Direction(Orientation direction) {
+	public void moveRoom_Direction(Orientation direction, GraphicsContext gc) {
 		
 		// Get the player and their position
 		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
 		Player player = (Player) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
 		
-		// Remove the player from the old room, and set the room's minimap character
+		// Remove the player from the old room
 		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
-		this.minimapArray[this.getCurrentRoomPoint().x][this.getCurrentRoomPoint().y] = '.';
 		
 		// Depending on the direction...
 		switch (direction) {
@@ -386,8 +281,13 @@ public class TextLevel {
 		
 		// Place the player at the new position in the new room
 		this.roomAt(this.getCurrentRoomPoint()).placeEntity(newPlayerPoint, player);
-		// Update the room's minimap character
-		this.minimapArray[this.getCurrentRoomPoint().x][this.getCurrentRoomPoint().y] = '@';
+		
+		// Set the player direction
+		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setOrientation(direction);
+		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).updateImage();
+		
+		// Re-draw the room
+		this.roomAt(this.currentRoomPoint).draw_GUI(gc);
 		
 	}
 	

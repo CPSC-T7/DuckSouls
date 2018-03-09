@@ -1,4 +1,4 @@
-package entities;
+package arcade_entities;
 
 /**
  * This class represents a player entity.

@@ -1,5 +1,5 @@
 import ui.TitleScreen;
-import map.TextLevel;
+import arcade_map.TextLevel;
 import battle.DuckObject;
 import javafx.application.Application;
 

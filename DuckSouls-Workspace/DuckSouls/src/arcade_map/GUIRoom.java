@@ -1,13 +1,13 @@
-package map;
+package arcade_map;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import entities.*;
+import arcade_entities.*;
+import arcade_tiles.*;
 import items.*;
 import javafx.scene.canvas.GraphicsContext;
-import tiles.*;
 import utils.Orientation;
 import utils.Utilities;
 

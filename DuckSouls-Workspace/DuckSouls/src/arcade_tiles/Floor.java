@@ -1,12 +1,12 @@
-package tiles;
+package arcade_tiles;
 
 /**
- * This class represents all of the path tiles for DuckSouls.
+ * This class represents all of the floor tiles for DuckSouls.
  * 
  * @author Matthew Allwright
  * @version 1.1
  */
-public class Path extends Tile {
+public class Floor extends Tile {
 	
 	/*
 	 * 
@@ -14,7 +14,7 @@ public class Path extends Tile {
 	 * 
 	 */
 	
-	private static final String stringRepr = " . ";
+	private static final String	stringRepr	= "   ";
 	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Floor.png";
 	
 	/*
@@ -24,13 +24,13 @@ public class Path extends Tile {
 	 */
 	
 	/**
-	 * Creates a path tile.
+	 * Creates a floor tile.
 	 * 
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
-	public Path(boolean isGUI) {
+	public Floor(boolean isGUI) {
 		super(isGUI, stringRepr, true, pathToImage);
 	}
-
+	
 }
