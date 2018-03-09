@@ -15,7 +15,7 @@ public class Stairs extends Tile {
 	 */
 	
 	private static final String stringRepr = " ╘ ";
-	private static final String	pathToImage	= "../Sprites/Tiles/Sewer/Stairs.png";
+	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Stairs.png";
 	
 	/*
 	 * 

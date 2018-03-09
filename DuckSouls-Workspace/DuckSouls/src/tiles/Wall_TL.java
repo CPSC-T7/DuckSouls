@@ -16,7 +16,7 @@ public class Wall_TL extends Wall {
 	 */
 	
 	private static final String stringRepr = " ╔═";
-	private static final String	pathToImage	= "../Sprites/Tiles/Sewer/Wall-Top-Left.png";
+	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Wall-Top-Left.png";
 	
 	/*
 	 * 

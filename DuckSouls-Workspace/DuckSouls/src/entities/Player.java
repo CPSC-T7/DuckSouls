@@ -16,7 +16,7 @@ public class Player extends Entity {
 	 */
 	
 	private static final String stringRepr = " @ ";
-	private static final String	pathToImage	= "../Sprites/Entities/Duck/Duck-";
+	private static final String	pathToImage	= "/Sprites/Entities/Duck/Duck-";
 	
 	/*
 	 * 

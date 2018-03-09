@@ -16,7 +16,7 @@ public class Enemy extends Entity {
 	 */
 	
 	private static final String	stringRepr	= " E ";
-	private static final String	pathToImage	= "../Sprites/Entities/Rat/Rat-";
+	private static final String	pathToImage	= "/Sprites/Entities/Rat/Rat-";
 	
 	/*
 	 * 

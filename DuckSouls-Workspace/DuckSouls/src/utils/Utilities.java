@@ -22,6 +22,22 @@ import java.util.Scanner;
  */
 public class Utilities {
 	
+	/*
+	 * 
+	 * STATIC VARIABLES
+	 * 
+	 */
+	
+	private static final File f = new File("");
+	private static final File g = new File(f.getAbsolutePath());
+	private static final String parentDir = g.getParent();
+	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
+	
 	/**
 	 * Clear the console screen of text.
 	 */
@@ -202,5 +218,9 @@ public class Utilities {
 		}
 		
 	}// End of writeFile
+	
+	public static String getParentDir() {
+		return new String(parentDir);
+	}
 	
 }// End of Utilities

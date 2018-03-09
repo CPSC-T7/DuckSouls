@@ -19,7 +19,7 @@ public class Door extends Tile {
 	private String			key;											// TODO: Make keys an enum.
 	private Orientation		orientation;									// TODO: Implement.
 	private boolean			locked		= false;
-	private static String	pathToImage	= "../Sprites/Tiles/Sewer/Door-";
+	private static String	pathToImage	= "/Sprites/Tiles/Sewer/Door-";
 	
 	/*
 	 * 

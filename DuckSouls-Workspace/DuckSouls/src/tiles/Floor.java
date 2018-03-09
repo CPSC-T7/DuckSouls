@@ -15,7 +15,7 @@ public class Floor extends Tile {
 	 */
 	
 	private static final String	stringRepr	= "   ";
-	private static final String	pathToImage	= "../Sprites/Tiles/Sewer/Floor.png";
+	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Floor.png";
 	
 	/*
 	 * 

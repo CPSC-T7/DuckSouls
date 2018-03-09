@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import utils.Utilities;
 
 /**
  * This class represents the tiles for DuckSouls.
@@ -75,7 +76,7 @@ public class Tile {
 	 */
 	public void updateImage() {
 		
-		this.image = new Image(this.pathToImage.substring(3));
+		this.image = new Image("file:///" + Utilities.getParentDir() + this.pathToImage);
 		
 	}
 	
