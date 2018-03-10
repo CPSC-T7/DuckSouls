@@ -2,7 +2,6 @@ package rooms;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Random;
 
 import entities.*;
 import items.*;
@@ -12,15 +11,15 @@ import utils.Orientation;
 import utils.Utilities;
 
 /**
- * This class represents a GUI-based room in DuckSouls. Each room is a
- * rectangle of a desired width and height, and can hold one item and entity in
- * each inner tile.
+ * This class represents a GUI-based room in DuckSouls. Each room is a rectangle
+ * of a desired width and height, and can hold one item and entity in each inner
+ * tile.
  * 
  * @author Matthew Allwright
  * @author Wylee McAndrews
  * @version 2.0
  */
-public class GUIRoom {
+public class GUIRoom extends Room {
 	
 	/*
 	 * 
@@ -28,26 +27,7 @@ public class GUIRoom {
 	 * 
 	 */
 	
-	private static Random	_random				= new Random();
-	
-	/*
-	 * 
-	 * INSTANCE VARIABLES
-	 * 
-	 */
-	
-	private int				internalWidth;
-	private int				internalHeight;
-	private int				enemySpawnChance	= 1;
-	private int				tileSize			= 64;
-	
-	private Tile[][]		tileArray;
-	private Item[][]		itemArray;
-	private Entity[][]		entityArray;
-	
-	public Point			playerPoint;
-	
-	public String			roomName;
+	private static final int TILE_SIZE = 64;
 	
 	/*
 	 * 
@@ -197,7 +177,7 @@ public class GUIRoom {
 					Point enemyPoint = new Point(x, y);
 					
 					// If the enemy is within 1 tile of the player
-					if (this.playerPoint.distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
+					if (this.getPlayerPoint().distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
 						
 						// Return the enemy's position
 						return enemyPoint;
@@ -234,7 +214,7 @@ public class GUIRoom {
 				// Print Entities
 				if (entityAt(new Point(x, y)) != null) {
 					Entity entity = entityAt(new Point(x, y));
-					entity.drawEntity(gc, new Point(x * this.tileSize, y * this.tileSize));
+					entity.drawEntity(gc, new Point(x * TILE_SIZE, y * TILE_SIZE));
 				}
 				
 			}
@@ -289,7 +269,7 @@ public class GUIRoom {
 			
 			// Note the new position if the player is moved
 			if (this.entityAt(moveTo) instanceof Player) {
-				this.playerPoint = moveTo;
+				this.setPlayerPoint(moveTo);
 			}
 			
 			// Set path tiles...
@@ -374,7 +354,7 @@ public class GUIRoom {
 		// Note the position if the player is moved
 		if (entity instanceof Player) {
 			
-			this.playerPoint = position;
+			this.setPlayerPoint(position);
 			
 			// Pickup the item that is about to be stepped on
 			if (this.itemArray[position.x][position.y] != null) {
@@ -383,9 +363,9 @@ public class GUIRoom {
 			}
 			
 		}
-
+		
 		this.entityArray[position.x][position.y] = entity;
-		if(entity != null)
+		if (entity != null)
 			this.entityArray[position.x][position.y].updateImage();
 		
 	}

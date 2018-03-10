@@ -3,18 +3,14 @@ package levels;
 import java.awt.Point;
 import java.util.Scanner;
 
-import battle.BattleWorldTest;
 import entities.*;
 
 import java.util.Random;
 
-import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import rooms.GUIRoom;
 import tiles.Stairs;
 import utils.Orientation;
-import utils.Utilities;
 
 /**
  * This class represents a GUI level; A 2D grid of GUI rooms.
@@ -241,11 +237,11 @@ public class GUILevel {
 	public void moveRoom_Direction(Orientation direction, GraphicsContext gc) {
 		
 		// Get the player and their position
-		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
+		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
 		Player player = (Player) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
 		
 		// Remove the player from the old room
-		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
+		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
 		
 		// Depending on the direction...
 		switch (direction) {

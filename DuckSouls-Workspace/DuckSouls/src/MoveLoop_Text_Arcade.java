@@ -80,7 +80,7 @@ public class MoveLoop_Text_Arcade {
 				
 				// Update some variables
 				currentRoom = currentLevel.roomAt(currentLevel.getCurrentRoomPoint());
-				playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).playerPoint;
+				playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).getPlayerPoint();
 				
 				// Exit the level if standing on stairs
 				if (currentRoom.tileAt(playerPoint) instanceof Stairs) {

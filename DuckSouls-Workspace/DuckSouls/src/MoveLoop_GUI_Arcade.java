@@ -75,7 +75,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 		
 		// Update some variables
 		currentRoom = currentLevel.roomAt(currentLevel.getCurrentRoomPoint());
-		playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).playerPoint;
+		playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).getPlayerPoint();
 		
 		currentRoom.draw_GUI(gc);
 		
@@ -91,7 +91,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 			
 			// Update some variables
 			currentRoom = currentLevel.roomAt(currentLevel.getCurrentRoomPoint());
-			playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).playerPoint;
+			playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).getPlayerPoint();
 			
 			// Exit the level if standing on stairs
 			if (currentRoom.tileAt(playerPoint) instanceof Stairs) {
@@ -115,7 +115,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 			
 			// Update some variables
 			currentRoom = currentLevel.roomAt(currentLevel.getCurrentRoomPoint());
-			playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).playerPoint;
+			playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).getPlayerPoint();
 			
 			// Draw the room
 			Utilities.clearConsole();
@@ -124,18 +124,18 @@ public class MoveLoop_GUI_Arcade extends Application {
 			
 			if (key.getCode() == KeyCode.W) { // NORTH
 				
-				if (currentRoom.playerPoint.y == 0) {
+				if (currentRoom.getPlayerPoint().y == 0) {
 					currentLevel.moveRoom_Direction(Orientation.NORTH, gc);
 				} else {
 					
 					// Point to move the player to (Up)
-					Point newPlayerPoint = new Point(currentRoom.playerPoint.x, currentRoom.playerPoint.y - 1);
+					Point newPlayerPoint = new Point(currentRoom.getPlayerPoint().x, currentRoom.getPlayerPoint().y - 1);
 					
 					// Run the method to move the player
-					currentRoom.moveEntity(currentRoom.playerPoint, newPlayerPoint);
+					currentRoom.moveEntity(currentRoom.getPlayerPoint(), newPlayerPoint);
 					
 					// Set the player direction
-					newPlayerPoint = currentRoom.playerPoint;
+					newPlayerPoint = currentRoom.getPlayerPoint();
 					currentRoom.entityAt(newPlayerPoint).setOrientation(Orientation.NORTH);
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
@@ -146,18 +146,18 @@ public class MoveLoop_GUI_Arcade extends Application {
 				
 			} else if (key.getCode() == KeyCode.A) { // WEST
 				
-				if (currentRoom.playerPoint.x == 0) {
+				if (currentRoom.getPlayerPoint().x == 0) {
 					currentLevel.moveRoom_Direction(Orientation.WEST, gc);
 				} else {
 					
 					// Point to move the player to (Left)
-					Point newPlayerPoint = new Point(currentRoom.playerPoint.x - 1, currentRoom.playerPoint.y);
+					Point newPlayerPoint = new Point(currentRoom.getPlayerPoint().x - 1, currentRoom.getPlayerPoint().y);
 					
 					// Run the method to move the player
-					currentRoom.moveEntity(currentRoom.playerPoint, newPlayerPoint);
+					currentRoom.moveEntity(currentRoom.getPlayerPoint(), newPlayerPoint);
 					
 					// Set the player direction
-					newPlayerPoint = currentRoom.playerPoint;
+					newPlayerPoint = currentRoom.getPlayerPoint();
 					currentRoom.entityAt(newPlayerPoint).setOrientation(Orientation.WEST);
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
@@ -168,18 +168,18 @@ public class MoveLoop_GUI_Arcade extends Application {
 				
 			} else if (key.getCode() == KeyCode.S) { // SOUTH
 				
-				if (currentRoom.playerPoint.y == currentLevel.roomSize + 1) {
+				if (currentRoom.getPlayerPoint().y == currentLevel.roomSize + 1) {
 					currentLevel.moveRoom_Direction(Orientation.SOUTH, gc);
 				} else {
 					
 					// Point to move the player to (Down)
-					Point newPlayerPoint = new Point(currentRoom.playerPoint.x, currentRoom.playerPoint.y + 1);
+					Point newPlayerPoint = new Point(currentRoom.getPlayerPoint().x, currentRoom.getPlayerPoint().y + 1);
 					
 					// Run the method to move the player
-					currentRoom.moveEntity(currentRoom.playerPoint, newPlayerPoint);
+					currentRoom.moveEntity(currentRoom.getPlayerPoint(), newPlayerPoint);
 					
 					// Set the player direction
-					newPlayerPoint = currentRoom.playerPoint;
+					newPlayerPoint = currentRoom.getPlayerPoint();
 					currentRoom.entityAt(newPlayerPoint).setOrientation(Orientation.SOUTH);
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
@@ -190,18 +190,18 @@ public class MoveLoop_GUI_Arcade extends Application {
 				
 			} else if (key.getCode() == KeyCode.D) { // EAST
 				
-				if (currentRoom.playerPoint.x == currentLevel.roomSize + 1) {
+				if (currentRoom.getPlayerPoint().x == currentLevel.roomSize + 1) {
 					currentLevel.moveRoom_Direction(Orientation.EAST, gc);
 				} else {
 					
 					// Point to move the player to (Right)
-					Point newPlayerPoint = new Point(currentRoom.playerPoint.x + 1, currentRoom.playerPoint.y);
+					Point newPlayerPoint = new Point(currentRoom.getPlayerPoint().x + 1, currentRoom.getPlayerPoint().y);
 					
 					// Run the method to move the player
-					currentRoom.moveEntity(currentRoom.playerPoint, newPlayerPoint);
+					currentRoom.moveEntity(currentRoom.getPlayerPoint(), newPlayerPoint);
 					
 					// Set the player direction
-					newPlayerPoint = currentRoom.playerPoint;
+					newPlayerPoint = currentRoom.getPlayerPoint();
 					currentRoom.entityAt(newPlayerPoint).setOrientation(Orientation.EAST);
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					

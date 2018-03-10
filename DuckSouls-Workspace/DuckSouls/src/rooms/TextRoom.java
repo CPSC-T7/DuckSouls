@@ -2,7 +2,6 @@ package rooms;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Random;
 
 import entities.*;
 import items.*;
@@ -19,33 +18,7 @@ import utils.Utilities;
  * @author Nadhif Satriana
  * @version 1.11
  */
-public class TextRoom {
-	
-	/*
-	 * 
-	 * STATIC VARIABLES
-	 * 
-	 */
-	
-	private static Random	_random				= new Random();
-	
-	/*
-	 * 
-	 * INSTANCE VARIABLES
-	 * 
-	 */
-	
-	private int				internalWidth;
-	private int				internalHeight;
-	private int				enemySpawnChance	= 1;
-	
-	private Tile[][]		tileArray;
-	private Item[][]		itemArray;
-	private Entity[][]		entityArray;
-	
-	public Point			playerPoint;
-	
-	public String			roomName;
+public class TextRoom extends Room {
 	
 	/*
 	 * 
@@ -259,7 +232,7 @@ public class TextRoom {
 					Point enemyPoint = new Point(x, y);
 					
 					// If the enemy is within 1 tile of the player
-					if (this.playerPoint.distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
+					if (this.getPlayerPoint().distance(enemyPoint) < 1.41421) { // sqrt(2) for the diagonal
 						
 						// Return the enemy's position
 						return enemyPoint;
@@ -357,7 +330,7 @@ public class TextRoom {
 			
 			// Note the new position if the player is moved
 			if (this.entityAt(moveTo) instanceof Player) {
-				this.playerPoint = moveTo;
+				this.setPlayerPoint(moveTo);
 			}
 			
 			// Set path tiles...
@@ -442,7 +415,7 @@ public class TextRoom {
 		// Note the position if the player is moved
 		if (entity instanceof Player) {
 			
-			this.playerPoint = position;
+			this.setPlayerPoint(position);
 			
 			// Pickup the item that is about to be stepped on
 			if (this.itemArray[position.x][position.y] != null) {

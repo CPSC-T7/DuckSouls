@@ -24,6 +24,7 @@ public class Tile {
 	private String		stringRepr	= "TER";
 	private char		fileCharacter;
 	protected boolean	canWalkOn	= true;
+	private boolean		isGUI;
 	
 	private String		pathToImage;
 	private Image		image;
@@ -50,8 +51,9 @@ public class Tile {
 		this.fileCharacter = this.stringRepr.charAt(1); // Middle char
 		this.canWalkOn = canWalkOn;
 		this.pathToImage = pathToImage;
+		this.isGUI = isGUI;
 		
-		if (isGUI)
+		if (this.isGUI)
 			this.updateImage();
 		
 	}

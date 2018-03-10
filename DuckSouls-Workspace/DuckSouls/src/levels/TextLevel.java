@@ -347,11 +347,11 @@ public class TextLevel {
 	public void moveRoom_Direction(Orientation direction) {
 		
 		// Get the player and their position
-		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
+		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
 		Player player = (Player) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
 		
 		// Remove the player from the old room, and set the room's minimap character
-		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).playerPoint);
+		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
 		this.minimapArray[this.getCurrentRoomPoint().x][this.getCurrentRoomPoint().y] = '.';
 		
 		// Depending on the direction...
