@@ -55,9 +55,9 @@ public class BattleGuiTest extends Application {
 			@Override
 			public void handle(long arg0) {
 				// TODO Auto-generated method stub
-					if(frame < 0){
+				if(frame < 0){
 						
-					}else if (frame <= 5) {
+				}else if (frame <= 5) {
 					frame += 1;
 					position += 4;
 					gc.drawImage(battleBackground, 0, 0);
