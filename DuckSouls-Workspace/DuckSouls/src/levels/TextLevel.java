@@ -1,10 +1,11 @@
-package arcade_map;
+package levels;
 
 import java.awt.Point;
 import java.util.Scanner;
 
-import arcade_entities.*;
-import arcade_tiles.Stairs;
+import entities.*;
+import rooms.TextRoom;
+import tiles.Stairs;
 
 import java.util.Random;
 

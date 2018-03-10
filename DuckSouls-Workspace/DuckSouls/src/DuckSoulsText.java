@@ -1,6 +1,6 @@
 import ui.TitleScreen;
-import arcade_map.TextLevel;
 import battle.DuckObject;
+import levels.TextLevel;
 
 /**
  * The main class to play DuckSouls.

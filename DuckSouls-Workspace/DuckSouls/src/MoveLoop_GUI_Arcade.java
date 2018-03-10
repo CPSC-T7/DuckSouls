@@ -1,12 +1,9 @@
 import java.awt.Point;
 
-import arcade_entities.Player;
-import arcade_map.GUILevel;
-import arcade_map.GUIRoom;
-import arcade_tiles.Stairs;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
+import entities.Player;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,6 +11,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import levels.GUILevel;
+import rooms.GUIRoom;
+import tiles.Stairs;
 import utils.Orientation;
 import utils.Utilities;
 

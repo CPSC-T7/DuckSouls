@@ -1,12 +1,12 @@
-package arcade_map;
+package rooms;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import arcade_entities.*;
-import arcade_tiles.*;
+import entities.*;
 import items.*;
+import tiles.*;
 import utils.Orientation;
 import utils.Utilities;
 

@@ -1,4 +1,4 @@
-package arcade_entities;
+package entities;
 
 /**
  * This class represents an enemy entity.

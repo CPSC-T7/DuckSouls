@@ -1,4 +1,4 @@
-package arcade_tiles;
+package tiles;
 
 import utils.Orientation;
 

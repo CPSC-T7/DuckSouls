@@ -1,4 +1,4 @@
-package arcade_entities;
+package entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;

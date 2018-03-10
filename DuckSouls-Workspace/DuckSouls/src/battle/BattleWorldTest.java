@@ -1,7 +1,7 @@
 package battle;
 
 import utils.Utilities;
-import arcade_entities.Entity;
+import entities.Entity;
 import items.Item;
 
 /**

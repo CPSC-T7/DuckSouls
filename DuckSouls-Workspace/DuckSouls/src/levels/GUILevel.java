@@ -1,17 +1,18 @@
-package arcade_map;
+package levels;
 
 import java.awt.Point;
 import java.util.Scanner;
 
-import arcade_entities.*;
-import arcade_tiles.Stairs;
 import battle.BattleWorldTest;
+import entities.*;
 
 import java.util.Random;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import rooms.GUIRoom;
+import tiles.Stairs;
 import utils.Orientation;
 import utils.Utilities;
 

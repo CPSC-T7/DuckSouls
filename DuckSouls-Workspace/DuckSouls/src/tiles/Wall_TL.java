@@ -1,4 +1,4 @@
-package arcade_tiles;
+package tiles;
 
 /**
  * This class represents all of the top left corner wall tiles for DuckSouls.
