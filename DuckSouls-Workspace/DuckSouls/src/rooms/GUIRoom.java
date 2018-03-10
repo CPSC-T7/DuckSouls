@@ -27,7 +27,8 @@ public class GUIRoom extends Room {
 	 * 
 	 */
 	
-	private static final int TILE_SIZE = 64;
+	public static final boolean	IS_GUI		= true;
+	private static final int	TILE_SIZE	= 64;
 	
 	/*
 	 * 
@@ -35,50 +36,9 @@ public class GUIRoom extends Room {
 	 * 
 	 */
 	
-	/**
-	 * Creates a square room of set size with scattered items and enemies. <br>
-	 * This is the constructor used by TextLevel to create rooms.
-	 * 
-	 * @param size
-	 *            Width and height of the room.
-	 * @param enemySpawnChance
-	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
-	 */
 	public GUIRoom(int size, int enemySpawnChance) {
 		
-		this.internalWidth = size;
-		this.internalHeight = size;
-		this.enemySpawnChance = enemySpawnChance;
-		
-		this.genTileArray();
-		// this.scatterItems(); // TODO: Implement GUI Items
-		this.scatterEnemies();
-		
-	}
-	
-	/**
-	 * Creates a room of set width and height, with scattered items and enemies, and
-	 * specified door points.
-	 * 
-	 * @param width
-	 *            Width of the room.
-	 * @param height
-	 *            Height of the room.
-	 * @param doors
-	 *            A java.awt.Point array of door co-ordinates. Acceptable points lie
-	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
-	 *            with (0, 0) as the top-left.
-	 */
-	public GUIRoom(int width, int height, Point[] doors) {
-		
-		this.internalWidth = width;
-		this.internalHeight = height;
-		
-		this.genTileArray();
-		// this.scatterItems(); // TODO: Implement GUI Items
-		this.scatterEnemies();
-		
-		this.placeDoors(doors);
+		super(IS_GUI, size, enemySpawnChance);
 		
 	}
 	
@@ -94,58 +54,14 @@ public class GUIRoom extends Room {
 	 * accommodate walls. Also automatically fills the edges with the correct wall
 	 * tiles.
 	 */
-	private void genTileArray() {
+	@Override
+	protected void genTileArray() {
 		
-		// Generate 2D arrays to fill...
-		this.tileArray = new Tile[this.internalWidth + 2][this.internalHeight + 2];
-		this.entityArray = new Entity[this.internalWidth + 2][this.internalHeight + 2];
-		this.itemArray = new Item[this.internalWidth + 2][this.internalHeight + 2];
+		super.genTileArray();
 		
 		// For each position...
 		for (int x = 0; x < this.internalWidth + 2; x++) {
 			for (int y = 0; y < this.internalHeight + 2; y++) {
-				
-				/*
-				 * Put the appropriate wall tiles along the edges.
-				 */
-				
-				if (x == 0 && y == 0) { // Top Left
-					
-					this.tileArray[x][y] = new Wall_TL(true);
-					
-				} else if (x == this.internalWidth + 1 && y == 0) { // Top Right
-					
-					this.tileArray[x][y] = new Wall_TR(true);
-					
-				} else if (x == 0 && y == this.internalHeight + 1) { // Bottom Left
-					
-					this.tileArray[x][y] = new Wall_BL(true);
-					
-				} else if (x == this.internalWidth + 1 && y == this.internalHeight + 1) { // Bottom Right
-					
-					this.tileArray[x][y] = new Wall_BR(true);
-					
-				} else if (x == 0) { // Left
-					
-					this.tileArray[x][y] = new Wall_L(true);
-					
-				} else if (y == 0) { // Top
-					
-					this.tileArray[x][y] = new Wall_T(true);
-					
-				} else if (x == this.internalWidth + 1) { // Right
-					
-					this.tileArray[x][y] = new Wall_R(true);
-					
-				} else if (y == this.internalHeight + 1) { // Bottom
-					
-					this.tileArray[x][y] = new Wall_B(true);
-					
-				} else { // Centre Tiles
-					
-					this.tileArray[x][y] = new Floor(true);
-					
-				}
 				
 				this.tileArray[x][y].updateImage();
 				

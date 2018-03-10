@@ -22,54 +22,21 @@ public class TextRoom extends Room {
 	
 	/*
 	 * 
+	 * STATIC VARIABLES
+	 * 
+	 */
+	
+	public static final boolean	IS_GUI		= false;
+	
+	/*
+	 * 
 	 * CONSTRUCTORS
 	 * 
 	 */
 	
-	/**
-	 * Creates a square room of set size with scattered items and enemies. <br>
-	 * This is the constructor used by TextLevel to create rooms.
-	 * 
-	 * @param size
-	 *            Width and height of the room.
-	 * @param enemySpawnChance
-	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
-	 */
 	public TextRoom(int size, int enemySpawnChance) {
 		
-		this.internalWidth = size;
-		this.internalHeight = size;
-		this.enemySpawnChance = enemySpawnChance;
-		
-		this.genTileArray();
-		this.scatterItems();
-		this.scatterEnemies();
-		
-	}
-	
-	/**
-	 * Creates a room of set width and height, with scattered items and enemies, and
-	 * specified door points.
-	 * 
-	 * @param width
-	 *            Width of the room.
-	 * @param height
-	 *            Height of the room.
-	 * @param doors
-	 *            A java.awt.Point array of door co-ordinates. Acceptable points lie
-	 *            in a range of (0, 0) to (width+2, height+2) to accommodate walls,
-	 *            with (0, 0) as the top-left.
-	 */
-	public TextRoom(int width, int height, Point[] doors) {
-		
-		this.internalWidth = width;
-		this.internalHeight = height;
-		
-		this.genTileArray();
-		this.scatterItems();
-		this.scatterEnemies();
-		
-		this.placeDoors(doors);
+		super(IS_GUI, size, enemySpawnChance);
 		
 	}
 	
@@ -144,71 +111,6 @@ public class TextRoom extends Room {
 	 * METHODS
 	 * 
 	 */
-	
-	/**
-	 * Generates and appends a tile array to the instance. Makes the tile array 2
-	 * units larger in both the x and y direction from the internal size to
-	 * accommodate walls. Also automatically fills the edges with the correct wall
-	 * tiles.
-	 */
-	private void genTileArray() {
-		
-		// Generate 2D arrays to fill...
-		this.tileArray = new Tile[this.internalWidth + 2][this.internalHeight + 2];
-		this.entityArray = new Entity[this.internalWidth + 2][this.internalHeight + 2];
-		this.itemArray = new Item[this.internalWidth + 2][this.internalHeight + 2];
-		
-		// For each position...
-		for (int x = 0; x < this.internalWidth + 2; x++) {
-			for (int y = 0; y < this.internalHeight + 2; y++) {
-				
-				/*
-				 * Put the appropriate wall tiles along the edges.
-				 */
-				
-				if (x == 0 && y == 0) { // Top Left
-					
-					this.tileArray[x][y] = new Wall_TL(false);
-					
-				} else if (x == this.internalWidth + 1 && y == 0) { // Top Right
-					
-					this.tileArray[x][y] = new Wall_TR(false);
-					
-				} else if (x == 0 && y == this.internalHeight + 1) { // Bottom Left
-					
-					this.tileArray[x][y] = new Wall_BL(false);
-					
-				} else if (x == this.internalWidth + 1 && y == this.internalHeight + 1) { // Bottom Right
-					
-					this.tileArray[x][y] = new Wall_BR(false);
-					
-				} else if (x == 0) { // Left
-					
-					this.tileArray[x][y] = new Wall_L(false);
-					
-				} else if (y == 0) { // Top
-					
-					this.tileArray[x][y] = new Wall_T(false);
-					
-				} else if (x == this.internalWidth + 1) { // Right
-					
-					this.tileArray[x][y] = new Wall_R(false);
-					
-				} else if (y == this.internalHeight + 1) { // Bottom
-					
-					this.tileArray[x][y] = new Wall_B(false);
-					
-				} else { // Centre Tiles
-					
-					this.tileArray[x][y] = new Floor(false);
-					
-				}
-				
-			}
-			
-		}
-		
-	}
 	
 	/**
 	 * Returns the point of an enemy within 1 tile of the player, if one exists.
