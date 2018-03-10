@@ -168,7 +168,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 				
 			} else if (key.getCode() == KeyCode.S) { // SOUTH
 				
-				if (currentRoom.getPlayerPoint().y == currentLevel.roomSize + 1) {
+				if (currentRoom.getPlayerPoint().y == currentLevel.getRoomSize() + 1) {
 					currentLevel.moveRoom_Direction(Orientation.SOUTH, gc);
 				} else {
 					
@@ -190,7 +190,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 				
 			} else if (key.getCode() == KeyCode.D) { // EAST
 				
-				if (currentRoom.getPlayerPoint().x == currentLevel.roomSize + 1) {
+				if (currentRoom.getPlayerPoint().x == currentLevel.getRoomSize() + 1) {
 					currentLevel.moveRoom_Direction(Orientation.EAST, gc);
 				} else {
 					

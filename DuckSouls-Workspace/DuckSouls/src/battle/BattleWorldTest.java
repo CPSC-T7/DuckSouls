@@ -1,7 +1,6 @@
 package battle;
 
 import utils.Utilities;
-import entities.Entity;
 import items.Item;
 
 /**
