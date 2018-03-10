@@ -77,7 +77,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 		currentRoom = currentLevel.roomAt(currentLevel.getCurrentRoomPoint());
 		playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).getPlayerPoint();
 		
-		currentRoom.draw_GUI(gc);
+		currentRoom.draw(gc);
 		
 		/*
 		 * Loop:
@@ -120,7 +120,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 			// Draw the room
 			Utilities.clearConsole();
 			System.out.println("Level: " + levelNum + "\n");
-			currentRoom.draw_GUI(gc);
+			currentRoom.draw(gc);
 			
 			if (key.getCode() == KeyCode.W) { // NORTH
 				
@@ -140,7 +140,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
 					// Re-draw the room
-					currentRoom.draw_GUI(gc);
+					currentRoom.draw(gc);
 					
 				}
 				
@@ -162,7 +162,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
 					// Re-draw the room
-					currentRoom.draw_GUI(gc);
+					currentRoom.draw(gc);
 					
 				}
 				
@@ -184,7 +184,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
 					// Re-draw the room
-					currentRoom.draw_GUI(gc);
+					currentRoom.draw(gc);
 					
 				}
 				
@@ -206,23 +206,21 @@ public class MoveLoop_GUI_Arcade extends Application {
 					currentRoom.entityAt(newPlayerPoint).updateImage();
 					
 					// Re-draw the room
-					currentRoom.draw_GUI(gc);
+					currentRoom.draw(gc);
 					
 				}
 				
 			}
 			
-			// Check for enemies
-			Point battlePoint = currentRoom.checkForBattlePoint();
-			if (battlePoint != null) {
+			if (currentRoom.isBattleReady()) {
 				
 				System.out.println("Entering battle...");
 				
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop(Player, Enemy, player.getWeapon(), player.getArmour());
 				
-				currentRoom.removeEntity(battlePoint);
-				currentRoom.draw_GUI(gc);
+				currentRoom.draw(gc);
+				currentRoom.setBattleReady(false);
 				
 			}
 			

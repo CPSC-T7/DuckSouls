@@ -93,7 +93,7 @@ public class MoveLoop_Text_Arcade {
 				System.out.println("Level: " + levelNum + "\n");
 				currentLevel.drawMinimap();
 				System.out.println('\n');
-				currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).draw_Text();
+				currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).draw();
 				
 				// Ask the user for input
 				System.out.print("\nAction \t: ");
@@ -175,13 +175,14 @@ public class MoveLoop_Text_Arcade {
 				}
 				
 				// Check for enemies
-				Point battlePoint = currentRoom.checkForBattlePoint();
-				if (battlePoint != null) {
+				if (currentRoom.isBattleReady()) {
+					
+					System.out.println("Entering battle...");
 					
 					Utilities.clearConsole();
 					BattleWorldTest.battleLoop(Player, Enemy, player.getWeapon(), player.getArmour());
 					
-					currentRoom.removeEntity(battlePoint);
+					currentRoom.setBattleReady(false);
 					
 				}
 				

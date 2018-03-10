@@ -284,7 +284,7 @@ public class GUILevel {
 		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).updateImage();
 		
 		// Re-draw the room
-		this.roomAt(this.currentRoomPoint).draw_GUI(gc);
+		this.roomAt(this.currentRoomPoint).draw(gc);
 		
 	}
 	
