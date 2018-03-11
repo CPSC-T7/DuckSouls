@@ -42,7 +42,7 @@ public abstract class Room {
 	 * 
 	 */
 	
-//	public abstract void draw();
+	// public abstract void draw();
 	
 	/*
 	 * 
@@ -62,7 +62,7 @@ public abstract class Room {
 	protected int			internalHeight;
 	protected int			enemySpawnChance	= 1;
 	protected boolean		IS_GUI;
-	protected boolean		battleReady = false;
+	protected boolean		battleReady			= false;
 	
 	protected Tile[][]		tileArray;
 	protected Item[][]		itemArray;
@@ -97,6 +97,80 @@ public abstract class Room {
 		this.genTileArray();
 		this.scatterItems();
 		this.scatterEnemies();
+		
+	}
+	
+	/**
+	 * Creates a room from a specified file.
+	 *
+	 * @param roomName
+	 *            The name of the room. (Used for file i/o)
+	 * @param fileName
+	 *            The file containing the data for the room.
+	 */
+	// TODO: UNTESTED!
+	public Room(boolean isGUI, String roomName, String fileName, int enemySpawnChance) {
+		
+		String[] lines = Utilities.readLines("../TextRooms/" + fileName);
+		
+		this.IS_GUI = isGUI;
+		this.internalWidth = lines[0].split(",").length - 2;
+		this.internalHeight = lines.length - 2;
+		this.enemySpawnChance = enemySpawnChance;
+		
+		this.genTileArray();
+		
+		String[][] textTileArray = new String[this.internalWidth + 2][this.internalHeight + 2];
+		for (int i = 0; i < this.internalHeight + 2; i++) {
+			textTileArray[i] = lines[i].split(",");
+		}
+		
+		Point position;
+		
+		for (int y = 0; y < this.internalHeight + 2; y++) {
+			for (int x = 0; x < this.internalWidth + 2; x++) {
+				
+				position = new Point(x, y);
+				
+				switch (textTileArray[x][y].replaceAll("\\s+", "")) {
+					
+					case "@":
+						this.placeEntity(position, new Player());
+						break;
+					
+					case "E":
+						this.placeEntity(position, new Player());
+						break;
+					
+					case ".":
+						this.tileArray[x][y] = new Path(this.IS_GUI);
+						break;
+					
+					case "":
+						this.tileArray[x][y] = new Floor(this.IS_GUI);
+						break;
+					
+					default:
+						
+						for (Item item : Item.allSpawnableItems) {
+							
+							if (textTileArray[x][y].replaceAll("\\s+", "")
+									.equals(item.getStringRepr().replaceAll("\\s+", ""))) {
+								
+								Class<? extends Item> c = item.getClass();
+								this.placeItem(position, c.cast(new Item(item)));
+								
+							}
+							
+						}
+						
+						break;
+					
+				}
+				
+			}
+			
+		}
 		
 	}
 	
@@ -229,18 +303,19 @@ public abstract class Room {
 		}
 		
 	}
-
+	
 	public Point getPlayerPoint() {
 		
 		return playerPoint;
 		
 	}
-
+	
 	public void setPlayerPoint(Point playerPoint) {
 		
 		this.playerPoint = playerPoint;
 		
 	}
+	
 	public boolean isBattleReady() {
 		
 		return battleReady;
@@ -331,8 +406,19 @@ public abstract class Room {
 			temp = "";
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
-				// Format the line
-				temp += this.tileArray[x][y].getFileCharacter() + ",";
+				if (this.entityArray[x][y] != null) {
+					
+					temp += this.entityArray[x][y].getStringRepr().replaceAll("\\s+", "") + ",";
+					
+				} else if (this.itemArray[x][y] != null) {
+					
+					temp += this.itemArray[x][y].getStringRepr().replaceAll("\\s+", "") + ",";
+					
+				} else {
+					
+					temp += this.tileArray[x][y].getFileCharacter() + ",";
+					
+				}
 				
 			}
 			
@@ -576,7 +662,7 @@ public abstract class Room {
 				this.itemArray[position.x][position.y] = null;
 			}
 			
-			if(this.entityArray[position.x][position.y] instanceof Enemy) {
+			if (this.entityArray[position.x][position.y] instanceof Enemy) {
 				this.battleReady = true;
 			}
 			
