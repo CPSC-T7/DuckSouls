@@ -4,6 +4,12 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/**
+ * The animation for running up to, or away from the enemy.
+ * 
+ * @author Wylee
+ *
+ */
 public class Run extends Animation {
 
 	private int 	frame 		= 0;		//The current animation frame
@@ -26,6 +32,7 @@ public class Run extends Animation {
 		this.gc = gc;
 		
 		if (direction == -1) {
+			this.position = 264;
 			this.translation = 128;
 		}
 	}//End of Run constructor
@@ -33,38 +40,33 @@ public class Run extends Animation {
 	/**
 	 * Play the Attack animation.
 	 */
-	public void playAnimation() {
-		new AnimationTimer() {
+	public boolean playAnimation() {
 
-			@Override
-			public void handle(long args) {
+		if (frame <= 5) {
+			
+			frame += 1;
+			position += 4*direction;
+			gc.drawImage(BACKGROUND, 0, 0);
+			gc.drawImage(RUN_ONE, position + translation, 64*3,
+					RUN_ONE.getWidth()*direction, RUN_ONE.getHeight());
+			
+		}else if(frame <= 10) {
 
-				if (frame <= 5) {
-					
-					frame += 1;
-					position += 4;
-					gc.drawImage(BACKGROUND, 0, 0);
-					gc.drawImage(RUN_ONE, position + translation, 64*3,
-							RUN_ONE.getWidth()*direction, RUN_ONE.getHeight());
-					
-				}else if(frame <= 10) {
-
-					frame += 1;
-					position += 4;
-					gc.drawImage(BACKGROUND, 0, 0);
-					gc.drawImage(RUN_TWO, position + translation, 64*3,
-							RUN_TWO.getWidth()*direction, RUN_TWO.getHeight());
-				}else if(frame == 11) {
-					
-					//Check the number of loops done
-					if(loop == numLoops) {
-						stop(); //End the animation
-					}else {
-						frame = 0;
-						loop += 1;
-					}
-				}
+			frame += 1;
+			position += 4*direction;
+			gc.drawImage(BACKGROUND, 0, 0);
+			gc.drawImage(RUN_TWO, position + translation, 64*3,
+					RUN_TWO.getWidth()*direction, RUN_TWO.getHeight());
+		}else if(frame == 11) {
+			
+			//Check the number of loops done
+			if(loop == numLoops) {
+				return true;
+			}else {
+				frame = 0;
+				loop += 1;
 			}
-		}.start();
+		}
+		return false;
 	}//End of playAnimation
 }

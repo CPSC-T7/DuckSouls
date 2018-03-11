@@ -21,7 +21,7 @@ import animations.*; //sprite animations
  *
  */
 public class BattleGuiTest extends Application {
-
+	
 	public void start(Stage mainStage) throws Exception {
 		final int windowSize = 64 * 9;
 		Group root = new Group();
@@ -38,16 +38,21 @@ public class BattleGuiTest extends Application {
 		
 		new AnimationTimer() {
 			
+			boolean animationDone = false;
+			
 			@Override
 			public void handle(long args) {
 				
-				runRight.playAnimation();
-				runLeft.playAnimation();
+				animationDone = runRight.playAnimation();
+				if(animationDone == true) {
+					animationDone = false;
+					animationDone = runLeft.playAnimation();
+				}
+				
 			}
 			
 		}.start();
 		
-		System.out.println("Animation Done");
 		
 		mainStage.show();
 		

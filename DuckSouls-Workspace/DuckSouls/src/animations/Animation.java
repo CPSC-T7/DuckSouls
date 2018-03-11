@@ -11,7 +11,7 @@ public class Animation {
 	 * Method to play an animation.
 	 * Can control multiple sprites at the same time.
 	 */
-	public void playAnimation() {
-		System.out.println("No animation yet!");
+	public boolean playAnimation() {
+		return false;
 	}
 }
