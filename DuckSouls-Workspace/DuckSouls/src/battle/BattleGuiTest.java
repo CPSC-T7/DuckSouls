@@ -11,8 +11,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import map.GUILevel;
+import tiles.Stairs;
+import utils.Orientation;
+import utils.Utilities;
+
+import java.awt.Point;
 
 import animations.*; //sprite animations
 
@@ -53,24 +60,56 @@ public class BattleGuiTest extends Application {
 	    backgroundLayer.getChildren().add(battleBackground);
 	    
 	    BattlePlayer player = new BattlePlayer(playerIdle);
-		playerLayer.getChildren().add(player);
-		
-		
+		playerLayer.getChildren().add(player);	
 		
 		Scene scene = new Scene(root, windowSize, windowSize);
 		
-		//Animation runLeft = new Run(true, -1, gc);
-		//Animation runRight = new Run(true, 1, gc);
-		//final Animation animation = new SpriteAnimation(imageView);
-		//animation.setCycleCount(Animation.INDEFINITE);
-
-
-		
-		player.animation.play();
-		
+		player.animation.play();	
 		
 		mainStage.setScene(scene);
 		mainStage.show();
+		
+		
+		
+		AnimationTimer timer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+
+				update(scene, player);
+				
+			}
+			
+		};
+		timer.start();
+		
+	}
+	public void update(Scene scene, BattlePlayer player) {
+		
+		// Do the action inputed by the user
+		scene.setOnKeyPressed(key -> {
+			
+			if (key.getCode() == KeyCode.W) { // NORTH
+				
+				player.animation.play();
+				player.animation.setOffsetY(0);
+				
+			} else if (key.getCode() == KeyCode.A) { // WEST
+				
+				player.animation.play();
+				player.animation.setOffsetY(256);
+				
+			} else if (key.getCode() == KeyCode.S) { // SOUTH
+
+				
+			} else if (key.getCode() == KeyCode.D) { // EAST
+				
+				player.animation.play();
+				player.animation.setOffsetY(128);
+				player.moveX(8);
+			}
+		});
+		
 	}
     public static void main(String[] args) 
     {
