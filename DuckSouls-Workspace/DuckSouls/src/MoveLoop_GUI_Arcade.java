@@ -1,9 +1,11 @@
 import java.awt.Point;
 
+import battle.BattleGuiTest;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
 import entities.Player;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -37,6 +39,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 	
 	private static GUIRoom	currentRoom;
 	private static GUILevel	currentLevel;
+	private static boolean 	inBattle			= false;
 	private static Point	playerPoint			= new Point(3, 3);
 	private static Point	roomPoint			= new Point(0, 0);
 	private static Player	player				= new Player();
@@ -51,7 +54,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 	 */
 	
 	@Override
-	public void start(Stage mainStage) throws Exception {
+	public void start(Stage window) throws Exception {
 		
 		// JavaFX
 		final int windowSize = 64 * 7;
@@ -60,12 +63,15 @@ public class MoveLoop_GUI_Arcade extends Application {
 		Canvas canvas = new Canvas(windowSize, windowSize);
 		root.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		mainStage.setTitle("DuckSouls");
-		mainStage.setScene(scene);
-		mainStage.show();
+		
+		window.setTitle("DuckSouls");
+		window.setScene(scene);
+		window.show();
 		
 		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
 		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+		
+		BattleGuiTest battleWorld = new BattleGuiTest(window);
 		
 		// Set the level difficulty
 		enemySpawnChance = levelNum * difficultyPerLevel - difficultyPerLevel; // Starts at 0
@@ -79,12 +85,30 @@ public class MoveLoop_GUI_Arcade extends Application {
 		
 		currentRoom.draw_GUI(gc);
 		
-		/*
-		 * Loop:
-		 * 
-		 * Makes a level, runs the level until the user exits, then moves the player to
-		 * another level and runs that level.
-		 */
+		//Update based on frame rate
+		AnimationTimer timer = new AnimationTimer() {
+
+			@Override
+			public void handle(long now) {
+				
+				if(inBattle == false) {
+					updateWorld(scene, gc, battleWorld, Player, Enemy);
+				}else {
+					updateBattle(battleWorld);
+				}
+			}
+		};
+		timer.start();
+		
+	}
+	
+	/*
+	 * Loop:
+	 * 
+	 * Makes a level, runs the level until the user exits, then moves the player to
+	 * another level and runs that level.
+	 */
+	public void updateWorld(Scene scene, GraphicsContext gc, BattleGuiTest battleClass, DuckObject battlePlayer, EnemyObject battleEnemy ) {
 		
 		// Do the action inputed by the user
 		scene.setOnKeyPressed(key -> {
@@ -110,7 +134,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 				System.out.println("Loading new level...");
 				levelNum++;
 				Utilities.waitMilliseconds(1000);
-				
+				System.out.println("Level: " + levelNum + "\n");
 			}
 			
 			// Update some variables
@@ -119,7 +143,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 			
 			// Draw the room
 			Utilities.clearConsole();
-			System.out.println("Level: " + levelNum + "\n");
+
 			currentRoom.draw_GUI(gc);
 			
 			if (key.getCode() == KeyCode.W) { // NORTH
@@ -217,17 +241,25 @@ public class MoveLoop_GUI_Arcade extends Application {
 			if (battlePoint != null) {
 				
 				System.out.println("Entering battle...");
-				
+				/*
 				Utilities.clearConsole();
-				BattleWorldTest.battleLoop(Player, Enemy, player.getWeapon(), player.getArmour());
+				BattleWorldTest.battleLoop(battlePlayer, battleEnemy, player.getWeapon(), player.getArmour());
 				
 				currentRoom.removeEntity(battlePoint);
 				currentRoom.draw_GUI(gc);
+				*/
+				inBattle = true;
+				battleClass.setScene();
 				
 			}
 			
 		});
-		
 	}
 	
+	/**
+	 * Update the world in which the player fights an enemy.
+	 */
+	public void updateBattle(BattleGuiTest battleClass) {
+		battleClass.update();
+	}
 }

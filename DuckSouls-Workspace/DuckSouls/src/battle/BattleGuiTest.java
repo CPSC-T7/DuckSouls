@@ -33,7 +33,7 @@ import animations.*; //sprite animations
  * Basic test of the GUI Battle screen, and player animations.
  *
  */
-public class BattleGuiTest extends Application {
+public class BattleGuiTest{
 	
 	//Keep track of the currently selected button
 	private int menuButtonX = 0;
@@ -50,97 +50,92 @@ public class BattleGuiTest extends Application {
 	private boolean inAnimation = false;
 	
 	//The size of the screen (squared)
-	private final int windowSize = 64 * 9;
+	private int windowSize = 64 * 9;
 	
+	//Background image and viewer
+	private Image battleBackgroundImage = new Image("Sprites/Backgrounds/Sewer-Battle.png");
+	private ImageView battleBackgroundImageView = new ImageView(battleBackgroundImage);
+	
+    //Player image and viewer
+	private Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
+	private ImageView playerImageView = new ImageView(playerImage);
+	
+	//Player class
+	private BattlePlayer player = new BattlePlayer(playerImageView);
+    
+    /*Battle menu buttons*/
+    //Attack button image and viewer
+	private Image attackButtonImage = new Image("Sprites/Menus/Battle/Attack.png");
+	private ImageView attackButtonImageView = new ImageView(attackButtonImage);
+    
+    //Taunt button image and viewer
+	private Image tauntButtonImage = new Image("Sprites/Menus/Battle/Taunt.png");
+	private ImageView tauntButtonImageView = new ImageView(tauntButtonImage);
+    
+    //Quack button image and viewer
+	private Image quackButtonImage = new Image("Sprites/Menus/Battle/Quack.png");
+	private ImageView quackButtonImageView = new ImageView(quackButtonImage);
+    
+    //Item button image and viewer
+	private Image itemButtonImage = new Image("Sprites/Menus/Battle/Item.png");
+	private ImageView itemButtonImageView = new ImageView(itemButtonImage);
+    
+    //Root group will separate all layers
+	private Group root = new Group();
+    
+    //Background, menu, and player layers (drawn in order of appearance)
+	private Pane backgroundLayer = new Pane();
+	private Pane menuLayer = new Pane(attackButtonImageView, tauntButtonImageView, quackButtonImageView, itemButtonImageView);    
+	private Pane playerLayer = new Pane();
+    
+    //Add all sprites to draw in order
+	private Pane groupPane = new Pane(backgroundLayer, menuLayer, playerLayer);
+	
+	//2D array of menu buttons [rows][columns]
+	MenuButton[][] menuArray = new MenuButton[][] {	{new MenuButton(attackButtonImageView, "Attack", 10, 64*6),
+											   		new MenuButton(tauntButtonImageView, "Taunt", 10, 64*6 + 50)},
+		
+													{new MenuButton(quackButtonImageView, "Quack", 160, 64*6),
+											   		new MenuButton(itemButtonImageView, "Item", 160, 64*6 + 50)} };
+	
+	//The BattleGUI Stage and Scene
+	private Stage window;
+	private Scene scene = new Scene(root);
+    
 	/**
 	 * Start the JavaFX stage
 	 */
-	public void start(Stage mainStage) throws Exception {
+	public BattleGuiTest(Stage window){
 		
-		
-		Canvas canvas = new Canvas(windowSize, windowSize);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		mainStage.setTitle("DuckSouls");
-		
-		//Background image and viewer
-		final Image battleBackgroundImage = new Image("Sprites/Backgrounds/Sewer-Battle.png");
-	    final ImageView battleBackgroundImageView = new ImageView(battleBackgroundImage);
-		
-	    //Player image and viewer
-		final Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
-	    final ImageView playerImageView = new ImageView(playerImage);
-	    
-	    /*Battle menu buttons*/
-	    //Attack button image and viewer
-	    final Image attackButtonImage = new Image("Sprites/Menus/Battle/Attack.png");
-	    final ImageView attackButtonImageView = new ImageView(attackButtonImage);
-	    
-	    //Taunt button image and viewer
-	    final Image tauntButtonImage = new Image("Sprites/Menus/Battle/Taunt.png");
-	    final ImageView tauntButtonImageView = new ImageView(tauntButtonImage);
-	    
-	    //Quack button image and viewer
-	    final Image quackButtonImage = new Image("Sprites/Menus/Battle/Quack.png");
-	    final ImageView quackButtonImageView = new ImageView(quackButtonImage);
-	    
-	    //Item button image and viewer
-	    final Image itemButtonImage = new Image("Sprites/Menus/Battle/Item.png");
-	    final ImageView itemButtonImageView = new ImageView(itemButtonImage);
-	    
-	    //Root group will separate all layers
-	    final Group root = new Group();
-	    
-	    //Background, menu, and player layers (drawn in order of appearance)
-	    final Pane backgroundLayer = new Pane();
-	    final Pane menuLayer = new Pane(attackButtonImageView, tauntButtonImageView, quackButtonImageView, itemButtonImageView);    
-	    final Pane playerLayer = new Pane();
-	    
-	    //Add all sprites to draw in order
-	    final Pane groupPane = new Pane(backgroundLayer, menuLayer, playerLayer);
+		this.window = window;
 	    
 	    //Add all layers to the main group
 	    root.getChildren().add(groupPane);
 	    
 	    //Add nodes of the background and player to their respective layers
 	    backgroundLayer.getChildren().add(battleBackgroundImageView);
-	    BattlePlayer player = new BattlePlayer(playerImageView);
-		playerLayer.getChildren().add(player);	
+		playerLayer.getChildren().add(this.player);	
 		
-		//2D array of menu buttons [rows][columns]
-		MenuButton[][] menuArray = new MenuButton[][] {	{new MenuButton(attackButtonImageView, "Attack", 10, 64*6),
-												   		new MenuButton(tauntButtonImageView, "Taunt", 10, 64*6 + 50)},
-			
-														{new MenuButton(quackButtonImageView, "Quack", 160, 64*6),
-												   		new MenuButton(itemButtonImageView, "Item", 160, 64*6 + 50)} };
+
 		
 		//Add 2d array of menu buttons to menuLayer
 		menuLayer.getChildren().addAll(	menuArray[0][0], menuArray[0][1],
 									   	menuArray[1][0], menuArray[1][1]);
-		
-		//Create the scene from the main group
-		Scene scene = new Scene(root, windowSize, windowSize);
-		
 		
 		//Start the player and button animations (background has none)
 		player.animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
 		
-		//Set and show the scene
-		mainStage.setScene(scene);
-		mainStage.show();
-		
-		//Update based on frame rate
-		AnimationTimer timer = new AnimationTimer() {
-
-			@Override
-			public void handle(long now) {
-				update(scene, player, menuArray);
-			}
-		};
-		timer.start();
-		
 	}	//End of start()
+	
+	/**
+	 * Set and show the scene on the window.
+	 */
+	public void setScene() {
+		window.setScene(scene);
+		window.show();
+	}
 	
 	
 	/**
@@ -155,12 +150,12 @@ public class BattleGuiTest extends Application {
 	 * @param menuArray
 	 * 					A 2D array of menu buttons used to make moves against an enemy.
 	 */
-	public void update(Scene scene, BattlePlayer player, MenuButton[][] menuArray) {
+	public void update() {
 		
 		//If an animation is playing, do not take key inputs.
 		if (this.inAnimation == true) {
 			this.currentStep += 2;
-			this.inAnimation = this.playerAttackAnimation(player, this.currentStep);
+			this.inAnimation = this.playerAttackAnimation(this.currentStep);
 
 		}else {
 			
@@ -171,7 +166,7 @@ public class BattleGuiTest extends Application {
 			scene.setOnKeyPressed(key -> {
 				
 				if (key.getCode() == KeyCode.W) { // W key
-					
+
 					//player.animation.play();
 					//player.animation.setOffsetY(0);
 					if(menuButtonY == 1) {
@@ -234,13 +229,9 @@ public class BattleGuiTest extends Application {
 					String buttonType = menuArray[menuButtonX][menuButtonY].getButtonType();
 					
 					if (buttonType == "Attack") {
-						player.animation.play();
-						player.animation.setOffsetY(128);
 						this.inAnimation = true;
 						
 					}else if (buttonType == "Taunt") {
-						player.animation.play();
-						player.animation.setOffsetY(0);
 						
 					}else if (buttonType == "Quack") {
 						
@@ -265,7 +256,7 @@ public class BattleGuiTest extends Application {
 	 * @return
 	 * 						True or false, based on whether the animation is over or not.
 	 */
-	public boolean playerAttackAnimation(BattlePlayer player, int currentStep) {
+	public boolean playerAttackAnimation(int currentStep) {
 		
 		int runDistance = 64*2;
 		int animationLength = runDistance*2;
@@ -278,12 +269,14 @@ public class BattleGuiTest extends Application {
 		}else if ( currentStep <= runDistance) {
 			player.animation.setOffsetY(128);
 			player.animation.play();
+			System.out.println(player.getTranslateX());
 			player.moveX(this.stepSize);
 			return(true);
 			
 		}else if ( currentStep <= animationLength) {
 			player.animation.setOffsetY(256);
 			player.animation.play();
+			System.out.println(player.getTranslateX());
 			player.moveX(-this.stepSize);
 			return(true);
 		}
@@ -291,9 +284,4 @@ public class BattleGuiTest extends Application {
 		
 		
 	}//End of playerAttackAnimation
-	
-    public static void main(String[] args) 
-    {
-        launch(args);
-    }
 }

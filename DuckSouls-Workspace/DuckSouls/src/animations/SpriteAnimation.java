@@ -16,6 +16,7 @@ import javafx.animation.Animation;
 
 
 public class SpriteAnimation  extends Transition{
+	
     private final ImageView imageView;
     private final int count;
     private final int columns;
