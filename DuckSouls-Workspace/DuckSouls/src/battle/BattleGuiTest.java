@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import map.GUILevel;
 import tiles.Stairs;
 import ui.MenuButton;
@@ -37,6 +38,16 @@ public class BattleGuiTest extends Application {
 	//Keep track of the currently selected button
 	private int menuButtonX = 0;
 	private int menuButtonY = 0;
+	
+	//The distance that the player runs to hit the enemy, and vice versa
+	private int runDistance = 64*2;
+	//The step size per frame
+	private int stepSize = 4;
+	//The current step of the player (range of 0-64*6)
+	private int currentStep = 0;
+	
+	//Whether or not an animation is playing
+	private boolean inAnimation = false;
 	
 	//The size of the screen (squared)
 	private final int windowSize = 64 * 9;
@@ -146,90 +157,141 @@ public class BattleGuiTest extends Application {
 	 */
 	public void update(Scene scene, BattlePlayer player, MenuButton[][] menuArray) {
 		
-		// Do the action inputed by the user
-		scene.setOnKeyPressed(key -> {
-			
-			if (key.getCode() == KeyCode.W) { // W key
-				
-				//player.animation.play();
-				//player.animation.setOffsetY(0);
-				if(menuButtonY == 1) {
-					
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-					menuButtonY = 0;
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
-					
-				}
-				
-			} else if (key.getCode() == KeyCode.A) { // A key
-				
-				//player.animation.play();
-				//player.animation.setOffsetY(256);
-				//player.moveX(-8);
-				
-				if(menuButtonX == 1) {
-					
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-					menuButtonX = 0;
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
-					
-				}
-				
-			} else if (key.getCode() == KeyCode.S) { // S key
-				
-				if(menuButtonY == 0) {
-					
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-					menuButtonY = 1;
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
-					
-				}
+		//If an animation is playing, do not take key inputs.
+		if (this.inAnimation == true) {
+			this.currentStep += 2;
+			this.inAnimation = this.playerAttackAnimation(player, this.currentStep);
 
+		}else {
+			
+			//reset animation frames
+			this.currentStep = 0;
+			
+			// Do the action inputed by the user
+			scene.setOnKeyPressed(key -> {
 				
-			} else if (key.getCode() == KeyCode.D) { // D key
-				
-				//player.animation.play();
-				//player.animation.setOffsetY(128);
-				//player.moveX(8);
-				
-				if(menuButtonX == 0) {
+				if (key.getCode() == KeyCode.W) { // W key
 					
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-					menuButtonX = 1;
-					menuArray[menuButtonX][menuButtonY].animation.play();
-					menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+					//player.animation.play();
+					//player.animation.setOffsetY(0);
+					if(menuButtonY == 1) {
+						
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
+						menuButtonY = 0;
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						
+					}
+					
+				} else if (key.getCode() == KeyCode.A) { // A key
+					
+					//player.animation.play();
+					//player.animation.setOffsetY(256);
+					//player.moveX(-8);
+					
+					if(menuButtonX == 1) {
+						
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
+						menuButtonX = 0;
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						
+					}
+					
+				} else if (key.getCode() == KeyCode.S) { // S key
+					
+					if(menuButtonY == 0) {
+						
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
+						menuButtonY = 1;
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						
+					}
+	
+					
+				} else if (key.getCode() == KeyCode.D) { // D key
+					
+					//player.animation.play();
+					//player.animation.setOffsetY(128);
+					//player.moveX(8);
+					
+					if(menuButtonX == 0) {
+						
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
+						menuButtonX = 1;
+						menuArray[menuButtonX][menuButtonY].animation.play();
+						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						
+					}
+					
+				} else if (key.getCode() == KeyCode.ENTER) { // ENTER key
+					
+					String buttonType = menuArray[menuButtonX][menuButtonY].getButtonType();
+					
+					if (buttonType == "Attack") {
+						player.animation.play();
+						player.animation.setOffsetY(128);
+						this.inAnimation = true;
+						
+					}else if (buttonType == "Taunt") {
+						player.animation.play();
+						player.animation.setOffsetY(0);
+						
+					}else if (buttonType == "Quack") {
+						
+					}else if (buttonType == "Item") {
+						
+					}
 					
 				}
-				
-			} else if (key.getCode() == KeyCode.ENTER) { // ENTER key
-				
-				String buttonType = menuArray[menuButtonX][menuButtonY].getButtonType();
-				
-				if (buttonType == "Attack") {
-					player.animation.play();
-					player.animation.setOffsetY(128);
-					
-				}else if (buttonType == "Taunt") {
-					player.animation.play();
-					player.animation.setOffsetY(0);
-					
-				}else if (buttonType == "Quack") {
-					
-				}else if (buttonType == "Item") {
-					
-				}
-				
-			}
-		});
+			});
+		} //End of else statement
 		
-	}
+	}//End of Update
+	
+	/**
+	 * This will be called when the attack button is selected and the enter key is pressed.
+	 * Plays an animation of the player attacking the enemy.
+	 * 
+	 * @param player
+	 * 						The player sprite that will attack the enemy.
+	 * @param currentStep
+	 * 						The current frame of the animation (goes up by 2)
+	 * @return
+	 * 						True or false, based on whether the animation is over or not.
+	 */
+	public boolean playerAttackAnimation(BattlePlayer player, int currentStep) {
+		
+		int runDistance = 64*2;
+		int animationLength = runDistance*2;
+		
+		if(currentStep == animationLength + 2) {
+			player.animation.play();
+			player.animation.setOffsetY(0);
+			return(false);
+			
+		}else if ( currentStep <= runDistance) {
+			player.animation.setOffsetY(128);
+			player.animation.play();
+			player.moveX(this.stepSize);
+			return(true);
+			
+		}else if ( currentStep <= animationLength) {
+			player.animation.setOffsetY(256);
+			player.animation.play();
+			player.moveX(-this.stepSize);
+			return(true);
+		}
+		return(false);
+		
+		
+	}//End of playerAttackAnimation
+	
     public static void main(String[] args) 
     {
         launch(args);

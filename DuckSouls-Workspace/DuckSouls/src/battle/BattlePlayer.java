@@ -7,11 +7,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-/*
+/**
  * The player sprite during the battle screen.
+ * 
+ * @author Wylee McAndrews
+ *
  */
 public class BattlePlayer extends Pane{
 
+	//BattlePlayer imageView has frames of animation (1 per column)
     ImageView imageView;
     int count = 2;
     int columns = 2;
@@ -31,12 +35,13 @@ public class BattlePlayer extends Pane{
         this.setTranslateY(64*3);
     }
 
-    //Move the player left and right
+    /**
+     * Translates the player's sprite left and right on the screen.
+     * 
+     * @param x
+     * 				The amount to move the player's sprite
+     */
     public void moveX(int x){
-        boolean right = x>0?true:false;
-        for(int i = 0; i < Math.abs(x); i++) {
-            if (right) this.setTranslateX(this.getTranslateX() + 1);
-            else this.setTranslateX(this.getTranslateX() - 1);
-        }
+        this.setTranslateX(this.getTranslateX() + x);
     }
 }
