@@ -10,7 +10,7 @@ import javafx.animation.Animation;
 /**
  * The animation for running up to, or away from the enemy.
  * 
- * @author Wylee
+ * @author Wylee McAndrews
  *
  */
 

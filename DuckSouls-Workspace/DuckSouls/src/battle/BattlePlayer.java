@@ -20,7 +20,7 @@ public class BattlePlayer extends Pane{
     int width = 128;
     int height = 128;
     int score = 0;
-    
+
     SpriteAnimation animation;
     public BattlePlayer(ImageView imageView){
         this.imageView = imageView;
@@ -30,18 +30,13 @@ public class BattlePlayer extends Pane{
         
         this.setTranslateY(64*3);
     }
+
+    //Move the player left and right
     public void moveX(int x){
         boolean right = x>0?true:false;
         for(int i = 0; i < Math.abs(x); i++) {
             if (right) this.setTranslateX(this.getTranslateX() + 1);
             else this.setTranslateX(this.getTranslateX() - 1);
-        }
-    }
-    public void moveY(int y) {
-        boolean down = y > 0 ? true : false;
-        for (int i = 0; i < Math.abs(y); i++) {
-            if (down) this.setTranslateY(this.getTranslateY() + 1);
-            else this.setTranslateY(this.getTranslateY() - 1);
         }
     }
 }
