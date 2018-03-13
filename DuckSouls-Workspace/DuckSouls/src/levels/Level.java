@@ -25,7 +25,6 @@ public abstract class Level {
 	 * 
 	 */
 	
-	protected static Scanner	_scanner			= new Scanner(System.in);
 	protected static Random		_random				= new Random();
 	
 	/*
@@ -199,13 +198,5 @@ public abstract class Level {
 		
 	}
 	
-	/**
-	 * Cleans up the static resources
-	 */
-	public static void cleanup() {
-		
-		_scanner.close();
-		
-	}
 	
 }

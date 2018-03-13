@@ -1,7 +1,7 @@
 package tiles;
 
 /**
- * This class represents all of the bottom wall tiles for DuckSouls.
+ * This class represents all of the top wall tiles for DuckSouls.
  * 
  * @author Matthew Allwright
  * @author Wylee McAndrews
@@ -25,13 +25,17 @@ public class Wall_B extends Wall {
 	 */
 	
 	/**
-	 * Creates a bottom wall tile.
+	 * Creates a top wall tile.
 	 * 
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
 	public Wall_B(boolean isGUI) {
 		super(isGUI, stringRepr, pathToImage);
+	}
+	
+	public Wall_B(int x, int y) {
+		super(x, y, stringRepr, pathToImage);
 	}
 	
 }

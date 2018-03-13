@@ -8,10 +8,12 @@ import java.util.HashMap;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
+import entities.*;
 import items.Clothes;
 import items.Unarmed;
-import story_entities.*;
-import story_tiles.*;
+import javafx.scene.image.Image;
+import tiles.*;
+import utils.Orientation;
 
 /**
  * This class represents the map of Duck Souls. It loads and manages MapFile
@@ -108,7 +110,7 @@ public class Map {
 					
 					case '@': // Player
 						this.currentMap_2DArrayList.get(y).add(new Floor(x, y));
-						this.player.setPos(x, y, currentMap_2DArrayList);
+						this.player.move(x, y, currentMap_2DArrayList);
 						this.maps_HashMap.get(this.currentMapID).removePlayerpoint();
 						break;
 					
@@ -167,14 +169,14 @@ public class Map {
 				for (Tile spot : column) {
 					
 					// If the tile is a door and the tile is from the previous map...
-					if (spot.getType() == "Door" && spot.getMapID().equals(previousMapID)) {
+					if (spot instanceof Door && spot.getMapID().equals(previousMapID)) {
 						
 						// Find the co-ordinates of the tile
 						int x = spot.getX();
 						int y = spot.getY();
 						
 						// Place the player at the same position on the new map
-						this.player.setPos(x, y, this.currentMap_2DArrayList);
+						this.player.move(x, y, this.currentMap_2DArrayList);
 						
 					}
 					
@@ -235,20 +237,32 @@ public class Map {
 	 */
 	public Door loadDoor(String data, int x, int y) {
 		
+		Orientation orientation = Orientation.NORTH; 
+		
 		// Split the data string into separate arguments
 		String[] arguments = data.split("-");
 		
 		// Name each argument
-		char lockArg = arguments[0].charAt(0);
 		char orientationArg = arguments[0].charAt(1);
-		String keyID = arguments[1];
+		switch(orientationArg) {
+		case 'L':
+			orientation = Orientation.WEST;
+			break;
+		case 'R':
+			orientation = Orientation.EAST;
+			break;
+		case 'T':
+			orientation = Orientation.NORTH;
+			break;
+		case 'B':
+			orientation = Orientation.SOUTH;
+			break;
+		
+		}
 		String mapID = arguments[2];
 		
-		// Determine if the door is locked / vertical
-		boolean isLocked = (lockArg == 'L');
-		
 		// Return a door made with all of the values
-		return new Door(x, y, isLocked, mapID, orientationArg, keyID);
+		return new Door(x, y, mapID, orientation);
 		
 	} // End of loadDoor
 	
@@ -274,7 +288,27 @@ public class Map {
 	public Wall loadWall(String orient, int x, int y) {
 		
 		// Return a wall made with all of the values
-		return new Wall(x, y, orient);
+		switch(orient) {
+		
+		case "T":
+			return new Wall_T(x, y);
+		case "B":
+			return new Wall_B(x, y);
+		case "BL":
+			return new Wall_BL(x, y);
+		case "BR":
+			return new Wall_BR(x, y);
+		case "R":
+			return new Wall_R(x, y);
+		case "L":
+			return new Wall_L(x, y);
+		case "TL":
+			return new Wall_TL(x, y);
+		case "TR":
+			return new Wall_TR(x, y);
+		default:
+			return null;
+		}
 		
 	} // End of loadWall
 	
@@ -388,7 +422,7 @@ public class Map {
 	 */
 	public boolean canMoveTo(int x, int y) {
 		
-		return this.currentMap_2DArrayList.get(y).get(x).canMove();
+		return this.currentMap_2DArrayList.get(y).get(x).getCanWalkOn();
 		
 	} // End of canMoveTo
 	
@@ -487,7 +521,7 @@ public class Map {
 				
 				// If the player is at that position and the position is a door...
 				if (x == player.getX() && y == player.getY()
-						&& currentMap_2DArrayList.get(y).get(x).getType().equals("Door")) {
+						&& currentMap_2DArrayList.get(y).get(x) instanceof Door) {
 					
 					// If the character hasn't already been moved to a different map in this turn...
 					if (!hasMovedMaps) {
@@ -543,7 +577,7 @@ public class Map {
 				
 				// If the player is at that position and the position is a door...
 				if (x == player.getX() && y == player.getY()
-						&& currentMap_2DArrayList.get(y).get(x).getType().equals("Door")) {
+						&& currentMap_2DArrayList.get(y).get(x) instanceof Door) {
 					
 					// If the character hasn't already been moved to a different map in this turn...
 					if (!hasMovedMaps) {
@@ -632,28 +666,27 @@ public class Map {
 	 *            the dimensions of map to display
 	 * @return a 3D arraylist of strings containing paths to the game sprites
 	 */
-	public ArrayList<ArrayList<ArrayList<String>>> getImages(int size) {
+	public ArrayList<ArrayList<ArrayList<Image>>> getImages(int size) {
 		
-		ArrayList<ArrayList<ArrayList<String>>> images = new ArrayList<ArrayList<ArrayList<String>>>();
+		ArrayList<ArrayList<ArrayList<Image>>> images = new ArrayList<ArrayList<ArrayList<Image>>>();
 		int x = 0;
 		int y = 0;
 		
 		for (int i = this.player.getY() - (size / 2); i <= this.player.getY() + (size / 2); i++) {
-			images.add(new ArrayList<ArrayList<String>>());
+			images.add(new ArrayList<ArrayList<Image>>());
 			for (int j = this.player.getX() - (size / 2); j <= this.player.getX() + (size / 2); j++) {
-				images.get(y).add(new ArrayList<String>());
+				images.get(y).add(new ArrayList<Image>());
 				
 				if (i < 0 || i >= this.currentMap_2DArrayList.size()) {
-					images.get(y).get(x).add("Sprites/Tiles/Sewer/Empty.png");
+					images.get(y).get(x).add(new Image("file:///" + Utilities.getParentDir() + "/Sprites/Tiles/Sewer/Empty,png"));
 				}
 				
 				else if (i >= 0 && i < this.currentMap_2DArrayList.size()) {
 					if (j < 0 || j >= this.currentMap_2DArrayList.get(i).size()) {
-						images.get(y).get(x).add("Sprites/Tiles/Sewer/Empty.png");
+						images.get(y).get(x).add(new Image("file:///" + Utilities.getParentDir() + "/Sprites/Tiles/Sewer/Empty,png"));
 					} else if (j >= 0 && j < this.currentMap_2DArrayList.get(i).size()) {
 						images.get(y).get(x).add(this.currentMap_2DArrayList.get(i).get(j).getImage());
 						if (this.currentMap_2DArrayList.get(i).get(j).getImage() == (null)) {
-							System.out.println(this.currentMap_2DArrayList.get(i).get(j).getType());
 						}
 						
 					}

@@ -1,12 +1,9 @@
 package entities;
 
-/**
- * This class represents an enemy entity.
- * 
- * @author Matthew Allwright
- * @author Wylee McAndrews
- * @version 1.2
- */
+import java.util.ArrayList;
+
+import tiles.Tile;
+
 public class Enemy extends Entity {
 	
 	/*
@@ -17,7 +14,7 @@ public class Enemy extends Entity {
 	
 	private static final String	stringRepr	= " E ";
 	private static final String	pathToImage	= "/Sprites/Entities/Rat/Rat-";
-	
+
 	/*
 	 * 
 	 * CONSTRUCTORS
@@ -31,4 +28,32 @@ public class Enemy extends Entity {
 		super(stringRepr, pathToImage);
 	}
 	
+	/**
+	 * Creates a new enemy character at a specific position.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the enemy.
+	 * @param y
+	 *            The Y co-ordinate of the enemy.
+	 */
+	public Enemy(int x, int y, int ID) {
+		
+		// Create a new character
+		super(x, y, ID, stringRepr, pathToImage);
+		
+		// TODO: Fill in constructor.
+		
+	}
+	
+	/*
+	 *
+	 * METHODS
+	 * 
+	 */
+	
+	//TODO: Make enemy movementß
+	public void move(ArrayList<ArrayList<Tile>> map) {
+		
+	}
+
 }

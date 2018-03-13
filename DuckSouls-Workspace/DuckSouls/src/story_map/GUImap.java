@@ -103,10 +103,9 @@ public class GUImap {
 	 * 			the path for the image to be drawn
 	 *
 	 */
-	public void drawSprite(GraphicsContext gc, int[] position, String image) {
+	public void drawSprite(GraphicsContext gc, int[] position, Image image) {
 		
-		Image IMAGE = new Image(image);
-		gc.drawImage(IMAGE, position[0], position[1]);
+		gc.drawImage(image, position[0], position[1]);
 		
 	}//End of drawSprite
 	
@@ -121,7 +120,7 @@ public class GUImap {
 
 	 *
 	 */
-	public void drawMap(GraphicsContext gc, ArrayList<ArrayList<ArrayList<String>>> Map) {
+	public void drawMap(GraphicsContext gc, ArrayList<ArrayList<ArrayList<Image>>> Map) {
 		
 		//For each column...
 		for(int y = 0; y<Map.size(); y++) {

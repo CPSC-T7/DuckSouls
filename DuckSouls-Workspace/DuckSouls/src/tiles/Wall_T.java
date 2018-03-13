@@ -34,4 +34,8 @@ public class Wall_T extends Wall {
 		super(isGUI, stringRepr, pathToImage);
 	}
 	
+	public Wall_T(int x, int y) {
+		super(x, y, stringRepr, pathToImage);
+	}
+	
 }

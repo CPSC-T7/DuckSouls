@@ -3,7 +3,6 @@ package levels;
 import java.awt.Point;
 
 import entities.*;
-
 import javafx.scene.canvas.GraphicsContext;
 import rooms.GUIRoom;
 import utils.Orientation;

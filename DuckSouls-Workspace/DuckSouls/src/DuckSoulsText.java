@@ -108,7 +108,6 @@ public class DuckSoulsText {
 		// TODO: Cleanup
 		
 		DuckObject.cleanup();
-		TextLevel.cleanup();
 		TitleScreen.cleanup();
 		
 	}

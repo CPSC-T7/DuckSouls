@@ -1,5 +1,6 @@
 package tiles;
 
+
 /**
  * This class represents all of the wall tiles for DuckSouls.
  * 
@@ -27,6 +28,10 @@ public class Wall extends Tile {
 	 */
 	protected Wall(boolean isGUI, String stringRepr, String pathToImage) {
 		super(isGUI, stringRepr, false, pathToImage);
+	}
+	
+	protected Wall(int x, int y, String stringRepr, String pathToImage) {
+		super(x, y, false, stringRepr, pathToImage);
 	}
 	
 }

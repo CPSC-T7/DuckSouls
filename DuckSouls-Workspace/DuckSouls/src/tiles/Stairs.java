@@ -1,11 +1,7 @@
 package tiles;
 
-/**
- * This class represents all of the stairs tiles for DuckSouls.
- * 
- * @author Matthew Allwright
- * @version 1.1
- */
+import utils.Orientation;
+
 public class Stairs extends Tile {
 	
 	/*
@@ -16,6 +12,7 @@ public class Stairs extends Tile {
 	
 	private static final String stringRepr = " ╘ ";
 	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Stairs.png";
+	private String	mapID		= new String();
 	
 	/*
 	 * 
@@ -33,4 +30,21 @@ public class Stairs extends Tile {
 		super(isGUI, stringRepr, true, pathToImage);
 	}
 	
+	public Stairs(int x, int y, String mapID) {
+		super(x, y, true, stringRepr, pathToImage);
+		this.mapID = mapID;
+	}
+	
+	
+	/**
+	 * Returns the ID of the map the door is on.
+	 * 
+	 * @return The ID of the map the door is on.
+	 */
+	public String getMapID() {
+		
+		return mapID;
+	
+	} // End of getMapID
+
 }

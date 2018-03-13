@@ -1,7 +1,7 @@
 package tiles;
 
 /**
- * This class represents all of the top right corner wall tiles for DuckSouls.
+ * This class represents all of the top wall tiles for DuckSouls.
  * 
  * @author Matthew Allwright
  * @author Wylee McAndrews
@@ -15,7 +15,7 @@ public class Wall_TR extends Wall {
 	 * 
 	 */
 	
-	private static final String stringRepr = "═╗ ";
+	private static final String stringRepr = "═══";
 	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Wall-Top-Right.png";
 	
 	/*
@@ -25,13 +25,17 @@ public class Wall_TR extends Wall {
 	 */
 	
 	/**
-	 * Creates a top right corner wall tile.
+	 * Creates a top wall tile.
 	 * 
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
 	public Wall_TR(boolean isGUI) {
 		super(isGUI, stringRepr, pathToImage);
+	}
+	
+	public Wall_TR(int x, int y) {
+		super(x, y, stringRepr, pathToImage);
 	}
 	
 }
