@@ -44,4 +44,5 @@ public class BattlePlayer extends Pane{
     public void moveX(int x){
         this.setTranslateX(this.getTranslateX() + x);
     }
+    
 }

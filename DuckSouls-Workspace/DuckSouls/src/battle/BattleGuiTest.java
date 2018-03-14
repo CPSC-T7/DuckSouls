@@ -269,14 +269,12 @@ public class BattleGuiTest{
 		}else if ( currentStep <= runDistance) {
 			player.animation.setOffsetY(128);
 			player.animation.play();
-			System.out.println(player.getTranslateX());
 			player.moveX(this.stepSize);
 			return(true);
 			
 		}else if ( currentStep <= animationLength) {
 			player.animation.setOffsetY(256);
 			player.animation.play();
-			System.out.println(player.getTranslateX());
 			player.moveX(-this.stepSize);
 			return(true);
 		}
