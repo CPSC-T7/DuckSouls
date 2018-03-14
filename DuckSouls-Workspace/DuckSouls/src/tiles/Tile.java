@@ -27,7 +27,7 @@ public class Tile {
 	protected boolean	canWalkOn	= true;
 	private boolean		isGUI;
 	
-	private String		pathToImage =  "/Sprites/Tiles/Sewer/Empty,png";
+	private String		pathToImage =  "/Sprites/Tiles/Sewer/Empty.png";
 	private Image		image;
 	private Point	    position	= new Point();
 	
@@ -51,6 +51,7 @@ public class Tile {
 	protected Tile(boolean isGUI, String stringRepr, boolean canWalkOn, String pathToImage) {
 		
 		this.stringRepr = stringRepr;
+		this.pathToImage = pathToImage;
 		this.fileCharacter = this.stringRepr.charAt(1); // Middle char
 		this.canWalkOn = canWalkOn;
 		this.isGUI = isGUI;
@@ -209,7 +210,7 @@ public class Tile {
 	 *            Entity Position
 	 */
 	public void drawTile(GraphicsContext gc, Point position) {
-		
+		this.updateImage();
 		gc.drawImage(this.image, position.x, position.y);
 		
 	}

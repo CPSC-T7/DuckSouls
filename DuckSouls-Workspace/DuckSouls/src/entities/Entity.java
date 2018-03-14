@@ -60,7 +60,7 @@ public class Entity {
 		
 	} // End of constructor
 	
-	public Entity(int x, int y, int ID, String stringRepr, String pathToImag) {
+	public Entity(int x, int y, int ID, String stringRepr, String pathToImage) {
 		
 		// Set the character characteristics
 		this.position.setLocation(x, y);
@@ -98,7 +98,7 @@ public class Entity {
 	 * @param mapdata
 	 *            The array list of tiles of the map the character should move in.
 	 */
-	public void move(int y, int x, ArrayList<ArrayList<Tile>> mapdata) {
+	public void move(int x, int y, ArrayList<ArrayList<Tile>> mapdata) {
 		
 		// Move the character
 		// this.position.setLocation(x, y);
@@ -307,7 +307,7 @@ public class Entity {
 	 *            Entity Position
 	 */
 	public void drawEntity(GraphicsContext gc, Point position) {
-
+		this.updateImage();
 		gc.drawImage(this.image, position.x, position.y);
 
 	}

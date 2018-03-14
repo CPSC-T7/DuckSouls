@@ -1,35 +1,40 @@
-package story_map;
+package Gane;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
+import battle.BattleWorldTest;
+import battle.DuckObject;
+import battle.EnemyObject;
+import entities.Player;
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+import levels.GUILevel;
+import rooms.GUIRoom;
+import story_map.Map;
+import tiles.Stairs;
+import utils.Orientation;
+import utils.Utilities;
 
-public class GUImap {
-
-	/*
-	 * 
-	 * INSTANCE VARIABLES
-	 * 
-	 */
+public class Controller_GUI extends Application{
 	
-	private Map t1 = new Map();
 	private int mapsize = 7;
 	private int spritesize = 64;
-	
-	/*
-	 * 
-	 * CONSTRUCTORS 
-	 * 
-	 */
-	
-	
-	public GUImap() {
-		t1.initalization(0,2);
+	private GameWorld world = new Map();
+	private Event event = new Event(Event_type.NOEVENT);
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
-	
 	
 	/**
 	 * Runs through a loop, where it displays the room and asks for input
@@ -47,48 +52,57 @@ public class GUImap {
 		 */
 		
 		//Draws the first iteration of the room
-		this.drawMap(gc, t1.getImages(mapsize));
-		
+		this.drawMap(gc, world.getImages(mapsize));
 		
 		scene.setOnKeyPressed(key -> {
 			if (key.getCode() == KeyCode.W) {
 				
 				//Runs the turn with this input
-				t1.runTurn("w");
-				
+				event.setEvent(world.runTurn("W"));
 				//Redraws the map
-				this.drawMap(gc, t1.getImages(mapsize));
+				this.drawMap(gc, world.getImages(mapsize));
 				
 			}
 			else if (key.getCode() == KeyCode.A) {
 				
 				//Runs the turn with this input
-				t1.runTurn("a");
+				event.setEvent(world.runTurn("A"));
 				
 				//Redraws the map
-				this.drawMap(gc, t1.getImages(mapsize));
+				this.drawMap(gc, world.getImages(mapsize));
 				
 			}
 			else if (key.getCode() == KeyCode.S) {
 				
 				//Runs the turn with this input
-				t1.runTurn("s");
+				event.setEvent(world.runTurn("S"));
 				
 				//Redraws the map
-				this.drawMap(gc, t1.getImages(mapsize));
+				this.drawMap(gc, world.getImages(mapsize));
 				
 			}
 			else if (key.getCode() == KeyCode.D) {
 				
 				//Runs the turn with this input
-				t1.runTurn("d");
+				event.setEvent(world.runTurn("D"));
 				
 				//Redraws the map
-				this.drawMap(gc, t1.getImages(mapsize));
+				this.drawMap(gc, world.getImages(mapsize));
 				
 			}
 			
+			switch(event.getType()) {
+				case BATTLE: 
+					break;
+				case GETITEM:
+					break;
+				case NEXTWORLD:
+					world.nextWorld(event.getNextworld());
+					this.drawMap(gc, world.getImages(mapsize));
+			}
+			
 		});	
+		
 
 	} // End of mainloop
 	
@@ -139,5 +153,4 @@ public class GUImap {
 			}
 		}
 	}// End of drawMap
-
 }

@@ -210,6 +210,7 @@ public class Mapfile {
 	public void removeItem(int ID) {
 		
 		// For each position in the map
+		System.out.println(ID);
 		for (int y = 0; y < this.map_2DArrayList.size(); y++) {
 			for (int x = 0; x < this.map_2DArrayList.get(y).size(); x++) {
 				

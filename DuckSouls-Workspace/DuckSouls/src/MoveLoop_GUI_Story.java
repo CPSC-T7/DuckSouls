@@ -1,3 +1,4 @@
+import Gane.Controller_GUI;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -24,7 +25,7 @@ public class MoveLoop_GUI_Story extends Application {
 		mainStage.setScene(scene);
 		mainStage.show();
 		
-		GUImap tl = new GUImap();
+		Controller_GUI tl = new Controller_GUI();
 		tl.mainloop(gc, scene);
 	}
 }

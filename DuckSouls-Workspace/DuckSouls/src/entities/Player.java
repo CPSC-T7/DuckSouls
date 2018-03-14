@@ -64,7 +64,7 @@ public class Player extends Entity {
 		
 		// Define some control variables
 		boolean hasMove = false;
-		String[] possiblemove = {"w", "a", "s", "d"};
+		String[] possiblemove = {"W", "A", "S", "D"};
 		
 		// For each possible direction...
 		for (String direction : possiblemove) {
@@ -89,53 +89,53 @@ public class Player extends Entity {
 					 * 
 					 */
 					
-					case "w":
+					case "W":
 						if(!(Orientation.NORTH == this.getOrientation())) {
 							this.setOrientation(Orientation.NORTH);
 						}
 						else {
 							if(this.getY() >= 1) {
 								if(map_2DArrayList.get(this.getY()-1).get(this.getX()).getCanWalkOn()) {
-									super.move(this.getY()-1, this.getX(), map_2DArrayList);
+									super.move(this.getX(), this.getY()-1, map_2DArrayList);
 								}
 							}
 						}
 						break;
 						
-					case "s":
+					case "S":
 						if(!(Orientation.SOUTH == this.getOrientation())) {
 							this.setOrientation(Orientation.SOUTH);
 						}
 						else {
 							if(this.getY() < map_2DArrayList.size()-1) {
 								if(map_2DArrayList.get(this.getY()+1).get(this.getX()).getCanWalkOn()) {
-									super.move(this.getY()+1, this.getX(), map_2DArrayList);
+									super.move( this.getX(), this.getY()+1, map_2DArrayList);
 								}
 							}
 						}
 						break;
 						
-					case "a":
+					case "A":
 						if(!(Orientation.WEST == this.getOrientation())) {
 							this.setOrientation(Orientation.WEST);
 						}
 						else {
 							if(this.getX() > 0) {
 								if(map_2DArrayList.get(this.getY()).get(this.getX()-1).getCanWalkOn()) {
-									super.move(this.getY(), this.getX()-1, map_2DArrayList);
+									super.move(this.getX()-1, this.getY(), map_2DArrayList);
 								}
 							}
 						}
 						break;
 						
-					case "d":
+					case "D":
 						if(!(Orientation.EAST == this.getOrientation())) {
 							this.setOrientation(Orientation.EAST);
 						}
 						else {
 							if(this.getX() < map_2DArrayList.get(this.getY()).size()-1) {
 								if(map_2DArrayList.get(this.getY()).get(this.getX()+1).getCanWalkOn()) {
-									super.move(this.getY(), this.getX()+1, map_2DArrayList);
+									super.move(this.getX()+1, this.getY(), map_2DArrayList);
 								}
 							}
 						}

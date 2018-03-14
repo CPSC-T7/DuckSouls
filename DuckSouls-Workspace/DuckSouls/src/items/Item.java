@@ -114,6 +114,7 @@ public class Item {
 		this.defense = item.defense;
 		this.x = x;
 		this.y = y;
+		this.id = id;
 	}
 	
 	/*
