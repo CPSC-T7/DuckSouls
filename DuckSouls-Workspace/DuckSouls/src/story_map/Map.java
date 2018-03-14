@@ -52,7 +52,7 @@ public class Map implements GameWorld{
 	 * Creates a map object and adds a player.
 	 */
 	public Map() {
-		this.initalization(0, 2);
+		this.initalization(0, 3);
 	}
 	
 	/*
@@ -133,6 +133,10 @@ public class Map implements GameWorld{
 					
 					case 'D': // Door
 						this.currentMap_2DArrayList.get(y).add(loadDoor(mapData.get(y).get(x).substring(1), x, y));
+						break;
+						
+					case 'S':
+						this.currentMap_2DArrayList.get(y).add(this.loadStair(mapData.get(y).get(x), x, y));
 						break;
 					
 					case 'W': // Wall
@@ -264,7 +268,7 @@ public class Map implements GameWorld{
 			break;
 		
 		}
-		String mapID = arguments[2];
+		String mapID = arguments[1];
 		
 		// Return a door made with all of the values
 		return new Door(x, y, mapID, orientation);
@@ -320,6 +324,11 @@ public class Map implements GameWorld{
 	public Enemy loadEnemy(String code, int x, int y) {
 		String[] codeparts = code.split("-");
 		return new Enemy(x, y, Integer.parseInt(codeparts[1]));
+	}
+	
+	public Stairs loadStair(String code, int x, int y) {
+		String[] codeparts = code.split("-");
+		return new Stairs(x, y, codeparts[1]);
 	}
 	
 	 public Item loadItem(String code, int x, int y) {
@@ -584,7 +593,8 @@ public class Map implements GameWorld{
 				
 				// If the player is at that position and the position is a door...
 				if (x == player.getX() && y == player.getY()
-						&& currentMap_2DArrayList.get(y).get(x) instanceof Door) {
+						&& (currentMap_2DArrayList.get(y).get(x) instanceof Door
+								|| currentMap_2DArrayList.get(y).get(x) instanceof Stairs)) {
 						
 					// Set the map ID to the map the door the character is standing on links to
 					mapID = currentMap_2DArrayList.get(y).get(x).getMapID();
