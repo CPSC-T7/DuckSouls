@@ -52,7 +52,7 @@ public class MoveLoop_Text_Arcade {
 		Player player = new Player();
 		int levelNum = 1;
 		int difficultyPerLevel = 2;
-		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
 		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		/*

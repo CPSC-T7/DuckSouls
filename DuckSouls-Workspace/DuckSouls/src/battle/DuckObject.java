@@ -14,7 +14,10 @@ public class DuckObject extends CharacterBattle {
 
 	// Private Variables
 	
-	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left)
+	//Text or GUI animation type
+	private char animationType;
+	
+	// x/y position: Where the duck is drawn on the screen (0,0 = topmost left) only for Text version
 	private int				xPosition			= 0;
 	private int				yPosition			= 0;
 	
@@ -43,8 +46,9 @@ public class DuckObject extends CharacterBattle {
 	
 	
 	
-	public DuckObject(double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
+	public DuckObject(double health, double mana, double attack, double defence, double speed, double accuracy,	double crit, char animationType) {
 		super(health, mana, attack, defence, speed, accuracy, crit);
+		this.animationType = animationType;
 	}
 	
 	/**
@@ -114,17 +118,18 @@ public class DuckObject extends CharacterBattle {
 	 * 
 	 * @param enemy
 	 */
-	public boolean playerMove(EnemyObject enemy) {
+	public boolean playerMove(EnemyObject enemy, String move) {
 		
 		boolean selection = true;
-		String move = "";
-		//Tell the player when to make a move
-		System.out.print("\nEnter a move: ");
 		
 		while (selection) {
-			move = scanner.nextLine();
+			//If the program is text based, ask the user for input
+			if (this.animationType == 'T') {
+				System.out.print("\nEnter a move: ");
+				move = scanner.nextLine();
+			}
+			//Chang the move to lowercase
 			move = move.toLowerCase();
-			//Get input from the user
 			
 			if (move.equals("quack")) {
 				quack(enemy);
@@ -215,77 +220,91 @@ public class DuckObject extends CharacterBattle {
 	 * @param enemy
 	 */
 	public void attack(EnemyObject enemy) {
-		
-		Random rand = new Random();
 		//Create a random object
+		Random rand = new Random();
+		//Get random numbers
 		int accuracyChance = rand.nextInt(100) + 1;
 		int criticalHitChance = rand.nextInt(100) + 1;
-		//Get random numbers
+		
 		boolean landed = true;
 		boolean critical = true;
 
-		
+		//To see if it will be a successful attack or not
 		if (accuracyChance <= this.getStats("accuracyPoints")) {
 			landed = true;
 		} else {
 			landed = false;
 		}
-		//To see if it will be a successful attack or not
+		
 
 		
-		
+		//To see if it will deal bonus damage or not
 		if (criticalHitChance <= getStats("criticalHitPoints")) {
 			critical = true;
 		} else {
 			critical = false;
 		}
-		//To see if it will deal bonus damage or not
+		
 		
 		double damage;
+		
+		//Temporary damage formula
 		damage = (getStats("attackPoints") * 2.5) - enemy.getStats("defencePoints");
 		
 		damage = attackBonus(damage);
-		//Temporary damage formula
+		
 		double enemyHealth = enemy.getStats("healthPoints");
-		//Gets enemy's health
+		
+		//if extra damage then increase it
 		if (critical) {
 			damage = damage * 1.5;
-			//if extra damage then increase it
+			
 		}
+		
+		//If successful attack then minus the enemy health
 		if (landed) {
 			double newHealth = enemyHealth - damage;
 			enemy.setStats("healthPoints", (Math.round(newHealth)));
-			//If successful attack then minus the enemy health
+			
 		}
 		
-		//Wait for half a second before attacking
-		Utilities.waitMilliseconds(500);
+		//Tell the player how much damage they dealt.
+		System.out.print("You dealt ");
+		System.out.print(Math.round(damage));
+		System.out.println(" damage to the enemy!");
 		
-		//Run to the enemy, attack, then run back and turn around
-		run(13, +1, 0, enemy);
-		peck(enemy, 1);
-		run(13, -1, 0, enemy);
-		run(0, +1, 0, enemy);	
+		//Only print to the console if the version is 'T' (text)
+		if (this.animationType == 'T') {
 		
-		//Enemy flinches
-		enemy.flinch(this);
-		
-		if (landed) {
-			if (critical) {
-				System.out.println("It's a critical hit!");
+			//Wait for half a second before attacking
+			Utilities.waitMilliseconds(500);
+			
+			//Run to the enemy, attack, then run back and turn around
+			run(13, +1, 0, enemy);
+			peck(enemy, 1);
+			run(13, -1, 0, enemy);
+			run(0, +1, 0, enemy);	
+			
+			//Enemy flinches
+			enemy.flinch(this);
+			
+			if (landed) {
+				if (critical) {
+					System.out.println("It's a critical hit!");
+				}
+				System.out.print("You dealt ");
+				System.out.print(Math.round(damage));
+				System.out.println(" damage to the enemy!");
 			}
-			System.out.print("You dealt ");
-			System.out.print(Math.round(damage));
-			System.out.println(" damage to the enemy!");
+			
+			else {
+				System.out.println("You missed!");
+			}
+			
+			//Wait before clearing the console
+			Utilities.waitMilliseconds(2000);
+			Utilities.clearConsole();
 		}
-		
-		else {
-			System.out.println("You missed!");
-		}
-		
-		//Wait before clearing the console
-		Utilities.waitMilliseconds(2000);
-		Utilities.clearConsole();
 		
 	}//End of attack
 	
@@ -377,28 +396,34 @@ public class DuckObject extends CharacterBattle {
 		else if (enemyHealth <= 0) {
 			//Enemy's health reaches zero
 			
-			Utilities.clearConsole();
-			getSprite("fight");
-			enemy.getSprite("dead");
-			getSprite("quack");
 			System.out.println("You have beaten the enemy!");
 			
+			//Add experience and money to the player	
 			int gainedXP = enemy.getXP();
 			int gainedMoney = enemy.getMoney();
 			experience += gainedXP;
-			//Add experience to the player
-			
-			System.out.print("You have gained ");
-			System.out.print(gainedXP);
-			System.out.println(" experience points!");
-			Utilities.waitMilliseconds(800);
-			
 			money += gainedMoney;
-			System.out.print("You have gained ");
-			System.out.print(gainedMoney);
-			System.out.println(" moneys!");
-			//Add money to the player
-			Utilities.waitMilliseconds(800);
+					
+			//If the animation is text based
+			if (this.animationType == 'T') {
+				Utilities.clearConsole();
+				getSprite("fight");
+				enemy.getSprite("dead");
+				getSprite("quack");
+				System.out.println("You have beaten the enemy!");
+				
+				System.out.print("You have gained ");
+				System.out.print(gainedXP);
+				System.out.println(" experience points!");
+				Utilities.waitMilliseconds(800);
+				
+				
+				System.out.print("You have gained ");
+				System.out.print(gainedMoney);
+				System.out.println(" moneys!");
+				Utilities.waitMilliseconds(800);
+			
+			}
 			
 			levelUp();
 			resetStats();
@@ -433,16 +458,19 @@ public class DuckObject extends CharacterBattle {
 			setStats("accuracyPointsStatic", (getStats("accuracyPointsStatic") + 1));
 			setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 1));
 			
-			System.out.println("You have levelled up!");
-			Utilities.waitMilliseconds(800);
-			
-			System.out.print("You are now level ");
-			System.out.println(level);
-			Utilities.waitMilliseconds(800);
-			
-			System.out.println("Your stats have gone up!");
-			Utilities.waitMilliseconds(800);
-			Utilities.clearConsole();
+			//If the animation is text based
+			if (this.animationType == 'T') {
+				System.out.println("You have levelled up!");
+				Utilities.waitMilliseconds(800);
+				
+				System.out.print("You are now level ");
+				System.out.println(level);
+				Utilities.waitMilliseconds(800);
+				
+				System.out.println("Your stats have gone up!");
+				Utilities.waitMilliseconds(800);
+				Utilities.clearConsole();
+			}
 			
 		}
 

@@ -47,6 +47,9 @@ public class MoveLoop_GUI_Arcade extends Application {
 	private static int		difficultyPerLevel	= 2;
 	private static int		enemySpawnChance;
 	
+	//The current BattleWorld
+	private BattleGuiTest battleWorld;
+	
 	/*
 	 * 
 	 * METHODS
@@ -68,10 +71,8 @@ public class MoveLoop_GUI_Arcade extends Application {
 		window.setScene(scene);
 		window.show();
 		
-		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
-		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
-		
-		BattleGuiTest battleWorld = new BattleGuiTest(window);
+		DuckObject	battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
+		EnemyObject	battleEnemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		// Set the level difficulty
 		enemySpawnChance = levelNum * difficultyPerLevel - difficultyPerLevel; // Starts at 0
@@ -91,10 +92,13 @@ public class MoveLoop_GUI_Arcade extends Application {
 			@Override
 			public void handle(long now) {
 				
+				//If not in battle: update world and set scene to world
 				if(inBattle == false) {
-					updateWorld(scene, gc, battleWorld, Player, Enemy);
+					updateWorld(window, scene, gc, battlePlayer, battleEnemy);
+					window.setScene(scene);
+				//If in battle: update battleWorld
 				}else {
-					updateBattle(battleWorld);
+					updateBattle(battlePlayer, battleEnemy);
 				}
 			}
 		};
@@ -108,7 +112,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 	 * Makes a level, runs the level until the user exits, then moves the player to
 	 * another level and runs that level.
 	 */
-	public void updateWorld(Scene scene, GraphicsContext gc, BattleGuiTest battleClass, DuckObject battlePlayer, EnemyObject battleEnemy ) {
+	public void updateWorld(Stage window, Scene scene, GraphicsContext gc, DuckObject battlePlayer, EnemyObject battleEnemy ) {
 		
 		// Do the action inputed by the user
 		scene.setOnKeyPressed(key -> {
@@ -143,7 +147,6 @@ public class MoveLoop_GUI_Arcade extends Application {
 			
 			// Draw the room
 			Utilities.clearConsole();
-
 			currentRoom.draw_GUI(gc);
 			
 			if (key.getCode() == KeyCode.W) { // NORTH
@@ -241,25 +244,29 @@ public class MoveLoop_GUI_Arcade extends Application {
 			if (battlePoint != null) {
 				
 				System.out.println("Entering battle...");
+				
+				currentRoom.removeEntity(battlePoint);
+				//Redraw the room to get rid of the enemy sprite
+				currentRoom.draw_GUI(gc);
+				
 				/*
 				Utilities.clearConsole();
 				BattleWorldTest.battleLoop(battlePlayer, battleEnemy, player.getWeapon(), player.getArmour());
 				
-				currentRoom.removeEntity(battlePoint);
 				currentRoom.draw_GUI(gc);
 				*/
-				inBattle = true;
-				battleClass.setScene();
 				
+				inBattle = true;
+				this.battleWorld = new BattleGuiTest(window);
 			}
-			
 		});
 	}
 	
 	/**
 	 * Update the world in which the player fights an enemy.
 	 */
-	public void updateBattle(BattleGuiTest battleClass) {
-		battleClass.update();
+	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
+		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.player.getWeapon(), this.player.getArmour());
+		this.battleWorld.setScene();
 	}
 }
