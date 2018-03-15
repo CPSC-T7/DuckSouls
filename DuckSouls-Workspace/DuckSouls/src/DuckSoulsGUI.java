@@ -65,7 +65,7 @@ public class DuckSoulsGUI {
 		
 		// TODO: Pre Main Game Loop
 		
-		TitleScreen.displayMenu();
+		
 		
 	}
 	
@@ -77,6 +77,7 @@ public class DuckSoulsGUI {
 		switch(mode) {
 			
 			case 0:
+				TitleScreen.displayMenu();
 				Application.launch(MoveLoop_GUI_Story.class, new String[0]);
 				break;
 			

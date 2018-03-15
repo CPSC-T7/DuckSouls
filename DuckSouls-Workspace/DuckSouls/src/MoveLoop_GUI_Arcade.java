@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import map.GUILevel;
 import map.GUIRoom;
 import tiles.Stairs;
+import ui.TitleScreen;
 import utils.Orientation;
 import utils.Utilities;
 
@@ -40,6 +41,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 	private static GUIRoom	currentRoom;
 	private static GUILevel	currentLevel;
 	private static boolean 	inBattle			= false;
+	private static boolean 	inTitle				= true;
 	private static Point	playerPoint			= new Point(3, 3);
 	private static Point	roomPoint			= new Point(0, 0);
 	private static Player	player				= new Player();
@@ -49,6 +51,9 @@ public class MoveLoop_GUI_Arcade extends Application {
 	
 	//The current BattleWorld
 	private BattleGuiTest battleWorld;
+	
+	//The title screen
+	private TitleScreen titleScreen;
 	
 	/*
 	 * 
@@ -60,7 +65,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 	public void start(Stage window) throws Exception {
 		
 		// JavaFX
-		final int windowSize = 64 * 7;
+		final int windowSize = 64 * 9;
 		Group root = new Group();
 		Scene scene = new Scene(root);
 		Canvas canvas = new Canvas(windowSize, windowSize);
@@ -92,10 +97,10 @@ public class MoveLoop_GUI_Arcade extends Application {
 			@Override
 			public void handle(long now) {
 				
-				//If not in battle: update world and set scene to world
 				if(inBattle == false) {
 					updateWorld(window, scene, gc, battlePlayer, battleEnemy);
 					window.setScene(scene);
+					
 				//If in battle: update battleWorld
 				}else {
 					updateBattle(battlePlayer, battleEnemy);
@@ -258,6 +263,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 				
 				inBattle = true;
 				this.battleWorld = new BattleGuiTest(window);
+				this.battleWorld.setScene();
 			}
 		});
 	}
@@ -267,6 +273,5 @@ public class MoveLoop_GUI_Arcade extends Application {
 	 */
 	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
 		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.player.getWeapon(), this.player.getArmour());
-		this.battleWorld.setScene();
 	}
 }

@@ -40,7 +40,7 @@ public class GUILevel {
 	 */
 	
 	private final int		DEFAULT_LEVEL_SIZE	= 3;
-	private final int		DEFAULT_ROOM_SIZE	= 5;
+	private final int		DEFAULT_ROOM_SIZE	= 7;
 	
 	private GUIRoom[][]		roomArray;
 	
