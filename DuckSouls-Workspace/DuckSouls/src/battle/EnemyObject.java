@@ -22,6 +22,8 @@ public class EnemyObject extends CharacterBattle {
 	
 	/** Private Variables */
 	
+	//The type of animation (text or GUI)
+	private char animationType;
 
 	
 	//Amount of XP and Money to give the player upon death
@@ -45,9 +47,10 @@ public class EnemyObject extends CharacterBattle {
 	 * @param enemy
 	 *            The type of enemy to display (Will affect sprite used & move type)
 	 */
-	public EnemyObject(String enemy, double health, double mana, double attack, double defence, double speed, double accuracy,	double crit) {
+	public EnemyObject(String enemy, double health, double mana, double attack, double defence, double speed, double accuracy,	double crit, char animationType) {
 		super(health, mana, attack, defence, speed, accuracy, crit);
 		enemyType = enemy;
+		this.animationType = animationType;
 		
 	}
 	
@@ -136,15 +139,16 @@ public class EnemyObject extends CharacterBattle {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	public boolean enemyMove(DuckObject player) {
+	public boolean enemyMove(DuckObject player, int move) {
 		
-		Random random = new Random();
-		int move = random.nextInt(4);
+		//Random random = new Random();
+		//int move = random.nextInt(4);
+		
 		if (alreadyTaunted) {
 			move = 0;
 		}
-		//A random chance for the enemy to choose a move
 		
+		//A random chance for the enemy to choose a move
 		if (move == 0 || move == 2 || move == 3) {
 			attack(player);
 		} else if (move == 1) {
@@ -263,28 +267,31 @@ public class EnemyObject extends CharacterBattle {
 			player.setStats("healthPoints", (Math.round(newHealth)));
 		}
 		
-		System.out.println("The enemy attacked you...");
-		Utilities.waitMilliseconds(500);
-		
-		run(13, -1, 0, player);
-		swipe(player);
-		run(13, +1, 0, player);
-		run(0, -1, 0, player);
-		
-		if (landed) {
-			if (critical) {
-				System.out.println("It's a critical hit!");
+		//If the animation is text based, print to console
+		if (this.animationType == 'T') {
+			System.out.println("The enemy attacked you...");
+			Utilities.waitMilliseconds(500);
+			
+			run(13, -1, 0, player);
+			swipe(player);
+			run(13, +1, 0, player);
+			run(0, -1, 0, player);
+			
+			if (landed) {
+				if (critical) {
+					System.out.println("It's a critical hit!");
+				}
+				System.out.print("The enemy dealt ");
+				System.out.print(Math.round(damage));
+				System.out.println(" damage to you!");
 			}
-			System.out.print("The enemy dealt ");
-			System.out.print(Math.round(damage));
-			System.out.println(" damage to you!");
+			
+			else {
+				System.out.println("The enemy missed!");
+			}
+			Utilities.waitMilliseconds(2000);
+			Utilities.clearConsole();
 		}
-		
-		else {
-			System.out.println("The enemy missed!");
-		}
-		Utilities.waitMilliseconds(2000);
-		Utilities.clearConsole();
 	}// End of attack
 	
 	/**
@@ -293,49 +300,52 @@ public class EnemyObject extends CharacterBattle {
 	 */
 	public void taunt(DuckObject player) {
 		
+		//If the enemy has already taunted
 		if(alreadyTaunted) {
-			System.out.println("You've already taunted the player!");
+			System.out.println("The enemy taunted, but it didn't do anything!");
 			Utilities.waitMilliseconds(2000);
 			Utilities.clearConsole();
 		}
 		else {
-		
-		double playerAttack = player.getStats("attackPoints");
-		double playerDefence = player.getStats("defencePoints");
-		player.setStats("attackPoints", (playerAttack + 5));
-		player.setStats("defencePoints", (playerDefence - 5));
-		//Increases and decreases the player's stats
-		
-		for (int i = 0; i <= 3; i++) {
+			//Increases and decreases the player's stats
+			double playerAttack = player.getStats("attackPoints");
+			double playerDefence = player.getStats("defencePoints");
+			player.setStats("attackPoints", (playerAttack + 5));
+			player.setStats("defencePoints", (playerDefence - 5));
+			alreadyTaunted = true;
 			
-			Utilities.clearConsole();
-			
-			getSprite("fight");
-			getSprite("taunt1");
-			player.getSprite("stand");
-			Utilities.waitMilliseconds(50);
-			Utilities.clearConsole();
-			
-			getSprite("fight");
-			getSprite("taunt2");
-			player.getSprite("stand");
-			Utilities.waitMilliseconds(50);
+			if (this.animationType == 'T') {
+				for (int i = 0; i <= 3; i++) {
+					
+					Utilities.clearConsole();
+					
+					getSprite("fight");
+					getSprite("taunt1");
+					player.getSprite("stand");
+					Utilities.waitMilliseconds(50);
+					Utilities.clearConsole();
+					
+					getSprite("fight");
+					getSprite("taunt2");
+					player.getSprite("stand");
+					Utilities.waitMilliseconds(50);
+				}
+				
+				//End of taunt sprites
+				Utilities.clearConsole();
+				getSprite("fight");
+				getSprite("stand");
+				player.getSprite("stand");
+				
+				System.out.println("The enemy taunted you...");
+				System.out.println("Your attack has increased!");
+				System.out.println("Your defence has decreased!");
+				
+				Utilities.waitMilliseconds(2000);
+				Utilities.clearConsole();
+			}
 		}
-		
-		//End of taunt sprites
-		Utilities.clearConsole();
-		getSprite("fight");
-		getSprite("stand");
-		player.getSprite("stand");
-		
-		System.out.println("The enemy taunted you...");
-		System.out.println("Your attack has increased!");
-		System.out.println("Your defence has decreased!");
-		alreadyTaunted = true;
-		Utilities.waitMilliseconds(2000);
-		Utilities.clearConsole();
-		}
-	}
+	}//End of taunt
 	
 	/**
 	 * 

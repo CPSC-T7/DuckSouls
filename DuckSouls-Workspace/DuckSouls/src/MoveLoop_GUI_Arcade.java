@@ -81,7 +81,7 @@ public class MoveLoop_GUI_Arcade extends Application {
 		
 		//Create the player and enemy objects (for the battle screen)
 		DuckObject	battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
-		EnemyObject	battleEnemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+		EnemyObject	battleEnemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16, 'G');
 		
 		// Set the level difficulty
 		enemySpawnChance = levelNum * difficultyPerLevel - difficultyPerLevel; // Starts at 0
