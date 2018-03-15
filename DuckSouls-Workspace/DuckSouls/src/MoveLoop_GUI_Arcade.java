@@ -64,18 +64,22 @@ public class MoveLoop_GUI_Arcade extends Application {
 	@Override
 	public void start(Stage window) throws Exception {
 		
-		// JavaFX
-		final int windowSize = 64 * 9;
-		Group root = new Group();
-		Scene scene = new Scene(root);
-		Canvas canvas = new Canvas(windowSize, windowSize);
-		root.getChildren().add(canvas);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
+		final int windowSize = 64 * 9;						// The window size (9 tiles total, each 64px)
+		Group root = new Group();							// Group to hold the canvas
+		Scene scene = new Scene(root);						// Scene to draw the group in
+		Canvas canvas = new Canvas(windowSize, windowSize); // Canvas to draw objects on
+		root.getChildren().add(canvas);						// Add the canvas to the group
+		GraphicsContext gc = canvas.getGraphicsContext2D();	// GraphicsContext (allows drawing of sprite images)
+		
+		titleScreen = new TitleScreen(window);
+		
+		//Set the window title and scene, and show it
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();
 		
+		//Create the player and enemy objects (for the battle screen)
 		DuckObject	battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
 		EnemyObject	battleEnemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
@@ -89,7 +93,8 @@ public class MoveLoop_GUI_Arcade extends Application {
 		currentRoom = currentLevel.roomAt(currentLevel.getCurrentRoomPoint());
 		playerPoint = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).playerPoint;
 		
-		currentRoom.draw_GUI(gc);
+		//Draw the GUI room
+		currentRoom.draw_GUI(gc); 	
 		
 		//Update based on frame rate
 		AnimationTimer timer = new AnimationTimer() {
@@ -97,7 +102,11 @@ public class MoveLoop_GUI_Arcade extends Application {
 			@Override
 			public void handle(long now) {
 				
-				if(inBattle == false) {
+				// Update depending on the selected screen
+				if (inTitle == true) {
+					updateTitle();
+					
+				}else if(inBattle == false) {
 					updateWorld(window, scene, gc, battlePlayer, battleEnemy);
 					window.setScene(scene);
 					
@@ -248,24 +257,19 @@ public class MoveLoop_GUI_Arcade extends Application {
 			Point battlePoint = currentRoom.checkForBattlePoint();
 			if (battlePoint != null) {
 				
-				System.out.println("Entering battle...");
-				
 				currentRoom.removeEntity(battlePoint);
 				//Redraw the room to get rid of the enemy sprite
 				currentRoom.draw_GUI(gc);
-				
-				/*
-				Utilities.clearConsole();
-				BattleWorldTest.battleLoop(battlePlayer, battleEnemy, player.getWeapon(), player.getArmour());
-				
-				currentRoom.draw_GUI(gc);
-				*/
 				
 				inBattle = true;
 				this.battleWorld = new BattleGuiTest(window);
 				this.battleWorld.setScene();
 			}
 		});
+	}
+	
+	public void updateTitle() {
+		this.inTitle = this.titleScreen.update();
 	}
 	
 	/**
