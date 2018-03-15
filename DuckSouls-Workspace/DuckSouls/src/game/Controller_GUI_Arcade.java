@@ -1,4 +1,4 @@
-package Gane;
+package game;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import ui.TitleScreen;
 import utils.Orientation;
 import utils.Utilities;
 
-public class Controller_GUI extends Application{
+public class Controller_GUI_Arcade extends Application{
 	
 	private int mapsize = 7;
 	private int spritesize = 64;

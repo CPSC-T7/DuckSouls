@@ -1,4 +1,4 @@
-package Gane;
+package game;
 
 import items.Clothes;
 import items.Goo;

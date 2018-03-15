@@ -1,6 +1,6 @@
 import ui.TitleScreen;
-import Gane.Controller_Text;
 import battle.DuckObject;
+import game.Controller_Text;
 
 /**
  * The main class to play DuckSouls.

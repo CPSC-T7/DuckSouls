@@ -1,4 +1,4 @@
-package Gane;
+package game;
 
 public enum Event_type {
 	/**

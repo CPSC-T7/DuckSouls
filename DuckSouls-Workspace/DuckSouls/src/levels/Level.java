@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import Gane.Event;
-import Gane.Event_type;
-import Gane.GameWorld;
 import battle.BattleWorldTest;
 import entities.Player;
+import game.Event;
+import game.Event_type;
+import game.GameWorld;
 import items.Item;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

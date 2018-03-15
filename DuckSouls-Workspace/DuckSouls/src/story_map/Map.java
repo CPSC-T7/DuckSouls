@@ -5,13 +5,13 @@ import utils.Utilities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Gane.Event;
-import Gane.Event_type;
-import Gane.GameWorld;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
 import entities.*;
+import game.Event;
+import game.Event_type;
+import game.GameWorld;
 import items.Clothes;
 import items.Item;
 import items.Unarmed;

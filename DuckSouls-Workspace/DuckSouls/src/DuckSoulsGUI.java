@@ -1,6 +1,7 @@
 import ui.TitleScreen;
-import Gane.Controller_GUI;
 import battle.DuckObject;
+import game.Controller_GUI;
+import game.Controller_GUI_Arcade;
 import javafx.application.Application;
 
 /**
@@ -81,7 +82,7 @@ public class DuckSoulsGUI {
 				break;
 			
 			case 1:
-				Application.launch(MoveLoop_GUI_Arcade.class, new String[0]);
+				Application.launch(Controller_GUI_Arcade.class);
 				break;
 				
 			default:

@@ -1,4 +1,4 @@
-package Gane;
+package game;
 
 import java.util.ArrayList;
 
