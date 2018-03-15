@@ -3,6 +3,7 @@ package game;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import arcade_world.Level;
 import battle.BattleGuiTest;
 import battle.BattleWorldTest;
 import battle.DuckObject;
@@ -17,8 +18,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import levels.Level;
-import story_map.Map;
+import story_world.Map;
 import tiles.Stairs;
 import ui.TitleScreen;
 import utils.Orientation;

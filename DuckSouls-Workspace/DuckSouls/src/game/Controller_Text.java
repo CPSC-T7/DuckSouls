@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import arcade_world.Level;
 import utils.Utilities;
 import battle.BattleWorldTest;
 import battle.DuckObject;
@@ -9,8 +11,7 @@ import battle.EnemyObject;
 import items.Clothes;
 import items.Item;
 import items.Unarmed;
-import levels.Level;
-import story_map.Map;
+import story_world.Map;
 
 public class Controller_Text {
 	

@@ -1,4 +1,4 @@
-package story_map;
+package story_world;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package levels;
+package arcade_world;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import game.GameWorld;
 import items.Item;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import rooms.Room;
 import tiles.Stairs;
 import utils.Orientation;
 import utils.Utilities;
