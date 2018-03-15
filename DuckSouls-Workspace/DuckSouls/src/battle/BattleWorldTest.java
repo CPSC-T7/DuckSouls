@@ -72,12 +72,12 @@ public class BattleWorldTest {
 		
 		while (inBattle) {
 			
-			// Start the battle in default positions
+			// Start the battle in default positions, depending on GUI or Text version
 			drawSprites(Player, Enemy);
 			Utilities.waitMilliseconds(10);
 			
 			if (startingPerson == 1) {
-				inBattle = Player.playerMove(Enemy);
+				inBattle = Player.playerMove(Enemy, "");
 				startingPerson = 2;
 			} else {
 				inBattle = Enemy.enemyMove(Player);

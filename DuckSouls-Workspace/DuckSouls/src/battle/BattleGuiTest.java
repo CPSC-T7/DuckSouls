@@ -24,6 +24,7 @@ import utils.Utilities;
 import java.awt.Point;
 
 import animations.*; //sprite animations
+import items.Item;
 
 
 /**
@@ -38,6 +39,7 @@ public class BattleGuiTest{
 	//Keep track of the currently selected button
 	private int menuButtonX = 0;
 	private int menuButtonY = 0;
+	private String menuButtonType;
 	
 	//The distance that the player runs to hit the enemy, and vice versa
 	private int runDistance = 64*2;
@@ -48,6 +50,9 @@ public class BattleGuiTest{
 	
 	//Whether or not an animation is playing
 	private boolean inAnimation = false;
+	
+	//If the battle has ended
+	private boolean inBattle = true;
 	
 	//The size of the screen (squared)
 	private int windowSize = 64 * 9;
@@ -61,7 +66,7 @@ public class BattleGuiTest{
 	private ImageView playerImageView = new ImageView(playerImage);
 	
 	//Player class
-	private BattlePlayer player = new BattlePlayer(playerImageView);
+	private BattlePlayer playerAnimation = new BattlePlayer(playerImageView);
     
     /*Battle menu buttons*/
     //Attack button image and viewer
@@ -73,7 +78,7 @@ public class BattleGuiTest{
 	private ImageView tauntButtonImageView = new ImageView(tauntButtonImage);
     
     //Quack button image and viewer
-	private Image quackButtonImage = new Image("Sprites/Menus/Battle/Quack.png");
+	private Image quackButtonImage = new Image("Sprites/Menus/Battle/Fly.png");
 	private ImageView quackButtonImageView = new ImageView(quackButtonImage);
     
     //Item button image and viewer
@@ -95,7 +100,7 @@ public class BattleGuiTest{
 	MenuButton[][] menuArray = new MenuButton[][] {	{new MenuButton(attackButtonImageView, "Attack", 10, 64*6),
 											   		new MenuButton(tauntButtonImageView, "Taunt", 10, 64*6 + 50)},
 		
-													{new MenuButton(quackButtonImageView, "Quack", 160, 64*6),
+													{new MenuButton(quackButtonImageView, "Fly", 160, 64*6),
 											   		new MenuButton(itemButtonImageView, "Item", 160, 64*6 + 50)} };
 	
 	//The BattleGUI Stage and Scene
@@ -114,7 +119,7 @@ public class BattleGuiTest{
 	    
 	    //Add nodes of the background and player to their respective layers
 	    backgroundLayer.getChildren().add(battleBackgroundImageView);
-		playerLayer.getChildren().add(this.player);	
+		playerLayer.getChildren().add(this.playerAnimation);	
 		
 
 		
@@ -123,7 +128,7 @@ public class BattleGuiTest{
 									   	menuArray[1][0], menuArray[1][1]);
 		
 		//Start the player and button animations (background has none)
-		player.animation.play();
+		playerAnimation.animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
 		
@@ -150,12 +155,55 @@ public class BattleGuiTest{
 	 * @param menuArray
 	 * 					A 2D array of menu buttons used to make moves against an enemy.
 	 */
-	public void update() {
+	public boolean update(DuckObject Player, EnemyObject Enemy, Item wep, Item arm) {
+		
+		// System.out.print(wep);
+		// System.out.print(arm);
+		// Utilities.waitMilliseconds(5000);
+		
+		// Add stats from weapon and armour before the battle, it gets reset at the end
+		Player.setStats("attackPoints", (Player.getStats("attackPoints") + wep.getExtraStats("attack")));
+		Player.setStats("accuracyPoints", (Player.getStats("accuracyPoints") + wep.getExtraStats("accuracy")));
+		Player.setStats("speedPoints", (Player.getStats("speedPoints") + wep.getExtraStats("speed")));
+		Player.setStats("criticalHitPoints", (Player.getStats("criticalHitPoints") + wep.getExtraStats("critChance")));
+		
+		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
+		
+		//If the battle has ended or not
+		boolean inBattle = true;
+		
+		int startingPerson = 1;
+		
+		if (Player.getStats("speedPointsStatic") >= Enemy.getStats("speedPointsStatic")) {
+			startingPerson = 1;
+		} else {
+			startingPerson = 2;
+		}
+	/*	
+		while (inBattle) {
+			
+			if (startingPerson == 1) {
+				inBattle = Player.playerMove(Enemy);
+				startingPerson = 2;
+			} else {
+				inBattle = Enemy.enemyMove(Player);
+				startingPerson = 1;
+			}
+			
+		}
+		
+		*/
+		
 		
 		//If an animation is playing, do not take key inputs.
 		if (this.inAnimation == true) {
 			this.currentStep += 2;
-			this.inAnimation = this.playerAttackAnimation(this.currentStep);
+			if (this.menuButtonType == "Attack") {
+				this.inAnimation = this.playerAttackAnimation(this.currentStep);
+			}
+			
+			//Always finish animations before exiting the battle screen
+			return(true);
 
 		}else {
 			
@@ -226,21 +274,26 @@ public class BattleGuiTest{
 					
 				} else if (key.getCode() == KeyCode.ENTER) { // ENTER key
 					
-					String buttonType = menuArray[menuButtonX][menuButtonY].getButtonType();
+					this.menuButtonType = menuArray[menuButtonX][menuButtonY].getButtonType();
 					
-					if (buttonType == "Attack") {
+					if (this.menuButtonType == "Attack") {
 						this.inAnimation = true;
+						this.inBattle = Player.playerMove(Enemy, this.menuButtonType);
 						
-					}else if (buttonType == "Taunt") {
+					}else if (this.menuButtonType == "Taunt") {
 						
-					}else if (buttonType == "Quack") {
+					}else if (this.menuButtonType == "Fly") {
 						
-					}else if (buttonType == "Item") {
+					}else if (this.menuButtonType == "Item") {
 						
 					}
 					
 				}
 			});
+			
+			// Continue/End the battle
+			return(this.inBattle);
+			
 		} //End of else statement
 		
 	}//End of Update
@@ -262,20 +315,20 @@ public class BattleGuiTest{
 		int animationLength = runDistance*2;
 		
 		if(currentStep == animationLength + 2) {
-			player.animation.play();
-			player.animation.setOffsetY(0);
+			playerAnimation.animation.play();
+			playerAnimation.animation.setOffsetY(0);
 			return(false);
 			
 		}else if ( currentStep <= runDistance) {
-			player.animation.setOffsetY(128);
-			player.animation.play();
-			player.moveX(this.stepSize);
+			playerAnimation.animation.setOffsetY(128);
+			playerAnimation.animation.play();
+			playerAnimation.moveX(this.stepSize);
 			return(true);
 			
 		}else if ( currentStep <= animationLength) {
-			player.animation.setOffsetY(256);
-			player.animation.play();
-			player.moveX(-this.stepSize);
+			playerAnimation.animation.setOffsetY(256);
+			playerAnimation.animation.play();
+			playerAnimation.moveX(-this.stepSize);
 			return(true);
 		}
 		return(false);

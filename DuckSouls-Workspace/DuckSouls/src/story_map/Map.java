@@ -397,7 +397,7 @@ public class Map {
 	 */
 	public void mainloop() {
 		
-		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
 		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		// Load the first 3 map files, and then the current (first) map
@@ -519,7 +519,7 @@ public class Map {
 	
 	public void runTurn(String input) {
 
-		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
 		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		
 		// To keep track of the maps
