@@ -384,5 +384,11 @@ public class Level implements GameWorld{
 	public ArrayList<ArrayList<String>> getStrings() {
 		return this.roomAt(this.getCurrentRoomPoint()).getStrings();
 	}
+
+
+	@Override
+	public ArrayList<Item> getInventory() {
+		return this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getInventory();
+	}
 	
 }

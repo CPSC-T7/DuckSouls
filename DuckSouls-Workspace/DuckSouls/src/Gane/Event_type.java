@@ -12,7 +12,6 @@ public enum Event_type {
 		
 		BATTLE("battle"),
 		NEXTWORLD("nextworld"),
-		GETITEM("getitem"),
 		NOEVENT("null");
 		
 		public String str;

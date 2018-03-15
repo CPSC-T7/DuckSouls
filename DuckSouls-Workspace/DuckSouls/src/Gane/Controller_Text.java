@@ -7,6 +7,7 @@ import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
 import items.Clothes;
+import items.Item;
 import items.Unarmed;
 import levels.Level;
 import story_map.Map;
@@ -17,7 +18,7 @@ public class Controller_Text {
 	
 	private GameWorld world;
 	private Event event = new Event(Event_type.NOEVENT);
-	DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
+	DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
 	EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 	
 	public Controller_Text(Boolean type) {
@@ -34,13 +35,22 @@ public class Controller_Text {
 			this.printMap();
 			System.out.print("\nAction \t: ");
 			String input = _scanner.nextLine().toUpperCase();
-			event.setEvent(world.runTurn(input));
+			if(input.equals("I")) {
+				System.out.println("Player Inventory:\n");
+				for (Item item : world.getInventory()) {
+					System.out.println(item.getName());
+				}
+				System.out.println("\nPress Enter To Exit.");
+				_scanner.nextLine();
+			}
+			else {
+				event.setEvent(world.runTurn(input));
+			}
 			switch(event.getType()) {
 				case BATTLE: 
 					Utilities.clearConsole();
-					BattleWorldTest.battleLoop(Player, Enemy, event.getItem(), event.getItem2());
+					BattleWorldTest.battleLoop(Player, Enemy, event.getWeapon(), event.getArmour());
 					break;
-				case GETITEM:
 				case NEXTWORLD:
 					world.nextWorld(event.getNextworld());
 			}

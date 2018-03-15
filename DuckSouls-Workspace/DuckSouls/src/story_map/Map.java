@@ -568,8 +568,6 @@ public class Map implements GameWorld{
 	@Override
 	public Event runTurn(String input) {
 
-		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
-		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
 		Event event = new Event(Event_type.NOEVENT);
 		
 		// To keep track of the maps
@@ -756,6 +754,11 @@ public class Map implements GameWorld{
 			this.resetCharacters();
 			this.loadNewMap(next);
 			
+		}
+
+		@Override
+		public ArrayList<Item> getInventory() {
+			return this.player.getInventory();
 		}
 	
 }

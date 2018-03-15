@@ -3,6 +3,7 @@ package Gane;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import battle.BattleGuiTest;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import levels.Level;
 import story_map.Map;
 import tiles.Stairs;
+import ui.TitleScreen;
 import utils.Orientation;
 import utils.Utilities;
 
@@ -28,10 +30,46 @@ public class Controller_GUI extends Application{
 	private int spritesize = 64;
 	private GameWorld world = new Level();
 	private Event event = new Event(Event_type.NOEVENT);
+	DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
+	EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+	private static boolean 	inBattle			= false;
+	private static boolean 	inTitle			= true;
+	//The current BattleWorld
+	private BattleGuiTest battleWorld;
+	
+	//The title screen
+	private TitleScreen titleScreen;
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+	public void start(Stage window) throws Exception {
+		final int windowSize = 64 * 9;
+		Group root = new Group();
+		Scene scene = new Scene(root);
+		Canvas canvas = new Canvas(windowSize, windowSize);
+		root.getChildren().add(canvas);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		window.setTitle("DuckSouls");
+		window.setScene(scene);
+		window.show();
+		//Update based on frame rate
+				AnimationTimer timer = new AnimationTimer() {
+
+					@Override
+					public void handle(long now) {
+						
+						if(inBattle == false) {
+							mainloop(window, gc, scene);
+							window.setScene(scene);
+							
+						//If in battle: update battleWorld
+						}else {
+							updateBattle(Player, Enemy);
+						}
+					}
+				};
+				timer.start();
+
 		
 	}
 	
@@ -39,7 +77,7 @@ public class Controller_GUI extends Application{
 	 * Runs through a loop, where it displays the room and asks for input
 	 * repeatedly.
 	 */
-	public void mainloop(GraphicsContext gc, Scene scene) {
+	public void mainloop(Stage window, GraphicsContext gc, Scene scene) {
 		
 		/*
 		 * Loop:
@@ -92,8 +130,9 @@ public class Controller_GUI extends Application{
 			
 			switch(event.getType()) {
 				case BATTLE: 
-					break;
-				case GETITEM:
+					inBattle = true;
+					this.battleWorld = new BattleGuiTest(window);
+					this.battleWorld.setScene();
 					break;
 				case NEXTWORLD:
 					world.nextWorld(event.getNextworld());
@@ -152,4 +191,11 @@ public class Controller_GUI extends Application{
 			}
 		}
 	}// End of drawMap
+	
+	/**
+	 * Update the world in which the player fights an enemy.
+	 */
+	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
+		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.event.getWeapon(), this.event.getArmour());
+	}
 }

@@ -1,14 +1,16 @@
 package Gane;
 
 import items.Clothes;
+import items.Goo;
 import items.Item;
 
 public class Event {
 
 	private Event_type type = Event_type.NOEVENT;
 	private String nextworld = null;
-	private Item item = new Clothes();
-	private Item item2 = new Clothes();
+	private Item item = new Goo();
+	private Item Weapon = new Clothes();
+	private Item Armour = new Clothes();
 	
 	public Event(Event_type type, String nextworld) {
 		this.type = type;
@@ -25,15 +27,15 @@ public class Event {
 		this.item = new Item(item);
 	}
 	
-	public Event(Event_type type, Item item, Item item2) {
+	public Event(Event_type type, Item weapon, Item armour) {
 		this.type = type;
-		this.item = item;
-		this.item2 = item2;
+		this.Weapon = weapon;
+		this.Armour = armour;
 	}
 	
 	public void setEvent(Event event) {
 		this.type = event.getType();
-		this.item = event.getItem();
+		this.Weapon = event.getWeapon();
 		this.nextworld = event.getNextworld();
 	}
 
@@ -45,12 +47,12 @@ public class Event {
 		return type;
 	}
 	
-	public Item getItem() {
-		return new Item(item);
+	public Item getWeapon() {
+		return new Item(Weapon);
 	}
 	
-	public Item getItem2() {
-		return new Item(item2);
+	public Item getArmour() {
+		return new Item(Armour);
 	}
 
 

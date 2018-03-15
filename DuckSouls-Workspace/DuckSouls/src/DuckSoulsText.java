@@ -1,4 +1,5 @@
 import ui.TitleScreen;
+import Gane.Controller_Text;
 import battle.DuckObject;
 
 /**
@@ -71,15 +72,17 @@ public class DuckSoulsText {
 	 * Runs what needs to be continuously run for the game to work.
 	 */
 	private static void loop(int mode) {
-
+		Controller_Text map;
 		switch(mode) {
 			
 			case 0:
-				MoveLoop_Text_Story.play();
+				map = new Controller_Text(true);
+				map.mainloop();;
 				break;
 			
 			case 1:
-				MoveLoop_Text_Arcade.play();
+				map = new Controller_Text(false);
+				map.mainloop();
 				break;
 				
 			default:
