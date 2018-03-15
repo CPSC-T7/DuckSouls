@@ -26,8 +26,8 @@ public class Stairs extends Tile {
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
-	public Stairs(boolean isGUI) {
-		super(isGUI, stringRepr, true, pathToImage);
+	public Stairs() {
+		super(stringRepr, true, pathToImage);
 	}
 	
 	public Stairs(int x, int y, String mapID) {

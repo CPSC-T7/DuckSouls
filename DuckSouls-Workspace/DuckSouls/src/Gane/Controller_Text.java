@@ -8,6 +8,7 @@ import battle.DuckObject;
 import battle.EnemyObject;
 import items.Clothes;
 import items.Unarmed;
+import levels.Level;
 import story_map.Map;
 
 public class Controller_Text {
@@ -22,6 +23,9 @@ public class Controller_Text {
 	public Controller_Text(Boolean type) {
 		if(type) {
 			this.world = new Map();
+		}
+		else {
+			this.world = new Level();
 		}
 	}
 	
@@ -38,7 +42,6 @@ public class Controller_Text {
 					break;
 				case GETITEM:
 				case NEXTWORLD:
-					System.out.println(event.getNextworld());
 					world.nextWorld(event.getNextworld());
 			}
 			Utilities.clearConsole();

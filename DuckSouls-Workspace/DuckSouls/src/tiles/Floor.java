@@ -25,8 +25,8 @@ public class Floor extends Tile {
 	 * CONSTRUCTORS
 	 * 
 	 */
-	public Floor(boolean isGUI) {
-		super(isGUI, stringRepr, true, pathToImage);
+	public Floor() {
+		super(stringRepr, true, pathToImage);
 		// TODO Auto-generated constructor stub
 	}
 

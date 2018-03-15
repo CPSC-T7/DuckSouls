@@ -29,8 +29,8 @@ public class Door extends Tile {
 	 * @param orientation
 	 *            The orientation the door is facing.
 	 */
-	public Door(boolean isGUI, Orientation orientation) {
-		super(isGUI, " D ", true, pathToImage + orientation.str + ".png");
+	public Door(Orientation orientation) {
+		super(" D ", true, pathToImage + orientation.str + ".png");
 		this.orientation = orientation;
 	}
 	

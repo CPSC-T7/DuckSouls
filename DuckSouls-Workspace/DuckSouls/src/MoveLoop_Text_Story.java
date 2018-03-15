@@ -6,7 +6,7 @@ public class MoveLoop_Text_Story {
 	
 	public static void play() {
 
-		Controller_Text map = new Controller_Text(true);
+		Controller_Text map = new Controller_Text(false);
 		map.mainloop();
 		
 	}

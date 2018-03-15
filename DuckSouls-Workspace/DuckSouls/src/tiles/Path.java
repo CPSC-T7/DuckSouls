@@ -29,8 +29,8 @@ public class Path extends Tile {
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
-	public Path(boolean isGUI) {
-		super(isGUI, stringRepr, true, pathToImage);
+	public Path() {
+		super(stringRepr, true, pathToImage);
 	}
 
 }

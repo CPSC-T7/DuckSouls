@@ -25,7 +25,6 @@ public class Tile {
 	private String		stringRepr	= "TER";
 	private char		    fileCharacter;
 	protected boolean	canWalkOn	= true;
-	private boolean		isGUI;
 	
 	private String		pathToImage =  "/Sprites/Tiles/Sewer/Empty.png";
 	private Image		image;
@@ -48,16 +47,12 @@ public class Tile {
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
-	protected Tile(boolean isGUI, String stringRepr, boolean canWalkOn, String pathToImage) {
+	protected Tile(String stringRepr, boolean canWalkOn, String pathToImage) {
 		
 		this.stringRepr = stringRepr;
 		this.pathToImage = pathToImage;
 		this.fileCharacter = this.stringRepr.charAt(1); // Middle char
 		this.canWalkOn = canWalkOn;
-		this.isGUI = isGUI;
-		
-		if (this.isGUI)
-			this.updateImage();
 		
 	}
 	

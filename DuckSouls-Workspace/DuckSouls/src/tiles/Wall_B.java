@@ -30,8 +30,8 @@ public class Wall_B extends Wall {
 	 * @param isGUI
 	 *            Whether this is a GUI tile or not.
 	 */
-	public Wall_B(boolean isGUI) {
-		super(isGUI, stringRepr, pathToImage);
+	public Wall_B() {
+		super(stringRepr, pathToImage);
 	}
 	
 	public Wall_B(int x, int y) {

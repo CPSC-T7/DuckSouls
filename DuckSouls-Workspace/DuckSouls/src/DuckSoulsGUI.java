@@ -1,7 +1,6 @@
 import ui.TitleScreen;
 import battle.DuckObject;
 import javafx.application.Application;
-import levels.TextLevel;
 
 /**
  * The main class to play DuckSouls.

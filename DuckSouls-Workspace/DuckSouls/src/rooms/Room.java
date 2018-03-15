@@ -19,6 +19,7 @@ import items.LeatherArmour;
 import items.MetalArmour;
 import items.Sword;
 import items.Weapon;
+import javafx.scene.image.Image;
 import tiles.Door;
 import tiles.Floor;
 import tiles.Path;
@@ -34,7 +35,7 @@ import tiles.Wall_TR;
 import utils.Orientation;
 import utils.Utilities;
 
-public abstract class Room {
+public class Room {
 	
 	/*
 	 * 
@@ -61,7 +62,6 @@ public abstract class Room {
 	protected int			internalWidth;
 	protected int			internalHeight;
 	protected int			enemySpawnChance	= 1;
-	protected boolean		IS_GUI;
 	protected boolean		battleReady			= false;
 	
 	protected Tile[][]		tileArray;
@@ -87,9 +87,8 @@ public abstract class Room {
 	 * @param enemySpawnChance
 	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
-	public Room(boolean isGUI, int size, int enemySpawnChance) {
+	public Room(int size, int enemySpawnChance) {
 		
-		this.IS_GUI = isGUI;
 		this.internalWidth = size;
 		this.internalHeight = size;
 		this.enemySpawnChance = enemySpawnChance;
@@ -109,11 +108,10 @@ public abstract class Room {
 	 *            The file containing the data for the room.
 	 */
 	// TODO: UNTESTED!
-	public Room(boolean isGUI, String roomName, String fileName, int enemySpawnChance) {
+	public Room(String roomName, String fileName, int enemySpawnChance) {
 		
 		String[] lines = Utilities.readLines("../TextRooms/" + fileName);
 		
-		this.IS_GUI = isGUI;
 		this.internalWidth = lines[0].split(",").length - 2;
 		this.internalHeight = lines.length - 2;
 		this.enemySpawnChance = enemySpawnChance;
@@ -143,11 +141,11 @@ public abstract class Room {
 						break;
 					
 					case ".":
-						this.tileArray[x][y] = new Path(this.IS_GUI);
+						this.tileArray[x][y] = new Path();
 						break;
 					
 					case "":
-						this.tileArray[x][y] = new Floor(this.IS_GUI);
+						this.tileArray[x][y] = new Floor();
 						break;
 					
 					default:
@@ -203,39 +201,39 @@ public abstract class Room {
 				
 				if (x == 0 && y == 0) { // Top Left
 					
-					this.tileArray[x][y] = new Wall_TL(IS_GUI);
+					this.tileArray[x][y] = new Wall_TL();
 					
 				} else if (x == this.internalWidth + 1 && y == 0) { // Top Right
 					
-					this.tileArray[x][y] = new Wall_TR(IS_GUI);
+					this.tileArray[x][y] = new Wall_TR();
 					
 				} else if (x == 0 && y == this.internalHeight + 1) { // Bottom Left
 					
-					this.tileArray[x][y] = new Wall_BL(IS_GUI);
+					this.tileArray[x][y] = new Wall_BL();
 					
 				} else if (x == this.internalWidth + 1 && y == this.internalHeight + 1) { // Bottom Right
 					
-					this.tileArray[x][y] = new Wall_BR(IS_GUI);
+					this.tileArray[x][y] = new Wall_BR();
 					
 				} else if (x == 0) { // Left
 					
-					this.tileArray[x][y] = new Wall_L(IS_GUI);
+					this.tileArray[x][y] = new Wall_L();
 					
 				} else if (y == 0) { // Top
 					
-					this.tileArray[x][y] = new Wall_T(IS_GUI);
+					this.tileArray[x][y] = new Wall_T();
 					
 				} else if (x == this.internalWidth + 1) { // Right
 					
-					this.tileArray[x][y] = new Wall_R(IS_GUI);
+					this.tileArray[x][y] = new Wall_R();
 					
 				} else if (y == this.internalHeight + 1) { // Bottom
 					
-					this.tileArray[x][y] = new Wall_B(IS_GUI);
+					this.tileArray[x][y] = new Wall_B();
 					
 				} else { // Centre Tiles
 					
-					this.tileArray[x][y] = new Floor(IS_GUI);
+					this.tileArray[x][y] = new Floor();
 					
 				}
 				
@@ -271,10 +269,10 @@ public abstract class Room {
 			// Set path tiles...
 			// Path tile indicates it has been stepped on
 			if (this.tileAt(toMove) instanceof Floor) {
-				this.setTile(toMove, new Path(IS_GUI));
+				this.setTile(toMove, new Path());
 			}
 			if (this.tileAt(moveTo) instanceof Floor) {
-				this.setTile(moveTo, new Path(IS_GUI));
+				this.setTile(moveTo, new Path());
 			}
 			
 			// Deal with the stepped on item
@@ -296,9 +294,6 @@ public abstract class Room {
 			 * ". There's a " + this.tileAt(moveTo).toString() + " there!");
 			 */
 			
-			System.out.println("You can't walk there!");
-			
-			Utilities.waitMilliseconds(300);
 			
 		}
 		
@@ -468,19 +463,19 @@ public abstract class Room {
 				
 				if (pos.x == 0) { // Left Door
 					
-					this.setTile(pos, new Door(IS_GUI, Orientation.WEST));
+					this.setTile(pos, new Door(Orientation.WEST));
 					
 				} else if (pos.x == this.internalWidth + 1) { // Right Door
 					
-					this.setTile(pos, new Door(IS_GUI, Orientation.EAST));
+					this.setTile(pos, new Door(Orientation.EAST));
 					
 				} else if (pos.y == 0) { // Top Door
 					
-					this.setTile(pos, new Door(IS_GUI, Orientation.NORTH));
+					this.setTile(pos, new Door(Orientation.NORTH));
 					
 				} else { // Bottom Door
 					
-					this.setTile(pos, new Door(IS_GUI, Orientation.SOUTH));
+					this.setTile(pos, new Door(Orientation.SOUTH));
 					
 				}
 			}
@@ -670,6 +665,49 @@ public abstract class Room {
 		
 		this.entityArray[position.x][position.y] = entity;
 		
+	}
+	
+	public ArrayList<ArrayList<ArrayList<Image>>> getImages(){
+		ArrayList<ArrayList<ArrayList<Image>>> images = new ArrayList<ArrayList<ArrayList<Image>>>();
+		for (int y = 0; y < this.internalHeight + 2; y++) {
+			images.add(new ArrayList<ArrayList<Image>>());
+			for (int x = 0; x < this.internalWidth + 2; x++) {
+				images.get(y).add(new ArrayList<Image>());
+					images.get(y).get(x).add(this.tileArray[x][y].getImage());
+					if (entityAt(new Point(x, y)) != null) {
+						Entity entity = entityAt(new Point(x, y));
+						images.get(y).get(x).add(entity.getImage());
+					}
+			}
+		}
+		return images;
+	}
+	
+	public ArrayList<ArrayList<String>> getStrings(){
+		ArrayList<ArrayList<String>> string = new ArrayList<ArrayList<String>>();
+		for (int y = 0; y < this.internalHeight + 2; y++) {
+			string.add(new ArrayList<String>());
+			for (int x = 0; x < this.internalWidth + 2; x++) {
+				if (this.entityArray[x][y] != null) { // If there is a enemy...
+					
+					// Print the entity
+					string.get(y).add(this.entityArray[x][y].getStringRepr());
+					
+				} else if (this.itemArray[x][y] != null) { // Or if there is an item...
+					
+					// Print the item
+					string.get(y).add(this.itemArray[x][y].getStringRepr());
+					
+				} else { // Otherwise just print the tile
+					
+					// Print the tile
+					string.get(y).add(this.tileArray[x][y].getStringRepr());
+					
+				}
+				
+			}
+		}
+		return string;
 	}
 	
 }

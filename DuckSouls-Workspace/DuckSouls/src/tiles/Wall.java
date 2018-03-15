@@ -26,8 +26,8 @@ public class Wall extends Tile {
 	 * @param pathToImage
 	 *            File path to the image.
 	 */
-	protected Wall(boolean isGUI, String stringRepr, String pathToImage) {
-		super(isGUI, stringRepr, false, pathToImage);
+	protected Wall(String stringRepr, String pathToImage) {
+		super(stringRepr, false, pathToImage);
 	}
 	
 	protected Wall(int x, int y, String stringRepr, String pathToImage) {

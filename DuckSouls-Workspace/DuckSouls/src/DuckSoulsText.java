@@ -1,6 +1,5 @@
 import ui.TitleScreen;
 import battle.DuckObject;
-import levels.TextLevel;
 
 /**
  * The main class to play DuckSouls.

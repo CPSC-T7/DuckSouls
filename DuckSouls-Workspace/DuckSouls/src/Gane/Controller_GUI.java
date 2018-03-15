@@ -16,8 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import levels.GUILevel;
-import rooms.GUIRoom;
+import levels.Level;
 import story_map.Map;
 import tiles.Stairs;
 import utils.Orientation;
@@ -27,7 +26,7 @@ public class Controller_GUI extends Application{
 	
 	private int mapsize = 7;
 	private int spritesize = 64;
-	private GameWorld world = new Map();
+	private GameWorld world = new Level();
 	private Event event = new Event(Event_type.NOEVENT);
 
 	@Override
