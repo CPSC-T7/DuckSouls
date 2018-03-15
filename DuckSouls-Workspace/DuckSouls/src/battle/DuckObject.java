@@ -28,8 +28,10 @@ public class DuckObject extends CharacterBattle {
 	//private double  acc = 71;
 
 	private int				level				= 1;
-	private int				experience			= 0;
+	private double			experience			= 0;
+	private double			neededXP 			= 50;
 	private int				money				= 0;
+	private boolean			alreadyTaunted		= false;
 	
 	
 	
@@ -263,15 +265,14 @@ public class DuckObject extends CharacterBattle {
 		
 		//If successful attack then minus the enemy health
 		if (landed) {
+			if (damage < 1) {
+				damage = 1;
+			}
 			double newHealth = enemyHealth - damage;
 			enemy.setStats("healthPoints", (Math.round(newHealth)));
 			
 		}
-		
-		//Tell the player how much damage they dealt.
-		System.out.print("You dealt ");
-		System.out.print(Math.round(damage));
-		System.out.println(" damage to the enemy!");
+	
 		
 		//Only print to the console if the version is 'T' (text)
 		if (this.animationType == 'T') {
@@ -339,6 +340,13 @@ public class DuckObject extends CharacterBattle {
 	 */
 	public void taunt(EnemyObject enemy) {
 		
+		if(alreadyTaunted) {
+			System.out.println("You've already taunted the enemy!");
+			Utilities.waitMilliseconds(2000);
+			Utilities.clearConsole();
+		}
+		else {
+		
 		double enemyAttack = enemy.getStats("attackPoints");
 		double enemyDefence = enemy.getStats("defencePoints");
 		enemy.setStats("attackPoints", (enemyAttack + 5));
@@ -363,8 +371,10 @@ public class DuckObject extends CharacterBattle {
 		
 		System.out.println("The enemy's attack has increased!");
 		System.out.println("The enemy's defence has decreased!");
+		alreadyTaunted = true;
 		Utilities.waitMilliseconds(2000);
 		Utilities.clearConsole();
+		}
 	}// End of taunt
 	
 
@@ -384,6 +394,7 @@ public class DuckObject extends CharacterBattle {
 			//Player runs away
 			
 			System.out.println("You flew away from battle...");
+			alreadyTaunted = false;
 			super.resetStats();
 			enemy.resetStats();
 			//resets both player's and enemy's stats
@@ -425,7 +436,8 @@ public class DuckObject extends CharacterBattle {
 			
 			}
 			
-			levelUp();
+			levelUp(enemy);
+			alreadyTaunted = false;
 			resetStats();
 			enemy.resetStats();
 			System.out.println("The battle has ended.");
@@ -444,19 +456,21 @@ public class DuckObject extends CharacterBattle {
 	/**
 	 * Level up the player and increase their stats as a reward.
 	 */
-	private void levelUp() {
+	private void levelUp(EnemyObject enemy) {
 		
-		if (experience >= 50) {
+		if (experience >= neededXP) {
 			
 			level += 1;
-			experience -= 50;
-			setStats("healthPointsStatic", (getStats("healthPointsStatic") + 2));
+			experience -= neededXP;
+			setStats("healthPointsStatic", (getStats("healthPointsStatic") + 3));
 			setStats("manaPointsStatic", (getStats("manaPointsStatic") + 2));
-			setStats("attackPointsStatic", (getStats("attackPointsStatic") + 1));
+			setStats("attackPointsStatic", (getStats("attackPointsStatic") + 2));
 			setStats("defencePointsStatic", (getStats("defencePointsStatic") + 1));
 			setStats("speedPointsStatic", (getStats("speedPointsStatic") + 1));
 			setStats("accuracyPointsStatic", (getStats("accuracyPointsStatic") + 1));
 			setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 1));
+			increaseXPNeeded();
+			scaleEnemy(enemy);
 			
 			//If the animation is text based
 			if (this.animationType == 'T') {
@@ -476,6 +490,22 @@ public class DuckObject extends CharacterBattle {
 
 	}
 	
+	private void increaseXPNeeded() {
+		double increases = neededXP * 0.13;
+		neededXP = Math.round(increases);
+		
+	}
+	
+	private void scaleEnemy(EnemyObject enemy) {
+		enemy.setStats("healthPointsStatic", (getStats("healthPointsStatic") + 2));
+		enemy.setStats("manaPointsStatic", (getStats("manaPointsStatic") + 1));
+		enemy.setStats("attackPointsStatic", (getStats("attackPointsStatic") + 2));
+		enemy.setStats("defencePointsStatic", (getStats("defencePointsStatic") + 1));
+		enemy.setStats("speedPointsStatic", (getStats("speedPointsStatic") + 2));
+		enemy.setStats("accuracyPointsStatic", (getStats("accuracyPointsStatic") + 1));
+		enemy.setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 2));
+	}
+	
 	
 	public static void cleanup() {
 		scanner.close();
@@ -483,6 +513,10 @@ public class DuckObject extends CharacterBattle {
 	
 	public int getMoney() {
 		return money;
+	}
+	
+	public double getXP() {
+		return experience;
 	}
 	
 	

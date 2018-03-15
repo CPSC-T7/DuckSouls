@@ -27,6 +27,7 @@ public class EnemyObject extends CharacterBattle {
 	//Amount of XP and Money to give the player upon death
 	private int				giveXP				= 25;
 	private int				giveMoney			= 100;
+	private boolean			alreadyTaunted		= false;
 	
 	private String			enemyType; 						//The type of enemy (will be changed via constructor)
 	
@@ -138,10 +139,13 @@ public class EnemyObject extends CharacterBattle {
 	public boolean enemyMove(DuckObject player) {
 		
 		Random random = new Random();
-		int move = random.nextInt(2);
+		int move = random.nextInt(4);
+		if (alreadyTaunted) {
+			move = 0;
+		}
 		//A random chance for the enemy to choose a move
 		
-		if (move == 0) {
+		if (move == 0 || move == 2 || move == 3) {
 			attack(player);
 		} else if (move == 1) {
 			taunt(player);
@@ -252,6 +256,9 @@ public class EnemyObject extends CharacterBattle {
 		damage = attackBonus(damage);
 		
 		if (landed) {
+			if (damage < 1) {
+				damage = 1;
+			}
 			double newHealth = playerHealth - damage;
 			player.setStats("healthPoints", (Math.round(newHealth)));
 		}
@@ -286,6 +293,13 @@ public class EnemyObject extends CharacterBattle {
 	 */
 	public void taunt(DuckObject player) {
 		
+		if(alreadyTaunted) {
+			System.out.println("You've already taunted the player!");
+			Utilities.waitMilliseconds(2000);
+			Utilities.clearConsole();
+		}
+		else {
+		
 		double playerAttack = player.getStats("attackPoints");
 		double playerDefence = player.getStats("defencePoints");
 		player.setStats("attackPoints", (playerAttack + 5));
@@ -317,8 +331,10 @@ public class EnemyObject extends CharacterBattle {
 		System.out.println("The enemy taunted you...");
 		System.out.println("Your attack has increased!");
 		System.out.println("Your defence has decreased!");
+		alreadyTaunted = true;
 		Utilities.waitMilliseconds(2000);
 		Utilities.clearConsole();
+		}
 	}
 	
 	/**

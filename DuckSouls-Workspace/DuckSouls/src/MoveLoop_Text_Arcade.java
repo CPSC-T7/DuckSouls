@@ -158,6 +158,25 @@ public class MoveLoop_Text_Arcade {
 						System.out.println("\nPress Enter To Exit.");
 						_scanner.nextLine();
 						break;
+
+					case "ST":
+						System.out.println("Player Status:\n");
+						System.out.println(("Moneys: " + Player.getMoney()));
+						System.out.println(("Experience: " + Player.getXP()));
+						System.out.println(("Moneys: " + Player.getMoney()));
+						System.out.println("\nPlayer Stats:\n");
+						System.out.println(("Health Points: " + Player.getStats("healthPoints")));
+						System.out.println(("Mana Points: " + Player.getStats("manaPoints")));
+						System.out.println(("Attack Points: " + Player.getStats("attackPoints")));
+						System.out.println(("Defence Points: " + Player.getStats("defencePoints")));
+						System.out.println(("Speed Points: " + Player.getStats("speedPoints")));
+						System.out.println(("Accuracy Points: " + Player.getStats("accuracyPoints")));
+						System.out.println(("Critical Hit Points: " + Player.getStats("criticalHitPoints")));
+
+						System.out.println("\nPress Enter To Exit.");
+						_scanner.nextLine();
+						break;
+						
 					
 					// Room commands...
 					
