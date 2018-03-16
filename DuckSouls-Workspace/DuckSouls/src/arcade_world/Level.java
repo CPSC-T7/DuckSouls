@@ -13,6 +13,14 @@ import javafx.scene.image.Image;
 import tiles.Stairs;
 import utils.Orientation;
 
+/**
+ * This class represents a level within DuckSouls. Each level is a 2D array list
+ * of rooms. The rooms are connected via doors, and the player can move to each
+ * room from these doors.
+ * 
+ * @author Matthew Allwright
+ * @author Colin Yeung
+ */
 public class Level implements GameWorld {
 	
 	/*
@@ -145,6 +153,9 @@ public class Level implements GameWorld {
 		
 	}
 	
+	/**
+	 * Generates the array of rooms for the level.
+	 */
 	protected void genRoomArray() {
 		
 		this.roomArray = new Room[this.levelWidth][this.levelHeight];
@@ -222,6 +233,12 @@ public class Level implements GameWorld {
 		return (Room) this.roomArray[position.x][position.y];
 	}
 	
+	/**
+	 * Moves the player to a different room in the room array.
+	 * 
+	 * @param direction
+	 *            The direction in the room array to move.
+	 */
 	public void moveRoom_Direction(Orientation direction) {
 		
 		// Get the player and their position
@@ -280,6 +297,15 @@ public class Level implements GameWorld {
 			
 			// Moving...
 			
+			/*
+			 * For each case:
+			 * 
+			 * Check if the player is on the edge of the room. - If so, move to the next
+			 * room.
+			 * 
+			 * Set the player's orientation. Move the player in the said direction.
+			 */
+			
 			case "W":
 			case "NORTH":
 				if (playerPoint.y == 0) {
@@ -332,7 +358,6 @@ public class Level implements GameWorld {
 		if (this.roomAt(this.getCurrentRoomPoint()).isBattleReady()) {
 			
 			event = new Event(Event_type.BATTLE, player.getWeapon(), player.getArmour());
-			
 			this.roomAt(this.getCurrentRoomPoint()).setBattleReady(false);
 			
 		}
