@@ -137,10 +137,12 @@ public class Controller_GUI_Arcade extends Application{
 					inBattle = true;
 					this.battleWorld = new BattleGuiTest(window);
 					this.battleWorld.setScene();
+					event = new Event(Event_type.NOEVENT);
 					break;
 				case NEXTWORLD:
 					world.nextWorld(event.getNextworld());
 					this.drawMap(gc, world.getImages(mapsize));
+					event = new Event(Event_type.NOEVENT);
 			}
 			
 		});	
