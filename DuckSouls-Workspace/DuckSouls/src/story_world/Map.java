@@ -335,7 +335,7 @@ public class Map implements GameWorld{
 		 String[] data = code.split("-");
 		 for(String it: data) {
 		 }
-		 return new Item(Item.allSpawnableArmour[Integer.parseInt(data[1])], x, y,
+		 return new Item(Item.allSpawnableItems[Integer.parseInt(data[1])], x, y,
 		 Integer.parseInt(data[2]));
 	 }
 	

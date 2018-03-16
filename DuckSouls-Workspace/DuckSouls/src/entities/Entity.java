@@ -3,9 +3,16 @@ package entities;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import items.Armour;
+import items.ClothArmour;
 import items.Clothes;
 import items.Item;
+import items.Knife;
+import items.LeatherArmour;
+import items.MetalArmour;
+import items.Sword;
 import items.Unarmed;
+import items.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tiles.Tile;
@@ -175,8 +182,16 @@ public class Entity {
 	 *            The item to add.
 	 */
 	public void addToInventory(Item item) {
-
+		
+		System.out.println(item.getStringRepr());
 		this.inventory.add(item);
+		if(item.getStringRepr().equals(" K ") || item.getStringRepr().equals(" S" )) {
+			this.setWeapon(new Item(item));
+		}
+		if(item.getStringRepr().equals(" CA") || item.getStringRepr().equals(" LA") || item.getStringRepr().equals(" MA")) {
+			this.setArmour(new Item(item));
+			System.out.println("Help1");
+		}
 
 	}
 
