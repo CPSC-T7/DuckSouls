@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import entities.battlePlayer;
+import entities.Player;
 import game.Event;
 import game.Event_type;
 import game.GameWorld;
@@ -41,7 +41,7 @@ public class Level implements GameWorld {
 	private int				levelNum			= 1;
 	private Point			playerPoint			= new Point(3, 3);
 	private Point			roomPoint			= new Point(0, 0);
-	private battlePlayer			player				= new battlePlayer();
+	private Player			player				= new Player();
 	private int				difficultyPerLevel	= 2;
 	
 	/*
@@ -226,7 +226,7 @@ public class Level implements GameWorld {
 		
 		// Get the player and their position
 		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
-		battlePlayer player = (battlePlayer) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
+		Player player = (Player) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
 		
 		// Remove the player from the old room
 		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());

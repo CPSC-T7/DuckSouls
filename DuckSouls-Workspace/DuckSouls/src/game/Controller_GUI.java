@@ -8,7 +8,7 @@ import battle.BattleGuiTest;
 import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
-import entities.battlePlayer;
+import entities.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;

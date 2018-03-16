@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import tiles.Tile;
 import utils.Orientation;
 
-public class battlePlayer extends Entity {
+public class Player extends Entity {
 	
 	/*
 	 * 
@@ -25,7 +25,7 @@ public class battlePlayer extends Entity {
 	/**
 	 * Creates a new player.
 	 */
-	public battlePlayer() {
+	public Player() {
 		
 		// Create a new character
 		super(0, 0, stringRepr, pathToImage);
@@ -42,7 +42,7 @@ public class battlePlayer extends Entity {
 	 * @param map_2DArrayList
 	 *            The map of tiles the player is a part of.
 	 */
-	public battlePlayer(int x, int y, ArrayList<ArrayList<Tile>> map_2DArrayList) {
+	public Player(int x, int y, ArrayList<ArrayList<Tile>> map_2DArrayList) {
 		
 		// Create a new character at the position
 		super(0, 0, stringRepr, pathToImage);

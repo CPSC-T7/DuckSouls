@@ -39,7 +39,7 @@ public class Map implements GameWorld{
 	private ArrayList<Entity>			characters_ArrayList	= new ArrayList<Entity>(0);
 	private ArrayList<Item> items_ArrayList = new ArrayList<Item>(0);
 	private HashMap<String, Mapfile>	maps_HashMap			= new HashMap<String, Mapfile>();
-	private battlePlayer						player					= new battlePlayer();
+	private Player						player					= new Player();
 	private String						currentMapID;
 	
 	/*
