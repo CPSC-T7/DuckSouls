@@ -52,25 +52,17 @@ public class BattleGuiTest{
 	private int runDistance = 64*2;
 	//The step size per frame
 	private int stepSize = 4;
-<<<<<<< HEAD
-	//The current step of the player (range of 0-64*6)
-=======
 	//The current step of the animation
->>>>>>> refs/remotes/origin/master
 	private int currentStep = 0;
 	
 	//Whether or not an animation is playing
 	private boolean inAnimation = false;
 	
-<<<<<<< HEAD
-=======
 	//Whose turn it is
 	private boolean playerTurn = true;
 	
 	//If the enemy will take a turn or not
 	private boolean enemyAttacks = true;
-	
->>>>>>> refs/remotes/origin/master
 	//If the battle has ended
 	private boolean inBattle = true;
 	
@@ -85,10 +77,6 @@ public class BattleGuiTest{
 	private Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
 	private ImageView playerImageView = new ImageView(playerImage);
 	
-<<<<<<< HEAD
-	//Player class
-	private BattlePlayer playerAnimation = new BattlePlayer(playerImageView);
-=======
 	//Player sprite class
 	private BattleSprite playerAnimation = new BattleSprite(playerImageView, 0);
 	
@@ -98,7 +86,6 @@ public class BattleGuiTest{
 	
 	//Enemy sprite class
 	private BattleSprite enemyAnimation = new BattleSprite(enemyImageView, 64*6);
->>>>>>> refs/remotes/origin/master
     
     /*Battle menu buttons*/
     //Attack button image and viewer
@@ -151,11 +138,7 @@ public class BattleGuiTest{
 	    
 	    //Add nodes of the background and player to their respective layers
 	    backgroundLayer.getChildren().add(battleBackgroundImageView);
-<<<<<<< HEAD
-		playerLayer.getChildren().add(this.playerAnimation);	
-=======
-		playerLayer.getChildren().addAll(this.playerAnimation, this.enemyAnimation);	
->>>>>>> refs/remotes/origin/master
+		playerLayer.getChildren().addAll(this.playerAnimation, this.enemyAnimation);
 		
 
 		
@@ -163,14 +146,10 @@ public class BattleGuiTest{
 		menuLayer.getChildren().addAll(	menuArray[0][0], menuArray[0][1],
 									   	menuArray[1][0], menuArray[1][1]);
 		
-<<<<<<< HEAD
-		//Start the player and button animations (background has none)
-		playerAnimation.animation.play();
-=======
+
 		//Start the player, enemy and button animations (background has none)
 		playerAnimation.animation.play();
 		enemyAnimation.animation.play();
->>>>>>> refs/remotes/origin/master
 		menuArray[menuButtonX][menuButtonY].animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
 		
@@ -211,39 +190,7 @@ public class BattleGuiTest{
 		
 		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
 		
-<<<<<<< HEAD
-		//If the battle has ended or not
-		boolean inBattle = true;
-		
-		int startingPerson = 1;
-		
-		if (Player.getStats("speedPointsStatic") >= Enemy.getStats("speedPointsStatic")) {
-			startingPerson = 1;
-		} else {
-			startingPerson = 2;
-		}
-	/*	
-		while (inBattle) {
-			
-			if (startingPerson == 1) {
-				inBattle = Player.playerMove(Enemy);
-				startingPerson = 2;
-			} else {
-				inBattle = Enemy.enemyMove(Player);
-				startingPerson = 1;
-			}
-			
-		}
-		
-		*/
-		
-		
-		//If an animation is playing, do not take key inputs.
-		if (this.inAnimation == true) {
-			this.currentStep += 2;
-			if (this.menuButtonType == "Attack") {
-				this.inAnimation = this.playerAttackAnimation(this.currentStep);
-=======
+
 		//If an animation is playing, do not take key inputs.
 		if (this.inAnimation == true) {
 			this.currentStep += 2;
@@ -260,7 +207,6 @@ public class BattleGuiTest{
 			//End the animation loop
 			}else {
 				this.inAnimation = false;
->>>>>>> refs/remotes/origin/master
 			}
 			
 			//Always finish animations before exiting the battle screen
@@ -339,10 +285,6 @@ public class BattleGuiTest{
 					
 					if (this.menuButtonType == "Attack") {
 						this.inAnimation = true;
-<<<<<<< HEAD
-						this.inBattle = Player.playerMove(Enemy, this.menuButtonType);
-						
-=======
 						this.playerTurn = true;
 						this.inBattle = Player.playerMove(Enemy, this.menuButtonType);
 						
@@ -354,7 +296,6 @@ public class BattleGuiTest{
 							this.enemyAttacks = false;
 						}
 						
->>>>>>> refs/remotes/origin/master
 					}else if (this.menuButtonType == "Taunt") {
 						
 					}else if (this.menuButtonType == "Fly") {
@@ -362,17 +303,10 @@ public class BattleGuiTest{
 					}else if (this.menuButtonType == "Item") {
 						
 					}
-<<<<<<< HEAD
-					
-				}
-			});
-			
-			// Continue/End the battle
-=======
+
 				}
 			});
 
->>>>>>> refs/remotes/origin/master
 			return(this.inBattle);
 			
 		} //End of else statement
@@ -395,14 +329,7 @@ public class BattleGuiTest{
 	 * @return
 	 * 						True or false, based on whether the animation is over or not.
 	 */
-<<<<<<< HEAD
-	public boolean playerAttackAnimation(int currentStep) {
-		
-		int runDistance = 64*2;
-		int animationLength = runDistance*2;
-		
-		if(currentStep == animationLength + 2) {
-=======
+
 	public boolean playerAttackAnimation() {
 
 		int animationLength = this.runDistance*2;
@@ -411,29 +338,21 @@ public class BattleGuiTest{
 		if(this.currentStep == animationLength + 2) {
 			this.currentStep = 0;
 			this.playerTurn = false;
->>>>>>> refs/remotes/origin/master
 			playerAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(0);
 			return(false);
 			
-<<<<<<< HEAD
-		}else if ( currentStep <= runDistance) {
-=======
+
 		//Run towards the enemy
 		}else if (this.currentStep <= this.runDistance) {
->>>>>>> refs/remotes/origin/master
 			playerAnimation.animation.setOffsetY(128);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(this.stepSize);
 			return(true);
-<<<<<<< HEAD
-			
-		}else if ( currentStep <= animationLength) {
-=======
+
 		
 		//Run away from the enemy
 		}else if (this.currentStep <= animationLength) {
->>>>>>> refs/remotes/origin/master
 			playerAnimation.animation.setOffsetY(256);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(-this.stepSize);
@@ -441,10 +360,7 @@ public class BattleGuiTest{
 		}
 		return(false);
 		
-<<<<<<< HEAD
-		
-	}//End of playerAttackAnimation
-=======
+
 	}//End of playerAttackAnimation
 	
 	/**
@@ -481,5 +397,4 @@ public class BattleGuiTest{
 		return(false);
 		
 	}
->>>>>>> refs/remotes/origin/master
 }

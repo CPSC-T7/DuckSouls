@@ -78,12 +78,8 @@ public class DuckSoulsGUI {
 		switch(mode) {
 			
 			case 0:
-<<<<<<< HEAD
-				Application.launch(Controller_GUI.class);
-=======
 				TitleScreen.displayMenu();
-				Application.launch(MoveLoop_GUI_Story.class, new String[0]);
->>>>>>> refs/remotes/origin/master
+				Application.launch(Controller_GUI.class);
 				break;
 			
 			case 1:

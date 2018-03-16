@@ -274,14 +274,11 @@ public class DuckObject extends CharacterBattle {
 		}
 	
 		
-<<<<<<< HEAD
 		//Tell the player how much damage they dealt.
 		System.out.print("You dealt ");
 		System.out.print(Math.round(damage));
 		System.out.println(" damage to the enemy!");
 		
-=======
->>>>>>> refs/remotes/origin/master
 		//Only print to the console if the version is 'T' (text)
 		if (this.animationType == 'T') {
 		
@@ -441,13 +438,10 @@ public class DuckObject extends CharacterBattle {
 				System.out.print(gainedMoney);
 				System.out.println(" moneys!");
 				Utilities.waitMilliseconds(800);
-<<<<<<< HEAD
-			
-=======
+
 				
 				System.out.println("The battle has ended.");
 				Utilities.waitMilliseconds(1200);
->>>>>>> refs/remotes/origin/master
 			}
 			
 			levelUp(enemy);
@@ -480,11 +474,9 @@ public class DuckObject extends CharacterBattle {
 			setStats("speedPointsStatic", (getStats("speedPointsStatic") + 1));
 			setStats("accuracyPointsStatic", (getStats("accuracyPointsStatic") + 1));
 			setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 1));
-<<<<<<< HEAD
-=======
+
 			increaseXPNeeded();
 			scaleEnemy(enemy);
->>>>>>> refs/remotes/origin/master
 			
 			//If the animation is text based
 			if (this.animationType == 'T') {
