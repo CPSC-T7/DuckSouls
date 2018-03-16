@@ -29,9 +29,9 @@ public class Armour extends Item {
 	 * @param defense
 	 *            The defense that the armour provides.
 	 */
-	protected Armour(String name, String stringRepr, int price, int spawnChance, int defense) {
+	protected Armour(String name, String pathToImage, String stringRepr, int price, int spawnChance, int defense) {
 		
-		super(name, stringRepr, price, spawnChance);
+		super(name, pathToImage, stringRepr, price, spawnChance);
 		this.defense = defense;
 		
 	}
@@ -56,9 +56,9 @@ public class Armour extends Item {
 	 * @param id
 	 *            The ID of the item.
 	 */
-	protected Armour(String name, String stringRepr, int price, int spawnChance, int defense, int x, int y, int id) {
+	protected Armour(String name, String pathToImage, String stringRepr, int price, int spawnChance, int defense, int x, int y, int id) {
 		
-		super(name, stringRepr, price, spawnChance, x, y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, x, y, id);
 		this.defense = defense;
 		
 	}

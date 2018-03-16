@@ -30,7 +30,7 @@ public class Clothes extends Armour {
 	 * Creates a new cloth armour item.
 	 */
 	public Clothes() {
-		super(name, stringRepr, price, spawnChance, defense);
+		super(name, null, stringRepr, price, spawnChance, defense);
 	}
 	
 }

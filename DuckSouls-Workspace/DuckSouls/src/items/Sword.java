@@ -14,6 +14,8 @@ public class Sword extends Weapon {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/Sword";
+	
 	private static final String	name		= "A Cool Sword";
 	private static final String	stringRepr	= " S ";
 	private static final int	price		= 40;
@@ -33,11 +35,11 @@ public class Sword extends Weapon {
 	 * Creates a new sword item.
 	 */
 	public Sword() {
-		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
+		super(name, pathToImage, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
 	}
 	
 	public Sword(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, x, y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, x, y, id);
 	}
 	
 }

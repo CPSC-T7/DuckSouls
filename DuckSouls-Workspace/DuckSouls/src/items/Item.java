@@ -1,5 +1,8 @@
 package items;
 
+import javafx.scene.image.Image;
+import utils.Utilities;
+
 /**
  * This class represents an item in DuckSouls. The item has a name, string
  * representation, price, and spawn chance by default. Items can also have stat
@@ -19,6 +22,7 @@ public class Item {
 	
 	protected String			stringRepr				= "IER";
 	protected String			name;
+	protected String			pathToImage;
 	protected int				spawnChance				= 0;															// 0-99
 	protected int				price;
 	protected int				health;
@@ -57,18 +61,20 @@ public class Item {
 	 * @param spawnChance
 	 *            The spawn chance of the item. Must be from 0 to 100
 	 */
-	protected Item(String name, String stringRepr, int price, int spawnChance) {
+	protected Item(String name, String pathToImage, String stringRepr, int price, int spawnChance) {
 		
 		this.name = name;
+		this.pathToImage = pathToImage;
 		this.stringRepr = stringRepr;
 		this.price = price;
 		this.spawnChance = spawnChance;
 		
 	}
 	
-	protected Item(String name, String stringRepr, int price, int spawnChance, int x, int y, int id) {
+	protected Item(String name, String pathToImage, String stringRepr, int price, int spawnChance, int x, int y, int id) {
 		
 		this.name = name;
+		this.pathToImage = pathToImage;
 		this.stringRepr = stringRepr;
 		this.price = price;
 		this.spawnChance = spawnChance;
@@ -87,6 +93,7 @@ public class Item {
 	public Item(Item item) {
 		
 		this.stringRepr = item.stringRepr;
+		this.pathToImage = item.pathToImage;
 		this.name = item.name;
 		this.spawnChance = item.spawnChance;
 		this.price = item.price;
@@ -194,6 +201,10 @@ public class Item {
 				return 0;
 		}
 		
+	}
+
+	public Image getImage() {
+		return new Image("file:///" + Utilities.getParentDir() + this.pathToImage + ".png");
 	}
 	
 }

@@ -14,6 +14,8 @@ public class Crouton extends Consumable {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/Crouton";
+	
 	private static final String	name		= "A Soggy Crouton";
 	private static final String	stringRepr	= " C ";
 	private static final int	price		= 1;
@@ -31,11 +33,11 @@ public class Crouton extends Consumable {
 	 * Creates a new croutons item.
 	 */
 	public Crouton() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, pathToImage, stringRepr, price, spawnChance, health, mana);
 	}
 	
 	public Crouton(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, health, mana, x, y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, health, mana, x, y, id);
 	}
 	
 }

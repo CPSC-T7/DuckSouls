@@ -179,7 +179,7 @@ public class Controller_GUI_Arcade extends Application {
 	 * @param gc
 	 *            Graphics Context
 	 * @param Map
-	 *            A 3D arraylist containing Strings for the paths to sprites
+	 *            A 3D arraylist containing sprites
 	 *
 	 * 
 	 */

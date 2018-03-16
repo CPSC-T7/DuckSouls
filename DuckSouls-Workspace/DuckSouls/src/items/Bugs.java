@@ -14,6 +14,8 @@ public class Bugs extends Consumable {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/Bugs";
+	
 	private static final String	name		= "De Bugs";
 	private static final String	stringRepr	= " B ";
 	private static final int	price		= 5;
@@ -31,11 +33,11 @@ public class Bugs extends Consumable {
 	 * Creates a new bugs item.
 	 */
 	public Bugs() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, pathToImage, stringRepr, price, spawnChance, health, mana);
 	}
 	
 	public Bugs(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, health, mana, x, y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, health, mana, x, y, id);
 	}
 	
 }

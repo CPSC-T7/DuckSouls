@@ -30,17 +30,17 @@ public class Consumable extends Item {
 	 * @param mana
 	 *            The mana modifier of the item upon use.
 	 */
-	protected Consumable(String name, String stringRepr, int price, int spawnChance, int health, int mana) {
+	protected Consumable(String name, String pathToImage, String stringRepr, int price, int spawnChance, int health, int mana) {
 		
-		super(name, stringRepr, price, spawnChance);
+		super(name, pathToImage, stringRepr, price, spawnChance);
 		this.health = health;
 		this.mana = mana;
 		
 	}
 	
-	protected Consumable(String name, String stringRepr, int price, int spawnChance, int health, int mana, int x, int y, int id) {
+	protected Consumable(String name, String pathToImage, String stringRepr, int price, int spawnChance, int health, int mana, int x, int y, int id) {
 		
-		super(name, stringRepr, price, spawnChance, x ,y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, x ,y, id);
 		this.health = health;
 		this.mana = mana;
 		

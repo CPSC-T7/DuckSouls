@@ -14,10 +14,12 @@ public class Fish extends Consumable {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/Fish";
+	
 	private static final String	name		= "A Half-Eaten Fish";
 	private static final String	stringRepr	= " F ";
 	private static final int	price		= 20;
-	private static final int	spawnChance	= 8;
+	private static final int	spawnChance	= 10;
 	private static final int	health		= 15;
 	private static final int	mana		= 0;
 	
@@ -31,11 +33,11 @@ public class Fish extends Consumable {
 	 * Creates a new fish item.
 	 */
 	public Fish() {
-		super(name, stringRepr, price, spawnChance, health, mana);
+		super(name, pathToImage, stringRepr, price, spawnChance, health, mana);
 	}
 	
 	public Fish(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, health, mana, x ,y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, health, mana, x ,y, id);
 	}
 	
 }

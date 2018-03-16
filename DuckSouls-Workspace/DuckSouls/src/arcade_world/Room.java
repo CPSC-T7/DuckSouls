@@ -294,7 +294,6 @@ public class Room {
 			 * ". There's a " + this.tileAt(moveTo).toString() + " there!");
 			 */
 			
-			
 		}
 		
 	}
@@ -667,23 +666,38 @@ public class Room {
 		
 	}
 	
-	public ArrayList<ArrayList<ArrayList<Image>>> getImages(){
+	public ArrayList<ArrayList<ArrayList<Image>>> getImages() {
+		
 		ArrayList<ArrayList<ArrayList<Image>>> images = new ArrayList<ArrayList<ArrayList<Image>>>();
+		
 		for (int y = 0; y < this.internalHeight + 2; y++) {
+			
 			images.add(new ArrayList<ArrayList<Image>>());
+			
 			for (int x = 0; x < this.internalWidth + 2; x++) {
+				
 				images.get(y).add(new ArrayList<Image>());
-					images.get(y).get(x).add(this.tileArray[x][y].getImage());
-					if (entityAt(new Point(x, y)) != null) {
-						Entity entity = entityAt(new Point(x, y));
-						images.get(y).get(x).add(entity.getImage());
-					}
+				images.get(y).get(x).add(this.tileArray[x][y].getImage());
+				
+				if (entityAt(new Point(x, y)) != null) {
+					
+					Entity entity = entityAt(new Point(x, y));
+					images.get(y).get(x).add(entity.getImage());
+					
+				}
+				
+				if (itemAt(new Point(x, y)) != null) {
+					
+					Item item = itemAt(new Point(x, y));
+					images.get(y).get(x).add(item.getImage());
+					
+				}
 			}
 		}
 		return images;
 	}
 	
-	public ArrayList<ArrayList<String>> getStrings(){
+	public ArrayList<ArrayList<String>> getStrings() {
 		ArrayList<ArrayList<String>> string = new ArrayList<ArrayList<String>>();
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			string.add(new ArrayList<String>());
