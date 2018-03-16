@@ -8,7 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.animation.Animation;
 
 /**
- * The animation for running up to, or away from the enemy.
+ * Sprite animation class.
+ * Processes spriteSheets into animations.
  * 
  * @author Wylee McAndrews
  */
@@ -39,8 +40,8 @@ public class SpriteAnimation extends Transition {
 	 * 
 	 * @param imageView The sprite sheet object for the animation.
 	 * @param duration Duration in milliseconds to run the animation.
-	 * @param count Number of total images in the sprite sheet.
-	 * @param columns Number of frames of animation.
+	 * @param count Number of total images in the animation.
+	 * @param columns Number of columns in the spritesheet.
 	 * @param offsetX ImageView x offset.
 	 * @param offsetY ImageView y offset.
 	 * @param width Width of each frame.

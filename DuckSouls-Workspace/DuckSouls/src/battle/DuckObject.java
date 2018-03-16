@@ -47,7 +47,25 @@ public class DuckObject extends CharacterBattle {
 	}
 	
 	
-	
+	/**
+	 * DuckObject constructor.
+	 * @param health
+	 * 				Player health points
+	 * @param mana
+	 * 				Player mana points
+	 * @param attack
+	 * 				Player attack damage
+	 * @param defence
+	 * 				Player defense points
+	 * @param speed
+	 * 				Player speed points
+	 * @param accuracy
+	 * 				Player accuracy points
+	 * @param crit
+	 * 				Player crit chance
+	 * @param animationType
+	 * 				Player animationType ('T' for text, 'G' for GUI)
+	 */
 	public DuckObject(double health, double mana, double attack, double defence, double speed, double accuracy,	double crit, char animationType) {
 		super(health, mana, attack, defence, speed, accuracy, crit);
 		this.animationType = animationType;
@@ -119,6 +137,7 @@ public class DuckObject extends CharacterBattle {
 	 * Gets information on which move to make from the user.
 	 * 
 	 * @param enemy
+	 * 				The enemy to move against
 	 */
 	public boolean playerMove(EnemyObject enemy, String move) {
 		
@@ -159,9 +178,10 @@ public class DuckObject extends CharacterBattle {
 	}// End of playerMove
 	
 	/**
+	 * Make the duck quack
 	 * 
 	 * @param enemy
-	 * 
+	 * 				The enemy to quack at
 	 */
 	public void quack(EnemyObject enemy) {
 		
@@ -182,11 +202,16 @@ public class DuckObject extends CharacterBattle {
 	}// End of quack
 	
 	/**
+	 * Make the duck run
 	 * 
 	 * @param numTimes
+	 * 				The number of times to run
 	 * @param xDirection
+	 * 				The direction to run on the X axis
 	 * @param yDirection
+	 * 				The direction to run on the Y axis
 	 * @param enemy
+	 * 				The enemy to move against
 	 */
 	public void run(int numTimes, int xDirection, int yDirection, EnemyObject enemy) {
 		if (xDirection == 1) {
@@ -218,8 +243,10 @@ public class DuckObject extends CharacterBattle {
 	}// End of run
 	
 	/**
+	 * Attack the enemy
 	 * 
 	 * @param enemy
+	 * 				The enemy to attack
 	 */
 	public void attack(EnemyObject enemy) {
 		//Create a random object
@@ -315,9 +342,12 @@ public class DuckObject extends CharacterBattle {
 	}//End of attack
 	
 	/**
+	 * Play peck animation
 	 * 
 	 * @param enemy
+	 * 				The enemy to peck
 	 * @param numTimes
+	 * 				The number of times to peck
 	 */
 	public void peck(EnemyObject enemy, int numTimes) {
 		
@@ -340,8 +370,10 @@ public class DuckObject extends CharacterBattle {
 	}// End of peck
 	
 	/**
+	 * Taunt the enemy
 	 * 
 	 * @param enemy
+	 * 				The enemy to taunt
 	 */
 	public void taunt(EnemyObject enemy) {
 		
@@ -385,12 +417,15 @@ public class DuckObject extends CharacterBattle {
 
 	
 	/**
+	 * Finish the battle between the player and enemy.
+	 * Loaded when the player wins, or flies away.
 	 * 
 	 * @param enemy
+	 * 				The enemy to finish the battle with
 	 * @param move
+	 * 				Whether you won, or flew away
 	 * 
 	 */
-	
 	private boolean finishBattle(EnemyObject enemy, String move) {
 		//Two ways of the battles finishing on player's turn
 		double enemyHealth = enemy.getStats("healthPoints");
@@ -460,6 +495,9 @@ public class DuckObject extends CharacterBattle {
 	
 	/**
 	 * Level up the player and increase their stats as a reward.
+	 * 
+	 * @param enemy
+	 * 				The enemy that the player was fighting
 	 */
 	private void levelUp(EnemyObject enemy) {
 		
@@ -496,12 +534,21 @@ public class DuckObject extends CharacterBattle {
 
 	}
 	
+	/**
+	 * Increase the XP points needed to level up again.
+	 */
 	private void increaseXPNeeded() {
 		double increases = neededXP * 0.13;
 		neededXP = Math.round(increases);
 		
 	}
 	
+	/**
+	 * Scale the enemy's attributes.
+	 * 
+	 * @param enemy
+	 * 				The enemy to scale attributes of
+	 */
 	private void scaleEnemy(EnemyObject enemy) {
 		enemy.setStats("healthPointsStatic", (getStats("healthPointsStatic") + 2));
 		enemy.setStats("manaPointsStatic", (getStats("manaPointsStatic") + 1));
@@ -512,15 +559,25 @@ public class DuckObject extends CharacterBattle {
 		enemy.setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 2));
 	}
 	
-	
+	/**
+	 * Cleanup processes before closing
+	 */
 	public static void cleanup() {
 		scanner.close();
 	}
 	
+	/**
+	 * Money value getter.
+	 * @return money
+	 */
 	public int getMoney() {
 		return money;
 	}
 	
+	/**
+	 * XP point value getter.
+	 * @return experience
+	 */
 	public double getXP() {
 		return experience;
 	}

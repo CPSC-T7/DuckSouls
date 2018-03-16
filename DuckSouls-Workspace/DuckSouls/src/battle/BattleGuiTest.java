@@ -201,17 +201,11 @@ public class BattleGuiTest {
 				
 				switch (key.getCode()) {
 					
-					case JAPANESE_KATAKANA:
-					case KATAKANA:
-						System.out.println("What in the actual heck is a katakana? Is that like a coolio sword thingy?");
-						break;
-					
 					case W:
 						
 						if (menuButtonY == 1) {
 							// Move the button Y position to 0
 							selectButton('V', 0);
-							
 						}
 						
 						break;
@@ -221,7 +215,6 @@ public class BattleGuiTest {
 						if (menuButtonX == 1) {
 							// Move the button X position to 0
 							selectButton('H', 0);
-							
 						}
 						
 						break;
@@ -231,7 +224,6 @@ public class BattleGuiTest {
 						if (menuButtonY == 0) {
 							// Move the button Y position to 1
 							selectButton('V', 1);
-							
 						}
 						
 						break;
@@ -241,7 +233,6 @@ public class BattleGuiTest {
 						if (menuButtonX == 0) {
 							// Move the button X position to 1
 							selectButton('H', 1);
-							
 						}
 						
 						break;
