@@ -443,6 +443,7 @@ public class Map implements GameWorld{
 	/**
 	 * Runs a loop to play the game.
 	 */
+<<<<<<< HEAD:DuckSouls-Workspace/DuckSouls/src/story_world/Map.java
 //	public void mainloop() {
 //		
 //		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
@@ -492,6 +493,57 @@ public class Map implements GameWorld{
 //		}
 //		
 //	} // End of mainLoop
+=======
+	public void mainloop() {
+		
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
+		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+		
+		// Load the first 3 map files, and then the current (first) map
+		this.loadAllMapFiles(0, 2);
+		// this.loadCurrentMap();
+		
+		/*
+		 * Main Game Loop:
+		 * 
+		 * Runs each turn and formats the console accordingly.
+		 * 
+		 * Exits after turn #21. TODO: Why?
+		 */
+		while (true) {
+			
+			// Run the turn
+			this.runTurn();
+			
+			// Clear the console
+			Utilities.clearConsole();
+			
+			// If an enemy is at the same location as the player...
+			if (this.isEnemyNear() != -1) {
+				
+				// Clear the console and enter battle
+				Utilities.clearConsole();
+				BattleWorldTest.battleLoop(Player, Enemy, new Unarmed(), new Clothes());
+				
+				// Remove the enemy that is defeated in battle from both characters_ArrayList
+				// and mapfile object for the current map
+				this.maps_HashMap.get(currentMapID)
+						.removeEnemy(this.characters_ArrayList.get(this.isEnemyNear()).getID());
+				this.characters_ArrayList.remove(this.isEnemyNear());
+				
+				// Clear the console
+				Utilities.clearConsole();
+			}
+			// if(this.isItemNear() != -1) {
+			// this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
+			// this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
+			// this.items_ArrayList.remove(this.isItemNear());
+			//
+			// }
+		}
+		
+	} // End of mainLoop
+>>>>>>> refs/remotes/origin/master:DuckSouls-Workspace/DuckSouls/src/story_map/Map.java
 	
 	/**
 	 * Loads all map files from the first map to the last map, and then loads the
@@ -568,7 +620,12 @@ public class Map implements GameWorld{
 	@Override
 	public Event runTurn(String input) {
 
+<<<<<<< HEAD:DuckSouls-Workspace/DuckSouls/src/story_world/Map.java
 		Event event = new Event(Event_type.NOEVENT);
+=======
+		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
+		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+>>>>>>> refs/remotes/origin/master:DuckSouls-Workspace/DuckSouls/src/story_map/Map.java
 		
 		// To keep track of the maps
 		String mapID = new String();

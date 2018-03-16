@@ -30,7 +30,9 @@ public class BattleWorldTest {
 	 */
 	public static void main(String[] args) {
 		Utilities.clearConsole();
-		// battleLoop();
+		DuckObject Player = new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
+ 		EnemyObject Enemy = new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+		battleLoop(Player, Enemy, null, null);
 	}
 	
 	/**
@@ -54,12 +56,14 @@ public class BattleWorldTest {
 		// Utilities.waitMilliseconds(5000);
 		
 		// Add stats from weapon and armour before the battle, it gets reset at the end
+		if(wep != null) {
 		Player.setStats("attackPoints", (Player.getStats("attackPoints") + wep.getExtraStats("attack")));
 		Player.setStats("accuracyPoints", (Player.getStats("accuracyPoints") + wep.getExtraStats("accuracy")));
 		Player.setStats("speedPoints", (Player.getStats("speedPoints") + wep.getExtraStats("speed")));
 		Player.setStats("criticalHitPoints", (Player.getStats("criticalHitPoints") + wep.getExtraStats("critChance")));
 		
 		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
+		}
 		
 		boolean inBattle = true;
 		int startingPerson = 1;

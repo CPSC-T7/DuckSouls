@@ -15,12 +15,20 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+<<<<<<< HEAD
+=======
+import map.GUILevel;
+>>>>>>> refs/remotes/origin/master
 import tiles.Stairs;
 import ui.MenuButton;
 import utils.Orientation;
 import utils.Utilities;
 
 import java.awt.Point;
+<<<<<<< HEAD
+=======
+import java.util.Random;
+>>>>>>> refs/remotes/origin/master
 
 import animations.*; //sprite animations
 import items.Item;
@@ -44,12 +52,25 @@ public class BattleGuiTest{
 	private int runDistance = 64*2;
 	//The step size per frame
 	private int stepSize = 4;
+<<<<<<< HEAD
 	//The current step of the player (range of 0-64*6)
+=======
+	//The current step of the animation
+>>>>>>> refs/remotes/origin/master
 	private int currentStep = 0;
 	
 	//Whether or not an animation is playing
 	private boolean inAnimation = false;
 	
+<<<<<<< HEAD
+=======
+	//Whose turn it is
+	private boolean playerTurn = true;
+	
+	//If the enemy will take a turn or not
+	private boolean enemyAttacks = true;
+	
+>>>>>>> refs/remotes/origin/master
 	//If the battle has ended
 	private boolean inBattle = true;
 	
@@ -64,8 +85,20 @@ public class BattleGuiTest{
 	private Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
 	private ImageView playerImageView = new ImageView(playerImage);
 	
+<<<<<<< HEAD
 	//Player class
 	private BattlePlayer playerAnimation = new BattlePlayer(playerImageView);
+=======
+	//Player sprite class
+	private BattleSprite playerAnimation = new BattleSprite(playerImageView, 0);
+	
+    //Enemy image and viewer
+	private Image enemyImage = new Image("Sprites/Entities/Rat/Battle/Rat.png");
+	private ImageView enemyImageView = new ImageView(enemyImage);
+	
+	//Enemy sprite class
+	private BattleSprite enemyAnimation = new BattleSprite(enemyImageView, 64*6);
+>>>>>>> refs/remotes/origin/master
     
     /*Battle menu buttons*/
     //Attack button image and viewer
@@ -118,7 +151,11 @@ public class BattleGuiTest{
 	    
 	    //Add nodes of the background and player to their respective layers
 	    backgroundLayer.getChildren().add(battleBackgroundImageView);
+<<<<<<< HEAD
 		playerLayer.getChildren().add(this.playerAnimation);	
+=======
+		playerLayer.getChildren().addAll(this.playerAnimation, this.enemyAnimation);	
+>>>>>>> refs/remotes/origin/master
 		
 
 		
@@ -126,8 +163,14 @@ public class BattleGuiTest{
 		menuLayer.getChildren().addAll(	menuArray[0][0], menuArray[0][1],
 									   	menuArray[1][0], menuArray[1][1]);
 		
+<<<<<<< HEAD
 		//Start the player and button animations (background has none)
 		playerAnimation.animation.play();
+=======
+		//Start the player, enemy and button animations (background has none)
+		playerAnimation.animation.play();
+		enemyAnimation.animation.play();
+>>>>>>> refs/remotes/origin/master
 		menuArray[menuButtonX][menuButtonY].animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
 		
@@ -168,6 +211,7 @@ public class BattleGuiTest{
 		
 		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
 		
+<<<<<<< HEAD
 		//If the battle has ended or not
 		boolean inBattle = true;
 		
@@ -199,6 +243,24 @@ public class BattleGuiTest{
 			this.currentStep += 2;
 			if (this.menuButtonType == "Attack") {
 				this.inAnimation = this.playerAttackAnimation(this.currentStep);
+=======
+		//If an animation is playing, do not take key inputs.
+		if (this.inAnimation == true) {
+			this.currentStep += 2;
+			
+			//Do the player's animation
+			if (this.playerTurn) {
+				if (this.menuButtonType == "Attack") {
+					this.playerTurn = this.playerAttackAnimation();
+				}
+			//Do the enemy's animation
+			}else if (this.enemyAttacks == true) {
+				this.inAnimation = this.enemyAttackAnimation();
+				
+			//End the animation loop
+			}else {
+				this.inAnimation = false;
+>>>>>>> refs/remotes/origin/master
 			}
 			
 			//Always finish animations before exiting the battle screen
@@ -277,8 +339,22 @@ public class BattleGuiTest{
 					
 					if (this.menuButtonType == "Attack") {
 						this.inAnimation = true;
+<<<<<<< HEAD
 						this.inBattle = Player.playerMove(Enemy, this.menuButtonType);
 						
+=======
+						this.playerTurn = true;
+						this.inBattle = Player.playerMove(Enemy, this.menuButtonType);
+						
+						//If the enemy survives, do its turn.
+						if (this.inBattle) {
+							this.inBattle = Enemy.enemyMove(Player, 2);
+							this.enemyAttacks = true;
+						}else {
+							this.enemyAttacks = false;
+						}
+						
+>>>>>>> refs/remotes/origin/master
 					}else if (this.menuButtonType == "Taunt") {
 						
 					}else if (this.menuButtonType == "Fly") {
@@ -286,11 +362,17 @@ public class BattleGuiTest{
 					}else if (this.menuButtonType == "Item") {
 						
 					}
+<<<<<<< HEAD
 					
 				}
 			});
 			
 			// Continue/End the battle
+=======
+				}
+			});
+
+>>>>>>> refs/remotes/origin/master
 			return(this.inBattle);
 			
 		} //End of else statement
@@ -298,33 +380,60 @@ public class BattleGuiTest{
 	}//End of Update
 	
 	/**
+<<<<<<< HEAD
 	 * This will be called when the attack button is selected and the enter key is pressed.
 	 * Plays an animation of the player attacking the enemy.
 	 * 
 	 * @param player
 	 * 						The player sprite that will attack the enemy.
+=======
+	 * Plays an animation of the player attacking the enemy.
+	 * 
+>>>>>>> refs/remotes/origin/master
 	 * @param currentStep
 	 * 						The current frame of the animation (goes up by 2)
 	 * @return
 	 * 						True or false, based on whether the animation is over or not.
 	 */
+<<<<<<< HEAD
 	public boolean playerAttackAnimation(int currentStep) {
 		
 		int runDistance = 64*2;
 		int animationLength = runDistance*2;
 		
 		if(currentStep == animationLength + 2) {
+=======
+	public boolean playerAttackAnimation() {
+
+		int animationLength = this.runDistance*2;
+		
+		//End the player's turn
+		if(this.currentStep == animationLength + 2) {
+			this.currentStep = 0;
+			this.playerTurn = false;
+>>>>>>> refs/remotes/origin/master
 			playerAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(0);
 			return(false);
 			
+<<<<<<< HEAD
 		}else if ( currentStep <= runDistance) {
+=======
+		//Run towards the enemy
+		}else if (this.currentStep <= this.runDistance) {
+>>>>>>> refs/remotes/origin/master
 			playerAnimation.animation.setOffsetY(128);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(this.stepSize);
 			return(true);
+<<<<<<< HEAD
 			
 		}else if ( currentStep <= animationLength) {
+=======
+		
+		//Run away from the enemy
+		}else if (this.currentStep <= animationLength) {
+>>>>>>> refs/remotes/origin/master
 			playerAnimation.animation.setOffsetY(256);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(-this.stepSize);
@@ -332,6 +441,45 @@ public class BattleGuiTest{
 		}
 		return(false);
 		
+<<<<<<< HEAD
 		
 	}//End of playerAttackAnimation
+=======
+	}//End of playerAttackAnimation
+	
+	/**
+	 * Plays an animation of the enemy attacking the player,
+	 * 
+	 * @param currentStep
+	 * @return
+	 */
+	public boolean enemyAttackAnimation() {
+
+		int animationLength = this.runDistance*2;
+		
+		//End the enemy's turn
+		if(this.currentStep == animationLength + 2) {
+			this.currentStep = 0;
+			enemyAnimation.animation.setOffsetY(0);
+			enemyAnimation.animation.play();
+			return(false);
+			
+		//Run towards the player
+		}else if (this.currentStep <= this.runDistance) {
+			enemyAnimation.animation.setOffsetY(128);
+			enemyAnimation.animation.play();
+			enemyAnimation.moveX(-this.stepSize);
+			return(true);
+			
+		//Run away from the player
+		}else if (this.currentStep <= animationLength) {
+			enemyAnimation.animation.setOffsetY(256);
+			enemyAnimation.animation.play();
+			enemyAnimation.moveX(this.stepSize);
+			return(true);
+		}
+		return(false);
+		
+	}
+>>>>>>> refs/remotes/origin/master
 }
