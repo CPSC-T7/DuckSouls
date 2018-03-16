@@ -77,11 +77,11 @@ public class DuckSoulsGUI {
 
 		switch(mode) {
 			
-			case 0:
+			case 0: // Story
 				Application.launch(Controller_GUI.class);
 				break;
 			
-			case 1:
+			case 1: // Arcade
 				Application.launch(Controller_GUI_Arcade.class);
 				break;
 				

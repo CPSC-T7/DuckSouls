@@ -75,12 +75,12 @@ public class DuckSoulsText {
 		Controller_Text map;
 		switch(mode) {
 			
-			case 0:
+			case 0: // Story
 				map = new Controller_Text(true);
 				map.mainloop();;
 				break;
 			
-			case 1:
+			case 1: // Arcade
 				map = new Controller_Text(false);
 				map.mainloop();
 				break;
