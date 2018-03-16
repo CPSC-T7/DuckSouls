@@ -68,7 +68,6 @@ public class Controller_Text {
 						System.out.println(this.world.getPlayerArmour());
 						System.out.println("\nPress Enter To Exit.");
 						_scanner.nextLine();
-						break;
 					}
 					else {
 						event.setEvent(world.runTurn(input));
