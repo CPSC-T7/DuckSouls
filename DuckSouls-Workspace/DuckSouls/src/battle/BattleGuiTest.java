@@ -43,9 +43,9 @@ public class BattleGuiTest{
 	private String menuButtonType;
 	
 	//The distance that the player runs to hit the enemy, and vice versa
-	private int runDistance = 64*2;
+	private final int runDistance = 64*2;
 	//The step size per frame
-	private int stepSize = 4;
+	private final int stepSize = 4;
 	//The current step of the animation
 	private int currentStep = 0;
 	
@@ -61,14 +61,14 @@ public class BattleGuiTest{
 	private boolean inBattle = true;
 	
 	//The size of the screen (squared)
-	private int windowSize = 64 * 9;
+	private final int windowSize = 64 * 9;
 	
 	//Background image and viewer
-	private Image battleBackgroundImage = new Image("Sprites/Backgrounds/Sewer-Battle.png");
+	private final Image battleBackgroundImage = new Image("Sprites/Backgrounds/Sewer-Battle.png");
 	private ImageView battleBackgroundImageView = new ImageView(battleBackgroundImage);
 	
     //Player image and viewer
-	private Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
+	private final Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
 	private ImageView playerImageView = new ImageView(playerImage);
 	
 	//Player sprite class
@@ -83,19 +83,19 @@ public class BattleGuiTest{
     
     /*Battle menu buttons*/
     //Attack button image and viewer
-	private Image attackButtonImage = new Image("Sprites/Menus/Battle/Attack.png");
+	private final Image attackButtonImage = new Image("Sprites/Menus/Battle/Attack.png");
 	private ImageView attackButtonImageView = new ImageView(attackButtonImage);
     
     //Taunt button image and viewer
-	private Image tauntButtonImage = new Image("Sprites/Menus/Battle/Taunt.png");
+	private final Image tauntButtonImage = new Image("Sprites/Menus/Battle/Taunt.png");
 	private ImageView tauntButtonImageView = new ImageView(tauntButtonImage);
     
     //Quack button image and viewer
-	private Image quackButtonImage = new Image("Sprites/Menus/Battle/Fly.png");
+	private final Image quackButtonImage = new Image("Sprites/Menus/Battle/Fly.png");
 	private ImageView quackButtonImageView = new ImageView(quackButtonImage);
     
     //Item button image and viewer
-	private Image itemButtonImage = new Image("Sprites/Menus/Battle/Item.png");
+	private final Image itemButtonImage = new Image("Sprites/Menus/Battle/Item.png");
 	private ImageView itemButtonImageView = new ImageView(itemButtonImage);
     
     //Root group will separate all layers
@@ -110,7 +110,8 @@ public class BattleGuiTest{
 	private Pane groupPane = new Pane(backgroundLayer, menuLayer, playerLayer);
 	
 	//2D array of menu buttons [rows][columns]
-	MenuButton[][] menuArray = new MenuButton[][] {	{new MenuButton(attackButtonImageView, "Attack", 10, 64*6),
+	private MenuButton[][] menuArray = new MenuButton[][] {	
+													{new MenuButton(attackButtonImageView, "Attack", 10, 64*6),
 											   		new MenuButton(tauntButtonImageView, "Taunt", 10, 64*6 + 50)},
 		
 													{new MenuButton(quackButtonImageView, "Fly", 160, 64*6),
@@ -134,13 +135,10 @@ public class BattleGuiTest{
 	    backgroundLayer.getChildren().add(battleBackgroundImageView);
 		playerLayer.getChildren().addAll(this.playerAnimation, this.enemyAnimation);
 		
-
-		
 		//Add 2d array of menu buttons to menuLayer
 		menuLayer.getChildren().addAll(	menuArray[0][0], menuArray[0][1],
 									   	menuArray[1][0], menuArray[1][1]);
 		
-
 		//Start the player, enemy and button animations (background has none)
 		playerAnimation.animation.play();
 		enemyAnimation.animation.play();
@@ -216,8 +214,6 @@ public class BattleGuiTest{
 				
 				if (key.getCode() == KeyCode.W) { // W key
 
-					//player.animation.play();
-					//player.animation.setOffsetY(0);
 					if(menuButtonY == 1) {
 						
 						menuArray[menuButtonX][menuButtonY].animation.play();
@@ -229,10 +225,6 @@ public class BattleGuiTest{
 					}
 					
 				} else if (key.getCode() == KeyCode.A) { // A key
-					
-					//player.animation.play();
-					//player.animation.setOffsetY(256);
-					//player.moveX(-8);
 					
 					if(menuButtonX == 1) {
 						
@@ -258,10 +250,6 @@ public class BattleGuiTest{
 	
 					
 				} else if (key.getCode() == KeyCode.D) { // D key
-					
-					//player.animation.play();
-					//player.animation.setOffsetY(128);
-					//player.moveX(8);
 					
 					if(menuButtonX == 0) {
 						
