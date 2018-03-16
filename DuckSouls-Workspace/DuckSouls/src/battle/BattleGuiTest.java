@@ -204,7 +204,7 @@ public class BattleGuiTest{
 			//Always finish animations before exiting the battle screen
 			return(true);
 
-		}else {
+		}else if(this.inAnimation == false){
 			
 			//reset animation frames
 			this.currentStep = 0;
@@ -215,36 +215,24 @@ public class BattleGuiTest{
 				if (key.getCode() == KeyCode.W) { // W key
 
 					if(menuButtonY == 1) {
-						
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-						menuButtonY = 0;
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						//Move the button Y position to 0
+						selectButton('V', 0);
 						
 					}
 					
 				} else if (key.getCode() == KeyCode.A) { // A key
 					
 					if(menuButtonX == 1) {
-						
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-						menuButtonX = 0;
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						//Move the button X position to 0
+						selectButton('H', 0);
 						
 					}
 					
 				} else if (key.getCode() == KeyCode.S) { // S key
 					
 					if(menuButtonY == 0) {
-						
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-						menuButtonY = 1;
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						//Move the button Y position to 1
+						selectButton('V', 1);
 						
 					}
 	
@@ -252,12 +240,8 @@ public class BattleGuiTest{
 				} else if (key.getCode() == KeyCode.D) { // D key
 					
 					if(menuButtonX == 0) {
-						
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
-						menuButtonX = 1;
-						menuArray[menuButtonX][menuButtonY].animation.play();
-						menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+						//Move the button X position to 1
+						selectButton('H', 1);
 						
 					}
 					
@@ -295,23 +279,41 @@ public class BattleGuiTest{
 		
 	}//End of Update
 	
+	
 	/**
-<<<<<<< HEAD
+	 * Select one of the menu buttons based on direction
+	 * 
+	 * @param direction
+	 * 					The plane to move on (Horizontal / Vertical)
+	 * @param button
+	 * 					The button to move to on the 'direction' plane
+	 */
+	public void selectButton(char direction, int button){
+		menuArray[menuButtonX][menuButtonY].animation.play();
+		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
+		if(direction == 'H') {
+			menuButtonX = button;
+		}else {
+			menuButtonY = button;
+		}
+		menuArray[menuButtonX][menuButtonY].animation.play();
+		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
+	}
+	
+	
+	/**
 	 * This will be called when the attack button is selected and the enter key is pressed.
 	 * Plays an animation of the player attacking the enemy.
 	 * 
 	 * @param player
 	 * 						The player sprite that will attack the enemy.
-=======
 	 * Plays an animation of the player attacking the enemy.
 	 * 
->>>>>>> refs/remotes/origin/master
 	 * @param currentStep
 	 * 						The current frame of the animation (goes up by 2)
 	 * @return
 	 * 						True or false, based on whether the animation is over or not.
 	 */
-
 	public boolean playerAttackAnimation() {
 
 		int animationLength = this.runDistance*2;
@@ -341,7 +343,6 @@ public class BattleGuiTest{
 			return(true);
 		}
 		return(false);
-		
 
 	}//End of playerAttackAnimation
 	
