@@ -13,7 +13,7 @@ import javafx.util.Duration;
  * @author Wylee McAndrews
  *
  */
-public class BattlePlayer extends Pane{
+public class BattleSprite extends Pane{
 
 	//BattlePlayer imageView has frames of animation (1 per column)
     ImageView imageView;
@@ -26,17 +26,18 @@ public class BattlePlayer extends Pane{
     int score = 0;
 
     SpriteAnimation animation;
-    public BattlePlayer(ImageView imageView){
+    public BattleSprite(ImageView imageView, int translateX){
         this.imageView = imageView;
         this.imageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));
         animation = new SpriteAnimation(imageView, Duration.millis(300), count, columns, offsetX, offsetY, 128, 128);
         getChildren().addAll(imageView);
         
         this.setTranslateY(64*3);
+        this.setTranslateX(translateX);
     }
 
     /**
-     * Translates the player's sprite left and right on the screen.
+     * Translates the sprite left and right on the screen.
      * 
      * @param x
      * 				The amount to move the player's sprite

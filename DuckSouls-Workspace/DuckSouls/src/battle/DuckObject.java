@@ -433,16 +433,15 @@ public class DuckObject extends CharacterBattle {
 				System.out.print(gainedMoney);
 				System.out.println(" moneys!");
 				Utilities.waitMilliseconds(800);
-			
+				
+				System.out.println("The battle has ended.");
+				Utilities.waitMilliseconds(1200);
 			}
 			
 			levelUp(enemy);
 			alreadyTaunted = false;
 			resetStats();
 			enemy.resetStats();
-			System.out.println("The battle has ended.");
-			Utilities.waitMilliseconds(1200);
-			
 			return false;
 		}
 		

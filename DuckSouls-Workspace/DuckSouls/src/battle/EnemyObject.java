@@ -389,25 +389,23 @@ public class EnemyObject extends CharacterBattle {
 		
 		double playerHealth = player.getStats("healthPoints");
 		
-		/*
-		 * if (move == 2) { System.out.println("The enemy ran away from battle...");
-		 * resetStats(); player.resetStats(); return false; }
-		 */
-		
-		/* else */ if (playerHealth <= 0) {
-			Utilities.clearConsole();
-			getSprite("stand");
-			player.getSprite("dead");
-			System.out.println("The enemy knocked you out!");
-			Utilities.waitMilliseconds(1000);
-			System.out.println("Your consciousness slowly fades from this world...");
-			Utilities.waitMilliseconds(1000);
-			// resetStats();
-			// player.resetStats();
-			System.out.println("The battle has ended.");
-			Utilities.waitMilliseconds(1200);
-			System.exit(0);
-			//if the player dies then exit from the game
+		if (playerHealth <= 0) {
+			if(this.animationType == 'T') {
+				Utilities.clearConsole();
+				getSprite("stand");
+				player.getSprite("dead");
+				System.out.println("The enemy knocked you out!");
+				Utilities.waitMilliseconds(1000);
+				System.out.println("Your consciousness slowly fades from this world...");
+				Utilities.waitMilliseconds(1000);
+				// resetStats();
+				// player.resetStats();
+				System.out.println("The battle has ended.");
+				Utilities.waitMilliseconds(1200);
+				System.exit(0);
+				//if the player dies then exit from the game
+				
+			}
 			return false;
 		}
 		
