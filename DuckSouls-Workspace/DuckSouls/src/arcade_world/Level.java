@@ -35,7 +35,7 @@ public class Level implements GameWorld{
 	 */
 	
 	protected final int			DEFAULT_LEVEL_SIZE	= 3;
-	protected final int			DEFAULT_ROOM_SIZE	= 5;
+	protected final int			DEFAULT_ROOM_SIZE	= 7;
 	
 	protected Room[][]			roomArray;
 	
