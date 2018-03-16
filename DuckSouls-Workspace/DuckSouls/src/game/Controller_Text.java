@@ -64,8 +64,8 @@ public class Controller_Text {
 				else {
 					if(input.equals("E")) {
 						System.out.println("Player Equipment:\n");
-						System.out.println(this.world.getPlayerWeapon());
-						System.out.println(this.world.getPlayerArmour());
+						System.out.println(this.world.getPlayerWeapon().getName());
+						System.out.println(this.world.getPlayerArmour().getName());
 						System.out.println("\nPress Enter To Exit.");
 						_scanner.nextLine();
 					}
