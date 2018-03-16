@@ -31,7 +31,7 @@ public class BattleWorldTest {
 	public static void main(String[] args) {
 		Utilities.clearConsole();
 		DuckObject Player = new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
- 		EnemyObject Enemy = new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+ 		EnemyObject Enemy = new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16, 'T');
 		battleLoop(Player, Enemy, null, null);
 	}
 	

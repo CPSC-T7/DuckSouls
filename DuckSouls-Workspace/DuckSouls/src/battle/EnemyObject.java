@@ -166,6 +166,37 @@ public class EnemyObject extends CharacterBattle {
 	 * @param numTimes
 	 * @param xDirection
 	 * @param yDirection
+	 * @param enemy
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
+	public boolean enemyMove(DuckObject player) {
+		
+		Random random = new Random();
+		int move = random.nextInt(4);
+		
+		if (alreadyTaunted) {
+			move = 0;
+		}
+		
+		//A random chance for the enemy to choose a move
+		if (move == 0 || move == 2 || move == 3) {
+			attack(player);
+		} else if (move == 1) {
+			taunt(player);
+		}
+		//Only two moves for now
+		boolean inBattle = finishBattle(player, move);
+		
+		return inBattle;
+		
+	}// End of enemyMove
+	
+	/**
+	 * 
+	 * @param numTimes
+	 * @param xDirection
+	 * @param yDirection
 	 * @param player
 	 */
 	public void run(int numTimes, int xDirection, int yDirection, DuckObject player) {

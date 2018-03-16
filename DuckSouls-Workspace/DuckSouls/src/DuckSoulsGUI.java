@@ -78,7 +78,6 @@ public class DuckSoulsGUI {
 		switch(mode) {
 			
 			case 0:
-				TitleScreen.displayMenu();
 				Application.launch(Controller_GUI.class);
 				break;
 			

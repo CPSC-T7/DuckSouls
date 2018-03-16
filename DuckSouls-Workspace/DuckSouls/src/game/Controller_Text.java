@@ -20,8 +20,7 @@ public class Controller_Text {
 	private GameWorld world;
 	private Event event = new Event(Event_type.NOEVENT);
 	DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
-	EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
-	
+	EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16, 'T');	
 	public Controller_Text(Boolean type) {
 		if(type) {
 			this.world = new Map();

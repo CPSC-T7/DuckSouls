@@ -15,20 +15,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-<<<<<<< HEAD
-=======
-import map.GUILevel;
->>>>>>> refs/remotes/origin/master
 import tiles.Stairs;
 import ui.MenuButton;
 import utils.Orientation;
 import utils.Utilities;
 
 import java.awt.Point;
-<<<<<<< HEAD
-=======
+
 import java.util.Random;
->>>>>>> refs/remotes/origin/master
 
 import animations.*; //sprite animations
 import items.Item;

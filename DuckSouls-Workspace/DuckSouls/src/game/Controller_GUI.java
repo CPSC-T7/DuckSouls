@@ -30,8 +30,8 @@ public class Controller_GUI extends Application{
 	private int spritesize = 64;
 	private GameWorld world = new Map();
 	private Event event = new Event(Event_type.NOEVENT);
-	DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'T');
-	EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
+	DuckObject	battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
+	EnemyObject	battleEnemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16, 'G');
 	private static boolean 	inBattle			= false;
 	private static boolean 	inTitle			= true;
 	//The current BattleWorld
@@ -48,7 +48,7 @@ public class Controller_GUI extends Application{
 		Canvas canvas = new Canvas(windowSize, windowSize);
 		root.getChildren().add(canvas);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
+		titleScreen = new TitleScreen(window);
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();
@@ -58,13 +58,17 @@ public class Controller_GUI extends Application{
 					@Override
 					public void handle(long now) {
 						
-						if(inBattle == false) {
+						// Update depending on the selected screen
+						if (inTitle == true) {
+							updateTitle();
+							
+						}else if(inBattle == false) {
 							mainloop(window, gc, scene);
 							window.setScene(scene);
 							
 						//If in battle: update battleWorld
 						}else {
-							updateBattle(Player, Enemy);
+							updateBattle(battlePlayer, battleEnemy);
 						}
 					}
 				};
@@ -197,5 +201,10 @@ public class Controller_GUI extends Application{
 	 */
 	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
 		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.event.getWeapon(), this.event.getArmour());
+	}
+	
+	
+	public void updateTitle() {
+		this.inTitle = this.titleScreen.update();
 	}
 }
