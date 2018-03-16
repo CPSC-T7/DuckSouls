@@ -64,18 +64,18 @@ public class BattleGuiTest{
 	private final int windowSize = 64 * 9;
 	
 	//Background image and viewer
-	private final Image battleBackgroundImage = new Image("Sprites/Backgrounds/Sewer-Battle.png");
+	private final Image battleBackgroundImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Backgrounds/Sewer-Battle.png");
 	private ImageView battleBackgroundImageView = new ImageView(battleBackgroundImage);
 	
     //Player image and viewer
-	private final Image playerImage = new Image("Sprites/Entities/Duck/Battle/Duck.png");
+	private final Image playerImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Entities/Duck/Battle/Duck.png");
 	private ImageView playerImageView = new ImageView(playerImage);
 	
 	//Player sprite class
 	private BattleSprite playerAnimation = new BattleSprite(playerImageView, 0);
 	
     //Enemy image and viewer
-	private Image enemyImage = new Image("Sprites/Entities/Rat/Battle/Rat.png");
+	private Image enemyImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Entities/Rat/Battle/Rat.png");
 	private ImageView enemyImageView = new ImageView(enemyImage);
 	
 	//Enemy sprite class
@@ -83,19 +83,19 @@ public class BattleGuiTest{
     
     /*Battle menu buttons*/
     //Attack button image and viewer
-	private final Image attackButtonImage = new Image("Sprites/Menus/Battle/Attack.png");
+	private final Image attackButtonImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Battle/Attack.png");
 	private ImageView attackButtonImageView = new ImageView(attackButtonImage);
     
     //Taunt button image and viewer
-	private final Image tauntButtonImage = new Image("Sprites/Menus/Battle/Taunt.png");
+	private final Image tauntButtonImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Battle/Taunt.png");
 	private ImageView tauntButtonImageView = new ImageView(tauntButtonImage);
     
     //Quack button image and viewer
-	private final Image quackButtonImage = new Image("Sprites/Menus/Battle/Fly.png");
+	private final Image quackButtonImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Battle/Fly.png");
 	private ImageView quackButtonImageView = new ImageView(quackButtonImage);
     
     //Item button image and viewer
-	private final Image itemButtonImage = new Image("Sprites/Menus/Battle/Item.png");
+	private final Image itemButtonImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Battle/Item.png");
 	private ImageView itemButtonImageView = new ImageView(itemButtonImage);
     
     //Root group will separate all layers

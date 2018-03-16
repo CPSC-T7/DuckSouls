@@ -15,6 +15,8 @@ import items.Unarmed;
 import items.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import tiles.Floor;
+import tiles.Path;
 import tiles.Tile;
 import utils.Orientation;
 import utils.Utilities;
@@ -112,6 +114,11 @@ public class Entity {
 		
 		// If the specific point can be moved to...
 		if (mapdata.get(y).get(x).getCanWalkOn()) {
+			
+			// Set the walked on tile to path
+			if (mapdata.get(this.position.y).get(this.position.x) instanceof Floor) {
+				mapdata.get(this.position.y).set(this.position.x, new Path());
+			}
 			
 			// Move the character
 			this.position.setLocation(x, y);

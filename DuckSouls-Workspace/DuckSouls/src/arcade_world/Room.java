@@ -6,7 +6,7 @@ import java.util.Random;
 
 import entities.Enemy;
 import entities.Entity;
-import entities.Player;
+import entities.battlePlayer;
 import items.Armour;
 import items.Bugs;
 import items.ClothArmour;
@@ -133,11 +133,11 @@ public class Room {
 				switch (textTileArray[x][y].replaceAll("\\s+", "")) {
 					
 					case "@":
-						this.placeEntity(position, new Player());
+						this.placeEntity(position, new battlePlayer());
 						break;
 					
 					case "E":
-						this.placeEntity(position, new Player());
+						this.placeEntity(position, new battlePlayer());
 						break;
 					
 					case ".":
@@ -262,7 +262,7 @@ public class Room {
 			this.placeEntity(toMove, null);
 			
 			// Note the new position if the player is moved
-			if (this.entityAt(moveTo) instanceof Player) {
+			if (this.entityAt(moveTo) instanceof battlePlayer) {
 				this.setPlayerPoint(moveTo);
 			}
 			
@@ -636,7 +636,7 @@ public class Room {
 	public void placeEntity(Point position, Entity entity) {
 		
 		// Note the position if the player is moved
-		if (entity instanceof Player) {
+		if (entity instanceof battlePlayer) {
 			
 			this.setPlayerPoint(position);
 			

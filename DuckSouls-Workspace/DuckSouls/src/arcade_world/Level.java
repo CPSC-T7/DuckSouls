@@ -3,22 +3,17 @@ package arcade_world;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
-import battle.BattleWorldTest;
-import entities.Player;
+import entities.battlePlayer;
 import game.Event;
 import game.Event_type;
 import game.GameWorld;
 import items.Item;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tiles.Stairs;
 import utils.Orientation;
-import utils.Utilities;
 
-public class Level implements GameWorld{
-	
+public class Level implements GameWorld {
 	
 	/*
 	 * 
@@ -26,7 +21,7 @@ public class Level implements GameWorld{
 	 * 
 	 */
 	
-	protected static Random		_random				= new Random();
+	protected static Random	_random				= new Random();
 	
 	/*
 	 * 
@@ -34,20 +29,20 @@ public class Level implements GameWorld{
 	 * 
 	 */
 	
-	protected final int			DEFAULT_LEVEL_SIZE	= 3;
-	protected final int			DEFAULT_ROOM_SIZE	= 7;
+	protected final int		DEFAULT_LEVEL_SIZE	= 3;
+	protected final int		DEFAULT_ROOM_SIZE	= 7;
 	
-	protected Room[][]			roomArray;
+	protected Room[][]		roomArray;
 	
-	protected Point				currentRoomPoint;
-	protected int				levelWidth, levelHeight;
-	protected int				roomSize;
-	protected int				enemySpawnChance;
-	private int levelNum = 1;
-	private Point playerPoint = new Point(3, 3);
-	private Point roomPoint = new Point(0, 0);
-	private Player player = new Player();
-	private int difficultyPerLevel = 2;
+	protected Point			currentRoomPoint;
+	protected int			levelWidth, levelHeight;
+	protected int			roomSize;
+	protected int			enemySpawnChance;
+	private int				levelNum			= 1;
+	private Point			playerPoint			= new Point(3, 3);
+	private Point			roomPoint			= new Point(0, 0);
+	private battlePlayer			player				= new battlePlayer();
+	private int				difficultyPerLevel	= 2;
 	
 	/*
 	 * 
@@ -85,7 +80,6 @@ public class Level implements GameWorld{
 		this.roomAt(this.getCurrentRoomPoint()).placeEntity(playerPoint, player);
 		
 	}
-	
 	
 	/*
 	 * 
@@ -151,35 +145,35 @@ public class Level implements GameWorld{
 		
 	}
 	
-	protected void genRoomArray(){
-
+	protected void genRoomArray() {
+		
 		this.roomArray = new Room[this.levelWidth][this.levelHeight];
-			
-			// For each room space...
-			for (int y = 0; y < this.levelHeight; y++) {
-				for (int x = 0; x < this.levelWidth; x++) {
-					
-					// Generate a square, random room
-					this.roomArray[x][y] = new Room(this.getRoomSize(), enemySpawnChance);
-					
-				}
+		
+		// For each room space...
+		for (int y = 0; y < this.levelHeight; y++) {
+			for (int x = 0; x < this.levelWidth; x++) {
+				
+				// Generate a square, random room
+				this.roomArray[x][y] = new Room(this.getRoomSize(), enemySpawnChance);
+				
 			}
-			
-			// Link all the rooms with doors
-			this.placeAllConnectingDoors();
-			
-			// Randomly pick a room and tile for the stairs to be
-			int stairsRoomX = _random.nextInt(levelWidth);
-			int stairsRoomY = _random.nextInt(levelHeight);
-			int stairsTileX = _random.nextInt(this.getRoomSize()) + 1;
-			int stairsTileY = _random.nextInt(this.getRoomSize()) + 1;
-			Point stairsPoint = new Point(stairsTileX, stairsTileY);
-			Room stairsRoom = this.roomArray[stairsRoomX][stairsRoomY];
-			
-			// Place the stairs, and remove anything of top of them
-			stairsRoom.setTile(stairsPoint, new Stairs());
-			stairsRoom.removeEntity(stairsPoint);
-			stairsRoom.removeItem(stairsPoint);
+		}
+		
+		// Link all the rooms with doors
+		this.placeAllConnectingDoors();
+		
+		// Randomly pick a room and tile for the stairs to be
+		int stairsRoomX = _random.nextInt(levelWidth);
+		int stairsRoomY = _random.nextInt(levelHeight);
+		int stairsTileX = _random.nextInt(this.getRoomSize()) + 1;
+		int stairsTileY = _random.nextInt(this.getRoomSize()) + 1;
+		Point stairsPoint = new Point(stairsTileX, stairsTileY);
+		Room stairsRoom = this.roomArray[stairsRoomX][stairsRoomY];
+		
+		// Place the stairs, and remove anything of top of them
+		stairsRoom.setTile(stairsPoint, new Stairs());
+		stairsRoom.removeEntity(stairsPoint);
+		stairsRoom.removeItem(stairsPoint);
 		
 	}
 	
@@ -232,7 +226,7 @@ public class Level implements GameWorld{
 		
 		// Get the player and their position
 		Point newPlayerPoint = new Point(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
-		Player player = (Player) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
+		battlePlayer player = (battlePlayer) this.roomAt(this.getCurrentRoomPoint()).entityAt(newPlayerPoint);
 		
 		// Remove the player from the old room
 		this.roomAt(this.getCurrentRoomPoint()).removeEntity(this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint());
@@ -276,95 +270,80 @@ public class Level implements GameWorld{
 		// Set the player direction
 		this.roomAt(this.currentRoomPoint).entityAt(newPlayerPoint).setOrientation(direction);
 		
-		
 	}
-
+	
 	@Override
 	public Event runTurn(String input) {
-			// Do the action inputed by the user
-			Event event = new Event(Event_type.NOEVENT);
-			switch (input) {
-				
-				// Moving...
-				
-				case "W":
-				case "NORTH":
-					if (playerPoint.y == 0) {
-						this.moveRoom_Direction(Orientation.NORTH);
-					} else {
-						
-						if(!(Orientation.NORTH == this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getOrientation())) {
-							this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.NORTH);
-						}
-						else {
-							this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y - 1));
-						}
-					}
-					break;
-				
-				case "S":
-				case "SOUTH":
-					if (playerPoint.y == this.getRoomSize() + 1) {
-						this.moveRoom_Direction(Orientation.SOUTH);
-					} else {
-						if(!(Orientation.SOUTH == this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getOrientation())) {
-							this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.SOUTH);
-						}
-						else {
-							this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint, new Point(playerPoint.x, playerPoint.y + 1));
-						}
-					}
-					break;
-				
-				case "D":
-				case "EAST":
-					if (playerPoint.x == this.getRoomSize() + 1) {
-						this.moveRoom_Direction(Orientation.EAST);
-					} else {
-						if(!(Orientation.EAST == this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getOrientation())) {
-							this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.EAST);
-						}
-						else {
-							this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint, new Point(playerPoint.x + 1, playerPoint.y));
-						}
-					}
-					break;
-				
-				case "A":
-				case "WEST":
-					if (playerPoint.x == 0) {
-						this.moveRoom_Direction(Orientation.WEST);
-					} else {
-						if(!(Orientation.WEST == this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getOrientation())) {
-							this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.WEST);
-						}
-						else {
-							this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint, new Point(playerPoint.x - 1, playerPoint.y));
-						}
-					}
-					break;
-				
-			}
+		// Do the action inputed by the user
+		Event event = new Event(Event_type.NOEVENT);
+		switch (input) {
 			
-			playerPoint = this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint();
+			// Moving...
 			
-			// Check for enemies
-			if (this.roomAt(this.getCurrentRoomPoint()).isBattleReady()) {
-				
-				event = new Event(Event_type.BATTLE, player.getWeapon(), player.getArmour());
-				
-				this.roomAt(this.getCurrentRoomPoint()).setBattleReady(false);
-				
-			}
+			case "W":
+			case "NORTH":
+				if (playerPoint.y == 0) {
+					this.moveRoom_Direction(Orientation.NORTH);
+				} else {
+					this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.NORTH);
+					this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint,
+							new Point(playerPoint.x, playerPoint.y - 1));
+				}
+				break;
 			
-			if (this.roomAt(this.getCurrentRoomPoint()).tileAt(playerPoint) instanceof Stairs) {
-				event = new Event(Event_type.NEXTWORLD, String.valueOf(this.levelNum + 1));
-			}
+			case "S":
+			case "SOUTH":
+				if (playerPoint.y == this.getRoomSize() + 1) {
+					this.moveRoom_Direction(Orientation.SOUTH);
+				} else {
+					this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.SOUTH);
+					this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint,
+							new Point(playerPoint.x, playerPoint.y + 1));
+				}
+				break;
 			
-
-			return event;
+			case "D":
+			case "EAST":
+				if (playerPoint.x == this.getRoomSize() + 1) {
+					this.moveRoom_Direction(Orientation.EAST);
+				} else {
+					this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.EAST);
+					this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint,
+							new Point(playerPoint.x + 1, playerPoint.y));
+				}
+				break;
+			
+			case "A":
+			case "WEST":
+				if (playerPoint.x == 0) {
+					this.moveRoom_Direction(Orientation.WEST);
+				} else {
+					this.roomAt(this.currentRoomPoint).entityAt(playerPoint).setOrientation(Orientation.WEST);
+					this.roomAt(this.getCurrentRoomPoint()).moveEntity(playerPoint,
+							new Point(playerPoint.x - 1, playerPoint.y));
+				}
+				break;
+			
+		}
+		
+		playerPoint = this.roomAt(this.getCurrentRoomPoint()).getPlayerPoint();
+		
+		// Check for enemies
+		if (this.roomAt(this.getCurrentRoomPoint()).isBattleReady()) {
+			
+			event = new Event(Event_type.BATTLE, player.getWeapon(), player.getArmour());
+			
+			this.roomAt(this.getCurrentRoomPoint()).setBattleReady(false);
+			
+		}
+		
+		if (this.roomAt(this.getCurrentRoomPoint()).tileAt(playerPoint) instanceof Stairs) {
+			event = new Event(Event_type.NEXTWORLD, String.valueOf(this.levelNum + 1));
+		}
+		
+		return event;
 	}
-
+	
 	@Override
 	public void nextWorld(String next) {
 		this.levelNum = Integer.parseInt(next);
@@ -373,30 +352,27 @@ public class Level implements GameWorld{
 		this.roomAt(this.getCurrentRoomPoint()).placeEntity(playerPoint, player);
 		
 	}
-
+	
 	@Override
 	public ArrayList<ArrayList<ArrayList<Image>>> getImages(int mapsize) {
 		return this.roomAt(this.getCurrentRoomPoint()).getImages();
 	}
-
+	
 	@Override
 	public ArrayList<ArrayList<String>> getStrings() {
 		return this.roomAt(this.getCurrentRoomPoint()).getStrings();
 	}
-
-
+	
 	@Override
 	public ArrayList<Item> getInventory() {
 		return this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getInventory();
 	}
-
-
+	
 	@Override
 	public Item getPlayerWeapon() {
 		return this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getWeapon();
 	}
-
-
+	
 	@Override
 	public Item getPlayerArmour() {
 		return this.roomAt(this.currentRoomPoint).entityAt(playerPoint).getArmour();
