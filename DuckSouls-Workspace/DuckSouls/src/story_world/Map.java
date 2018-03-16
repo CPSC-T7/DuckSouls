@@ -762,5 +762,15 @@ public class Map implements GameWorld{
 		public ArrayList<Item> getInventory() {
 			return this.player.getInventory();
 		}
+
+		@Override
+		public Item getPlayerWeapon() {
+			return this.player.getWeapon();
+		}
+
+		@Override
+		public Item getPlayerArmour() {
+			return this.player.getArmour();
+		}
 	
 }

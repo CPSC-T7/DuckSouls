@@ -200,7 +200,7 @@ public class Controller_GUI_Arcade extends Application{
 	 * Update the world in which the player fights an enemy.
 	 */
 	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
-		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.event.getWeapon(), this.event.getArmour());
+		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.world.getPlayerWeapon(), this.world.getPlayerArmour());
 	}
 	
 	

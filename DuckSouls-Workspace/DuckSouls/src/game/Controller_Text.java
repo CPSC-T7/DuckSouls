@@ -44,7 +44,36 @@ public class Controller_Text {
 				_scanner.nextLine();
 			}
 			else {
-				event.setEvent(world.runTurn(input));
+				if(input.equals("ST")) {
+					System.out.println("Player Status:\n");
+					System.out.println(("Moneys: " + Player.getMoney()));
+					System.out.println(("Experience: " + Player.getXP()));
+					System.out.println(("Moneys: " + Player.getMoney()));
+					System.out.println("\nPlayer Stats:\n");
+					System.out.println(("Health Points: " + Player.getStats("healthPoints")));
+					System.out.println(("Mana Points: " + Player.getStats("manaPoints")));
+					System.out.println(("Attack Points: " + Player.getStats("attackPoints")));
+					System.out.println(("Defence Points: " + Player.getStats("defencePoints")));
+					System.out.println(("Speed Points: " + Player.getStats("speedPoints")));
+					System.out.println(("Accuracy Points: " + Player.getStats("accuracyPoints")));
+					System.out.println(("Critical Hit Points: " + Player.getStats("criticalHitPoints")));
+
+					System.out.println("\nPress Enter To Exit.");
+					_scanner.nextLine();
+				}
+				else {
+					if(input.equals("E")) {
+						System.out.println("Player Equipment:\n");
+						System.out.println(this.world.getPlayerWeapon());
+						System.out.println(this.world.getPlayerArmour());
+						System.out.println("\nPress Enter To Exit.");
+						_scanner.nextLine();
+						break;
+					}
+					else {
+						event.setEvent(world.runTurn(input));
+					}
+				}
 			}
 			switch(event.getType()) {
 				case BATTLE: 

@@ -16,5 +16,9 @@ public interface GameWorld {
 	public ArrayList<ArrayList<String>> getStrings();
 	
 	public ArrayList<Item> getInventory();
+	
+	public Item getPlayerWeapon();
+	
+	public Item getPlayerArmour();
 		
 }
