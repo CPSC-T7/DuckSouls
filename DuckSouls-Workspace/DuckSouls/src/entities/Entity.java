@@ -183,14 +183,12 @@ public class Entity {
 	 */
 	public void addToInventory(Item item) {
 		
-		System.out.println(item.getStringRepr());
 		this.inventory.add(item);
 		if(item.getStringRepr().equals(" K ") || item.getStringRepr().equals(" S" )) {
 			this.setWeapon(new Item(item));
 		}
 		if(item.getStringRepr().equals(" CA") || item.getStringRepr().equals(" LA") || item.getStringRepr().equals(" MA")) {
 			this.setArmour(new Item(item));
-			System.out.println("Help1");
 		}
 
 	}
