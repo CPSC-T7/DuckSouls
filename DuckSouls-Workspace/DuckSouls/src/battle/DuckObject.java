@@ -42,10 +42,6 @@ public class DuckObject extends CharacterBattle {
 
 	private static Scanner	scanner				= new Scanner(System.in);	// Scanner to get user input
 	
-	public static void main(String[] args) {
-		
-	}
-	
 	
 	/**
 	 * DuckObject constructor.

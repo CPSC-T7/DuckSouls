@@ -28,15 +28,6 @@ public class CharacterBattle {
 	private double			speedPoints;
 	private double			accuracyPoints;
 	private double			criticalHitPoints;
-	
-	/**
-	 * Main class.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-	}
 
 	
 	public CharacterBattle (double health, double mana, double attack, double defence, double speed, double accuracy, double crit) {

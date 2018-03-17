@@ -55,15 +55,6 @@ public class EnemyObject extends CharacterBattle {
 	}
 	
 	/**
-	 * Main class.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-	}
-	
-	/**
 	 * Prints the required sprite from a text file.
 	 * 
 	 * @param enemySprite
