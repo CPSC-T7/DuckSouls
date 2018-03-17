@@ -11,9 +11,9 @@ public interface GameWorld {
 	
 	public void nextWorld(String next);
 	
-	public ArrayList<ArrayList<ArrayList<Image>>> getImages(int mapsize);
+	public ArrayList<ArrayList<ArrayList<Image>>> getImageSprites(int mapsize);
 	
-	public ArrayList<ArrayList<String>> getStrings();
+	public ArrayList<ArrayList<String>> getTextSprites();
 	
 	public ArrayList<Item> getInventory();
 	

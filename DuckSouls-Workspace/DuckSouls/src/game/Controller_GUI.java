@@ -93,7 +93,7 @@ public class Controller_GUI extends Application{
 		 */
 		
 		//Draws the first iteration of the room
-		this.drawMap(gc, world.getImages(mapsize));
+		this.drawMap(gc, world.getImageSprites(mapsize));
 		
 		scene.setOnKeyPressed(key -> {
 			if (key.getCode() == KeyCode.W) {
@@ -101,7 +101,7 @@ public class Controller_GUI extends Application{
 				//Runs the turn with this input
 				event.setEvent(world.runTurn("W"));
 				//Redraws the map
-				this.drawMap(gc, world.getImages(mapsize));
+				this.drawMap(gc, world.getImageSprites(mapsize));
 				
 			}
 			else if (key.getCode() == KeyCode.A) {
@@ -110,7 +110,7 @@ public class Controller_GUI extends Application{
 				event.setEvent(world.runTurn("A"));
 				
 				//Redraws the map
-				this.drawMap(gc, world.getImages(mapsize));
+				this.drawMap(gc, world.getImageSprites(mapsize));
 				
 			}
 			else if (key.getCode() == KeyCode.S) {
@@ -119,7 +119,7 @@ public class Controller_GUI extends Application{
 				event.setEvent(world.runTurn("S"));
 				
 				//Redraws the map
-				this.drawMap(gc, world.getImages(mapsize));
+				this.drawMap(gc, world.getImageSprites(mapsize));
 				
 			}
 			else if (key.getCode() == KeyCode.D) {
@@ -128,7 +128,7 @@ public class Controller_GUI extends Application{
 				event.setEvent(world.runTurn("D"));
 				
 				//Redraws the map
-				this.drawMap(gc, world.getImages(mapsize));
+				this.drawMap(gc, world.getImageSprites(mapsize));
 				
 			}
 			
@@ -141,7 +141,7 @@ public class Controller_GUI extends Application{
 					break;
 				case NEXTWORLD:
 					world.nextWorld(event.getNextworld());
-					this.drawMap(gc, world.getImages(mapsize));
+					this.drawMap(gc, world.getImageSprites(mapsize));
 					event = new Event(Event_type.NOEVENT);
 			}
 			

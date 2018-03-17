@@ -39,14 +39,6 @@ public class Room {
 	
 	/*
 	 * 
-	 * ABSTRACTS
-	 * 
-	 */
-	
-	// public abstract void draw();
-	
-	/*
-	 * 
 	 * STATIC VARIABLES
 	 * 
 	 */
@@ -298,24 +290,46 @@ public class Room {
 		
 	}
 	
+	/**
+	 * Returns the point of the player.
+	 * 
+	 * @return The point of the player.
+	 */
 	public Point getPlayerPoint() {
 		
 		return playerPoint;
 		
 	}
 	
+	/**
+	 * Sets the player's location.
+	 * 
+	 * @param playerPoint
+	 *            The player's new location.
+	 */
 	public void setPlayerPoint(Point playerPoint) {
 		
 		this.playerPoint = playerPoint;
 		
 	}
 	
+	/**
+	 * Returns whether a battle should be run.
+	 * 
+	 * @return Whether a battle should be run.
+	 */
 	public boolean isBattleReady() {
 		
 		return battleReady;
 		
 	}
 	
+	/**
+	 * Sets whether a battle should be run.
+	 * 
+	 * @param battleReady
+	 *            Whether a battle should be run.
+	 */
 	public void setBattleReady(boolean battleReady) {
 		
 		this.battleReady = battleReady;
@@ -416,6 +430,7 @@ public class Room {
 				
 			}
 			
+			// Write the line
 			temp = temp.substring(0, temp.length() - 1);
 			lines.add(temp);
 			
@@ -666,42 +681,80 @@ public class Room {
 		
 	}
 	
-	public ArrayList<ArrayList<ArrayList<Image>>> getImages() {
+	/**
+	 * For use with the GUI edition.<br>
+	 * <br>
+	 * Gets a 3D array list of images for each position.<br>
+	 * The first two levels of the array list specify the tile position.<br>
+	 * The third level of the array list includes all sprites that should be drawn
+	 * on that tile.
+	 * 
+	 * @return A 3d array list containing all sprites to draw in the room.
+	 */
+	public ArrayList<ArrayList<ArrayList<Image>>> getImageSprites() {
 		
+		// Create a container
 		ArrayList<ArrayList<ArrayList<Image>>> images = new ArrayList<ArrayList<ArrayList<Image>>>();
 		
+		// For each row...
 		for (int y = 0; y < this.internalHeight + 2; y++) {
 			
+			// Add a 2D array list
 			images.add(new ArrayList<ArrayList<Image>>());
 			
+			// For each column...
 			for (int x = 0; x < this.internalWidth + 2; x++) {
 				
+				// Add an array list for images, and add the underlying tile's image
 				images.get(y).add(new ArrayList<Image>());
 				images.get(y).get(x).add(this.tileArray[x][y].getImage());
 				
+				// If there is an item...
+				if (itemAt(new Point(x, y)) != null) {
+					
+					// Add the item's sprite
+					Item item = itemAt(new Point(x, y));
+					images.get(y).get(x).add(item.getImage());
+					
+				}
+				
+				// If there's an entity...
 				if (entityAt(new Point(x, y)) != null) {
 					
+					// Add the entity's sprite
 					Entity entity = entityAt(new Point(x, y));
 					images.get(y).get(x).add(entity.getImage());
 					
 				}
 				
-				if (itemAt(new Point(x, y)) != null) {
-					
-					Item item = itemAt(new Point(x, y));
-					images.get(y).get(x).add(item.getImage());
-					
-				}
 			}
+			
 		}
+		
+		// Return the array list
 		return images;
+		
 	}
 	
-	public ArrayList<ArrayList<String>> getStrings() {
+	/**
+	 * For use with the Text edition.<br>
+	 * <br>
+	 * Gets a 2D array list of images for each position.<br>
+	 * At each position, the text representation of the location is stored to be
+	 * printed.
+	 * 
+	 * @return A 2d array list containing all string representations to draw in the room.
+	 */
+	public ArrayList<ArrayList<String>> getTextSprites() {
+		
 		ArrayList<ArrayList<String>> string = new ArrayList<ArrayList<String>>();
+		
 		for (int y = 0; y < this.internalHeight + 2; y++) {
+			
 			string.add(new ArrayList<String>());
+			
 			for (int x = 0; x < this.internalWidth + 2; x++) {
+				
 				if (this.entityArray[x][y] != null) { // If there is a enemy...
 					
 					// Print the entity
@@ -720,8 +773,12 @@ public class Room {
 				}
 				
 			}
+			
 		}
+		
+		// Return the array list
 		return string;
+		
 	}
 	
 }

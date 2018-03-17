@@ -362,6 +362,7 @@ public class Level implements GameWorld {
 			
 		}
 		
+		// Check if you should transfer to the next level
 		if (this.roomAt(this.getCurrentRoomPoint()).tileAt(playerPoint) instanceof Stairs) {
 			event = new Event(Event_type.NEXTWORLD, String.valueOf(this.levelNum + 1));
 		}
@@ -370,8 +371,8 @@ public class Level implements GameWorld {
 	}
 	
 	@Override
-	public void nextWorld(String next) {
-		this.levelNum = Integer.parseInt(next);
+	public void nextWorld(String nextLevelNum) {
+		this.levelNum = Integer.parseInt(nextLevelNum);
 		this.enemySpawnChance = levelNum * difficultyPerLevel - difficultyPerLevel;
 		this.genRoomArray();
 		this.roomAt(this.getCurrentRoomPoint()).placeEntity(playerPoint, player);
@@ -379,13 +380,13 @@ public class Level implements GameWorld {
 	}
 	
 	@Override
-	public ArrayList<ArrayList<ArrayList<Image>>> getImages(int mapsize) {
-		return this.roomAt(this.getCurrentRoomPoint()).getImages();
+	public ArrayList<ArrayList<ArrayList<Image>>> getImageSprites(int mapsize) {
+		return this.roomAt(this.getCurrentRoomPoint()).getImageSprites();
 	}
 	
 	@Override
-	public ArrayList<ArrayList<String>> getStrings() {
-		return this.roomAt(this.getCurrentRoomPoint()).getStrings();
+	public ArrayList<ArrayList<String>> getTextSprites() {
+		return this.roomAt(this.getCurrentRoomPoint()).getTextSprites();
 	}
 	
 	@Override

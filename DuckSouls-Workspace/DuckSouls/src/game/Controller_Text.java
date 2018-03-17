@@ -91,7 +91,7 @@ public class Controller_Text {
 	}
 	
 	public void printMap() {
-		ArrayList<ArrayList<String>> map = world.getStrings();
+		ArrayList<ArrayList<String>> map = world.getTextSprites();
 		for (ArrayList<String> row : map) {
 			for (String column : row) {
 				System.out.print(column);

@@ -343,7 +343,7 @@ public class Map implements GameWorld{
 	 * Prints the current map to the console.
 	 */
 	 @Override
-	public ArrayList<ArrayList<String>> getStrings() {
+	public ArrayList<ArrayList<String>> getTextSprites() {
 		
 		// Boolean to keep track of printing each character
 		boolean printed = false;
@@ -670,7 +670,7 @@ public class Map implements GameWorld{
 	 * @return a 3D arraylist of strings containing paths to the game sprites
 	 */
 	@Override
-	public ArrayList<ArrayList<ArrayList<Image>>> getImages(int size) {
+	public ArrayList<ArrayList<ArrayList<Image>>> getImageSprites(int size) {
 		
 		ArrayList<ArrayList<ArrayList<Image>>> images = new ArrayList<ArrayList<ArrayList<Image>>>();
 		int x = 0;

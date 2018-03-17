@@ -93,7 +93,7 @@ public class Controller_GUI_Arcade extends Application {
 		 */
 		
 		// Draws the first iteration of the room
-		this.drawMap(gc, world.getImages(mapsize));
+		this.drawMap(gc, world.getImageSprites(mapsize));
 		
 		scene.setOnKeyPressed(key -> {
 			switch (key.getCode()) {
@@ -105,7 +105,7 @@ public class Controller_GUI_Arcade extends Application {
 					// Runs the turn with this input
 					event.setEvent(world.runTurn(key.getCode().toString()));
 					// Redraws the map
-					this.drawMap(gc, world.getImages(mapsize));
+					this.drawMap(gc, world.getImageSprites(mapsize));
 					break;
 				
 				case I:
@@ -148,7 +148,7 @@ public class Controller_GUI_Arcade extends Application {
 					break;
 				case NEXTWORLD:
 					world.nextWorld(event.getNextworld());
-					this.drawMap(gc, world.getImages(mapsize));
+					this.drawMap(gc, world.getImageSprites(mapsize));
 					event = new Event(Event_type.NOEVENT);
 			}
 			
