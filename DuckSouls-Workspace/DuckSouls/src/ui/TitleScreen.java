@@ -121,6 +121,9 @@ public class TitleScreen {
 		return(inTitle);
 	}
 	
+	/**
+	 * Cleans up the static resources of the class.
+	 */
 	public static void cleanup() {
 		scanner.close();
 	}
