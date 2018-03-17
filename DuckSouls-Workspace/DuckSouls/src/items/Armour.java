@@ -5,7 +5,6 @@ package items;
  * 
  * @author Matthew Allwright
  * @author Colin Yeung
- * @version 1.2
  */
 public class Armour extends Item {
 	

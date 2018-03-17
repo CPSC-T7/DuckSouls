@@ -3,16 +3,9 @@ package entities;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import items.Armour;
-import items.ClothArmour;
 import items.Clothes;
 import items.Item;
-import items.Knife;
-import items.LeatherArmour;
-import items.MetalArmour;
-import items.Sword;
 import items.Unarmed;
-import items.Weapon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import tiles.Floor;
@@ -21,6 +14,13 @@ import tiles.Tile;
 import utils.Orientation;
 import utils.Utilities;
 
+/**
+ * This class represents an entity within DuckSouls. They can have equipped
+ * weapons, armour, and an inventory.
+ * 
+ * @author Matthew Allwright
+ * @author Colin Yeung
+ */
 public class Entity {
 	
 	/*

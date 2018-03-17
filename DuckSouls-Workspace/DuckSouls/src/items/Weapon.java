@@ -4,7 +4,6 @@ package items;
  * This class represents all weapon items in DuckSouls.
  * 
  * @author Matthew Allwright
- * @version 1.0.1
  */
 public class Weapon extends Item {
 	

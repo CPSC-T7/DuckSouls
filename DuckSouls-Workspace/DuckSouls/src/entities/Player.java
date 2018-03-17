@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import tiles.Tile;
 import utils.Orientation;
 
+/**
+ * This class represents a player within DuckSouls. They can have equipped
+ * weapons, armour, and an inventory.
+ * 
+ * @author Matthew Allwright
+ * @author Colin Yeung
+ */
 public class Player extends Entity {
 	
 	/*

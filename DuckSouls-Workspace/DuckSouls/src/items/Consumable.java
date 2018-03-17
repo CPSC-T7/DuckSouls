@@ -4,7 +4,6 @@ package items;
  * This class represents all consumable items in DuckSouls.
  * 
  * @author Matthew Allwright.
- * @version 1.0.1
  */
 public class Consumable extends Item {
 	

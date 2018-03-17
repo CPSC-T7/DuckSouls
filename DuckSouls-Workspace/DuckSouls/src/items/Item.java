@@ -10,7 +10,6 @@ import utils.Utilities;
  * 
  * @author Matthew Allwright
  * @author Cassondra Platel
- * @version 2.2
  */
 public class Item {
 	

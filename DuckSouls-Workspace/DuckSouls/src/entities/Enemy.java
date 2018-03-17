@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import tiles.Tile;
 
+/**
+ * This class represents an entity within DuckSouls. They can have equipped
+ * weapons, armour, and an inventory.
+ * 
+ * @author Matthew Allwright
+ * @author Colin Yeung
+ */
 public class Enemy extends Entity {
 	
 	/*
