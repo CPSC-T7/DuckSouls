@@ -43,9 +43,6 @@ public class BattleGuiTest {
 	// If the battle has ended
 	private boolean			inBattle					= true;
 	
-	// The size of the screen (squared)
-	private final int		windowSize					= 64 * 9;
-	
 	// Background image and viewer
 	private final Image		battleBackgroundImage		= new Image(
 			"file:///" + Utilities.getParentDir() + "/Sprites/Backgrounds/Sewer-Battle.png");
@@ -79,9 +76,9 @@ public class BattleGuiTest {
 	private ImageView		tauntButtonImageView		= new ImageView(tauntButtonImage);
 	
 	// Quack button image and viewer
-	private final Image		quackButtonImage			= new Image(
+	private final Image		flyButtonImage			= new Image(
 			"file:///" + Utilities.getParentDir() + "/Sprites/Menus/Battle/Fly.png");
-	private ImageView		quackButtonImageView		= new ImageView(quackButtonImage);
+	private ImageView		flyButtonImageView		= new ImageView(flyButtonImage);
 	
 	// Item button image and viewer
 	private final Image		itemButtonImage				= new Image(
@@ -94,7 +91,7 @@ public class BattleGuiTest {
 	// Background, menu, and player layers (drawn in order of appearance)
 	private Pane			backgroundLayer				= new Pane();
 	private Pane			menuLayer					= new Pane(attackButtonImageView, tauntButtonImageView,
-			quackButtonImageView, itemButtonImageView);
+			flyButtonImageView, itemButtonImageView);
 	private Pane			playerLayer					= new Pane();
 	
 	// Add all sprites to draw in order
@@ -105,7 +102,7 @@ public class BattleGuiTest {
 			{ new MenuButton(attackButtonImageView, "Attack", 10, 64 * 6),
 					new MenuButton(tauntButtonImageView, "Taunt", 10, 64 * 6 + 50) },
 			
-			{ new MenuButton(quackButtonImageView, "Fly", 160, 64 * 6),
+			{ new MenuButton(flyButtonImageView, "Fly", 160, 64 * 6),
 					new MenuButton(itemButtonImageView, "Item", 160, 64 * 6 + 50) } };
 	
 	// The BattleGUI Stage and Scene

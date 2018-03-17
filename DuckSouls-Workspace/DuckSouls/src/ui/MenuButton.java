@@ -18,14 +18,14 @@ public class MenuButton extends Pane{
 	//Button imageView has one column, and two rows.
 	//It only displays one image at a time (is not animated)
     ImageView imageView;
-    private final String buttonType;
     int count = 1;
     int columns = 1;
     int offsetX = 0;
     int offsetY = 0;
     int width = 120;
     int height = 40;
-
+    private final String buttonType;
+    
     //Use SpriteAnimation to change the state of the button (selected/deselected)
     public SpriteAnimation animation;
     
