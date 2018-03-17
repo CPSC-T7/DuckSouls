@@ -55,6 +55,8 @@ public class Controller_Text {
 					_scanner.nextLine();
 					break;
 				
+					
+				//Displays the player's status and stats while on the map
 				case "ST":
 					System.out.println("Player Status:\n");
 					System.out.println(("Moneys: " + player.getMoney()));

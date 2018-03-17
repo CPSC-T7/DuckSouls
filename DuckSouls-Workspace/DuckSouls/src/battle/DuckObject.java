@@ -25,7 +25,6 @@ public class DuckObject extends CharacterBattle {
 	private String			xPadding			= Utilities.multiplyString("  ", xPosition);
 	private String			yPadding			= Utilities.multiplyString("\n", yPosition);
 	
-	//private double  acc = 71;
 
 	private int				level				= 1;
 	private double			experience			= 0;
@@ -33,10 +32,6 @@ public class DuckObject extends CharacterBattle {
 	private int				money				= 0;
 	private boolean			alreadyTaunted		= false;
 	
-	
-	
-	//private boolean hasWeapon = false;
-	//private boolean hasArmour = false;
 	
 	private static String	direction			= "Right";	// The direction that the sprite is facing
 
@@ -514,6 +509,8 @@ public class DuckObject extends CharacterBattle {
 			setStats("criticalHitPointsStatic", (getStats("criticalHitPointsStatic") + 1));
 
 			increaseXPNeeded();
+			//Level the enemy up as the player levels up, to scale them
+			//and 'balance' the game a bit
 			scaleEnemy(enemy);
 			
 			//If the animation is text based

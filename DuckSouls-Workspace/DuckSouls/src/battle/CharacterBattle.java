@@ -67,7 +67,13 @@ public class CharacterBattle {
 		return damage;
 	}
 	
-	
+	/**
+	 * 
+	 * @param stat
+	 * 				name of the stat that will be change
+	 * @param newVal
+	 * 				value for the new stat
+	 */
 	
 	public void setStats(String stat, double newVal) {
 		
@@ -136,6 +142,14 @@ public class CharacterBattle {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @param stat
+	 * 				name of the stat that will be retrieved
+	 * @return
+	 * 			the value of the stat
+	 */
 	
 	public double getStats(String stat) {
 		

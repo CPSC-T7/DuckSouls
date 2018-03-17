@@ -123,6 +123,7 @@ public class Controller_GUI_Arcade extends Application {
 					System.out.println(this.world.getPlayerArmour().getName());
 					break;
 				
+				//Displays the player's status and stats while on the map
 				case C:
 					Utilities.clearConsole();
 					System.out.println("Player Status:\n");
