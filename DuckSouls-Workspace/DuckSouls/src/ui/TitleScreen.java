@@ -47,8 +47,8 @@ public class TitleScreen {
 	private Group root = new Group();
 	
     // Menu Background Image (temporary)
-	private Image attackButtonImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Main/TitleScreen.png");
-	private ImageView attackButtonImageView = new ImageView(attackButtonImage);
+	private Image titleBackgroundImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Main/TitleScreen.png");
+	private ImageView titleBackgroundImageView = new ImageView(titleBackgroundImage);
 	
 	// Game stage and new scene
 	private Stage window;
@@ -64,7 +64,7 @@ public class TitleScreen {
 		this.window = window;
 		
 		//Add all layers to the main group
-	    root.getChildren().add(attackButtonImageView);
+	    root.getChildren().add(titleBackgroundImageView);
 	    
 	    //Set the scene and show it on the window
 	    window.setScene(scene);
@@ -121,9 +121,6 @@ public class TitleScreen {
 		return(inTitle);
 	}
 	
-	/**
-	 * Cleans up the static resources of the class.
-	 */
 	public static void cleanup() {
 		scanner.close();
 	}
