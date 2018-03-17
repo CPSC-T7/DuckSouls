@@ -25,10 +25,25 @@ import ui.TitleScreen;
 import utils.Orientation;
 import utils.Utilities;
 
+
+/**
+ * Controls the input and output of the game as while as the interaction 
+ * between the battle engine and the overworld engines in GUI form
+ * 
+ * @author Colin Au Yeung
+ *
+ */
 public class Controller_GUI_Arcade extends Application {
 	
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
 	private int				mapsize			= 7;
 	private int				spritesize		= 64;
+	
+	//GameWorld
 	private GameWorld		world			= new Level();
 	private Event			event			= new Event(Event_type.NOEVENT);
 	DuckObject				battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
@@ -43,6 +58,8 @@ public class Controller_GUI_Arcade extends Application {
 	
 	@Override
 	public void start(Stage window) throws Exception {
+		
+		//JavaFx setup
 		final int windowSize = 64 * 9;
 		Group root = new Group();
 		Scene scene = new Scene(root);
@@ -53,6 +70,7 @@ public class Controller_GUI_Arcade extends Application {
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();
+		
 		// Update based on frame rate
 		AnimationTimer timer = new AnimationTimer() {
 			
@@ -140,19 +158,23 @@ public class Controller_GUI_Arcade extends Application {
 					break;
 			}
 			
-			switch (event.getType()) {
-				case BATTLE:
-					inBattle = true;
-					this.battleWorld = new BattleGuiTest(window);
-					this.battleWorld.setScene();
-					event = new Event(Event_type.NOEVENT);
-					break;
-				case NEXTWORLD:
-					world.nextWorld(event.getNextworld());
-					this.drawMap(gc, world.getImageSprites(mapsize));
-					event = new Event(Event_type.NOEVENT);
-			}
+			switch(event.getType()) {
 			
+			//If battle, run the battle loop
+			case BATTLE: 
+				inBattle = true;
+				this.battleWorld = new BattleGuiTest(window);
+				this.battleWorld.setScene();
+				event = new Event(Event_type.NOEVENT);
+				break;
+				
+			//If nextworld, generate a new level
+			case NEXTWORLD:
+				world.nextWorld(event.getNextworld());
+				this.drawMap(gc, world.getImageSprites(mapsize));
+				event = new Event(Event_type.NOEVENT);
+			}
+		
 		});
 		
 	} // End of mainloop
@@ -207,11 +229,18 @@ public class Controller_GUI_Arcade extends Application {
 	 * Update the world in which the player fights an enemy.
 	 */
 	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
+		
 		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.world.getPlayerWeapon(),
+				
 				this.world.getPlayerArmour());
 	}
 	
+	/**
+	 * Update the world with the title screen
+	 */
 	public void updateTitle() {
+		
 		this.inTitle = this.titleScreen.update();
+		
 	}
 }

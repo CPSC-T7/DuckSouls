@@ -2,11 +2,11 @@ package game;
 
 public enum Event_type {
 	/**
-	 * This enumerator is used to define the four cardinal directions. This prevents
-	 * having to pass characters or stings to determine direction.
+	 * This enumerator is used to define the type of events that exist This predefined the type
+	 * of events that the game needs to hand
 	 * 
-	 * @author Matthew Allwright
-	 * @version 1.2.1
+	 * @author Colin Au Yeung
+	 * @version 1.0
 	 *
 	 */
 		

@@ -439,59 +439,6 @@ public class Map implements GameWorld{
 		return this.currentMap_2DArrayList.get(y).get(x).getCanWalkOn();
 		
 	} // End of canMoveTo
-	
-	/**
-	 * Runs a loop to play the game.
-	 */
-//	public void mainloop() {
-//		
-//		DuckObject	Player	= new DuckObject(20, 15, 5, 5, 5, 78, 16);
-//		EnemyObject	Enemy	= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16);
-//		
-//		// Load the first 3 map files, and then the current (first) map
-//		this.loadAllMapFiles(0, 2);
-//		// this.loadCurrentMap();
-//		
-//		/*
-//		 * Main Game Loop:
-//		 * 
-//		 * Runs each turn and formats the console accordingly.
-//		 * 
-//		 * Exits after turn #21. TODO: Why?
-//		 */
-//		while (true) {
-//			
-//			// Run the turn
-//			this.runTurn();
-//			
-//			// Clear the console
-//			Utilities.clearConsole();
-//			
-//			// If an enemy is at the same location as the player...
-//			if (this.isEnemyNear() != -1) {
-//				
-//				// Clear the console and enter battle
-//				Utilities.clearConsole();
-//				BattleWorldTest.battleLoop(Player, Enemy, new Unarmed(), new Clothes());
-//				
-//				// Remove the enemy that is defeated in battle from both characters_ArrayList
-//				// and mapfile object for the current map
-//				this.maps_HashMap.get(currentMapID)
-//						.removeEnemy(this.characters_ArrayList.get(this.isEnemyNear()).getID());
-//				this.characters_ArrayList.remove(this.isEnemyNear());
-//				
-//				// Clear the console
-//				Utilities.clearConsole();
-//			}
-//			// if(this.isItemNear() != -1) {
-//			// this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
-//			// this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
-//			// this.items_ArrayList.remove(this.isItemNear());
-//			//
-//			// }
-//		}
-//		
-//	} // End of mainLoop
 
 	
 	/**
@@ -510,62 +457,11 @@ public class Map implements GameWorld{
 		
 	} // End of initialization
 	
-//	/**
-//	 * Runs methods and checks that need to be run every turn for the map.
-//	 */
-//	public void runTurn() {
-//		
-//		// To keep track of the maps
-//		String mapID = new String();
-//		
-//		// To keep track of whether the player has moved between maps in this turn
-//		boolean hasMovedMaps = false;
-//		/*
-//		 * This is used to prevent the player landing on a door, which teleports them to
-//		 * another door in another room, which then teleports them back and so on and so
-//		 * forth forever. Once this is set to true, a player cannot teleport with a door
-//		 * again the the same turn (1 map change per turn).
-//		 */
-//		
-//		// Print the map
-//		this.print();
-//		this.player.move(this.currentMap_2DArrayList);
-//		// For each position on the map...
-//		for (int y = 0; y < this.currentMap_2DArrayList.size(); y++) {
-//			for (int x = 0; x < this.currentMap_2DArrayList.get(y).size(); x++) {
-//				
-//				// If the player is at that position and the position is a door...
-//				if (x == player.getX() && y == player.getY()
-//						&& currentMap_2DArrayList.get(y).get(x) instanceof Door) {
-//					
-//					// If the character hasn't already been moved to a different map in this turn...
-//					if (!hasMovedMaps) {
-//						
-//						// Set the map ID to the map the door the character is standing on links to
-//						mapID = currentMap_2DArrayList.get(y).get(x).getMapID();
-//						
-//						// The player has now moved maps in this turn
-//						hasMovedMaps = true;
-//						
-//					}
-//					
-//				}
-//				
-//			}
-//			
-//		}
-//		
-//		// If the player is on a different map than they started on...
-//		if (hasMovedMaps) {
-//			
-//			// Clear the old map and setup the new map
-//			this.clearMap();
-//			this.resetCharacters();
-//			this.loadNewMap(mapID);
-//		}
-//		
-//	} // End of runTurn
 	
+	/**
+	 * @see GameWorld
+	 * 
+	 */
 	@Override
 	public Event runTurn(String input) {
 
@@ -596,7 +492,7 @@ public class Map implements GameWorld{
 						&& (currentMap_2DArrayList.get(y).get(x) instanceof Door
 								|| currentMap_2DArrayList.get(y).get(x) instanceof Stairs)) {
 						
-					// Set the map ID to the map the door the character is standing on links to
+					//set event to NEXTWORLD and give it the next mapid 
 					mapID = currentMap_2DArrayList.get(y).get(x).getMapID();
 					event = new Event(Event_type.NEXTWORLD, mapID);
 					
@@ -608,9 +504,8 @@ public class Map implements GameWorld{
 		
 		// If an enemy is at the same location as the player...
 		if (this.isEnemyNear() != -1) {
-			
-			// Clear the console and enter battle
-			// Utilities.clearConsole();
+
+			//Set event to battle
 			event = new Event(Event_type.BATTLE, player.getWeapon(), player.getArmour());
 			
 			// Remove the enemy that is defeated in battle from both characters_ArrayList
@@ -619,7 +514,10 @@ public class Map implements GameWorld{
 			this.characters_ArrayList.remove(this.isEnemyNear());
 		}
 		
+		// If an item is at the same location as the player
 		 if(this.isItemNear() != -1) {
+			 
+			 //Add it to the inventory and remove it from the item array and the current mapfile object
 			 this.player.addToInventory(this.items_ArrayList.get(this.isItemNear()));
 			 this.maps_HashMap.get(currentMapID).removeItem(this.items_ArrayList.get(this.isItemNear()).getID());
 			 this.items_ArrayList.remove(this.isItemNear());
@@ -676,18 +574,26 @@ public class Map implements GameWorld{
 		int x = 0;
 		int y = 0;
 		
+		//For each position on within size/2 of the player in the y direction
 		for (int i = this.player.getY() - (size / 2); i <= this.player.getY() + (size / 2); i++) {
 			images.add(new ArrayList<ArrayList<Image>>());
+			
+			//For each position on within size/2 of the player in the y direction
 			for (int j = this.player.getX() - (size / 2); j <= this.player.getX() + (size / 2); j++) {
 				images.get(y).add(new ArrayList<Image>());
 				
+				//This position is off the map add an empty image
 				if (i < 0 || i >= this.currentMap_2DArrayList.size()) {
 					images.get(y).get(x).add(new Image("file:///" + Utilities.getParentDir() + "/Sprites/Tiles/Sewer/Empty.png"));
 				}
 				
 				else if (i >= 0 && i < this.currentMap_2DArrayList.size()) {
+					
+					//This position is off the map add an empty image
 					if (j < 0 || j >= this.currentMap_2DArrayList.get(i).size()) {
 						images.get(y).get(x).add(new Image("file:///" + Utilities.getParentDir() + "/Sprites/Tiles/Sewer/Empty.png"));
+						
+					//If the position is on the map, add the tile image
 					} else if (j >= 0 && j < this.currentMap_2DArrayList.get(i).size()) {
 						images.get(y).get(x).add(this.currentMap_2DArrayList.get(i).get(j).getImage());
 						if (this.currentMap_2DArrayList.get(i).get(j).getImage() == (null)) {
@@ -696,12 +602,25 @@ public class Map implements GameWorld{
 					}
 				}
 				
+				//For each item
+				for (Item item : this.items_ArrayList) {
+					
+					//If it's at the current position, add it's image
+					if (item.getY() == i && item.getX() == j) {
+						images.get(y).get(x).add(item.getImage());
+					}
+				}
+				
+				//For each character
 				for (Entity character : this.characters_ArrayList) {
+					
+					//if it's at the current position, add it's image
 					if (character.getY() == i && character.getX() == j) {
 						images.get(y).get(x).add(character.getImage());
 					}
 				}
 				
+				//If the player is at the current position, add it's iamge
 				if (this.player.getY() == i && this.player.getX() == j) {
 					images.get(y).get(x).add(this.player.getImage());
 				}
@@ -711,38 +630,29 @@ public class Map implements GameWorld{
 			y += 1;
 		}
 		
-		// y = 0;
-		// x = 0;
-		// for(ArrayList<ArrayList<String>> column: images){
-		// for(ArrayList<String> row: column){
-		// System.out.println("column " + x + " row " + y);
-		// for(String item:row) {
-		// System.out.println(item);
-		// }
-		// System.out.println();
-		// x += 1;
-		// }
-		// x = 0;
-		// y += 1;
-		// }
-		
 		return images;
 		
 	}
-	
+		
+		/**
+		 * Returns the index of a item if it's at the same position as
+		 * the player, else returns -1
+		 * 
+		 * @return int, the index of an item that at the same place as the player, else -1
+		 */
 		 public int isItemNear() {
 		
-			 // For each character on the map...
+			 // For each item on the map...
 			 int index = 0;
 			 for (Item item: this.items_ArrayList) {
-			 // If the character is an enemy and the player is next to the enemy...
-			 if (item.getX() == player.getX() && item.getY() == player.getY()) {
-			
-			 // Return true
-			 return index;
-			
-			 }
-			 index += 1;
+				 // If the item is at the same place as the player
+				 if (item.getX() == player.getX() && item.getY() == player.getY()) {
+				
+					 // Return true
+					 return index;
+				
+				 }
+				 index += 1;
 			 }
 			
 			 // Otherwise return false
@@ -750,6 +660,10 @@ public class Map implements GameWorld{
 			
 		 } // End of isEnemyNear
 
+		/**
+		 * @see GameWorld
+		 * 
+		 */
 		@Override
 		public void nextWorld(String next) {
 			this.clearMap();
@@ -757,17 +671,29 @@ public class Map implements GameWorld{
 			this.loadNewMap(next);
 			
 		}
-
+		
+		/**
+		 * @see GameWorld
+		 * 
+		 */
 		@Override
 		public ArrayList<Item> getInventory() {
 			return this.player.getInventory();
 		}
-
+		
+		/**
+		 * @see GameWorld
+		 * 
+		 */
 		@Override
 		public Item getPlayerWeapon() {
 			return this.player.getWeapon();
 		}
-
+		
+		/**
+		 * @see GameWorld
+		 * 
+		 */
 		@Override
 		public Item getPlayerArmour() {
 			return this.player.getArmour();

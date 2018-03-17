@@ -9,6 +9,7 @@ import battle.BattleWorldTest;
 import battle.DuckObject;
 import battle.EnemyObject;
 import entities.Player;
+import items.Item;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -24,10 +25,24 @@ import ui.TitleScreen;
 import utils.Orientation;
 import utils.Utilities;
 
+/**
+ * Controls the input and output of the game as while as the interaction 
+ * between the battle engine and the overworld engines in GUI form
+ * 
+ * @author Colin Au Yeung
+ *
+ */
 public class Controller_GUI extends Application{
 	
+	/*
+	 * 
+	 * INSTANCE VARIABLES
+	 * 
+	 */
 	private int mapsize = 7;
 	private int spritesize = 64;
+	
+	//GameWorld
 	private GameWorld world = new Map();
 	private Event event = new Event(Event_type.NOEVENT);
 	DuckObject	battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
@@ -42,6 +57,8 @@ public class Controller_GUI extends Application{
 
 	@Override
 	public void start(Stage window) throws Exception {
+		
+		//Javafx setup
 		final int windowSize = 64 * 9;
 		Group root = new Group();
 		Scene scene = new Scene(root);
@@ -96,49 +113,62 @@ public class Controller_GUI extends Application{
 		this.drawMap(gc, world.getImageSprites(mapsize));
 		
 		scene.setOnKeyPressed(key -> {
-			if (key.getCode() == KeyCode.W) {
+			switch (key.getCode()) {
 				
-				//Runs the turn with this input
-				event.setEvent(world.runTurn("W"));
-				//Redraws the map
-				this.drawMap(gc, world.getImageSprites(mapsize));
+				case W:
+				case A:
+				case S:
+				case D:
+					// Runs the turn with this input
+					event.setEvent(world.runTurn(key.getCode().toString()));
+					// Redraws the map
+					this.drawMap(gc, world.getImageSprites(mapsize));
+					break;
 				
-			}
-			else if (key.getCode() == KeyCode.A) {
+				case I:
+					Utilities.clearConsole();
+					System.out.println("Player Inventory:\n");
+					for (Item item : world.getInventory()) {
+						System.out.println(item.getName());
+					}
+					break;
 				
-				//Runs the turn with this input
-				event.setEvent(world.runTurn("A"));
+				case E:
+					Utilities.clearConsole();
+					System.out.println("Player Equipment:\n");
+					System.out.println(this.world.getPlayerWeapon().getName());
+					System.out.println(this.world.getPlayerArmour().getName());
+					break;
 				
-				//Redraws the map
-				this.drawMap(gc, world.getImageSprites(mapsize));
-				
-			}
-			else if (key.getCode() == KeyCode.S) {
-				
-				//Runs the turn with this input
-				event.setEvent(world.runTurn("S"));
-				
-				//Redraws the map
-				this.drawMap(gc, world.getImageSprites(mapsize));
-				
-			}
-			else if (key.getCode() == KeyCode.D) {
-				
-				//Runs the turn with this input
-				event.setEvent(world.runTurn("D"));
-				
-				//Redraws the map
-				this.drawMap(gc, world.getImageSprites(mapsize));
-				
+				//Displays the player's status and stats while on the map
+				case C:
+					Utilities.clearConsole();
+					System.out.println("Player Status:\n");
+					System.out.println(("Moneys: " + battlePlayer.getMoney()));
+					System.out.println(("Experience: " + battlePlayer.getXP()));
+					System.out.println("\nPlayer Stats:\n");
+					System.out.println(("Health Points: " + battlePlayer.getStats("healthPoints")));
+					System.out.println(("Mana Points: " + battlePlayer.getStats("manaPoints")));
+					System.out.println(("Attack Points: " + battlePlayer.getStats("attackPoints")));
+					System.out.println(("Defence Points: " + battlePlayer.getStats("defencePoints")));
+					System.out.println(("Speed Points: " + battlePlayer.getStats("speedPoints")));
+					System.out.println(("Accuracy Points: " + battlePlayer.getStats("accuracyPoints")));
+					System.out.println(("Critical Hit Points: " + battlePlayer.getStats("criticalHitPoints")));
+					break;
 			}
 			
+			//Based on the event that the turn generates
 			switch(event.getType()) {
+			
+				//If battle, run the battle loop
 				case BATTLE: 
 					inBattle = true;
 					this.battleWorld = new BattleGuiTest(window);
 					this.battleWorld.setScene();
 					event = new Event(Event_type.NOEVENT);
 					break;
+					
+				//If nextworld, generate a new level
 				case NEXTWORLD:
 					world.nextWorld(event.getNextworld());
 					this.drawMap(gc, world.getImageSprites(mapsize));
@@ -202,11 +232,17 @@ public class Controller_GUI extends Application{
 	 * Update the world in which the player fights an enemy.
 	 */
 	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
+		
 		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.world.getPlayerWeapon(), this.world.getPlayerArmour());
+		
 	}
 	
-	
+	/**
+	 * Update the world with the title screen
+	 */
 	public void updateTitle() {
+		
 		this.inTitle = this.titleScreen.update();
+		
 	}
 }
