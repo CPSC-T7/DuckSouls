@@ -50,6 +50,12 @@ public class Player extends Entity {
 		
 	} // End of constructor
 	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
+	
 	/**
 	 * Accepts a String corresponding to wasd and moves accordingly
 	 * 

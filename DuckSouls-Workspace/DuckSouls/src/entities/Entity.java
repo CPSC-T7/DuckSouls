@@ -22,25 +22,24 @@ import utils.Orientation;
 import utils.Utilities;
 
 public class Entity {
-
+	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private Point			position				= new Point();
-	private Orientation     orientation = Orientation.SOUTH;
-	private String			stringRepr				= "EER";
+	private Point			position	= new Point();
+	private Orientation		orientation	= Orientation.SOUTH;
+	private String			stringRepr	= "EER";
 	private int				ID;
-	private ArrayList<Item>  inventory = new ArrayList<Item>();
+	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	
-
-	private Item weapon = new Unarmed();
-	private Item armour = new Clothes();
-
-	private Image image;
-	private String pathToImage;
+	private Item			weapon		= new Unarmed();
+	private Item			armour		= new Clothes();
+	
+	private Image			image;
+	private String			pathToImage;
 	
 	/*
 	 * 
@@ -55,8 +54,10 @@ public class Entity {
 	 *            The X co-ordinate of the character.
 	 * @param y
 	 *            The Y co-ordinate of the character.
-	 * @param isPlayer
-	 *            Whether the character is the player or not.
+	 * @param stringRepr
+	 *            The string representation of the entity.
+	 * @param pathToImage
+	 *            The path to the entity's image sprite.
 	 */
 	public Entity(int x, int y, String stringRepr, String pathToImage) {
 		
@@ -67,34 +68,55 @@ public class Entity {
 		this.stringRepr = stringRepr;
 		this.pathToImage = pathToImage;
 		
-	} // End of constructor
+	}
 	
+	/**
+	 * Creates a new character at a defined position with ID.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the character.
+	 * @param y
+	 *            The Y co-ordinate of the character.
+	 * @param ID
+	 *            The ID of the entity.
+	 * @param stringRepr
+	 *            The string representation of the entity.
+	 * @param pathToImage
+	 *            The path to the entity's image sprite.
+	 */
 	public Entity(int x, int y, int ID, String stringRepr, String pathToImage) {
 		
 		// Set the character characteristics
 		this.position.setLocation(x, y);
-
+		
 		this.ID = ID;
 		
 		// Set the appropriate string representation
 		this.stringRepr = stringRepr;
 		this.pathToImage = pathToImage;
 		
-	} // End of constructor
+	}
 	
 	/**
 	 * Creates an entity.
 	 * 
 	 * @param stringRepr
-	 *            The 3-character string used to print the entity.
+	 *            The string representation of the entity.
+	 * @param pathToImage
+	 *            The path to the entity's image sprite.
 	 */
 	protected Entity(String stringRepr, String pathToImage) {
-
+		
 		this.stringRepr = stringRepr;
 		this.pathToImage = pathToImage;
-		// this.updateImage();
-
+		
 	}
+	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
 	
 	/**
 	 * Moves the character to a specified position. <br>
@@ -155,9 +177,9 @@ public class Entity {
 	 * @return A copy of the entity's position.
 	 */
 	public Point getPosition() {
-
+		
 		return new Point(this.position);
-
+		
 	}
 	
 	/**
@@ -166,9 +188,9 @@ public class Entity {
 	 * @return The orientation of the entity.
 	 */
 	public Orientation getOrientation() {
-
+		
 		return this.orientation;
-
+		
 	}
 	
 	/**
@@ -177,9 +199,9 @@ public class Entity {
 	 * @return The orientation of the entity.
 	 */
 	public void setOrientation(Orientation orientation) {
-
+		
 		this.orientation = orientation;
-
+		
 	}
 	
 	/**
@@ -191,64 +213,65 @@ public class Entity {
 	public void addToInventory(Item item) {
 		
 		this.inventory.add(item);
-		if(item.getStringRepr().equals(" K ") || item.getStringRepr().equals(" S" )) {
+		if (item.getStringRepr().equals(" K ") || item.getStringRepr().equals(" S")) {
 			this.setWeapon(new Item(item));
 		}
-		if(item.getStringRepr().equals(" CA") || item.getStringRepr().equals(" LA") || item.getStringRepr().equals(" MA")) {
+		if (item.getStringRepr().equals(" CA") || item.getStringRepr().equals(" LA")
+				|| item.getStringRepr().equals(" MA")) {
 			this.setArmour(new Item(item));
 		}
-
+		
 	}
-
+	
 	/**
 	 * Returns a copy of the entity's inventory.
 	 * 
 	 * @return A copy of the entity's inventory.
 	 */
 	public ArrayList<Item> getInventory() {
-
+		
 		return new ArrayList<Item>(this.inventory);
-
+		
 	}
-
+	
 	/**
 	 * Returns the weapon of the entity.
 	 * 
 	 * @return the weapon of the entity.
 	 */
-
+	
 	public Item getWeapon() {
 		return this.weapon;
 	}
-
+	
 	/**
 	 * Returns the armour of the entity.
 	 * 
 	 * @return the armour of the entity.
 	 */
-
+	
 	public Item getArmour() {
 		return this.armour;
 	}
-
+	
 	/**
 	 * Replaces the weapon of the entity
 	 * 
 	 * @param newWeapon
 	 *            The new weapon to be stored
 	 */
-
+	
 	public void setWeapon(Item newWeapon) {
 		this.weapon = newWeapon;
 	}
-
+	
 	/**
 	 * Replaces the armour of the entity
 	 * 
 	 * @param newArmour
 	 *            The new armour to be stored
 	 */
-
+	
 	public void setArmour(Item newArmour) {
 		this.armour = newArmour;
 	}
@@ -300,9 +323,9 @@ public class Entity {
 	 * @return A copy of the entity's string representation.
 	 */
 	public String getStringRepr() {
-
+		
 		return new String(this.stringRepr);
-
+		
 	}
 	
 	/**
@@ -329,18 +352,18 @@ public class Entity {
 	public void drawEntity(GraphicsContext gc, Point position) {
 		this.updateImage();
 		gc.drawImage(this.image, position.x, position.y);
-
+		
 	}
-
+	
 	/**
 	 * Create a new image depending on the image directory and direction of the
 	 * entity.
 	 */
 	public void updateImage() {
-
-		this.image = new Image("file:///" + Utilities.getParentDir() + this.pathToImage + this.orientation.str + ".png");
-
+		
+		this.image = new Image(
+				"file:///" + Utilities.getParentDir() + this.pathToImage + this.orientation.str + ".png");
+		
 	}
-	
 	
 }

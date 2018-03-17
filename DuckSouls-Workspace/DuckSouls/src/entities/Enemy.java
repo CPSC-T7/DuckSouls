@@ -51,6 +51,10 @@ public class Enemy extends Entity {
 	 * 
 	 */
 	
+	/**
+	 * Makes the enemy move within the map.
+	 * @param map The map to move within.
+	 */
 	//TODO: Make enemy movementß
 	public void move(ArrayList<ArrayList<Tile>> map) {
 		
