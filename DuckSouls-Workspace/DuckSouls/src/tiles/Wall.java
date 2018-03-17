@@ -1,6 +1,5 @@
 package tiles;
 
-
 /**
  * This class represents all of the wall tiles for DuckSouls.
  * 
@@ -19,8 +18,6 @@ public class Wall extends Tile {
 	/**
 	 * Creates a wall tile.
 	 * 
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
 	 * @param stringRepr
 	 *            The 3-character string used to print the tile.
 	 * @param pathToImage
@@ -30,6 +27,18 @@ public class Wall extends Tile {
 		super(stringRepr, false, pathToImage);
 	}
 	
+	/**
+	 * Creates a wall tile.
+	 * 
+	 * @param x
+	 *            The x co-ord of the tile.
+	 * @param y
+	 *            The y co-ord of the tile.
+	 * @param stringRepr
+	 *            The 3-character string used to print the tile.
+	 * @param pathToImage
+	 *            File path to the image.
+	 */
 	protected Wall(int x, int y, String stringRepr, String pathToImage) {
 		super(x, y, false, stringRepr, pathToImage);
 	}

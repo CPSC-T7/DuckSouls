@@ -16,21 +16,20 @@ import utils.Utilities;
  * @version 2.0
  */
 public class Tile {
-
+	
 	/*
 	 * 
-	 *  INSTANCE VARIABLES
+	 * INSTANCE VARIABLES
 	 * 
 	 */
 	private String		stringRepr	= "TER";
-	private char		    fileCharacter;
+	private char		fileCharacter;
 	protected boolean	canWalkOn	= true;
 	
-	private String		pathToImage =  "/Sprites/Tiles/Sewer/Empty.png";
+	private String		pathToImage	= "/Sprites/Tiles/Sewer/Empty.png";
 	private Image		image;
-	private Point	    position	= new Point();
+	private Point		position	= new Point();
 	
-
 	/*
 	 * 
 	 * CONSTRUCTORS
@@ -44,8 +43,8 @@ public class Tile {
 	 *            The 3-character string used to print the tile.
 	 * @param canWalkOn
 	 *            Whether or not a player can walk on the tile.
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
+	 * @param pathToImage
+	 *            Path to the tile's image sprite.
 	 */
 	protected Tile(String stringRepr, boolean canWalkOn, String pathToImage) {
 		
@@ -59,8 +58,12 @@ public class Tile {
 	/**
 	 * Creates a new tile at a specified position.
 	 * 
-	 * @param x The X co-ordinate of the tile.
-	 * @param y The Y co-ordinate of the tile.
+	 * @param x
+	 *            The X co-ordinate of the tile.
+	 * @param y
+	 *            The Y co-ordinate of the tile.
+	 * @param pathToImage
+	 *            Path to the tile's image sprite.
 	 */
 	public Tile(int x, int y, String pathToImage) {
 		
@@ -74,8 +77,10 @@ public class Tile {
 	/**
 	 * Creates a new tile at a specified position.
 	 * 
-	 * @param x The X co-ordinate of the tile.
-	 * @param y The Y co-ordinate of the tile.
+	 * @param x
+	 *            The X co-ordinate of the tile.
+	 * @param y
+	 *            The Y co-ordinate of the tile.
 	 */
 	public Tile(int x, int y) {
 		
@@ -88,10 +93,16 @@ public class Tile {
 	/**
 	 * Creates a new tile at a specified position and defined characteristics.
 	 * 
-	 * @param x The X co-ordinate of the tile.
-	 * @param y The Y co-ordinate of the tile.
-	 * @param canMoveOn Whether the player can move on this tile or not.
-	 * @param stringRepr The string to display when printing the tile.
+	 * @param x
+	 *            The X co-ordinate of the tile.
+	 * @param y
+	 *            The Y co-ordinate of the tile.
+	 * @param canMoveOn
+	 *            Whether the player can move on this tile or not.
+	 * @param stringRepr
+	 *            The string to display when printing the tile.
+	 * @param pathToImage
+	 *            Path to the tile's image sprite.
 	 */
 	public Tile(int x, int y, boolean canMoveOn, String stringRepr, String pathToImage) {
 		
@@ -149,12 +160,14 @@ public class Tile {
 		
 		return null;
 		
-	}//end of getMapID
+	}// end of getMapID
 	
 	/**
-	 * Returns the path to the image file corresponding with the entity's current state
+	 * Returns the path to the image file corresponding with the entity's current
+	 * state
 	 * 
-	 * @return the String corresponding to the path to the entity sprite (default floor sprite)
+	 * @return the String corresponding to the path to the entity sprite (default
+	 *         floor sprite)
 	 * 
 	 */
 	public Image getImage() {
@@ -209,37 +222,5 @@ public class Tile {
 		gc.drawImage(this.image, position.x, position.y);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

@@ -3,7 +3,6 @@ package tiles;
 import utils.Orientation;
 
 public class Door extends Tile {
-
 	
 	/*
 	 * 
@@ -11,9 +10,9 @@ public class Door extends Tile {
 	 * 
 	 */
 	
-	private Orientation		orientation;									// TODO: Implement.
+	private Orientation		orientation;								// TODO: Implement.
 	private static String	pathToImage	= "/Sprites/Tiles/Sewer/Door-";
-	private String	mapID		= new String();
+	private String			mapID		= new String();
 	
 	/*
 	 * 
@@ -24,8 +23,6 @@ public class Door extends Tile {
 	/**
 	 * Creates a new unlocked door.
 	 * 
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
 	 * @param orientation
 	 *            The orientation the door is facing.
 	 */
@@ -34,7 +31,18 @@ public class Door extends Tile {
 		this.orientation = orientation;
 	}
 	
-	
+	/**
+	 * Creates a new unlocked door.
+	 * 
+	 * @param x
+	 *            The x co-ord of the tile.
+	 * @param y
+	 *            The y co-ord of the tile.
+	 * @param mapID
+	 *            The mapID the door links to.
+	 * @param orientation
+	 *            The orientation the door is facing.
+	 */
 	public Door(int x, int y, String mapID, Orientation orientation) {
 		
 		// Create a tile at the position
@@ -46,7 +54,6 @@ public class Door extends Tile {
 		
 	} // End of constructor
 	
-	
 	/**
 	 * Returns the ID of the map the door is on.
 	 * 
@@ -55,7 +62,7 @@ public class Door extends Tile {
 	public String getMapID() {
 		
 		return mapID;
-	
+		
 	} // End of getMapID
-
+	
 }

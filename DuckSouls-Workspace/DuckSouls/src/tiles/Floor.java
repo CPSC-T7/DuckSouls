@@ -25,15 +25,24 @@ public class Floor extends Tile {
 	 * CONSTRUCTORS
 	 * 
 	 */
+	
+	/**
+	 * Creates a new floor tile.
+	 */
 	public Floor() {
 		super(stringRepr, true, pathToImage);
-		// TODO Auto-generated constructor stub
 	}
 
-
+	/**
+	 * Creates a new floor tile.
+	 * 
+	 * @param x
+	 *            The x co-ord of the tile.
+	 * @param y
+	 *            The y co-ord of the tile.
+	 */
 	public Floor(int x, int y) {
 		super(x, y, true, stringRepr, pathToImage);
-		// TODO Auto-generated constructor stub
 	}
 
 }

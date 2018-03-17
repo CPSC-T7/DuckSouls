@@ -25,9 +25,6 @@ public class Path extends Tile {
 	
 	/**
 	 * Creates a path tile.
-	 * 
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
 	 */
 	public Path() {
 		super(stringRepr, true, pathToImage);

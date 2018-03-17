@@ -25,9 +25,6 @@ public class Empty extends Tile {
 	
 	/**
 	 * Creates an empty tile.
-	 * 
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
 	 */
 	public Empty() {
 		super(stringRepr, true, pathToImage);
