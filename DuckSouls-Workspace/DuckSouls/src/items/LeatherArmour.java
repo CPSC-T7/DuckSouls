@@ -35,6 +35,15 @@ public class LeatherArmour extends Armour {
 		super(name, pathToImage, stringRepr, price, spawnChance, defense);
 	}
 	
+	/**
+	 * Creates a new leather armour item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public LeatherArmour(int x, int y, int id) {
 		super(name, pathToImage, stringRepr, price, spawnChance, defense, x, y, id);
 	}

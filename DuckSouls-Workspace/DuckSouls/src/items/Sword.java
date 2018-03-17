@@ -38,6 +38,15 @@ public class Sword extends Weapon {
 		super(name, pathToImage, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
 	}
 	
+	/**
+	 * Creates a new sword item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public Sword(int x, int y, int id) {
 		super(name, pathToImage, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, x, y, id);
 	}

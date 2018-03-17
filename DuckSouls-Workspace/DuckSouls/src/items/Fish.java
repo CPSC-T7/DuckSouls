@@ -36,6 +36,15 @@ public class Fish extends Consumable {
 		super(name, pathToImage, stringRepr, price, spawnChance, health, mana);
 	}
 	
+	/**
+	 * Creates a new fish item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public Fish(int x, int y, int id) {
 		super(name, pathToImage, stringRepr, price, spawnChance, health, mana, x ,y, id);
 	}

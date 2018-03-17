@@ -49,9 +49,9 @@ public class Armour extends Item {
 	 * @param defense
 	 *            The defense that the armour provides.
 	 * @param x
-	 *            The x co-ordinate of the item.
+	 *            The x co-ord of the item.
 	 * @param y
-	 *            The y co-ordinate of the item.
+	 *            The y co-ord of the item.
 	 * @param id
 	 *            The ID of the item.
 	 */

@@ -35,6 +35,15 @@ public class ClothArmour extends Armour {
 		super(name, pathToImage, stringRepr, price, spawnChance, defense);
 	}
 	
+	/**
+	 * Creates a new cloth armour item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public ClothArmour(int x, int y, int id) {
 		super(name, pathToImage, stringRepr, price, spawnChance, defense, x, y, id);
 	}

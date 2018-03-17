@@ -10,6 +10,7 @@ import utils.Utilities;
  * 
  * @author Matthew Allwright
  * @author Cassondra Platel
+ * @author Colin Yeung
  */
 public class Item {
 	
@@ -53,12 +54,14 @@ public class Item {
 	 * 
 	 * @param name
 	 *            The name of the item.
+	 * @param pathToImage
+	 *            The path to the image sprite.
 	 * @param stringRepr
 	 *            The 3 character string used to print the item.
 	 * @param price
 	 *            The price of the item.
 	 * @param spawnChance
-	 *            The spawn chance of the item. Must be from 0 to 100
+	 *            The spawn chance of the item. Must be from 0 to 100.
 	 */
 	protected Item(String name, String pathToImage, String stringRepr, int price, int spawnChance) {
 		
@@ -70,7 +73,28 @@ public class Item {
 		
 	}
 	
-	protected Item(String name, String pathToImage, String stringRepr, int price, int spawnChance, int x, int y, int id) {
+	/**
+	 * Creates a new item with defined basic values.
+	 * 
+	 * @param name
+	 *            The name of the item.
+	 * @param pathToImage
+	 *            The path to the image sprite.
+	 * @param stringRepr
+	 *            The 3 character string used to print the item.
+	 * @param price
+	 *            The price of the item.
+	 * @param spawnChance
+	 *            The spawn chance of the item. Must be from 0 to 100.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
+	protected Item(String name, String pathToImage, String stringRepr, int price, int spawnChance, int x, int y,
+			int id) {
 		
 		this.name = name;
 		this.pathToImage = pathToImage;
@@ -106,6 +130,18 @@ public class Item {
 		
 	}
 	
+	/**
+	 * Copies an item and adds some parameters.
+	 * 
+	 * @param item
+	 *            The item to copy.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public Item(Item item, int x, int y, int id) {
 		this.stringRepr = item.stringRepr;
 		this.name = item.name;
@@ -162,16 +198,34 @@ public class Item {
 		
 	}
 	
+	/**
+	 * Returns the x value of the item.
+	 * @return The x value of the item.
+	 */
 	public int getX() {
+		
 		return this.x;
+		
 	}
 	
+	/**
+	 * Returns the y value of the item.
+	 * @return The y value of the item.
+	 */
 	public int getY() {
+		
 		return this.y;
+		
 	}
 	
+	/**
+	 * Returns the id value of the item.
+	 * @return The id value of the item.
+	 */
 	public int getID() {
+		
 		return this.id;
+		
 	}
 	
 	/**
@@ -181,7 +235,6 @@ public class Item {
 	 *            The stat that will be returned
 	 * @return the value of the stat
 	 */
-	
 	public int getExtraStats(String stat) {
 		
 		switch (stat) {
@@ -201,7 +254,11 @@ public class Item {
 		}
 		
 	}
-
+	
+	/**
+	 * Returns the image of the item.
+	 * @return The image of the item.
+	 */
 	public Image getImage() {
 		return new Image("file:///" + Utilities.getParentDir() + this.pathToImage + ".png");
 	}

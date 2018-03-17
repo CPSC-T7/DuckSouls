@@ -37,6 +37,28 @@ public class Consumable extends Item {
 		
 	}
 	
+	/**
+	 * Creates a new consumable item.
+	 * 
+	 * @param name
+	 *            The name of the consumable.
+	 * @param stringRepr
+	 *            The 3 character string representation of the consumable.
+	 * @param price
+	 *            The price of the consumable.
+	 * @param spawnChance
+	 *            The spawn chance of the consumable. Must be from 0 to 100.
+	 * @param heath
+	 *            The health modifier of the item upon use.
+	 * @param mana
+	 *            The mana modifier of the item upon use.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	protected Consumable(String name, String pathToImage, String stringRepr, int price, int spawnChance, int health, int mana, int x, int y, int id) {
 		
 		super(name, pathToImage, stringRepr, price, spawnChance, x ,y, id);
