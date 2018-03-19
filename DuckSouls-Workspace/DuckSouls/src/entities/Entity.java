@@ -137,13 +137,16 @@ public class Entity {
 		// If the specific point can be moved to...
 		if (mapdata.get(y).get(x).getCanWalkOn()) {
 			
+			
+			// Move the character
+			this.position.setLocation(x, y);
+			
 			// Set the walked on tile to path
 			if (mapdata.get(this.position.y).get(this.position.x) instanceof Floor) {
 				mapdata.get(this.position.y).set(this.position.x, new Path());
 			}
 			
-			// Move the character
-			this.position.setLocation(x, y);
+		
 			
 		}
 		

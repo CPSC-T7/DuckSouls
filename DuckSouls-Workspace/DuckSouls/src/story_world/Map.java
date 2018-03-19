@@ -215,6 +215,7 @@ public class Map implements GameWorld{
 		
 	}
 	
+	
 	/**
 	 * Loads in data and co-ordinates and returns a new door created from the
 	 * formatted data.
@@ -668,6 +669,7 @@ public class Map implements GameWorld{
 		public void nextWorld(String next) {
 			this.clearMap();
 			this.resetCharacters();
+			this.items_ArrayList.clear();
 			this.loadNewMap(next);
 			
 		}
