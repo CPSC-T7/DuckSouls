@@ -21,7 +21,7 @@ public enum Weapon implements Item {
 	 * 
 	 */
 	
-	Random					_random	= new Random();
+	private Random			_random	= new Random();
 	
 	/*
 	 * 
@@ -60,8 +60,8 @@ public enum Weapon implements Item {
 	 *            The speed of the weapon's use. Must be 0-100.
 	 */
 	private Weapon(String name, String stringRepr, Image image, int spawnChance, int damage, int speed) {
-		
-		StatisticTests.testIntStatRange("Damage", damage);
+
+		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
 		StatisticTests.testIntStatRange("Speed", speed);
 		
 		this.NAME = name;

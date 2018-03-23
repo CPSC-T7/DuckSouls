@@ -1,6 +1,9 @@
 package items;
 
-import java.awt.Image;
+import java.util.Random;
+
+import javafx.scene.image.Image;
+import tests.StatisticTests;
 
 public enum Consumable implements Item {
 	
@@ -10,10 +13,18 @@ public enum Consumable implements Item {
 	 * 
 	 */
 	
-	CROUTON,
-	GOO,
-	FISH,
-	BUGS;
+	CROUTON("A Soggy Crouton", " C ", new Image(ITEM_FOLDER_PATH + "Crouton.png"), 30, 1, 0),
+	GOO("Some Weird Goo", " G ", new Image(ITEM_FOLDER_PATH + "Goo.png"), 15, 0, 20),
+	FISH("A Half-Eaten Fish", " F ", new Image(ITEM_FOLDER_PATH + "Fish.png"), 10, 15, 0),
+	BUGS("De Bugs", " B ", new Image(ITEM_FOLDER_PATH + "Bugs.png"), 50, 5, 5);
+	
+	/*
+	 * 
+	 * STATIC VARIABLES
+	 * 
+	 */
+	
+	private Random			_random	= new Random();
 	
 	/*
 	 * 
@@ -21,12 +32,12 @@ public enum Consumable implements Item {
 	 * 
 	 */
 	
-	private final String NAME;
-	private final String STRING_REPR;
-	private final Image IMAGE;
-	private final int SPAWN_CHANCE;
-	private final int HEALTH_MOD;
-	private final int MANA_MOD;
+	private final String	NAME;
+	private final String	STRING_REPR;
+	private final Image		IMAGE;
+	private final int		SPAWN_CHANCE;
+	private final int		HEALTH_MOD;
+	private final int		MANA_MOD;
 	
 	/*
 	 * 
@@ -34,34 +45,79 @@ public enum Consumable implements Item {
 	 * 
 	 */
 	
+	/**
+	 * Creates a new consumable.
+	 * 
+	 * @param name
+	 *            The name of the consumable.
+	 * @param stringRepr
+	 *            The 3-character string used to draw the consumable in the text
+	 *            version of the game.
+	 * @param image
+	 *            The image used to draw the consumable in the GUI version of the
+	 *            game.
+	 * @param spawnChance
+	 *            The spawn chance of the consumable. Must be 0-100.
+	 * @param healthMod
+	 *            The health modifier of the consumable.
+	 * @param manaMod
+	 *            The mana modifier of the consumable.
+	 */
+	private Consumable(String name, String stringRepr, Image image, int spawnChance, int healthMod, int manaMod) {
+		
+		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
+		
+		this.NAME = name;
+		this.STRING_REPR = stringRepr;
+		this.IMAGE = image;
+		this.SPAWN_CHANCE = spawnChance;
+		this.HEALTH_MOD = healthMod;
+		this.MANA_MOD = manaMod;
+		
+	}
+	
 	/*
 	 * 
 	 * METHODS
 	 * 
 	 */
-
+	
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.IMAGE;
 	}
-
+	
 	@Override
 	public String getStringRepr() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.STRING_REPR;
 	}
-
+	
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.NAME;
 	}
-
+	
 	@Override
 	public boolean tryToSpawn() {
-		// TODO Auto-generated method stub
-		return false;
+		return (_random.nextInt(100) + 1 <= this.SPAWN_CHANCE);
+	}
+	
+	/**
+	 * Returns the consumable's health modifier.
+	 * 
+	 * @return The consumable's health modifier.
+	 */
+	public int getHealthMod() {
+		return this.HEALTH_MOD;
+	}
+	
+	/**
+	 * Returns the consumable's mana modifier.
+	 * 
+	 * @return The consumable's mana modifier.
+	 */
+	public int getManaMod() {
+		return this.MANA_MOD;
 	}
 	
 }
