@@ -14,6 +14,8 @@ public class Knife extends Weapon {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/Knife";
+	
 	private static final String	name		= "A Dull Butter Knife";
 	private static final String	stringRepr	= " K ";
 	private static final int	price		= 20;
@@ -33,11 +35,20 @@ public class Knife extends Weapon {
 	 * Creates a new knife item.
 	 */
 	public Knife() {
-		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
+		super(name, pathToImage, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
 	}
 	
+	/**
+	 * Creates a new knife item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public Knife(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, x, y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, attack, accuracy, speed, critchance, x, y, id);
 	}
 	
 }

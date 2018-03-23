@@ -4,13 +4,16 @@ import java.awt.Point;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import utils.Utilities;
 
 /**
- * This class represents the tiles for DuckSouls.
+ * This class represents a basic, empty tile. It is used as the super class for
+ * many other specific types of tile.
  * 
  * @author Matthew Allwright
  * @author Wylee McAndrews
- * @version 1.3
+ * @author Colin Au Yeung
+ * @version 2.0
  */
 public class Tile {
 	
@@ -19,13 +22,13 @@ public class Tile {
 	 * INSTANCE VARIABLES
 	 * 
 	 */
-	
 	private String		stringRepr	= "TER";
 	private char		fileCharacter;
 	protected boolean	canWalkOn	= true;
 	
-	private String		pathToImage;
+	private String		pathToImage	= "/Sprites/Tiles/Sewer/Empty.png";
 	private Image		image;
+	private Point		position	= new Point();
 	
 	/*
 	 * 
@@ -40,44 +43,75 @@ public class Tile {
 	 *            The 3-character string used to print the tile.
 	 * @param canWalkOn
 	 *            Whether or not a player can walk on the tile.
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
+	 * @param pathToImage
+	 *            Path to the tile's image sprite.
 	 */
-	protected Tile(boolean isGUI, String stringRepr, boolean canWalkOn, String pathToImage) {
+	protected Tile(String stringRepr, boolean canWalkOn, String pathToImage) {
 		
 		this.stringRepr = stringRepr;
+		this.pathToImage = pathToImage;
 		this.fileCharacter = this.stringRepr.charAt(1); // Middle char
 		this.canWalkOn = canWalkOn;
+		
+	}
+	
+	/**
+	 * Creates a new tile at a specified position.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the tile.
+	 * @param y
+	 *            The Y co-ordinate of the tile.
+	 * @param pathToImage
+	 *            Path to the tile's image sprite.
+	 */
+	public Tile(int x, int y, String pathToImage) {
+		
+		this.canWalkOn = false;
+		this.stringRepr = "   ";
+		this.position.setLocation(x, y);
 		this.pathToImage = pathToImage;
 		
-		if (isGUI)
-			this.updateImage();
-		
-	}
+	} // End of constructor
 	
 	/**
-	 * Draw the tile to the screen at a position (x,y)
+	 * Creates a new tile at a specified position.
 	 * 
-	 * @param gc
-	 *            Graphics Context
-	 * @param position
-	 *            Entity Position
+	 * @param x
+	 *            The X co-ordinate of the tile.
+	 * @param y
+	 *            The Y co-ordinate of the tile.
 	 */
-	public void drawTile(GraphicsContext gc, Point position) {
+	public Tile(int x, int y) {
 		
-		gc.drawImage(this.image, position.x, position.y);
+		this.canWalkOn = false;
+		this.stringRepr = "   ";
+		this.position.setLocation(x, y);
 		
-	}
+	} // End of constructor
 	
 	/**
-	 * Create a new image depending on the image directory and direction of the
-	 * entity.
+	 * Creates a new tile at a specified position and defined characteristics.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the tile.
+	 * @param y
+	 *            The Y co-ordinate of the tile.
+	 * @param canMoveOn
+	 *            Whether the player can move on this tile or not.
+	 * @param stringRepr
+	 *            The string to display when printing the tile.
+	 * @param pathToImage
+	 *            Path to the tile's image sprite.
 	 */
-	public void updateImage() {
+	public Tile(int x, int y, boolean canMoveOn, String stringRepr, String pathToImage) {
 		
-		this.image = new Image(this.pathToImage.substring(3));
+		this.position.setLocation(x, y);
+		this.canWalkOn = canMoveOn;
+		this.stringRepr = stringRepr;
+		this.pathToImage = pathToImage;
 		
-	}
+	} // End of constructor
 	
 	/*
 	 * 
@@ -86,15 +120,25 @@ public class Tile {
 	 */
 	
 	/**
+	 * Create a new image depending on the image directory and direction of the
+	 * entity.
+	 */
+	public void updateImage() {
+		
+		this.image = new Image("file:///" + Utilities.getParentDir() + this.pathToImage);
+		
+	}
+	
+	/**
 	 * Returns the string representation of the tile.
 	 * 
 	 * @return The string representation of the tile.
 	 */
 	public String getStringRepr() {
 		
-		return new String(this.stringRepr);
+		return this.stringRepr;
 		
-	}
+	} // End of getStringRepr
 	
 	/**
 	 * Returns the file character of the tile.
@@ -108,6 +152,53 @@ public class Tile {
 	}
 	
 	/**
+	 * Returns the ID of the map this tile is in.
+	 * 
+	 * @return The ID of the map this tile is in.
+	 */
+	public String getMapID() {
+		
+		return null;
+		
+	}// end of getMapID
+	
+	/**
+	 * Returns the path to the image file corresponding with the entity's current
+	 * state
+	 * 
+	 * @return the String corresponding to the path to the entity sprite (default
+	 *         floor sprite)
+	 * 
+	 */
+	public Image getImage() {
+		
+		return new Image("file:///" + Utilities.getParentDir() + this.pathToImage);
+		
+	}// End of getImage
+	
+	/**
+	 * Returns the X position of the tile.
+	 * 
+	 * @return The X position of the tile.
+	 */
+	public int getX() {
+		
+		return (int) this.position.getX();
+		
+	} // End of getX
+	
+	/**
+	 * Returns the Y position of the tile.
+	 * 
+	 * @return The Y position of the tile.
+	 */
+	public int getY() {
+		
+		return (int) this.position.getY();
+		
+	} // End of getY
+	
+	/**
 	 * Returns whether the tile can be walked on or not.
 	 * 
 	 * @return Whether the tile can be walked on or not.
@@ -115,6 +206,20 @@ public class Tile {
 	public boolean getCanWalkOn() {
 		
 		return this.canWalkOn;
+		
+	}
+	
+	/**
+	 * Draw the tile to the screen at a position (x,y)
+	 * 
+	 * @param gc
+	 *            Graphics Context
+	 * @param position
+	 *            Entity Position
+	 */
+	public void drawTile(GraphicsContext gc, Point position) {
+		this.updateImage();
+		gc.drawImage(this.image, position.x, position.y);
 		
 	}
 	

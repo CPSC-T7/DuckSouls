@@ -1,6 +1,6 @@
 import ui.TitleScreen;
-import map.TextLevel;
 import battle.DuckObject;
+import game.Controller_Text;
 
 /**
  * The main class to play DuckSouls.
@@ -72,15 +72,17 @@ public class DuckSoulsText {
 	 * Runs what needs to be continuously run for the game to work.
 	 */
 	private static void loop(int mode) {
-
+		Controller_Text map;
 		switch(mode) {
 			
-			case 0:
-				MoveLoop_Text_Story.play();
+			case 0: // Story
+				map = new Controller_Text(true);
+				map.mainloop();;
 				break;
 			
-			case 1:
-				MoveLoop_Text_Arcade.play();
+			case 1: // Arcade
+				map = new Controller_Text(false);
+				map.mainloop();
 				break;
 				
 			default:
@@ -108,7 +110,6 @@ public class DuckSoulsText {
 		// TODO: Cleanup
 		
 		DuckObject.cleanup();
-		TextLevel.cleanup();
 		TitleScreen.cleanup();
 		
 	}

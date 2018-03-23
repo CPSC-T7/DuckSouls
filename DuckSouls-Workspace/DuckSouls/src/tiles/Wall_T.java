@@ -15,8 +15,8 @@ public class Wall_T extends Wall {
 	 * 
 	 */
 	
-	private static final String stringRepr = "═══";
-	private static final String	pathToImage	= "../Sprites/Tiles/Sewer/Wall-Top.png";
+	private static final String	stringRepr	= "═══";
+	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Wall-Top.png";
 	
 	/*
 	 * 
@@ -26,12 +26,21 @@ public class Wall_T extends Wall {
 	
 	/**
 	 * Creates a top wall tile.
-	 * 
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
 	 */
-	public Wall_T(boolean isGUI) {
-		super(isGUI, stringRepr, pathToImage);
+	public Wall_T() {
+		super(stringRepr, pathToImage);
+	}
+	
+	/**
+	 * Creates a top wall tile.
+	 * 
+	 * @param x
+	 *            The x co-ord of the tile.
+	 * @param y
+	 *            The y co-ord of the tile.
+	 */
+	public Wall_T(int x, int y) {
+		super(x, y, stringRepr, pathToImage);
 	}
 	
 }

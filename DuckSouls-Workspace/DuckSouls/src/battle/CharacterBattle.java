@@ -28,15 +28,6 @@ public class CharacterBattle {
 	private double			speedPoints;
 	private double			accuracyPoints;
 	private double			criticalHitPoints;
-	
-	/**
-	 * Main class.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-	}
 
 	
 	public CharacterBattle (double health, double mana, double attack, double defence, double speed, double accuracy, double crit) {
@@ -67,7 +58,13 @@ public class CharacterBattle {
 		return damage;
 	}
 	
-	
+	/**
+	 * 
+	 * @param stat
+	 * 				name of the stat that will be change
+	 * @param newVal
+	 * 				value for the new stat
+	 */
 	
 	public void setStats(String stat, double newVal) {
 		
@@ -136,6 +133,14 @@ public class CharacterBattle {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @param stat
+	 * 				name of the stat that will be retrieved
+	 * @return
+	 * 			the value of the stat
+	 */
 	
 	public double getStats(String stat) {
 		

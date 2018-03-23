@@ -22,6 +22,22 @@ import java.util.Scanner;
  */
 public class Utilities {
 	
+	/*
+	 * 
+	 * STATIC VARIABLES
+	 * 
+	 */
+	
+	private static final File localFile = new File("");
+	private static final File absoluteLocalFile = new File(localFile.getAbsolutePath());
+	private static final String parentDir = absoluteLocalFile.getParent();
+	
+	/*
+	 * 
+	 * METHODS
+	 * 
+	 */
+	
 	/**
 	 * Clear the console screen of text.
 	 */
@@ -202,5 +218,15 @@ public class Utilities {
 		}
 		
 	}// End of writeFile
+	
+	/**
+	 * Returns the absolute path to the parent directory.
+	 * @return The absolute path to the parent directory.
+	 */
+	public static String getParentDir() {
+		
+		return new String(parentDir);
+		
+	} // End of getParentDir
 	
 }// End of Utilities

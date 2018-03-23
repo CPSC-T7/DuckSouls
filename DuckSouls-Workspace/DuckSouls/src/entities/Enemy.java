@@ -1,11 +1,15 @@
 package entities;
 
+import java.util.ArrayList;
+
+import tiles.Tile;
+
 /**
- * This class represents an enemy entity.
+ * This class represents an entity within DuckSouls. They can have equipped
+ * weapons, armour, and an inventory.
  * 
  * @author Matthew Allwright
- * @author Wylee McAndrews
- * @version 1.2
+ * @author Colin Yeung
  */
 public class Enemy extends Entity {
 	
@@ -16,8 +20,8 @@ public class Enemy extends Entity {
 	 */
 	
 	private static final String	stringRepr	= " E ";
-	private static final String	pathToImage	= "../Sprites/Entities/Rat/Rat-";
-	
+	private static final String	pathToImage	= "/Sprites/Entities/Rat/Rat-";
+
 	/*
 	 * 
 	 * CONSTRUCTORS
@@ -31,4 +35,36 @@ public class Enemy extends Entity {
 		super(stringRepr, pathToImage);
 	}
 	
+	/**
+	 * Creates a new enemy character at a specific position.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the enemy.
+	 * @param y
+	 *            The Y co-ordinate of the enemy.
+	 */
+	public Enemy(int x, int y, int ID) {
+		
+		// Create a new character
+		super(x, y, ID, stringRepr, pathToImage);
+		
+		// TODO: Fill in constructor.
+		
+	}
+	
+	/*
+	 *
+	 * METHODS
+	 * 
+	 */
+	
+	/**
+	 * Makes the enemy move within the map.
+	 * @param map The map to move within.
+	 */
+	//TODO: Make enemy movementß
+	public void move(ArrayList<ArrayList<Tile>> map) {
+		
+	}
+
 }

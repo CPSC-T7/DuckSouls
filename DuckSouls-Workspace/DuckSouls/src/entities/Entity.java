@@ -1,23 +1,25 @@
 package entities;
 
-import javafx.scene.image.Image;
-import javafx.scene.canvas.GraphicsContext;
 import java.awt.Point;
 import java.util.ArrayList;
 
 import items.Clothes;
 import items.Item;
 import items.Unarmed;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import tiles.Floor;
+import tiles.Path;
+import tiles.Tile;
 import utils.Orientation;
+import utils.Utilities;
 
 /**
- * This class is used to represent living entities within DuckSouls. Each entity
- * has a position, string representation, orientation, and inventory.
+ * This class represents an entity within DuckSouls. They can have equipped
+ * weapons, armour, and an inventory.
  * 
  * @author Matthew Allwright
- * @author Wylee McAndrews
- * @author Nadhif Satriana
- * @version 1.4
+ * @author Colin Yeung
  */
 public class Entity {
 	
@@ -28,8 +30,9 @@ public class Entity {
 	 */
 	
 	private Point			position	= new Point();
-	private String			stringRepr	= "EER";
 	private Orientation		orientation	= Orientation.SOUTH;
+	private String			stringRepr	= "EER";
+	private int				ID;
 	private ArrayList<Item>	inventory	= new ArrayList<Item>();
 	
 	private Item			weapon		= new Unarmed();
@@ -45,16 +48,67 @@ public class Entity {
 	 */
 	
 	/**
+	 * Creates a new character at a defined position.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the character.
+	 * @param y
+	 *            The Y co-ordinate of the character.
+	 * @param stringRepr
+	 *            The string representation of the entity.
+	 * @param pathToImage
+	 *            The path to the entity's image sprite.
+	 */
+	public Entity(int x, int y, String stringRepr, String pathToImage) {
+		
+		// Set the character characteristics
+		this.position.setLocation(x, y);
+		
+		// Set the appropriate string representation
+		this.stringRepr = stringRepr;
+		this.pathToImage = pathToImage;
+		
+	}
+	
+	/**
+	 * Creates a new character at a defined position with ID.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the character.
+	 * @param y
+	 *            The Y co-ordinate of the character.
+	 * @param ID
+	 *            The ID of the entity.
+	 * @param stringRepr
+	 *            The string representation of the entity.
+	 * @param pathToImage
+	 *            The path to the entity's image sprite.
+	 */
+	public Entity(int x, int y, int ID, String stringRepr, String pathToImage) {
+		
+		// Set the character characteristics
+		this.position.setLocation(x, y);
+		
+		this.ID = ID;
+		
+		// Set the appropriate string representation
+		this.stringRepr = stringRepr;
+		this.pathToImage = pathToImage;
+		
+	}
+	
+	/**
 	 * Creates an entity.
 	 * 
 	 * @param stringRepr
-	 *            The 3-character string used to print the entity.
+	 *            The string representation of the entity.
+	 * @param pathToImage
+	 *            The path to the entity's image sprite.
 	 */
 	protected Entity(String stringRepr, String pathToImage) {
 		
 		this.stringRepr = stringRepr;
 		this.pathToImage = pathToImage;
-		// this.updateImage();
 		
 	}
 	
@@ -65,39 +119,60 @@ public class Entity {
 	 */
 	
 	/**
-	 * Draw the entity to the screen at a position (x,y)
+	 * Moves the character to a specified position. <br>
+	 * TODO: Swap Y and X. X should always come first when imputing co-ords!
 	 * 
-	 * @param gc
-	 *            Graphics Context
-	 * @param position
-	 *            Entity Position
+	 * @param y
+	 *            The Y co-ordinate to move to.
+	 * @param x
+	 *            The X co-ordinate to move to.
+	 * @param mapdata
+	 *            The array list of tiles of the map the character should move in.
 	 */
-	public void drawEntity(GraphicsContext gc, Point position) {
+	public void move(int x, int y, ArrayList<ArrayList<Tile>> mapdata) {
 		
-		gc.drawImage(this.image, position.x, position.y);
+		// Move the character
+		// this.position.setLocation(x, y);
 		
-	}
+		// If the specific point can be moved to...
+		if (mapdata.get(y).get(x).getCanWalkOn()) {
+			
+			
+			// Move the character
+			this.position.setLocation(x, y);
+			
+			// Set the walked on tile to path
+			if (mapdata.get(this.position.y).get(this.position.x) instanceof Floor) {
+				mapdata.get(this.position.y).set(this.position.x, new Path());
+			}
+			
+		
+			
+		}
+		
+	} // End of move
 	
 	/**
-	 * Create a new image depending on the image directory and direction of the
-	 * entity.
+	 * Returns the X co-ordinate of the player.
+	 * 
+	 * @return The X co-ordinate of the player.
 	 */
-	public void updateImage() {
+	public int getX() {
 		
-		this.image = new Image((this.pathToImage + this.orientation.str + ".png").substring(3));
+		return this.position.x;
 		
-	}
+	} // End of getX
 	
 	/**
-	 * Returns a copy of the entity's string representation.
+	 * Returns the Y co-ordinate of the player.
 	 * 
-	 * @return A copy of the entity's string representation.
+	 * @return The Y co-ordinate of the player.
 	 */
-	public String getStringRepr() {
+	public int getY() {
 		
-		return new String(this.stringRepr);
+		return this.position.y;
 		
-	}
+	} // End of getY
 	
 	/**
 	 * Returns a copy of the entity's position.
@@ -141,6 +216,13 @@ public class Entity {
 	public void addToInventory(Item item) {
 		
 		this.inventory.add(item);
+		if (item.getStringRepr().equals(" K ") || item.getStringRepr().equals(" S")) {
+			this.setWeapon(new Item(item));
+		}
+		if (item.getStringRepr().equals(" CA") || item.getStringRepr().equals(" LA")
+				|| item.getStringRepr().equals(" MA")) {
+			this.setArmour(new Item(item));
+		}
 		
 	}
 	
@@ -195,6 +277,96 @@ public class Entity {
 	
 	public void setArmour(Item newArmour) {
 		this.armour = newArmour;
+	}
+	
+	/**
+	 * Returns whether the character is next to a specific position.
+	 * 
+	 * @param x
+	 *            The X co-ordinate of the position to check.
+	 * @param y
+	 *            The Y co-ordinate of the position to check.
+	 * @return Whether the character is next to the position.
+	 */
+	public boolean isNextTo(int x, int y) {
+		
+		// Return whether the position is less than or equal to 1 tile away in x & y
+		return (Math.abs(this.position.y - y) <= 1) && (Math.abs(this.position.x - x) <= 1);
+		
+	} // End of isNextTo
+	
+	/**
+	 * Sets an entity's id
+	 * 
+	 * @param Id
+	 *            The int ID to give to the entity
+	 * 
+	 */
+	public void setID(int Id) {
+		
+		this.ID = Id;
+		
+	}// End of setID
+	
+	/**
+	 * Returns an entity's int id
+	 * 
+	 * @return An int representing the entity's id
+	 * 
+	 */
+	public int getID() {
+		
+		return this.ID;
+		
+	}// End of getID
+	
+	/**
+	 * Returns a copy of the entity's string representation.
+	 * 
+	 * @return A copy of the entity's string representation.
+	 */
+	public String getStringRepr() {
+		
+		return new String(this.stringRepr);
+		
+	}
+	
+	/**
+	 * Returns the path to the image file corresponding with the entity's current
+	 * state
+	 * 
+	 * @return the String corresponding to the path to the entity sprite (default
+	 *         rat sprite)
+	 * 
+	 */
+	public Image getImage() {
+		return new Image("file:///" + Utilities.getParentDir() + this.pathToImage + this.orientation.str + ".png");
+		
+	}// End of getImage
+	
+	/**
+	 * Draw the entity to the screen at a position (x,y)
+	 * 
+	 * @param gc
+	 *            Graphics Context
+	 * @param position
+	 *            Entity Position
+	 */
+	public void drawEntity(GraphicsContext gc, Point position) {
+		this.updateImage();
+		gc.drawImage(this.image, position.x, position.y);
+		
+	}
+	
+	/**
+	 * Create a new image depending on the image directory and direction of the
+	 * entity.
+	 */
+	public void updateImage() {
+		
+		this.image = new Image(
+				"file:///" + Utilities.getParentDir() + this.pathToImage + this.orientation.str + ".png");
+		
 	}
 	
 }

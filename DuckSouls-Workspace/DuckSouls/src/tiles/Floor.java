@@ -1,13 +1,15 @@
 package tiles;
 
+
 /**
  * This class represents all of the floor tiles for DuckSouls.
  * 
  * @author Matthew Allwright
+ * @author Colin Au Yeung
  * @version 1.1
  */
 public class Floor extends Tile {
-	
+
 	/*
 	 * 
 	 * INSTANCE VARIABLES
@@ -15,7 +17,8 @@ public class Floor extends Tile {
 	 */
 	
 	private static final String	stringRepr	= "   ";
-	private static final String	pathToImage	= "../Sprites/Tiles/Sewer/Floor.png";
+	private static final String	pathToImage	= "/Sprites/Tiles/Sewer/Floor.png";
+	
 	
 	/*
 	 * 
@@ -24,13 +27,22 @@ public class Floor extends Tile {
 	 */
 	
 	/**
-	 * Creates a floor tile.
-	 * 
-	 * @param isGUI
-	 *            Whether this is a GUI tile or not.
+	 * Creates a new floor tile.
 	 */
-	public Floor(boolean isGUI) {
-		super(isGUI, stringRepr, true, pathToImage);
+	public Floor() {
+		super(stringRepr, true, pathToImage);
 	}
-	
+
+	/**
+	 * Creates a new floor tile.
+	 * 
+	 * @param x
+	 *            The x co-ord of the tile.
+	 * @param y
+	 *            The y co-ord of the tile.
+	 */
+	public Floor(int x, int y) {
+		super(x, y, true, stringRepr, pathToImage);
+	}
+
 }

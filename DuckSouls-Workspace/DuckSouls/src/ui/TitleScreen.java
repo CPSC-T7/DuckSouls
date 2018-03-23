@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.Utilities;
 
@@ -48,8 +47,8 @@ public class TitleScreen {
 	private Group root = new Group();
 	
     // Menu Background Image (temporary)
-	private Image attackButtonImage = new Image("Sprites/Menus/Main/TitleScreen.png");
-	private ImageView attackButtonImageView = new ImageView(attackButtonImage);
+	private Image titleBackgroundImage = new Image("file:///" + Utilities.getParentDir() + "/Sprites/Menus/Main/TitleScreen.png");
+	private ImageView titleBackgroundImageView = new ImageView(titleBackgroundImage);
 	
 	// Game stage and new scene
 	private Stage window;
@@ -65,7 +64,7 @@ public class TitleScreen {
 		this.window = window;
 		
 		//Add all layers to the main group
-	    root.getChildren().add(attackButtonImageView);
+	    root.getChildren().add(titleBackgroundImageView);
 	    
 	    //Set the scene and show it on the window
 	    window.setScene(scene);

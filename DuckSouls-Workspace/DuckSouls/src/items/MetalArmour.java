@@ -14,6 +14,8 @@ public class MetalArmour extends Armour {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/MetalArmour";
+	
 	private static final String	name		= "An Old Washing Machine";
 	private static final String	stringRepr	= " MA";
 	private static final int	price		= 35;
@@ -30,11 +32,20 @@ public class MetalArmour extends Armour {
 	 * Creates a new metal armour item.
 	 */
 	public MetalArmour() {
-		super(name, stringRepr, price, spawnChance, defense);
+		super(name, pathToImage, stringRepr, price, spawnChance, defense);
 	}
 	
+	/**
+	 * Creates a new metal armour item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public MetalArmour(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, defense, x , y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, defense, x , y, id);
 	}
 	
 }

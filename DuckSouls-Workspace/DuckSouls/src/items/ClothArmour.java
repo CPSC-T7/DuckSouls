@@ -14,6 +14,8 @@ public class ClothArmour extends Armour {
 	 * 
 	 */
 	
+	protected static final String	pathToImage	= "/Sprites/Items/ClothArmour";
+	
 	private static final String	name		= "A Torn Sack";
 	private static final String	stringRepr	= " CA";
 	private static final int	price		= 10;
@@ -30,11 +32,20 @@ public class ClothArmour extends Armour {
 	 * Creates a new cloth armour item.
 	 */
 	public ClothArmour() {
-		super(name, stringRepr, price, spawnChance, defense);
+		super(name, pathToImage, stringRepr, price, spawnChance, defense);
 	}
 	
+	/**
+	 * Creates a new cloth armour item.
+	 * @param x
+	 *            The x co-ord of the item.
+	 * @param y
+	 *            The y co-ord of the item.
+	 * @param id
+	 *            The ID of the item.
+	 */
 	public ClothArmour(int x, int y, int id) {
-		super(name, stringRepr, price, spawnChance, defense, x, y, id);
+		super(name, pathToImage, stringRepr, price, spawnChance, defense, x, y, id);
 	}
 	
 }

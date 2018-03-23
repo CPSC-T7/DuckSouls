@@ -30,10 +30,10 @@ public class Unarmed extends Weapon {
 	 */
 	
 	/**
-	 * Creates a new sword item.
+	 * Creates a new unarmed item.
 	 */
 	public Unarmed() {
-		super(name, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
+		super(name, null, stringRepr, price, spawnChance, attack, accuracy, speed, critchance);
 	}
 	
 }

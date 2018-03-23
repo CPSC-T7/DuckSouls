@@ -15,8 +15,12 @@ public enum Orientation {
 	SOUTH("Down"),
 	WEST("Left");
 	
-	public String str;
+	public String str; // For basic access
 	
+	/**
+	 * Creates a new orientation.
+	 * @param str The colloquial name for the orientation. This is used for things such as file access.
+	 */
 	private Orientation(String str) {
 		this.str = str;
 	}

@@ -1,6 +1,7 @@
 import ui.TitleScreen;
-import map.TextLevel;
 import battle.DuckObject;
+import game.Controller_GUI;
+import game.Controller_GUI_Arcade;
 import javafx.application.Application;
 
 /**
@@ -76,13 +77,12 @@ public class DuckSoulsGUI {
 
 		switch(mode) {
 			
-			case 0:
-				TitleScreen.displayMenu();
-				Application.launch(MoveLoop_GUI_Story.class, new String[0]);
+			case 0: // Story
+				Application.launch(Controller_GUI.class);
 				break;
 			
-			case 1:
-				Application.launch(MoveLoop_GUI_Arcade.class, new String[0]);
+			case 1: // Arcade
+				Application.launch(Controller_GUI_Arcade.class);
 				break;
 				
 			default:
@@ -110,7 +110,6 @@ public class DuckSoulsGUI {
 		// TODO: Cleanup
 		
 		DuckObject.cleanup();
-		TextLevel.cleanup();
 		TitleScreen.cleanup();
 		
 	}
