@@ -12,8 +12,8 @@ public enum Weapon implements Item {
 	 * 
 	 */
 	
-	SWORD("A Cool Sword", " S ", new Image(ITEM_FOLDER_PATH + "Sword.png"), 1, 20, 80),
-	KNIFE("A Dull Butter Knife", " K ", new Image(ITEM_FOLDER_PATH + "Knife.png"), 3, 10, 90);
+	SWORD("A Cool Sword", " S ", new Image(ITEM_SPRITE_FOLDER_PATH + "Sword.png"), 1, 20, 80),
+	KNIFE("A Dull Butter Knife", " K ", new Image(ITEM_SPRITE_FOLDER_PATH + "Knife.png"), 3, 10, 90);
 	
 	/*
 	 * 

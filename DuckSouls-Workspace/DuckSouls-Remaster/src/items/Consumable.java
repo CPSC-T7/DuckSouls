@@ -13,10 +13,10 @@ public enum Consumable implements Item {
 	 * 
 	 */
 	
-	CROUTON("A Soggy Crouton", " C ", new Image(ITEM_FOLDER_PATH + "Crouton.png"), 30, 1, 0),
-	GOO("Some Weird Goo", " G ", new Image(ITEM_FOLDER_PATH + "Goo.png"), 15, 0, 20),
-	FISH("A Half-Eaten Fish", " F ", new Image(ITEM_FOLDER_PATH + "Fish.png"), 10, 15, 0),
-	BUGS("De Bugs", " B ", new Image(ITEM_FOLDER_PATH + "Bugs.png"), 50, 5, 5);
+	CROUTON("A Soggy Crouton", " C ", new Image(ITEM_SPRITE_FOLDER_PATH + "Crouton.png"), 30, 1, 0),
+	GOO("Some Weird Goo", " G ", new Image(ITEM_SPRITE_FOLDER_PATH + "Goo.png"), 15, 0, 20),
+	FISH("A Half-Eaten Fish", " F ", new Image(ITEM_SPRITE_FOLDER_PATH + "Fish.png"), 10, 15, 0),
+	BUGS("De Bugs", " B ", new Image(ITEM_SPRITE_FOLDER_PATH + "Bugs.png"), 50, 5, 5);
 	
 	/*
 	 * 

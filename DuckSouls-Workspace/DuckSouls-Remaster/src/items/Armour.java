@@ -12,9 +12,9 @@ public enum Armour implements Item {
 	 * 
 	 */
 	
-	CLOTH_ARMOUR("A Torn Sack", " CA", new Image(ITEM_FOLDER_PATH + "ClothArmour.png"), 8, 5),
-	LEATHER_ARMOUR("An Old Leather Tunic", " LA", new Image(ITEM_FOLDER_PATH + "LeatherArmour.png"), 6, 10),
-	METAL_ARMOUR("A Broken Washing Machine", " MA", new Image(ITEM_FOLDER_PATH + "MetalArmour.png"), 4, 20);
+	CLOTH_ARMOUR("A Torn Sack", " CA", new Image(ITEM_SPRITE_FOLDER_PATH + "ClothArmour.png"), 8, 5),
+	LEATHER_ARMOUR("An Old Leather Tunic", " LA", new Image(ITEM_SPRITE_FOLDER_PATH + "LeatherArmour.png"), 6, 10),
+	METAL_ARMOUR("A Broken Washing Machine", " MA", new Image(ITEM_SPRITE_FOLDER_PATH + "MetalArmour.png"), 4, 20);
 
 	/*
 	 * 

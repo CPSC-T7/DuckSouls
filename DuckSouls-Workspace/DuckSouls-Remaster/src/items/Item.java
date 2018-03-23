@@ -10,7 +10,7 @@ public interface Item extends Drawable {
 	 * 
 	 */
 	
-	public static final String ITEM_FOLDER_PATH = SPRITE_FOLDER_PATH + "Items/";
+	public static final String ITEM_SPRITE_FOLDER_PATH = SPRITE_FOLDER_PATH + "Items/";
 	
 	/*
 	 * 
