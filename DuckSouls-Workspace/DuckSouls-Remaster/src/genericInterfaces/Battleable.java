@@ -1,5 +1,7 @@
 package genericInterfaces;
 
+import java.util.Random;
+
 public interface Battleable {
 	
 	/*
@@ -8,7 +10,9 @@ public interface Battleable {
 	 * 
 	 */
 	
-	// public static final BATTLE_SPRITE_FOLDER_PATH = ??? ; TODO: Fill in.
+	// public static final String BATTLE_SPRITE_FOLDER_PATH = ??? ; TODO: Fill in.
+	public static final double DAMAGE_RANGE_MOD = 0.1;
+	public static final Random _RANDOM = new Random();
 	
 	/*
 	 * 

@@ -97,7 +97,7 @@ public class Player extends Entity {
 	@Override
 	public void receiveAttack(int damage) {
 		// TODO Actually do.
-		this.health -= damage - this.armour.getDefense(); // Placeholder
+		this.health = this.health - damage - this.defense - this.armour.getDefense(); // Placeholder
 	}
 	
 	public void addExperiece(int xp) {
@@ -110,7 +110,7 @@ public class Player extends Entity {
 		
 	}
 	
-	public void levelUp() {
+	private void levelUp() {
 		
 		this.experience -= this.experienceForNextLevel;
 		
