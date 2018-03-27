@@ -31,10 +31,17 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	 * 
 	 */
 	
-	protected Entity(String stringRepr, HashMap<Orientation, Image> imageMap) {
+	protected Entity(String stringRepr, HashMap<Orientation, Image> imageMap, double health,
+			double attack, double defence, double speed, double accuracy, double crit) {
 		
 		this.stringRepr = stringRepr;
 		this.imageMap = imageMap;
+		this.health = health;
+		this.attack = attack;
+		this.defence = defence;
+		this.speed = speed;
+		this.accuracy = accuracy;
+		this.crit = crit;
 		
 	}
 	
@@ -48,6 +55,13 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	protected HashMap<Orientation, Image>	imageMap;
 	protected Point							position	= new Point(1, 1);
 	protected Orientation					orientation	= Orientation.SOUTH;
+	protected double						health;
+	protected double						attack;
+	protected double						defence;
+	protected double						speed;
+	protected double						accuracy;
+	protected double						crit;
+	
 	
 	/*
 	 * 
@@ -107,6 +121,54 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 			
 		}
 		
+	}
+	
+	public double getHealth() {
+		return this.health;
+	}
+	
+	public double getAttack() {
+		return this.attack;
+	}
+	
+	public double getDefence() {
+		return this.defence;
+	}
+	
+	public double getSpeed() {
+		return this.speed;
+	}
+	
+	public double getAccuracy() {
+		return this.accuracy;
+	}
+	
+	public double getCrit() {
+		return this.crit;
+	}
+	
+	public void setHealth(double newVal) {
+		this.health = newVal;
+	}
+	
+	public void setAttack(double newVal) {
+		this.attack = newVal;
+	}
+	
+	public void setDefence(double newVal) {
+		this.defence = newVal;
+	}
+	
+	public void setSpeed(double newVal) {
+		this.speed = newVal;
+	}
+	
+	public void setAccuracy(double newVal) {
+		this.accuracy = newVal;
+	}
+	
+	public void setCrit(double newVal) {
+		this.crit = newVal;
 	}
 	
 }

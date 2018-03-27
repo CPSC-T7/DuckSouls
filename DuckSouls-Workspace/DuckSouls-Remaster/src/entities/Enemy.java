@@ -14,13 +14,23 @@ public class Enemy extends Entity {
 	 * 
 	 */
 	
-	private static final int					BASE_HEALTH			= 20;
-	private static final int					BASE_DEFENSE		= 5;
-	private static final int					BASE_DAMAGE			= 10;
+	private static final double					BASE_HEALTH			= 20;
+	private static final double					BASE_ATTACK			= 6;
+	private static final double					BASE_DEFENCE		= 5;
+	private static final double					BASE_SPEED			= 5;
+	private static final double					BASE_ACCURACY		= 71;
+	private static final double					BASE_CRIT			= 16;
+
+	//private static final int					BASE_DAMAGE			= 10;
 	
-	private static final int					HEALTH_PER_LEVEL	= 5;
-	private static final int					DEFENSE_PER_LEVEL	= 5;
-	private static final int					DAMAGE_PER_LEVEL	= 5;
+	private static final int					HEALTH_PER_LEVEL	= 2;
+	private static final int					ATTACK_PER_LEVEL	= 1;
+	private static final int					DEFENCE_PER_LEVEL	= 2;
+	private static final int					SPEED_PER_LEVEL		= 1;
+	private static final int					ACCURACY_PER_LEVEL	= 2;
+	private static final int					CRIT_PER_LEVEL		= 2;
+	
+	//private static final int					DAMAGE_PER_LEVEL	= 5;
 	
 	private static final String					STRING_REPR			= " E ";
 	
@@ -64,12 +74,13 @@ public class Enemy extends Entity {
 	
 	public Enemy(Point position, int level) {
 		
-		super(STRING_REPR, IMAGE_MAP);
+		super(STRING_REPR, IMAGE_MAP, (BASE_HEALTH + (HEALTH_PER_LEVEL * level)), 
+				(BASE_ATTACK + (ATTACK_PER_LEVEL * level)), (BASE_DEFENCE + (DEFENCE_PER_LEVEL * level)),
+				(BASE_SPEED + (SPEED_PER_LEVEL * level)), (BASE_ACCURACY + (ACCURACY_PER_LEVEL * level)), 
+				(BASE_CRIT + (CRIT_PER_LEVEL * level)));
 		
-		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
-		this.defense = BASE_DEFENSE + (DEFENSE_PER_LEVEL * this.level);
-		this.damage = BASE_DAMAGE + (DAMAGE_PER_LEVEL * this.level);
 		this.level = level;
+		
 		
 	}
 	

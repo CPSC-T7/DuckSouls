@@ -18,12 +18,20 @@ public class Player extends Entity {
 	 * 
 	 */
 	
-	private static final int					BASE_HEALTH			= 20;
-	private static final int					BASE_DEFENSE		= 5;
+	private static final double					BASE_HEALTH			= 20;
+	private static final double					BASE_ATTACK			= 6;
+	private static final double					BASE_DEFENCE		= 5;
+	private static final double					BASE_SPEED			= 5;
+	private static final double					BASE_ACCURACY		= 71;
+	private static final double					BASE_CRIT			= 16;
 	private static final int					BASE_NEEDED_XP		= 20;
 	
-	private static final int					HEALTH_PER_LEVEL	= 5;
-	private static final int					DEFENSE_PER_LEVEL	= 5;
+	private static final int					HEALTH_PER_LEVEL	= 2;
+	private static final int					ATTACK_PER_LEVEL	= 1;
+	private static final int					DEFENCE_PER_LEVEL	= 2;
+	private static final int					SPEED_PER_LEVEL		= 1;
+	private static final int					ACCURACY_PER_LEVEL	= 2;
+	private static final int					CRIT_PER_LEVEL		= 2;
 	private static final int					NEEDED_XP_PER_LEVEL	= 10;
 	
 	private static final String					STRING_REPR			= " @ ";
@@ -59,8 +67,6 @@ public class Player extends Entity {
 	private Armour					armour;
 	private HashMap<Item, Integer>	inventory	= new HashMap<Item, Integer>();
 	
-	private int						health;
-	private int						defense;
 	private int						level;
 	private int						experience;
 	private int						experienceForNextLevel;
@@ -73,10 +79,9 @@ public class Player extends Entity {
 	
 	public Player(Point position) {
 		
-		super(STRING_REPR, IMAGE_MAP);
+		super(STRING_REPR, IMAGE_MAP, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED,
+				BASE_ACCURACY, BASE_CRIT);
 		
-		this.health = BASE_HEALTH;
-		this.defense = BASE_DEFENSE;
 		this.experience = 0;
 		this.level = 1;
 		
@@ -97,7 +102,7 @@ public class Player extends Entity {
 	@Override
 	public void receiveAttack(int damage) {
 		// TODO Actually do.
-		this.health = this.health - damage - this.defense - this.armour.getDefense(); // Placeholder
+		this.health = this.health - damage - this.defence - this.armour.getDefense(); // Placeholder
 	}
 	
 	public void addExperiece(int xp) {
@@ -117,7 +122,7 @@ public class Player extends Entity {
 		this.level++;
 		
 		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
-		this.defense = BASE_DEFENSE + (DEFENSE_PER_LEVEL * this.level);
+		this.defence = BASE_DEFENCE + (DEFENSE_PER_LEVEL * this.level);
 		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
 		
 	}
