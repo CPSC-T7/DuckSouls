@@ -12,6 +12,7 @@ import items.Consumable;
 import items.Item;
 import items.Weapon;
 import tests.StatisticTests;
+import tiles.Door;
 import tiles.GeneralTile;
 import tiles.Tile;
 import tiles.Wall;
@@ -25,7 +26,7 @@ public class Room {
 	 * 
 	 */
 	
-	protected static Random		_random				= new Random();
+	private static Random		_random				= new Random();
 	
 	/*
 	 * 
@@ -33,18 +34,18 @@ public class Room {
 	 * 
 	 */
 	
-	protected int				internalWidth;
-	protected int				internalHeight;
-	protected int				level;
-	protected int				enemySpawnChance	= 1;
+	private int					internalWidth;
+	private int					internalHeight;
+	private int					level;
+	private int					enemySpawnChance	= 1;
 	
-	protected Tile[][]			tileArray;
-	protected Item[][]			itemArray;
+	private Tile[][]			tileArray;
+	private Item[][]			itemArray;
 	
-	protected Player			player;
-	protected ArrayList<Enemy>	enemiesList			= new ArrayList<Enemy>();
+	private Player				player;
+	private ArrayList<Enemy>	enemiesList			= new ArrayList<Enemy>();
 	
-	protected String			roomName;
+	private String				roomName;
 	
 	/*
 	 * 
@@ -247,8 +248,6 @@ public class Room {
 			
 			if (entity instanceof Player) {
 				
-				
-				
 			} else {
 				
 				entity.setOrientation(orientation);
@@ -316,7 +315,7 @@ public class Room {
 	}
 	
 	/**
-	 * Removes an entity at a point in the entity array.
+	 * Removes an entity from the room.
 	 * 
 	 * @param entity
 	 *            The entity to remove.
@@ -325,8 +324,24 @@ public class Room {
 		
 		if (entity instanceof Player) {
 			this.player = null;
-		} else if (this.enemiesList.contains(entity)){
+		} else if (this.enemiesList.contains(entity)) {
 			this.enemiesList.remove((Enemy) entity);
+		}
+		
+	}
+	
+	/**
+	 * Removes an enemy at a point in the entity list.
+	 * 
+	 * @param position
+	 *            The position of the enemy to remove.
+	 */
+	public void removeEnemy(Point position) {
+		
+		for (Entity enemy : this.enemiesList) {
+			if (enemy.getPosition().equals(position)) {
+				this.enemiesList.remove(enemy);
+			}
 		}
 		
 	}
@@ -356,6 +371,39 @@ public class Room {
 		
 		return this.tileArray[pos.x][pos.y];
 		
+	}
+	
+	/**
+	 * Takes an array of points and places a door at every point.
+	 * 
+	 * @param doors
+	 *            The array of points to place doors at.
+	 */
+	public void placeDoors(Point[] doors) {
+		
+		for (Point pos : doors) {
+			
+			if (pos != null) {
+				
+				if (pos.x == 0) {
+					
+					this.setTile(pos, Door.DOOR_L); // Left Door
+					
+				} else if (pos.x == this.internalWidth + 1) {
+					
+					this.setTile(pos, Door.DOOR_R); // Right Door
+					
+				} else if (pos.y == 0) {
+					
+					this.setTile(pos, Door.DOOR_T); // Top Door
+					
+				} else {
+					
+					this.setTile(pos, Door.DOOR_B); // Bottom Door
+					
+				}
+			}
+		}
 	}
 	
 }

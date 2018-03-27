@@ -12,7 +12,7 @@ public enum Door implements Tile {
 	
 	DOOR_T(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Top")),
 	DOOR_B(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Bottom")),
-	DOOR_l(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Left")),
+	DOOR_L(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Left")),
 	DOOR_R(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Right"));
 	
 	/*
