@@ -13,10 +13,10 @@ public enum Consumable implements Item {
 	 * 
 	 */
 	
-	CROUTON("A Soggy Crouton", " C ", new Image(ITEM_SPRITE_FOLDER_PATH + "Crouton.png"), 30, 1, 0),
-	GOO("Some Weird Goo", " G ", new Image(ITEM_SPRITE_FOLDER_PATH + "Goo.png"), 15, 0, 20),
-	FISH("A Half-Eaten Fish", " F ", new Image(ITEM_SPRITE_FOLDER_PATH + "Fish.png"), 10, 15, 0),
-	BUGS("De Bugs", " B ", new Image(ITEM_SPRITE_FOLDER_PATH + "Bugs.png"), 50, 5, 5);
+	CROUTON("A Soggy Crouton", " C ", new Image(ITEM_SPRITE_FOLDER_PATH + "Crouton.png"), 30, 1),
+	GOO("Some Weird Goo", " G ", new Image(ITEM_SPRITE_FOLDER_PATH + "Goo.png"), 15, -5),
+	FISH("A Half-Eaten Fish", " F ", new Image(ITEM_SPRITE_FOLDER_PATH + "Fish.png"), 10, 15),
+	BUGS("De Bugs", " B ", new Image(ITEM_SPRITE_FOLDER_PATH + "Bugs.png"), 50, 5);
 	
 	/*
 	 * 
@@ -37,7 +37,6 @@ public enum Consumable implements Item {
 	private final Image		IMAGE;
 	private final int		SPAWN_CHANCE;
 	private final int		HEALTH_MOD;
-	private final int		MANA_MOD;
 	
 	/*
 	 * 
@@ -63,7 +62,7 @@ public enum Consumable implements Item {
 	 * @param manaMod
 	 *            The mana modifier of the consumable.
 	 */
-	private Consumable(String name, String stringRepr, Image image, int spawnChance, int healthMod, int manaMod) {
+	private Consumable(String name, String stringRepr, Image image, int spawnChance, int healthMod) {
 		
 		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
 		
@@ -72,7 +71,6 @@ public enum Consumable implements Item {
 		this.IMAGE = image;
 		this.SPAWN_CHANCE = spawnChance;
 		this.HEALTH_MOD = healthMod;
-		this.MANA_MOD = manaMod;
 		
 	}
 	
@@ -109,15 +107,6 @@ public enum Consumable implements Item {
 	 */
 	public int getHealthMod() {
 		return this.HEALTH_MOD;
-	}
-	
-	/**
-	 * Returns the consumable's mana modifier.
-	 * 
-	 * @return The consumable's mana modifier.
-	 */
-	public int getManaMod() {
-		return this.MANA_MOD;
 	}
 	
 }
