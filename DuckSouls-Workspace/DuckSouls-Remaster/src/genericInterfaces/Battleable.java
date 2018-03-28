@@ -37,5 +37,10 @@ public interface Battleable {
 	 */
 	public abstract void receiveAttack(double damage);
 	
+	/**
+	 * Increases and decreases the attack and defence of the target respectively.
+	 */
+	public abstract void taunted();
+	
 	
 }

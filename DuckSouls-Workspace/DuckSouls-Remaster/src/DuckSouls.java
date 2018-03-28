@@ -8,7 +8,7 @@
  * @author Wylee McAndrews
  * @author Cassie Platel
  * @author Rahmanta Satriana
- * @author Colin Yeung
+ * @author Colin Au Yeung
  *
  */
 public class DuckSouls {

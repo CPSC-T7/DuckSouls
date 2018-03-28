@@ -128,6 +128,12 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 		this.health = this.health - damage - this.defence;
 	}
 	
+	@Override
+	public void taunted() {
+		this.attack = this.attack + 5;
+		this.defence = this.defence - 5;
+	}
+	
 	public void move(Orientation direction) {
 		
 		switch (direction) {

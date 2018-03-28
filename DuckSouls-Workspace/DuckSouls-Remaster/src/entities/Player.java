@@ -70,6 +70,7 @@ public class Player extends Entity {
 	private int						level;
 	private int						experience;
 	private int						experienceForNextLevel;
+	private int						score;
 	
 	/*
 	 * 
@@ -84,6 +85,8 @@ public class Player extends Entity {
 		
 		this.experience = 0;
 		this.level = 1;
+		this.score = 0;
+		this.experienceForNextLevel = BASE_NEEDED_XP;
 		
 	}
 	
@@ -125,9 +128,12 @@ public class Player extends Entity {
 		this.experience -= this.experienceForNextLevel;
 		
 		this.level++;
-		
 		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
+		this.attack = BASE_ATTACK + (ATTACK_PER_LEVEL * this.level);
 		this.defence = BASE_DEFENCE + (DEFENCE_PER_LEVEL * this.level);
+		this.speed = BASE_SPEED + (SPEED_PER_LEVEL * this.level);
+		this.accuracy = BASE_ACCURACY + (ACCURACY_PER_LEVEL * this.level);
+		this.crit = BASE_CRIT + (CRIT_PER_LEVEL * this.level);
 		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
 		
 	}
@@ -154,6 +160,14 @@ public class Player extends Entity {
 			this.inventory.put(item, 1);
 		}
 		
+	}
+	
+	public void setScore(int addScore) {
+		this.score = this.score + addScore;
+	}
+	
+	public int getScore() {
+		return this.score;
 	}
 	
 }
