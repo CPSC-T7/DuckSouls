@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Random;
 
 import genericInterfaces.Battleable;
 import genericInterfaces.Drawable;
@@ -99,6 +100,34 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 		return this.imageMap.get(this.orientation);
 	}
 	
+	@Override
+	public double sendAttack() {
+		Random rand = new Random();
+		double damage;
+		int accChance;
+		int critChance; 
+		
+		accChance = rand.nextInt(100) + 1;
+		critChance = rand.nextInt(100) + 1;
+		damage = this.attack * 2.5;
+		damage = this.attackBonus(damage);
+		if(critChance < this.crit) {
+			damage = damage * 1.5;
+		}
+		if(accChance > this.accuracy) {
+			return 0;
+		}
+		else {
+			return damage;
+		}
+		
+	}
+	
+	@Override
+	public void receiveAttack(double damage) {	
+		this.health = this.health - damage - this.defence;
+	}
+	
 	public void move(Orientation direction) {
 		
 		switch (direction) {
@@ -121,6 +150,13 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 			
 		}
 		
+	}
+	
+	public double attackBonus(double damage) {
+		Random rand = new Random();
+		int bonus = rand.nextInt(11) - 5;
+		damage += bonus;
+		return damage;
 	}
 	
 	public double getHealth() {

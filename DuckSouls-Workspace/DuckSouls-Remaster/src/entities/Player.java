@@ -94,15 +94,20 @@ public class Player extends Entity {
 	 */
 	
 	@Override
-	public int sendAttack() {
-		// TODO Actually do.
-		return this.weapon.getDamage() * this.level; // Placeholder
+	public double sendAttack() {
+		double damage;
+		
+		damage = super.sendAttack();
+		if (damage != 0) {
+			damage = damage + this.weapon.getDamage();
+		}
+		return damage;
 	}
 	
 	@Override
-	public void receiveAttack(int damage) {
-		// TODO Actually do.
-		this.health = this.health - damage - this.defence - this.armour.getDefense(); // Placeholder
+	public void receiveAttack(double damage) {
+		super.receiveAttack(damage);
+		this.health = this.health + this.armour.getDefense(); // Placeholder
 	}
 	
 	public void addExperiece(int xp) {
@@ -122,7 +127,7 @@ public class Player extends Entity {
 		this.level++;
 		
 		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
-		this.defence = BASE_DEFENCE + (DEFENSE_PER_LEVEL * this.level);
+		this.defence = BASE_DEFENCE + (DEFENCE_PER_LEVEL * this.level);
 		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
 		
 	}

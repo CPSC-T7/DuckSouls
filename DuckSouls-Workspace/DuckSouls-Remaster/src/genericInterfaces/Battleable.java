@@ -26,7 +26,7 @@ public interface Battleable {
 	 * 
 	 * @return The amount of damage the entity should deal.
 	 */
-	public abstract int sendAttack();
+	public abstract double sendAttack();
 	
 	/**
 	 * Takes into account the entity's statistics and armour to decide how much
@@ -35,6 +35,7 @@ public interface Battleable {
 	 * @param damage
 	 *            The amount of damage the other entity dealt to this enemy.
 	 */
-	public abstract void receiveAttack(int damage);
+	public abstract void receiveAttack(double damage);
+	
 	
 }

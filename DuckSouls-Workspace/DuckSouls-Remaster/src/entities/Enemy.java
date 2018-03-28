@@ -61,9 +61,6 @@ public class Enemy extends Entity {
 	 * 
 	 */
 	
-	private int	health;
-	private int	defense;
-	private int	damage;
 	private int	level;
 	
 	/*
@@ -89,17 +86,5 @@ public class Enemy extends Entity {
 	 * METHODS
 	 * 
 	 */
-	
-	@Override
-	public int sendAttack() {
-		// TODO Actually do.
-		return this.damage; // Placeholder
-	}
-	
-	@Override
-	public void receiveAttack(int damage) {
-		// TODO Actually do.
-		this.health = this.health - damage - this.defense; // Placeholder
-	}
 	
 }
