@@ -3,10 +3,9 @@ package world;
 import java.awt.Point;
 import java.util.Random;
 
-import arcade_world.Room;
 import entities.Player;
 import tiles.GeneralTile;
-import tiles.Stairs;
+import utils.Orientation;
 
 public class Level {
 	
@@ -16,7 +15,7 @@ public class Level {
 	 * 
 	 */
 	
-	private static Random	_random							= new Random();
+	private static Random		_random					= new Random();
 	
 	/*
 	 * 
@@ -24,19 +23,19 @@ public class Level {
 	 * 
 	 */
 	
-	private final int		DEFAULT_LEVEL_SIZE				= 3;
-	private final int		DEFAULT_ROOM_SIZE				= 7;
-	private final int		DEFAULT_DIFFICULTY_PER_LEVEL	= 5;
+	private static final int	DEFAULT_LEVEL_SIZE		= 3;
+	private static final int	DEFAULT_ROOM_SIZE		= 7;
+	private static final int	DIFFICULTY_PER_LEVEL	= 5;
 	
-	private Room[][]		roomArray;
+	private Room[][]			roomArray;
 	
-	private Point			currentRoomPoint;
-	private Player			player;
-	private int				levelWidth, levelHeight;
-	private int				roomSize;
-	private int				enemySpawnChance;
-	private int				levelNum;
-	private int				difficultyPerLevel;
+	private Point				currentRoomPoint;
+	private Room				currentRoom;
+	private Player				player;
+	private int					levelWidth, levelHeight;
+	private int					roomSize;
+	private int					enemySpawnChance;
+	private int					levelNum;
 	
 	/*
 	 * 
@@ -44,15 +43,21 @@ public class Level {
 	 * 
 	 */
 	
-	public Level(int levelNum) {
+	public Level(int levelNum, Player player, Point currentRoomPoint) {
 		
 		this.levelWidth = DEFAULT_LEVEL_SIZE;
 		this.levelHeight = DEFAULT_LEVEL_SIZE;
 		this.roomSize = DEFAULT_ROOM_SIZE;
+		
 		this.levelNum = levelNum;
-		this.enemySpawnChance = levelNum * DEFAULT_DIFFICULTY_PER_LEVEL - DEFAULT_DIFFICULTY_PER_LEVEL;
+		this.enemySpawnChance = levelNum * DIFFICULTY_PER_LEVEL - DIFFICULTY_PER_LEVEL;
 		
 		this.genRoomArray();
+		
+		this.player = player;
+		this.currentRoomPoint = currentRoomPoint;
+		this.currentRoom = this.roomAt(this.currentRoomPoint);
+		this.currentRoom.addEntity(this.player);
 		
 	}
 	
@@ -149,6 +154,62 @@ public class Level {
 			}
 		}
 		
+	}
+	
+	/**
+	 * Moves the player to a different room in the room array.
+	 * 
+	 * @param direction
+	 *            The direction in the room array to move.
+	 */
+	public void moveRoom_Direction(Orientation direction) {
+		
+		Point newPlayerPoint = new Point(this.player.getPosition());
+		
+		// Remove the player from the old room
+		this.currentRoom.removeEntity(this.player);
+		
+		// Depending on the direction...
+		switch (direction) {
+			
+			case NORTH:
+				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y - 1);
+				newPlayerPoint.y = this.roomSize + 1;
+				break;
+			
+			case SOUTH:
+				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y + 1);
+				newPlayerPoint.y = 0;
+				break;
+			
+			case WEST:
+				this.currentRoomPoint = new Point(this.currentRoomPoint.x - 1, this.currentRoomPoint.y);
+				newPlayerPoint.x = this.roomSize + 1;
+				break;
+			
+			case EAST:
+				this.currentRoomPoint = new Point(this.currentRoomPoint.x + 1, this.currentRoomPoint.y);
+				newPlayerPoint.x = 0;
+				break;
+			
+		}
+		
+		// Place the player at the new position in the new room
+		this.player.setPosition(newPlayerPoint);
+		this.player.setOrientation(direction);
+		this.currentRoom.addEntity(this.player);
+		
+	}
+	
+	/**
+	 * Returns the room at a certain point in the room array.
+	 * 
+	 * @param position
+	 *            The position of the room to get.
+	 * @return The room at that position.
+	 */
+	public Room roomAt(Point position) {
+		return (Room) this.roomArray[position.x][position.y];
 	}
 	
 }

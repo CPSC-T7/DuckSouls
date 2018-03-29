@@ -11,6 +11,7 @@ import items.Armour;
 import items.Consumable;
 import items.Item;
 import items.Weapon;
+import javafx.scene.image.Image;
 import tests.StatisticTests;
 import tiles.Door;
 import tiles.GeneralTile;
@@ -43,9 +44,7 @@ public class Room {
 	private Item[][]			itemArray;
 	
 	private Player				player;
-	private ArrayList<Enemy>	enemiesList			= new ArrayList<Enemy>();
-	
-	private String				roomName;
+	private ArrayList<Enemy>	enemyList			= new ArrayList<Enemy>();
 	
 	/*
 	 * 
@@ -87,6 +86,87 @@ public class Room {
 	 * METHODS
 	 * 
 	 */
+	
+	/**
+	 * STRINGS!
+	 * 
+	 * @return
+	 */
+	public String[][] getAllTextSprites() {
+		
+		String[][] textSprites = new String[this.internalWidth + 2][this.internalHeight + 2];
+		
+		for (int x = 0; x < this.internalWidth + 2; x++) {
+			for (int y = 0; y < this.internalWidth + 2; y++) {
+				
+				// Tiles
+				textSprites[x][y] = this.tileArray[x][y].getStringRepr();
+				
+				// Items
+				if (this.itemArray[x][y] != null) {
+					textSprites[x][y] = this.itemArray[x][y].getStringRepr();
+				}
+				
+			}
+		}
+		
+		// Enemies
+		for (Enemy enemy : this.enemyList) {
+			Point enemyPos = enemy.getPosition();
+			textSprites[enemyPos.x][enemyPos.y] = enemy.getStringRepr();
+		}
+		
+		// Player
+		Point playerPos = this.player.getPosition();
+		textSprites[playerPos.x][playerPos.y] = this.player.getStringRepr();
+		
+		return textSprites;
+		
+	}
+	
+	/**
+	 * IMAGES! <br>
+	 * <br>
+	 * Third Array Indexing:
+	 * <ul>
+	 * <li>0 --> Tiles
+	 * <li>1 --> Items
+	 * <li>2 --> Entities (Player > Enemy)
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public Image[][][] getAllImageSprites() {
+		
+		Image[][][] imageSprites = new Image[this.internalWidth + 2][this.internalHeight + 2][3];
+		
+		for (int x = 0; x < this.internalWidth + 2; x++) {
+			for (int y = 0; y < this.internalWidth + 2; y++) {
+				
+				// Tiles
+				imageSprites[x][y][0] = this.tileArray[x][y].getImage();
+				
+				// Items
+				if (this.itemArray[x][y] != null) {
+					imageSprites[x][y][1] = this.itemArray[x][y].getImage();
+				}
+				
+			}
+		}
+		
+		// Enemies
+		for (Enemy enemy : this.enemyList) {
+			Point enemyPos = enemy.getPosition();
+			imageSprites[enemyPos.x][enemyPos.y][2] = enemy.getImage();
+		}
+		
+		//Player
+		Point playerPos = this.player.getPosition();
+		imageSprites[playerPos.x][playerPos.y][2] = this.player.getImage();
+		
+		return imageSprites;
+		
+	}
 	
 	/**
 	 * Generates and appends a tile array to the instance. Makes the tile array 2
@@ -240,6 +320,39 @@ public class Room {
 		
 	}
 	
+	/**
+	 * Takes an array of points and places a door at every point.
+	 * 
+	 * @param doors
+	 *            The array of points to place doors at.
+	 */
+	public void placeDoors(Point[] doors) {
+		
+		for (Point pos : doors) {
+			
+			if (pos != null) {
+				
+				if (pos.x == 0) {
+					
+					this.setTile(pos, Door.DOOR_L); // Left Door
+					
+				} else if (pos.x == this.internalWidth + 1) {
+					
+					this.setTile(pos, Door.DOOR_R); // Right Door
+					
+				} else if (pos.y == 0) {
+					
+					this.setTile(pos, Door.DOOR_T); // Top Door
+					
+				} else {
+					
+					this.setTile(pos, Door.DOOR_B); // Bottom Door
+					
+				}
+			}
+		}
+	}
+	
 	public void moveEntity(Entity entity, Orientation orientation) {
 		
 		Point moveTo = Orientation.pointAtDirection(entity.getPosition(), orientation);
@@ -260,45 +373,6 @@ public class Room {
 	}
 	
 	/**
-	 * Gets the item at a specific point in a room.
-	 * 
-	 * @param pos
-	 *            The position to look at.
-	 * @return The item at position.
-	 */
-	public Item itemAt(Point pos) {
-		
-		return this.itemArray[pos.x][pos.y];
-		
-	}
-	
-	/**
-	 * Sets a position at a point in the item array to a specific item.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the entity to change.
-	 * @param item
-	 *            The item to set the position to.
-	 */
-	public void placeItem(Point position, Item item) {
-		
-		this.itemArray[position.x][position.y] = item;
-		
-	}
-	
-	/**
-	 * Removes an item at a point in the item array.
-	 * 
-	 * @param position
-	 *            A java.awt.Point specifying the entity to remove.
-	 */
-	public void removeItem(Point position) {
-		
-		this.itemArray[position.x][position.y] = null;
-		
-	}
-	
-	/**
 	 * Adds an entity to the room.
 	 * 
 	 * @param entity
@@ -309,7 +383,7 @@ public class Room {
 		if (entity instanceof Player) {
 			this.player = (Player) entity;
 		} else {
-			this.enemiesList.add((Enemy) entity);
+			this.enemyList.add((Enemy) entity);
 		}
 		
 	}
@@ -324,8 +398,8 @@ public class Room {
 		
 		if (entity instanceof Player) {
 			this.player = null;
-		} else if (this.enemiesList.contains(entity)) {
-			this.enemiesList.remove((Enemy) entity);
+		} else if (this.enemyList.contains(entity)) {
+			this.enemyList.remove((Enemy) entity);
 		}
 		
 	}
@@ -338,9 +412,9 @@ public class Room {
 	 */
 	public void removeEnemy(Point position) {
 		
-		for (Entity enemy : this.enemiesList) {
+		for (Entity enemy : this.enemyList) {
 			if (enemy.getPosition().equals(position)) {
-				this.enemiesList.remove(enemy);
+				this.enemyList.remove(enemy);
 			}
 		}
 		
@@ -374,36 +448,42 @@ public class Room {
 	}
 	
 	/**
-	 * Takes an array of points and places a door at every point.
+	 * Sets a position at a point in the item array to a specific item.
 	 * 
-	 * @param doors
-	 *            The array of points to place doors at.
+	 * @param position
+	 *            A java.awt.Point specifying the entity to change.
+	 * @param item
+	 *            The item to set the position to.
 	 */
-	public void placeDoors(Point[] doors) {
+	public void placeItem(Point position, Item item) {
 		
-		for (Point pos : doors) {
-			
-			if (pos != null) {
-				
-				if (pos.x == 0) {
-					
-					this.setTile(pos, Door.DOOR_L); // Left Door
-					
-				} else if (pos.x == this.internalWidth + 1) {
-					
-					this.setTile(pos, Door.DOOR_R); // Right Door
-					
-				} else if (pos.y == 0) {
-					
-					this.setTile(pos, Door.DOOR_T); // Top Door
-					
-				} else {
-					
-					this.setTile(pos, Door.DOOR_B); // Bottom Door
-					
-				}
-			}
-		}
+		this.itemArray[position.x][position.y] = item;
+		
+	}
+	
+	/**
+	 * Removes an item at a point in the item array.
+	 * 
+	 * @param position
+	 *            A java.awt.Point specifying the entity to remove.
+	 */
+	public void removeItem(Point position) {
+		
+		this.itemArray[position.x][position.y] = null;
+		
+	}
+	
+	/**
+	 * Gets the item at a specific point in a room.
+	 * 
+	 * @param pos
+	 *            The position to look at.
+	 * @return The item at position.
+	 */
+	public Item itemAt(Point pos) {
+		
+		return this.itemArray[pos.x][pos.y];
+		
 	}
 	
 }
