@@ -3,8 +3,14 @@ package world;
 import java.awt.Point;
 import java.util.Random;
 
+import entities.Enemy;
 import entities.Player;
+import javafx.scene.image.Image;
+import tests.PositionTests;
+import tiles.Door;
 import tiles.GeneralTile;
+import utils.GameEvent;
+import utils.GameEventQue;
 import utils.Orientation;
 
 public class Level {
@@ -66,6 +72,26 @@ public class Level {
 	 * METHODS
 	 * 
 	 */
+	
+	public String[][] getCurrentTextSprites() {
+		return this.currentRoom.getAllTextSprites();
+	}
+	
+	/**
+	 * IMAGES! <br>
+	 * <br>
+	 * Third Array Indexing:
+	 * <ul>
+	 * <li>0 --> Tiles
+	 * <li>1 --> Items
+	 * <li>2 --> Entities (Player > Enemy)
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public Image[][][] getCurrentImageSprites() {
+		return this.currentRoom.getAllImageSprites();
+	}
 	
 	private void genRoomArray() {
 		
@@ -173,31 +199,87 @@ public class Level {
 		switch (direction) {
 			
 			case NORTH:
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y - 1);
 				newPlayerPoint.y = this.roomSize + 1;
 				break;
 			
 			case SOUTH:
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x, this.currentRoomPoint.y + 1);
 				newPlayerPoint.y = 0;
 				break;
 			
-			case WEST:
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x - 1, this.currentRoomPoint.y);
-				newPlayerPoint.x = this.roomSize + 1;
-				break;
-			
 			case EAST:
-				this.currentRoomPoint = new Point(this.currentRoomPoint.x + 1, this.currentRoomPoint.y);
 				newPlayerPoint.x = 0;
 				break;
 			
+			case WEST:
+				newPlayerPoint.x = this.roomSize + 1;
+				break;
+			
 		}
+		
+		this.currentRoomPoint = Orientation.pointAtDirection(this.currentRoomPoint, direction);
 		
 		// Place the player at the new position in the new room
 		this.player.setPosition(newPlayerPoint);
 		this.player.setOrientation(direction);
 		this.currentRoom.addEntity(this.player);
+		
+	}
+	
+	public void movePlayer(Orientation direction) {
+		
+		Point newPlayerPoint = Orientation.pointAtDirection(this.player.getPosition(), direction);
+		this.player.setOrientation(direction);
+		
+		if (!(this.currentRoom.tileAt(this.player.getPosition()) instanceof Door)) {
+			PositionTests.testPointInRoom(this.currentRoom, newPlayerPoint);
+		}
+		
+		switch (direction) {
+			
+			case NORTH:
+				if (newPlayerPoint.y == -1) {
+					this.moveRoom_Direction(direction);
+				}
+				break;
+			
+			case SOUTH:
+				if (newPlayerPoint.y == this.currentRoom.getInternalHeight() + 2) {
+					this.moveRoom_Direction(direction);
+				}
+				break;
+			
+			case EAST:
+				if (newPlayerPoint.x == -1) {
+					this.moveRoom_Direction(direction);
+				}
+				break;
+			
+			case WEST:
+				if (newPlayerPoint.x == this.currentRoom.getInternalWidth() + 2) {
+					this.moveRoom_Direction(direction);
+				}
+				break;
+			
+		}
+		
+		if (this.currentRoom.tileAt(newPlayerPoint).getCanWalkOn()) {
+			this.player.setPosition(newPlayerPoint);
+		}
+		
+		if (this.currentRoom.itemAt(this.player.getPosition()) != null) {
+			this.player.pickupItem(this.currentRoom.itemAt(this.player.getPosition()));
+			this.currentRoom.removeItem(this.player.getPosition());
+		}
+		
+		for (Enemy enemy : this.currentRoom.getEnemyList()) {
+			if (enemy.getPosition().equals(this.player.getPosition())) {
+				GameEventQue.addEvent(GameEvent.BATTLE);
+			}
+		}
+		
+		if (this.currentRoom.tileAt(this.player.getPosition()) == GeneralTile.STAIRS) {
+			GameEventQue.addEvent(GameEvent.LEVEL_CHANGE);
+		}
 		
 	}
 	
