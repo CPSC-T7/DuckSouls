@@ -17,7 +17,6 @@ import tiles.Door;
 import tiles.GeneralTile;
 import tiles.Tile;
 import tiles.Wall;
-import utils.Orientation;
 
 public class Room {
 	
@@ -353,25 +352,6 @@ public class Room {
 		}
 	}
 	
-	public void moveEntity(Entity entity, Orientation orientation) {
-		
-		Point moveTo = Orientation.pointAtDirection(entity.getPosition(), orientation);
-		
-		if (this.tileAt(moveTo).getCanWalkOn()) {
-			
-			if (entity instanceof Player) {
-				
-			} else {
-				
-				entity.setOrientation(orientation);
-				entity.setPosition(moveTo);
-				
-			}
-			
-		}
-		
-	}
-	
 	/**
 	 * Adds an entity to the room.
 	 * 
@@ -484,6 +464,18 @@ public class Room {
 		
 		return this.itemArray[pos.x][pos.y];
 		
+	}
+	
+	public int getInternalWidth() {
+		return this.internalWidth;
+	}
+	
+	public int getInternalHeight() {
+		return this.internalHeight;
+	}
+	
+	public ArrayList<Enemy> getEnemyList(){
+		return this.enemyList;
 	}
 	
 }
