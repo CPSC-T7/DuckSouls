@@ -35,8 +35,8 @@ public class Level {
 	
 	private Room[][]			roomArray;
 	
+	public Room					currentRoom;
 	private Point				currentRoomPoint;
-	private Room				currentRoom;
 	private Player				player;
 	private int					levelWidth, levelHeight;
 	private int					roomSize;
@@ -292,6 +292,10 @@ public class Level {
 	 */
 	public Room roomAt(Point position) {
 		return (Room) this.roomArray[position.x][position.y];
+	}
+	
+	public Point getCurrentRoomPoint() {
+		return new Point(this.currentRoomPoint);
 	}
 	
 }

@@ -7,22 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import javafx.application.Application;
 
-public class GameState implements Serializable {
-	
-	/*
-	 * 
-	 * STATIC VARIABLES
-	 * 
-	 */
-	
-	/**
-	 * Serial Version UID that was generated.
-	 */
-	private static final long	serialVersionUID	= -7324970970860461971L;
+@Deprecated
+public class GameState {
 	
 	/*
 	 * 
@@ -30,29 +19,9 @@ public class GameState implements Serializable {
 	 * 
 	 */
 	
-	private boolean				isStory;
-	private boolean				isGUI;
-	
-	/*
-	 * 
-	 * CONSTRUCTORS
-	 * 
-	 */
-	
-	/**
-	 * Creates a new Game State.
-	 * 
-	 * @param isStory
-	 *            If the game is in Story mode. (Arcade = false)
-	 * @param isGUI
-	 *            If the game is in GUI mode. (Text = false)
-	 */
-	public GameState(boolean isStory, boolean isGUI) {
-		
-		this.isStory = isStory;
-		this.isGUI = isGUI;
-		
-	}
+	private static boolean		isStory;
+	private static boolean		isGUI;
+	private static Controller	gameController;
 	
 	/*
 	 * 
@@ -94,23 +63,17 @@ public class GameState implements Serializable {
 		
 	}
 	
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
-	
 	/**
 	 * Saves this GameState object to a binary file.
 	 * 
 	 * @param binaryFileName
 	 *            The name of the binary file in ../Saves/ to save to.
 	 */
-	public void saveState(String binaryFileName) {
+	public static void saveState(String binaryFileName) {
 		
 		try (ObjectOutputStream obj_OS = new ObjectOutputStream(new FileOutputStream(new File(binaryFileName)))) {
 			
-			obj_OS.writeObject(this);
+			obj_OS.writeObject(gameController);
 			
 		} catch (FileNotFoundException e) {
 			
@@ -124,17 +87,9 @@ public class GameState implements Serializable {
 		
 	}
 	
-	public void play() {
+	public static void play() {
 		
-		if (this.isGUI) {
-			
-			Application.launch(Controller_GUI.class, new String[] { Boolean.toString(this.isStory) });
-			
-		} else {
-			
-			Controller_Text.play(this.isStory);
-			
-		}
+		gameController.mainLoop();
 		
 	}
 	
