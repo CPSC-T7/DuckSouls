@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javafx.application.Application;
-
 @Deprecated
 public class GameState {
 	
@@ -19,7 +17,9 @@ public class GameState {
 	 * 
 	 */
 	
+	@SuppressWarnings("unused")
 	private static boolean		isStory;
+	@SuppressWarnings("unused")
 	private static boolean		isGUI;
 	private static Controller	gameController;
 	

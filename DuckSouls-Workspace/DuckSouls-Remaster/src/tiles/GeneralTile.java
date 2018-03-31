@@ -10,10 +10,10 @@ public enum GeneralTile implements Tile {
 	 * 
 	 */
 	
-	EMPTY("   ", new Image(TILE_SPRITE_FOLDER_PATH + "Empty.png"), false),
-	FLOOR("   ", new Image(TILE_SPRITE_FOLDER_PATH + "Floor.png"), true),
-	PATH(" . ", new Image(TILE_SPRITE_FOLDER_PATH + "Path.png"), true),
-	STAIRS("/=/", new Image(TILE_SPRITE_FOLDER_PATH + "Stairs.png"), true);
+	EMPTY("   ", "Empty.png", false),
+	FLOOR("   ", "Floor.png", true),
+	PATH(" . ", "Path.png", true),
+	STAIRS("/=/", "Stairs.png", true);
 	
 	/*
 	 * 
@@ -22,7 +22,7 @@ public enum GeneralTile implements Tile {
 	 */
 	
 	private final String	STRING_REPR;
-	private final Image		IMAGE;
+	private final String	IMAGE_NAME;
 	private final boolean	CAN_WALK_ON;
 	
 	/*
@@ -31,10 +31,10 @@ public enum GeneralTile implements Tile {
 	 * 
 	 */
 	
-	private GeneralTile(String stringRepr, Image image, boolean canWalkOn) {
+	private GeneralTile(String stringRepr, String imageName, boolean canWalkOn) {
 		
 		this.STRING_REPR = stringRepr;
-		this.IMAGE = image;
+		this.IMAGE_NAME = imageName;
 		this.CAN_WALK_ON = canWalkOn;
 		
 	}
@@ -47,7 +47,7 @@ public enum GeneralTile implements Tile {
 	
 	@Override
 	public Image getImage() {
-		return this.IMAGE;
+		return new Image(TILE_SPRITE_FOLDER_PATH + this.IMAGE_NAME);
 	}
 	
 	@Override

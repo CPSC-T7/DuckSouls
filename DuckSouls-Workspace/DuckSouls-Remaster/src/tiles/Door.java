@@ -10,10 +10,10 @@ public enum Door implements Tile {
 	 * 
 	 */
 	
-	DOOR_T(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Top")),
-	DOOR_B(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Bottom")),
-	DOOR_L(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Left")),
-	DOOR_R(" D ", new Image(TILE_SPRITE_FOLDER_PATH + "Door-Right"));
+	DOOR_T(" D ", "Door-Top"),
+	DOOR_B(" D ", "Door-Bottom"),
+	DOOR_L(" D ", "Door-Left"),
+	DOOR_R(" D ", "Door-Right");
 	
 	/*
 	 * 
@@ -22,8 +22,8 @@ public enum Door implements Tile {
 	 */
 	
 	private final String	STRING_REPR;
-	private final Image		IMAGE;
-	private boolean			CAN_WALK_ON = true;
+	private final String	IMAGE_NAME;
+	private boolean			CAN_WALK_ON	= true;
 	
 	/*
 	 * 
@@ -37,13 +37,13 @@ public enum Door implements Tile {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the wall in the text version
 	 *            of the game.
-	 * @param image
+	 * @param imageName
 	 *            The image used to draw the wall in the GUI version of the game.
 	 */
-	private Door(String stringRepr, Image image) {
+	private Door(String stringRepr, String imageName) {
 		
 		this.STRING_REPR = stringRepr;
-		this.IMAGE = image;
+		this.IMAGE_NAME = imageName;
 		
 	}
 	
@@ -55,7 +55,7 @@ public enum Door implements Tile {
 	
 	@Override
 	public Image getImage() {
-		return this.IMAGE;
+		return new Image(TILE_SPRITE_FOLDER_PATH + this.IMAGE_NAME);
 	}
 	
 	@Override

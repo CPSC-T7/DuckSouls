@@ -1,13 +1,11 @@
 package entities;
 
 import java.awt.Point;
-import java.util.Collections;
 import java.util.HashMap;
 
 import items.Armour;
 import items.Item;
 import items.Weapon;
-import utils.Orientation;
 import javafx.scene.image.Image;
 
 public class Player extends Entity {
@@ -36,41 +34,20 @@ public class Player extends Entity {
 	
 	private static final String					STRING_REPR			= " @ ";
 	
-	private static HashMap<Orientation, Image>	IMAGE_MAP;
-	
-	/**
-	 * Anonymous inner class to fill the image map, and the make it "unmodifiable".
-	 */
-	static {
-		
-		// Temporary map to fill
-		HashMap<Orientation, Image> fillerMap = new HashMap<Orientation, Image>();
-		
-		// Fill the map with the desired image for each orientation
-		for (Orientation orientation : Orientation.values()) {
-			fillerMap.put(orientation, new Image(ENTITY_SPRITE_FOLDER_PATH + "Duck/Duck-" + orientation.STR + ".png"));
-		}
-		
-		// Set the static image map.
-		// It's not final, but it is "unmodifiable"... so that's good enough I guess?
-		Player.IMAGE_MAP = (HashMap<Orientation, Image>) Collections.unmodifiableMap(fillerMap);
-		
-	}
-	
 	/*
 	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
-	private Weapon					weapon;
-	private Armour					armour;
-	private HashMap<Item, Integer>	inventory	= new HashMap<Item, Integer>();
+	private Weapon								weapon				= Weapon.NONE;
+	private Armour								armour				= Armour.NONE;
+	private HashMap<Item, Integer>				inventory			= new HashMap<Item, Integer>();
 	
-	private int						level;
-	private int						experience;
-	private int						experienceForNextLevel;
-	private int						score;
+	private int									level;
+	private int									experience;
+	private int									experienceForNextLevel;
+	private int									score;
 	
 	/*
 	 * 
@@ -80,8 +57,7 @@ public class Player extends Entity {
 	
 	public Player(Point position) {
 		
-		super(STRING_REPR, IMAGE_MAP, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED,
-				BASE_ACCURACY, BASE_CRIT);
+		super(STRING_REPR, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED, BASE_ACCURACY, BASE_CRIT);
 		
 		this.experience = 0;
 		this.level = 1;
@@ -95,6 +71,11 @@ public class Player extends Entity {
 	 * METHODS
 	 * 
 	 */
+	
+	@Override
+	public Image getImage() {
+		return new Image(ENTITY_SPRITE_FOLDER_PATH + "Duck/Duck-" + this.orientation.STR + ".png");
+	}
 	
 	@Override
 	public double sendAttack() {
@@ -168,6 +149,22 @@ public class Player extends Entity {
 	
 	public int getScore() {
 		return this.score;
+	}
+	
+	public HashMap<Item, Integer> getInventory() {
+		return this.inventory;
+	}
+	
+	public Weapon getWeapon() {
+		return this.weapon;
+	}
+	
+	public Armour getArmour() {
+		return this.armour;
+	}
+	
+	public int getExperience() {
+		return this.experience;
 	}
 	
 }

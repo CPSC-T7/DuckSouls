@@ -99,11 +99,11 @@ public class Room {
 			for (int y = 0; y < this.internalWidth + 2; y++) {
 				
 				// Tiles
-				textSprites[x][y] = this.tileArray[x][y].getStringRepr();
+				textSprites[y][x] = this.tileArray[x][y].getStringRepr();
 				
 				// Items
 				if (this.itemArray[x][y] != null) {
-					textSprites[x][y] = this.itemArray[x][y].getStringRepr();
+					textSprites[y][x] = this.itemArray[x][y].getStringRepr();
 				}
 				
 			}
@@ -112,12 +112,12 @@ public class Room {
 		// Enemies
 		for (Enemy enemy : this.enemyList) {
 			Point enemyPos = enemy.getPosition();
-			textSprites[enemyPos.x][enemyPos.y] = enemy.getStringRepr();
+			textSprites[enemyPos.y][enemyPos.x] = enemy.getStringRepr();
 		}
 		
 		// Player
 		Point playerPos = this.player.getPosition();
-		textSprites[playerPos.x][playerPos.y] = this.player.getStringRepr();
+		textSprites[playerPos.y][playerPos.x] = this.player.getStringRepr();
 		
 		return textSprites;
 		
@@ -397,6 +397,23 @@ public class Room {
 				this.enemyList.remove(enemy);
 			}
 		}
+		
+	}
+	
+	/**
+	 * Gets an enemy at a point in the entity list.
+	 * 
+	 * @param position
+	 *            The position of the enemy to get.
+	 */
+	public Enemy enemyAt(Point position) {
+		
+		for (Enemy enemy : this.enemyList) {
+			if (enemy.getPosition().equals(position)) {
+				return enemy;
+			}
+		}
+		return null;
 		
 	}
 	

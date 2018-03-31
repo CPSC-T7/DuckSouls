@@ -11,8 +11,8 @@ import java.awt.Point;
 public enum Orientation {
 	
 	NORTH("Up"),
-	EAST("Right"),
 	SOUTH("Down"),
+	EAST("Right"),
 	WEST("Left");
 	
 	public final String STR; // For basic access

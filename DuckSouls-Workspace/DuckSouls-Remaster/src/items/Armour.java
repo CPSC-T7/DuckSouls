@@ -12,10 +12,11 @@ public enum Armour implements Item {
 	 * 
 	 */
 	
-	CLOTH_ARMOUR("A Torn Sack", " CA", new Image(ITEM_SPRITE_FOLDER_PATH + "ClothArmour.png"), 8, 5),
-	LEATHER_ARMOUR("An Old Leather Tunic", " LA", new Image(ITEM_SPRITE_FOLDER_PATH + "LeatherArmour.png"), 6, 10),
-	METAL_ARMOUR("A Broken Washing Machine", " MA", new Image(ITEM_SPRITE_FOLDER_PATH + "MetalArmour.png"), 4, 20);
-
+	CLOTH_ARMOUR("A Torn Sack", " CA", "ClothArmour.png", 8, 5),
+	LEATHER_ARMOUR("An Old Leather Tunic", " LA", "LeatherArmour.png", 6, 10),
+	METAL_ARMOUR("A Broken Washing Machine", " MA", "MetalArmour.png", 4, 20),
+	NONE("My Soft Feathers", null, null, 0, 0);
+	
 	/*
 	 * 
 	 * STATIC VARIABLES
@@ -32,7 +33,7 @@ public enum Armour implements Item {
 	
 	private final String	NAME;
 	private final String	STRING_REPR;
-	private final Image		IMAGE;
+	private final String	IMAGE_NAME;
 	private final int		SPAWN_CHANCE;
 	private final int		DEFENSE;
 	
@@ -50,20 +51,21 @@ public enum Armour implements Item {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the armour in the text version
 	 *            of the game.
-	 * @param image
-	 *            The image used to draw the armour in the GUI version of the game.
+	 * @param imageName
+	 *            The name of the image used to draw the armour in the GUI version
+	 *            of the game.
 	 * @param spawnChance
 	 *            The spawn chance of the armour. Must be 0-100.
 	 * @param defense
 	 *            The defense statistic of the armour.
 	 */
-	private Armour(String name, String stringRepr, Image image, int spawnChance, int defense) {
+	private Armour(String name, String stringRepr, String imageName, int spawnChance, int defense) {
 		
 		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
 		
 		this.NAME = name;
 		this.STRING_REPR = stringRepr;
-		this.IMAGE = image;
+		this.IMAGE_NAME = imageName;
 		this.SPAWN_CHANCE = spawnChance;
 		this.DEFENSE = defense;
 		
@@ -77,7 +79,7 @@ public enum Armour implements Item {
 	
 	@Override
 	public Image getImage() {
-		return this.IMAGE;
+		return new Image(ITEM_SPRITE_FOLDER_PATH + this.IMAGE_NAME);
 	}
 	
 	@Override

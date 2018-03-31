@@ -10,14 +10,14 @@ public enum Wall implements Tile {
 	 * 
 	 */
 	
-	WALL_T("═══", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Top.png")),
-	WALL_B("═══", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Bottom.png")),
-	WALL_L(" ║ ", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Left.png")),
-	WALL_R(" ║ ", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Right.png")),
-	WALL_TL(" ╔═", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Top-Left.png")),
-	WALL_TR("═╗ ", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Top-Right.png")),
-	WALL_BL(" ╚═", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Bottom-Left.png")),
-	WALL_BR("═╝ ", new Image(TILE_SPRITE_FOLDER_PATH + "Wall-Bottom-Right.png"));
+	WALL_T("═══", "Wall-Top.png"),
+	WALL_B("═══", "Wall-Bottom.png"),
+	WALL_L(" ║ ", "Wall-Left.png"),
+	WALL_R(" ║ ", "Wall-Right.png"),
+	WALL_TL(" ╔═", "Wall-Top-Left.png"),
+	WALL_TR("═╗ ", "Wall-Top-Right.png"),
+	WALL_BL(" ╚═", "Wall-Bottom-Left.png"),
+	WALL_BR("═╝ ", "Wall-Bottom-Right.png");
 	
 	/*
 	 * 
@@ -26,7 +26,7 @@ public enum Wall implements Tile {
 	 */
 	
 	private final String	STRING_REPR;
-	private final Image		IMAGE;
+	private final String	IMAGE_NAME;
 	private final boolean	CAN_WALK_ON	= false;
 	
 	/*
@@ -41,13 +41,14 @@ public enum Wall implements Tile {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the wall in the text version
 	 *            of the game.
-	 * @param image
-	 *            The image used to draw the wall in the GUI version of the game.
+	 * @param imageName
+	 *            The name of the image used to draw the wall in the GUI version of
+	 *            the game.
 	 */
-	private Wall(String stringRepr, Image image) {
+	private Wall(String stringRepr, String imageName) {
 		
 		this.STRING_REPR = stringRepr;
-		this.IMAGE = image;
+		this.IMAGE_NAME = imageName;
 		
 	}
 	
@@ -59,7 +60,7 @@ public enum Wall implements Tile {
 	
 	@Override
 	public Image getImage() {
-		return this.IMAGE;
+		return new Image(TILE_SPRITE_FOLDER_PATH + this.IMAGE_NAME);
 	}
 	
 	@Override

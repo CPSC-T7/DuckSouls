@@ -13,10 +13,10 @@ public enum Consumable implements Item {
 	 * 
 	 */
 	
-	CROUTON("A Soggy Crouton", " C ", new Image(ITEM_SPRITE_FOLDER_PATH + "Crouton.png"), 30, 1),
-	GOO("Some Weird Goo", " G ", new Image(ITEM_SPRITE_FOLDER_PATH + "Goo.png"), 15, -5),
-	FISH("A Half-Eaten Fish", " F ", new Image(ITEM_SPRITE_FOLDER_PATH + "Fish.png"), 10, 15),
-	BUGS("De Bugs", " B ", new Image(ITEM_SPRITE_FOLDER_PATH + "Bugs.png"), 50, 5);
+	CROUTON("A Soggy Crouton", " C ", "Crouton.png", 30, 1),
+	GOO("Some Weird Goo", " G ", "Goo.png", 15, -5),
+	FISH("A Half-Eaten Fish", " F ", "Fish.png", 10, 15),
+	BUGS("De Bugs", " B ", "Bugs.png", 50, 5);
 	
 	/*
 	 * 
@@ -34,7 +34,7 @@ public enum Consumable implements Item {
 	
 	private final String	NAME;
 	private final String	STRING_REPR;
-	private final Image		IMAGE;
+	private final String	IMAGE_NAME;
 	private final int		SPAWN_CHANCE;
 	private final int		HEALTH_MOD;
 	
@@ -52,9 +52,9 @@ public enum Consumable implements Item {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the consumable in the text
 	 *            version of the game.
-	 * @param image
-	 *            The image used to draw the consumable in the GUI version of the
-	 *            game.
+	 * @param imageName
+	 *            The name of the image used to draw the consumable in the GUI
+	 *            version of the game.
 	 * @param spawnChance
 	 *            The spawn chance of the consumable. Must be 0-100.
 	 * @param healthMod
@@ -62,13 +62,13 @@ public enum Consumable implements Item {
 	 * @param manaMod
 	 *            The mana modifier of the consumable.
 	 */
-	private Consumable(String name, String stringRepr, Image image, int spawnChance, int healthMod) {
+	private Consumable(String name, String stringRepr, String imageName, int spawnChance, int healthMod) {
 		
 		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
 		
 		this.NAME = name;
 		this.STRING_REPR = stringRepr;
-		this.IMAGE = image;
+		this.IMAGE_NAME = imageName;
 		this.SPAWN_CHANCE = spawnChance;
 		this.HEALTH_MOD = healthMod;
 		
@@ -82,7 +82,7 @@ public enum Consumable implements Item {
 	
 	@Override
 	public Image getImage() {
-		return this.IMAGE;
+		return new Image(ITEM_SPRITE_FOLDER_PATH + this.IMAGE_NAME);
 	}
 	
 	@Override

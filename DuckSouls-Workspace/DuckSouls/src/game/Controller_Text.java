@@ -104,7 +104,7 @@ public class Controller_Text {
 				
 					
 				//Displays the player's status and stats while on the map
-				case "ST":
+				case "C":
 					System.out.println("Player Status:\n");
 					System.out.println(("Moneys: " + player.getMoney()));
 					System.out.println(("Experience: " + player.getXP()));

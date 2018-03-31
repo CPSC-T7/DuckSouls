@@ -1,37 +1,21 @@
 package controllers;
 
-public class Controller {
+import entities.Enemy;
+
+public interface Controller {
 	
 	/*
 	 * 
-	 * STATIC VARIABLES
+	 * ABSTRACTS
 	 * 
 	 */
 	
-	private static boolean	isGUI;
-	private static boolean	isStory;
+	public abstract void mainLoop();
 	
-	/*
-	 * 
-	 * METHODS
-	 * 
-	 */
+	public abstract void handleBattleEvent(Enemy enemyToBattle);
 	
-	public void initialize(boolean isGUI, boolean isStory) {
-		
-		Controller.isGUI = isGUI;
-		Controller.isStory = isStory;
-		
-	}
+	public abstract void handleLevelChangeEvent();
 	
-	public void mainLoop() {
-		
-		if (isGUI) {
-			
-		} else {
-			
-		}
-		
-	}
+	public abstract void handleAllEvents();
 	
 }

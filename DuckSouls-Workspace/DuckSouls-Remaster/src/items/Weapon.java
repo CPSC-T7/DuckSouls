@@ -12,8 +12,9 @@ public enum Weapon implements Item {
 	 * 
 	 */
 	
-	SWORD("A Cool Sword", " S ", new Image(ITEM_SPRITE_FOLDER_PATH + "Sword.png"), 1, 20, 80),
-	KNIFE("A Dull Butter Knife", " K ", new Image(ITEM_SPRITE_FOLDER_PATH + "Knife.png"), 3, 10, 90);
+	SWORD("A Cool Sword", " S ", "Sword.png", 1, 20, 80),
+	KNIFE("A Dull Butter Knife", " K ", "Knife.png", 3, 10, 90),
+	NONE("My Bare Wings", null, null, 0, 1, 95);
 	
 	/*
 	 * 
@@ -31,7 +32,7 @@ public enum Weapon implements Item {
 	
 	private final String	NAME;
 	private final String	STRING_REPR;
-	private final Image		IMAGE;
+	private final String	IMAGE_NAME;
 	private final int		SPAWN_CHANCE;
 	private final int		DAMAGE;
 	private final int		SPEED;
@@ -50,8 +51,9 @@ public enum Weapon implements Item {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the weapon in the text version
 	 *            of the game.
-	 * @param image
-	 *            The image used to draw the weapon in the GUI version of the game.
+	 * @param imageName
+	 *            The name of the image used to draw the weapon in the GUI version
+	 *            of the game.
 	 * @param spawnChance
 	 *            The spawn chance of the weapon. Must be 0-100.
 	 * @param damage
@@ -59,14 +61,14 @@ public enum Weapon implements Item {
 	 * @param speed
 	 *            The speed of the weapon's use. Must be 0-100.
 	 */
-	private Weapon(String name, String stringRepr, Image image, int spawnChance, int damage, int speed) {
-
+	private Weapon(String name, String stringRepr, String imageName, int spawnChance, int damage, int speed) {
+		
 		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
 		StatisticTests.testIntStatRange("Speed", speed);
 		
 		this.NAME = name;
 		this.STRING_REPR = stringRepr;
-		this.IMAGE = image;
+		this.IMAGE_NAME = imageName;
 		this.SPAWN_CHANCE = spawnChance;
 		this.DAMAGE = damage;
 		this.SPEED = speed;
@@ -81,7 +83,7 @@ public enum Weapon implements Item {
 	
 	@Override
 	public Image getImage() {
-		return this.IMAGE;
+		return new Image(ITEM_SPRITE_FOLDER_PATH + this.IMAGE_NAME);
 	}
 	
 	@Override

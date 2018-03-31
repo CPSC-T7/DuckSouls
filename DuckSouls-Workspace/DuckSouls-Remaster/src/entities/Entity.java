@@ -1,7 +1,6 @@
 package entities;
 
 import java.awt.Point;
-import java.util.HashMap;
 import java.util.Random;
 
 import genericInterfaces.Battleable;
@@ -32,11 +31,10 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	 * 
 	 */
 	
-	protected Entity(String stringRepr, HashMap<Orientation, Image> imageMap, double health,
-			double attack, double defence, double speed, double accuracy, double crit) {
+	protected Entity(String stringRepr, double health, double attack, double defence, double speed, double accuracy,
+			double crit) {
 		
 		this.stringRepr = stringRepr;
-		this.imageMap = imageMap;
 		this.health = health;
 		this.attack = attack;
 		this.defence = defence;
@@ -52,17 +50,15 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	 * 
 	 */
 	
-	protected String						stringRepr;
-	protected HashMap<Orientation, Image>	imageMap;
-	protected Point							position	= new Point(1, 1);
-	protected Orientation					orientation	= Orientation.SOUTH;
-	protected double						health;
-	protected double						attack;
-	protected double						defence;
-	protected double						speed;
-	protected double						accuracy;
-	protected double						crit;
-	
+	protected String		stringRepr;
+	protected Point			position	= new Point(1, 1);
+	protected Orientation	orientation	= Orientation.SOUTH;
+	protected double		health;
+	protected double		attack;
+	protected double		defence;
+	protected double		speed;
+	protected double		accuracy;
+	protected double		crit;
 	
 	/*
 	 * 
@@ -96,35 +92,32 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public Image getImage() {
-		return this.imageMap.get(this.orientation);
-	}
+	public abstract Image getImage();
 	
 	@Override
 	public double sendAttack() {
 		Random rand = new Random();
 		double damage;
 		int accChance;
-		int critChance; 
+		int critChance;
 		
 		accChance = rand.nextInt(100) + 1;
 		critChance = rand.nextInt(100) + 1;
 		damage = this.attack * 2.5;
 		damage = this.attackBonus(damage);
-		if(critChance < this.crit) {
+		if (critChance < this.crit) {
 			damage = damage * 1.5;
 		}
-		if(accChance > this.accuracy) {
+		if (accChance > this.accuracy) {
 			return 0;
-		}
-		else {
+		} else {
 			return damage;
 		}
 		
 	}
 	
 	@Override
-	public void receiveAttack(double damage) {	
+	public void receiveAttack(double damage) {
 		this.health = this.health - damage - this.defence;
 	}
 	

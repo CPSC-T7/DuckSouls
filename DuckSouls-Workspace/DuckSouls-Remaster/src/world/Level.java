@@ -207,16 +207,17 @@ public class Level {
 				break;
 			
 			case EAST:
-				newPlayerPoint.x = 0;
+				newPlayerPoint.x = this.roomSize + 1;
 				break;
 			
 			case WEST:
-				newPlayerPoint.x = this.roomSize + 1;
+				newPlayerPoint.x = 0;
 				break;
 			
 		}
 		
 		this.currentRoomPoint = Orientation.pointAtDirection(this.currentRoomPoint, direction);
+		this.currentRoom = roomAt(this.currentRoomPoint);
 		
 		// Place the player at the new position in the new room
 		this.player.setPosition(newPlayerPoint);
@@ -234,32 +235,43 @@ public class Level {
 			PositionTests.testPointInRoom(this.currentRoom, newPlayerPoint);
 		}
 		
+		boolean movedRooms = false;
+		
 		switch (direction) {
 			
 			case NORTH:
 				if (newPlayerPoint.y == -1) {
 					this.moveRoom_Direction(direction);
+					movedRooms = true;
 				}
 				break;
 			
 			case SOUTH:
 				if (newPlayerPoint.y == this.currentRoom.getInternalHeight() + 2) {
 					this.moveRoom_Direction(direction);
+					movedRooms = true;
 				}
 				break;
 			
 			case EAST:
 				if (newPlayerPoint.x == -1) {
 					this.moveRoom_Direction(direction);
+					movedRooms = true;
 				}
 				break;
 			
 			case WEST:
 				if (newPlayerPoint.x == this.currentRoom.getInternalWidth() + 2) {
+					System.out.println("BING");
 					this.moveRoom_Direction(direction);
+					movedRooms = true;
 				}
 				break;
 			
+		}
+		
+		if (movedRooms) {
+			newPlayerPoint = player.getPosition();
 		}
 		
 		if (this.currentRoom.tileAt(newPlayerPoint).getCanWalkOn()) {
