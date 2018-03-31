@@ -20,8 +20,16 @@ public interface Tile extends Drawable {
 	
 	/**
 	 * Returns if the tile can be walked on.
+	 * 
 	 * @return If the tile can be walked on.
 	 */
 	public abstract boolean getCanWalkOn();
+	
+	/**
+	 * Returns the string used to read/write the tile to text files.
+	 * 
+	 * @return The string used to read/write the tile to text files.
+	 */
+	public abstract String getFileString();
 	
 }

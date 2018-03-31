@@ -10,10 +10,10 @@ public enum Door implements Tile {
 	 * 
 	 */
 	
-	DOOR_T(" D ", "Door-Top"),
-	DOOR_B(" D ", "Door-Bottom"),
-	DOOR_L(" D ", "Door-Left"),
-	DOOR_R(" D ", "Door-Right");
+	DOOR_T(" D ", "DT", "Door-Top"),
+	DOOR_B(" D ", "DB", "Door-Bottom"),
+	DOOR_L(" D ", "DL", "Door-Left"),
+	DOOR_R(" D ", "DR", "Door-Right");
 	
 	/*
 	 * 
@@ -22,6 +22,7 @@ public enum Door implements Tile {
 	 */
 	
 	private final String	STRING_REPR;
+	private final String	FILE_STRING;
 	private final String	IMAGE_NAME;
 	private boolean			CAN_WALK_ON	= true;
 	
@@ -40,9 +41,10 @@ public enum Door implements Tile {
 	 * @param imageName
 	 *            The image used to draw the wall in the GUI version of the game.
 	 */
-	private Door(String stringRepr, String imageName) {
+	private Door(String stringRepr, String fileString, String imageName) {
 		
 		this.STRING_REPR = stringRepr;
+		this.FILE_STRING = fileString;
 		this.IMAGE_NAME = imageName;
 		
 	}
@@ -66,6 +68,11 @@ public enum Door implements Tile {
 	@Override
 	public boolean getCanWalkOn() {
 		return this.CAN_WALK_ON;
+	}
+
+	@Override
+	public String getFileString() {
+		return this.FILE_STRING;
 	}
 	
 }

@@ -20,14 +20,23 @@ public interface Item extends Drawable {
 	
 	/**
 	 * Returns the name of the item.
+	 * 
 	 * @return The name of the item.
 	 */
 	public abstract String getName();
 	
 	/**
 	 * Returns if the item should be spawned via RNG.
+	 * 
 	 * @return If the item should be spawned via RNG.
 	 */
 	public abstract boolean tryToSpawn();
+	
+	/**
+	 * Returns the string used to read/write the tile to text files.
+	 * 
+	 * @return The string used to read/write the tile to text files.
+	 */
+	public abstract String getFileString();
 	
 }

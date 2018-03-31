@@ -108,5 +108,10 @@ public enum Consumable implements Item {
 	public int getHealthMod() {
 		return this.HEALTH_MOD;
 	}
+
+	@Override
+	public String getFileString() {
+		return Character.toString(this.STRING_REPR.charAt(1));
+	}
 	
 }

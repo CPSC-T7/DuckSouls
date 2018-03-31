@@ -173,7 +173,7 @@ public class TextGame implements Controller {
 			// TODO: Load story level.
 			/*
 			 * "Levels" are folders with rooms as text files, and a level data .txt file.
-			 * "Rooms" are .txt files with the naming scheme of "room-X-Y.txt"
+			 * "Rooms" are .txt files with the naming scheme of "Room-X-Y.txt"
 			 */
 		} else {
 			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());

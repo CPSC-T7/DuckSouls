@@ -118,5 +118,10 @@ public enum Weapon implements Item {
 	public int getSpeed() {
 		return this.SPEED;
 	}
+
+	@Override
+	public String getFileString() {
+		return Character.toString(this.STRING_REPR.charAt(1));
+	}
 	
 }

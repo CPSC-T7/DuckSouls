@@ -10,7 +10,7 @@ public enum GeneralTile implements Tile {
 	 * 
 	 */
 	
-	EMPTY("   ", "Empty.png", false),
+	// EMPTY("XXX", "Empty.png", false),
 	FLOOR("   ", "Floor.png", true),
 	PATH(" . ", "Path.png", true),
 	STAIRS("/=/", "Stairs.png", true);
@@ -58,6 +58,11 @@ public enum GeneralTile implements Tile {
 	@Override
 	public boolean getCanWalkOn() {
 		return this.CAN_WALK_ON;
+	}
+	
+	@Override
+	public String getFileString() {
+		return Character.toString(this.STRING_REPR.charAt(1));
 	}
 	
 }

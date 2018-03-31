@@ -105,5 +105,10 @@ public enum Armour implements Item {
 	public int getDefense() {
 		return this.DEFENSE;
 	}
+
+	@Override
+	public String getFileString() {
+		return this.STRING_REPR.substring(1);
+	}
 	
 }

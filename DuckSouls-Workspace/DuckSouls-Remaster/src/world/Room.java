@@ -36,7 +36,7 @@ public class Room {
 	
 	private int					internalWidth;
 	private int					internalHeight;
-	private int					level;
+	private int					levelNum;
 	private int					enemySpawnChance	= 1;
 	
 	private Tile[][]			tileArray;
@@ -59,13 +59,13 @@ public class Room {
 	 * @param enemySpawnChance
 	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
-	public Room(int size, int level, int enemySpawnChance) {
+	public Room(int size, int levelNum, int enemySpawnChance) {
 		
 		StatisticTests.testIntStatRange("Enemy Spawn Chance", enemySpawnChance);
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
-		this.level = level;
+		this.levelNum = levelNum;
 		this.enemySpawnChance = enemySpawnChance;
 		
 		this.genTileArray();
@@ -74,9 +74,20 @@ public class Room {
 		
 	}
 	
-	public Room(String fileName) {
+	public Room(Tile[][] tileArray, Item[][] itemArray, Player player, ArrayList<Enemy> enemyList, int levelNum) {
 		
-		// TODO: Fill in file reading constructor.
+		this.internalWidth = tileArray.length - 2;
+		this.internalHeight = tileArray[0].length - 2;
+		this.levelNum = levelNum;
+		this.enemySpawnChance = 0;
+		
+		this.tileArray = tileArray;
+		this.itemArray = itemArray;
+		this.enemyList = enemyList;
+		
+		if (player != null) {
+			this.player = player;
+		}
 		
 	}
 	
@@ -159,7 +170,7 @@ public class Room {
 			imageSprites[enemyPos.x][enemyPos.y][2] = enemy.getImage();
 		}
 		
-		//Player
+		// Player
 		Point playerPos = this.player.getPosition();
 		imageSprites[playerPos.x][playerPos.y][2] = this.player.getImage();
 		
@@ -310,7 +321,7 @@ public class Room {
 				if (_random.nextInt(100) < this.enemySpawnChance) {
 					
 					// Place the entity
-					this.addEntity(new Enemy(new Point(x, y), this.level));
+					this.addEntity(new Enemy(new Point(x, y), this.levelNum));
 					
 				}
 				
@@ -491,8 +502,12 @@ public class Room {
 		return this.internalHeight;
 	}
 	
-	public ArrayList<Enemy> getEnemyList(){
+	public ArrayList<Enemy> getEnemyList() {
 		return this.enemyList;
+	}
+	
+	public void setLevelNum(int levelNum) {
+		this.levelNum = levelNum;
 	}
 	
 }

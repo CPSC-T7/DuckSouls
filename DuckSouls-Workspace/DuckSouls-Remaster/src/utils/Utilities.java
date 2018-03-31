@@ -1,6 +1,9 @@
 package utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Utilities {
 	
@@ -75,6 +78,44 @@ public class Utilities {
 			if (currentTime - startTime >= stopTime)
 				break;
 		}
+		
+	}
+	
+	/**
+	 * Reads lines from a text file into a String array.
+	 * 
+	 * @param fileName
+	 *            The file to read from.
+	 * @return A String array of all the lines in the file.
+	 */
+	public static String[] readLines(String fileName) {
+		
+		// Locate the file to read
+		File fileToRead = new File(fileName);
+		
+		// Have an array list of lines waiting to be filled with the file's contents
+		ArrayList<String> lines = new ArrayList<String>();
+		
+		// Try to open and read the file line-by-line with a scanner
+		try (Scanner _scanner = new Scanner(fileToRead);) {
+			
+			// Read all non-null lines from the file into the array list
+			while (_scanner.hasNext()) {
+				lines.add(_scanner.nextLine());
+			}
+			
+			// Return all of the lines in an array
+			return lines.toArray(new String[lines.size()]);
+			
+		} catch (FileNotFoundException e) { // If the file isn't found
+			
+			System.out.println("File [" + fileName + "] not found.");
+			e.printStackTrace();
+			
+		}
+		
+		// If nothing was read, return an empty string array
+		return new String[0];
 		
 	}
 	

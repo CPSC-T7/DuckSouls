@@ -10,14 +10,14 @@ public enum Wall implements Tile {
 	 * 
 	 */
 	
-	WALL_T("═══", "Wall-Top.png"),
-	WALL_B("═══", "Wall-Bottom.png"),
-	WALL_L(" ║ ", "Wall-Left.png"),
-	WALL_R(" ║ ", "Wall-Right.png"),
-	WALL_TL(" ╔═", "Wall-Top-Left.png"),
-	WALL_TR("═╗ ", "Wall-Top-Right.png"),
-	WALL_BL(" ╚═", "Wall-Bottom-Left.png"),
-	WALL_BR("═╝ ", "Wall-Bottom-Right.png");
+	WALL_T("═══", "WT", "Wall-Top.png"),
+	WALL_B("═══", "WB", "Wall-Bottom.png"),
+	WALL_L(" ║ ", "WL", "Wall-Left.png"),
+	WALL_R(" ║ ", "WR", "Wall-Right.png"),
+	WALL_TL(" ╔═", "WTL", "Wall-Top-Left.png"),
+	WALL_TR("═╗ ", "WTR", "Wall-Top-Right.png"),
+	WALL_BL(" ╚═", "WBL", "Wall-Bottom-Left.png"),
+	WALL_BR("═╝ ", "WBR", "Wall-Bottom-Right.png");
 	
 	/*
 	 * 
@@ -26,6 +26,7 @@ public enum Wall implements Tile {
 	 */
 	
 	private final String	STRING_REPR;
+	private final String	FILE_STRING;
 	private final String	IMAGE_NAME;
 	private final boolean	CAN_WALK_ON	= false;
 	
@@ -45,9 +46,10 @@ public enum Wall implements Tile {
 	 *            The name of the image used to draw the wall in the GUI version of
 	 *            the game.
 	 */
-	private Wall(String stringRepr, String imageName) {
+	private Wall(String stringRepr, String fileString, String imageName) {
 		
 		this.STRING_REPR = stringRepr;
+		this.FILE_STRING = fileString;
 		this.IMAGE_NAME = imageName;
 		
 	}
@@ -71,6 +73,11 @@ public enum Wall implements Tile {
 	@Override
 	public boolean getCanWalkOn() {
 		return this.CAN_WALK_ON;
+	}
+	
+	@Override
+	public String getFileString() {
+		return this.FILE_STRING;
 	}
 	
 }
