@@ -42,5 +42,22 @@ public interface Battleable {
 	 */
 	public abstract void taunted();
 	
+	/**
+	 * Deals with utilisation of items
+	 */
+	public abstract void useItem();
+	
+	/**
+	 * Ends the battle immediately without gaining score or xp
+	 */
+	public abstract void run();
+	
+	/**
+	 * Chooses which battle command to use
+	 * @param move
+	 * 				the int value of the chosen command
+	 * @return the int value of the chosen command
+	 */
+	public abstract int choice(int move);
 	
 }

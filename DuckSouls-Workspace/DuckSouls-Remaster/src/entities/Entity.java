@@ -127,6 +127,31 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 		this.defence = this.defence - 5;
 	}
 	
+	@Override
+	public void useItem() {	
+	}
+	
+	@Override
+	public void run() {
+	}
+	
+	@Override
+	public int choice(int move) {
+				
+		if (move == 0 || move == 2 || move == 3) {
+			return 0;
+		} 
+		else if (move == 1) {
+			return 1;
+		}
+		else if (move == 4) {
+			return 2;
+		}
+		else {
+			return 3;
+		}
+	}
+	
 	public void move(Orientation direction) {
 		
 		switch (direction) {

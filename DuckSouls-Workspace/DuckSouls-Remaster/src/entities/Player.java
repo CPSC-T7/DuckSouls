@@ -94,6 +94,31 @@ public class Player extends Entity {
 		this.health = this.health + this.armour.getDefense(); // Placeholder
 	}
 	
+	@Override
+	public int choice(int a) {
+		
+		//TODO: @Wylee can you do the code for choosing le gui options for battle
+		//Give option to player
+		int move = 0; //temporary, make it int move;
+		//if attack, move == 0
+		//if taunt, move == 1
+		//if item, move == 4
+		//if run away, move == 5
+		
+		int command = super.choice(move);
+		return command;
+	}
+	
+	@Override
+	public void useItem() {
+		//TODO
+	}
+	
+	@Override
+	public void run() {
+		//TODO
+	}
+	
 	public void addExperiece(int xp) {
 		
 		this.experience += xp;

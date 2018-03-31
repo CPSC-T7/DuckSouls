@@ -1,6 +1,8 @@
 package entities;
 
 import java.awt.Point;
+import java.util.Random;
+
 import javafx.scene.image.Image;
 
 public class Enemy extends Entity {
@@ -63,6 +65,15 @@ public class Enemy extends Entity {
 	@Override
 	public Image getImage() {
 		return new Image(ENTITY_SPRITE_FOLDER_PATH + "Rat/Rat-" + this.orientation.STR + ".png");
+	}
+	
+	@Override
+	public int choice(int a) {
+		Random random = new Random();
+		int move = random.nextInt(4);
+		
+		int command = super.choice(move);
+		return command;
 	}
 	
 	public int getExperienceGiven() {
