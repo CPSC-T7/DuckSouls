@@ -168,7 +168,7 @@ public class BattleGuiTest {
 		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
 		
 		// If an animation is playing, do not take key inputs.
-		if (this.inAnimation == true) {
+		if (this.inAnimation) {
 			this.currentStep += 2;
 			
 			// Do the player's animation
@@ -188,14 +188,17 @@ public class BattleGuiTest {
 			// Always finish animations before exiting the battle screen
 			return (true);
 			
-		} else if (this.inAnimation == false) {
+		} else if (!this.inAnimation) {
 			
 			// reset animation frames
 			this.currentStep = 0;
+		}
 			
-			// Do the action inputed by the user
-			scene.setOnKeyPressed(key -> {
-				
+		// Do the action inputed by the user
+		scene.setOnKeyPressed(key -> {
+			
+			if(!this.inAnimation) {
+			
 				switch (key.getCode()) {
 					
 					case W:
@@ -235,7 +238,7 @@ public class BattleGuiTest {
 						break;
 					
 					case ENTER:
-						
+					
 						this.menuButtonType = menuArray[menuButtonX][menuButtonY].getButtonType();
 						
 						if (this.menuButtonType == "Attack") {
@@ -258,14 +261,10 @@ public class BattleGuiTest {
 						} else if (this.menuButtonType == "Item") {
 							
 						}
-						
-						break;
-					
+					break;
 				}
-				
-			});
-			
-		} // End of else statement
+			}
+		});
 		
 		return (this.inBattle);
 		
