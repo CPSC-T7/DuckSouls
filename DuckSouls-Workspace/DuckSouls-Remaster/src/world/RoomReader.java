@@ -39,7 +39,7 @@ public class RoomReader {
 		String[] fileLines = Utilities.readLines(fileName);
 		
 		String[] lineBits;
-		String line;
+		String line, str;
 		ArrayList<ArrayList<Tile>> tileList = new ArrayList<ArrayList<Tile>>();
 		Tile[][] tileArray = null;
 		Item[][] itemArray = null;
@@ -83,6 +83,8 @@ public class RoomReader {
 				continue;
 			}
 			
+			line = fileLines[y].replaceAll(" ", "");
+			
 			switch (section) {
 				
 				/*
@@ -90,13 +92,15 @@ public class RoomReader {
 				 */
 				case 0:
 					
-					lineBits = fileLines[y].split(",");
+					lineBits = line.split(",");
 					tileList.add(new ArrayList<Tile>());
 					for (int x = 0; x < lineBits.length; x++) {
 						
+						str = lineBits[x];
+						
 						// Search for walls
 						for (Wall wall : Wall.values()) {
-							if (lineBits[x].equals(wall.getFileString())) {
+							if (str.equals(wall.getFileString())) {
 								tileList.get(x).add(wall);
 								break;
 							}
@@ -104,7 +108,7 @@ public class RoomReader {
 						
 						// Search for general tiles
 						for (GeneralTile tile : GeneralTile.values()) {
-							if (lineBits[x].equals(tile.getFileString())) {
+							if (str.equals(tile.getFileString())) {
 								tileList.get(x).add(tile);
 								break;
 							}
@@ -112,7 +116,7 @@ public class RoomReader {
 						
 						// Search for doors
 						for (Door door : Door.values()) {
-							if (lineBits[x].equals(door.getFileString())) {
+							if (str.equals(door.getFileString())) {
 								tileList.get(x).add(door);
 								break;
 							}
@@ -127,12 +131,14 @@ public class RoomReader {
 				 */
 				case 1:
 					
-					lineBits = fileLines[y].split(",");
+					lineBits = line.split(",");
 					for (int x = 0; x < lineBits.length; x++) {
+						
+						str = lineBits[x];
 						
 						// Search for consumables
 						for (Consumable consumable : Consumable.values()) {
-							if (lineBits[x].equals(consumable.getFileString())) {
+							if (str.equals(consumable.getFileString())) {
 								itemArray[x][y] = consumable;
 								break;
 							}
@@ -140,7 +146,7 @@ public class RoomReader {
 						
 						// Search for weapons
 						for (Weapon weapon : Weapon.values()) {
-							if (lineBits[x].equals(weapon.getFileString())) {
+							if (str.equals(weapon.getFileString())) {
 								itemArray[x][y] = weapon;
 								break;
 							}
@@ -148,7 +154,7 @@ public class RoomReader {
 						
 						// Search for armour
 						for (Armour armour : Armour.values()) {
-							if (lineBits[x].equals(armour.getFileString())) {
+							if (str.equals(armour.getFileString())) {
 								itemArray[x][y] = armour;
 								break;
 							}
@@ -163,8 +169,7 @@ public class RoomReader {
 				 */
 				case 2:
 					
-					line = fileLines[y];
-					String[] params = line.substring(4).split(",");
+					String[] params = line.split(":")[1].split(",");
 					
 					Point position = new Point();
 					position.x = Integer.parseInt(params[0]);

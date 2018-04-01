@@ -121,7 +121,7 @@ public enum Weapon implements Item {
 
 	@Override
 	public String getFileString() {
-		return Character.toString(this.STRING_REPR.charAt(1));
+		return this.STRING_REPR.replaceAll(" ", "");
 	}
 	
 }

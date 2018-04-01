@@ -3,7 +3,9 @@
 ; However, the ';' MUST BE THE FIRST CHARACTER ON THE LINE!!!
 ; Also, blank lines are fine, because they will be ignored.
 
-; See? Anyway, onto the code!
+; See?
+; Also, spaces inside the syntax are auto-removed, so they don't matter either.
+; Anyway, onto the code!
 
 
 ; --- SECTION 1 : TILES ---
@@ -11,13 +13,13 @@
 ; Each tile has a specific string representing said tile in text files.
 ; Here, we will write strings representing each tile seperated by ','.
 
-WTL,WT,WT,DT,WT,WT,WTR
-WL, , , , , ,WR
-WL, , , , , ,WR
-DL, , , , , ,DR
-WL, , , , , ,WR
-WL, , , , , ,WR
-WBL,WB,WB,DB,WB,WB,WBR
+WTL, WT, WT, DT, WT, WT, WTR
+ WL,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   , WR
+ DL,   ,   ,   ,   ,   , DR
+ WL,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   , WR
+WBL, WB, WB, DB, WB, WB, WBR
 
 ; Now that the tiles have been defined, it is time to let the program know to advance the section.
 ; To do this, we need to write EXACTLY 12 '=' characters on a line.
@@ -34,13 +36,13 @@ WBL,WB,WB,DB,WB,WB,WBR
 ; Please don't do that.
 ; Please.
 
-,,,,,,
-,,,,CA,LA,
-,,,,,MA,
-,,,,,,
-,C,F,,,S,
-,B,G,,,K,
-,,,,,,
+   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   , CA, LA,
+   ,   ,   ,   ,   , MA,
+   ,   ,   ,   ,   ,   ,
+   ,  C,  F,   ,   ,  S,
+   ,  B,  G,   ,   ,  K,
+   ,   ,   ,   ,   ,   ,
 
 ; Again, we need to write EXACTLY 12 '=' characters on a line to advance the section.
 
@@ -54,9 +56,9 @@ WBL,WB,WB,DB,WB,WB,WBR
 
 ; Player
 ; The syntax is simple. 
-;'P' for player,
-; 3 character that are technically ignored, but just put " : " for consistency,
-; and then the x and y co-ordinates seperated by a comma. These must be integer-parsable.
+; 'P' for player,
+; ':' starts listing the parameters for the entity,
+; and then the x and y co-ordinates separated by a comma. These must be integer-parseable.
 
 P : 3,3
 
@@ -67,13 +69,14 @@ P : 3,3
 ; Normal syntax
 E : 1,1
 
-; Cool syntax
+; Cool addition syntax
 E : 2,1,10
 
 ; The third integer is actually a level modifier.
 ; Without it, the enemy will scale to the level's default enemy scaling.
 ; But with this, you can set the enemy's scaling level manually.
-; This means that in the room, the top left corner will have 2 enemies. The left is level 1 (Or whatever level the room is on), and the right is level 10.
+; This means that in the room, the top left corner will have 2 enemies.
+; The left is level 1 (Or whatever level the room is on), and the right is level 10.
 
 ; And that's the end of the file!
 ; Each room file should have the name "Room-X-Y.txt" with 'X' and 'Y' being the room's co-ordinates in the level.

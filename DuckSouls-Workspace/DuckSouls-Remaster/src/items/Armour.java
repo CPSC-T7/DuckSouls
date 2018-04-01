@@ -108,7 +108,7 @@ public enum Armour implements Item {
 
 	@Override
 	public String getFileString() {
-		return this.STRING_REPR.substring(1);
+		return this.STRING_REPR.replaceAll(" ", "");
 	}
 	
 }
