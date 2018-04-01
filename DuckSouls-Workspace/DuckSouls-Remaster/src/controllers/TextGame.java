@@ -11,6 +11,7 @@ import ui.RoomDrawer;
 import utils.GameEventQue;
 import utils.Orientation;
 import world.Level;
+import battle.Loop;
 
 public class TextGame implements Controller {
 	
@@ -161,6 +162,7 @@ public class TextGame implements Controller {
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		// TODO: Run Battle
+		Loop.battleLoop(player, enemyToBattle, isGUI); //Still under works
 		
 	}
 	

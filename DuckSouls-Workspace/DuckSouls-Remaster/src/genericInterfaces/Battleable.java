@@ -34,8 +34,10 @@ public interface Battleable {
 	 * 
 	 * @param damage
 	 *            The amount of damage the other entity dealt to this enemy.
+	 *            
+	 * @return The actual damage the entity should deal, for display purposes
 	 */
-	public abstract void receiveAttack(double damage);
+	public abstract double receiveAttack(double damage);
 	
 	/**
 	 * Increases and decreases the attack and defence of the target respectively.

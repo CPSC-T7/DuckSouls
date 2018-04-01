@@ -3,10 +3,11 @@ package battle;
 import entities.Player;
 import entities.Enemy;
 import entities.Entity;
+import battle.PrintBattleText;
 
 public class Loop {
 
-	public static void battleLoop(Player player, Enemy enemy) {
+	public static void battleLoop(Player player, Enemy enemy, boolean isGUI) {
 		
 		//TODO Create texts saying things that happened during the battle
 	
@@ -24,14 +25,14 @@ public class Loop {
 
 			if(startingPerson == 1) {
 				command = player.choice(0);
-				runCommand(command, startingPerson, player, enemy);
+				runCommand(command, startingPerson, player, enemy, isGUI);
 				inBattle = checkDeath(enemy);
 				startingPerson ++;
 			}
 			
 			else {
 				command = enemy.choice(0);
-				runCommand(command, startingPerson, player, enemy);
+				runCommand(command, startingPerson, player, enemy, isGUI);
 				inBattle = checkDeath(player);
 				startingPerson --;
 			}			
@@ -42,7 +43,7 @@ public class Loop {
 		
 	}
 	
-	private static void runCommand(int command, int startingPerson, Player player, Enemy enemy) {
+	private static void runCommand(int command, int startingPerson, Player player, Enemy enemy, boolean isGUI) {
 		Entity attacker = player;
 		Entity defender = enemy;
 		if (startingPerson == 2) {
@@ -53,7 +54,13 @@ public class Loop {
 		switch (command) {
 		case 0:
 			double damage = attacker.sendAttack();
-			defender.receiveAttack(damage);
+			damage = defender.receiveAttack(damage);
+			if (isGUI) {
+				//TODO: make gui text
+			}
+			else {
+				PrintBattleText.damageText(attacker, damage);
+			}
 			break;
 		case 1:
 			defender.taunted();
@@ -76,18 +83,13 @@ public class Loop {
 		}
 	}
 	
-	private static void postBattle(int startingPerson, Player player, Enemy enemy) {
-		
+	private static void postBattle(int startingPerson, Player player, Enemy enemy) {	
 		if (startingPerson == 1) {
 			System.exit(0);
 		}
 		else {
 			player.addExperiece(enemy.getExperienceGiven());
 			player.setScore(enemy.getScore());
-		}
-		
-		
-		
-		
+		}		
 	}
 }
