@@ -191,5 +191,10 @@ public class Player extends Entity {
 	public int getExperience() {
 		return this.experience;
 	}
+
+	@Override
+	public int getLevel() {
+		return this.level;
+	}
 	
 }

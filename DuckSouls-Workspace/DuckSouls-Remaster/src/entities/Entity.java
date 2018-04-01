@@ -25,6 +25,8 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	 * 
 	 */
 	
+	public abstract int getLevel();
+	
 	/*
 	 * 
 	 * CONSTRUCTORS

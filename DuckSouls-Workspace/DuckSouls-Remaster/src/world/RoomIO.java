@@ -15,7 +15,15 @@ import tiles.Tile;
 import tiles.Wall;
 import utils.Utilities;
 
-public class RoomReader {
+public class RoomIO {
+	
+	/*
+	 * 
+	 * CONSTANTS
+	 * 
+	 */
+	
+	public static final String WORLD_FOLDER_PATH = "../LevelFiles/";
 	
 	/*
 	 * 
@@ -32,7 +40,7 @@ public class RoomReader {
 	 *            The level number to scale the entities with.
 	 * @return A room built from the data.
 	 */
-	public Room loadRoomFromTextFile(String fileName, int levelNum) {
+	public static Room loadRoomFromTextFile(String fileName, int levelNum) {
 		
 		// Read the lines from the file
 		String[] fileLines = Utilities.readLines(fileName);
@@ -211,6 +219,74 @@ public class RoomReader {
 		}
 		
 		return new Room(tileArray, itemArray, player, enemyList, levelNum);
+		
+	}
+	
+	/**
+	 * Loads a story room from the specific folder/file.
+	 * 
+	 * @param levelNum
+	 *            The level number.
+	 * @param roomPoint
+	 *            The point in the level that the room is located with.
+	 * @return The specified room.
+	 */
+	public static Room loadStoryRoom(int levelNum, Point roomPoint) {
+		
+		String dir = WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/";
+		String fileName = "Room-" + roomPoint.x + "-" + roomPoint.y + ".txt";
+		
+		return loadRoomFromTextFile(dir + fileName, levelNum);
+		
+	}
+	
+	public static void saveRoomToTextFile(String fileName, Room room) {
+		
+		ArrayList<String> tilesLines = new ArrayList<String>();
+		ArrayList<String> itemsLines = new ArrayList<String>();
+		ArrayList<String> entitiesLines = new ArrayList<String>();
+		ArrayList<String> totalLines = new ArrayList<String>();
+		String tilesLine = "";
+		String itemsLine = "";
+		Point position = new Point();
+		
+		for (int y = 0; y < room.getInternalHeight() + 2; y++) {
+			position.y = y;
+			for (int x = 0; x < room.getInternalWidth() + 2; x++) {
+				position.x = x;
+				tilesLine = tilesLine + room.tileAt(position).getFileString() + ",";
+				itemsLine = itemsLine + room.itemAt(position).getFileString() + ",";
+			}
+			tilesLines.add(tilesLine.substring(0, tilesLine.length() - 1));
+			itemsLines.add(itemsLine.substring(0, itemsLine.length() - 1));
+			tilesLine = "";
+			itemsLine = "";
+		}
+		
+		Player player = room.getPlayer();
+		if (player != null) {
+			entitiesLines.add("P:" + player.getPosition().x + "," + player.getPosition().y);
+		}
+		for (Enemy enemy : room.getEnemyList()) {
+			entitiesLines.add("E:" + enemy.getPosition().x + "," + enemy.getPosition().y + "," + enemy.getLevel());
+		}
+		
+		totalLines.addAll(tilesLines);
+		totalLines.add("============");
+		totalLines.addAll(itemsLines);
+		totalLines.add("============");
+		totalLines.addAll(entitiesLines);
+		
+		Utilities.writeFile(fileName, totalLines);
+		
+	}
+	
+	public static void saveStoryRoom(Room room, int levelNum, Point roomPoint) {
+		
+		String dir = WORLD_FOLDER_PATH + "Saves/Level-" + levelNum + "/";
+		String fileName = "Room-" + roomPoint.x + "-" + roomPoint.y + ".txt";
+		
+		saveRoomToTextFile(dir + fileName, room);
 		
 	}
 	

@@ -39,6 +39,7 @@ public class Enemy extends Entity {
 	 */
 	
 	private int					experienceGiven;
+	private int					level;
 	
 	/*
 	 * 
@@ -53,6 +54,7 @@ public class Enemy extends Entity {
 				(BASE_SPEED + (SPEED_PER_LEVEL * (level - 1))), (BASE_ACCURACY + (ACCURACY_PER_LEVEL * (level - 1))),
 				(BASE_CRIT + (CRIT_PER_LEVEL * (level - 1))));
 		
+		this.level = level;
 		this.experienceGiven = BASE_GIVEN_XP + (GIVEN_XP_PER_LEVEL + (level - 1));
 	}
 	
@@ -82,6 +84,11 @@ public class Enemy extends Entity {
 	
 	public int getScore() {
 		return SCORE;
+	}
+	
+	@Override
+	public int getLevel() {
+		return this.level;
 	}
 	
 }

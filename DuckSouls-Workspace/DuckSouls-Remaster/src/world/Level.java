@@ -67,6 +67,22 @@ public class Level {
 		
 	}
 	
+	public Level(int levelWidth, int levelHeight, Room[][] roomArray, int levelNum, Player player, Point currentRoomPoint) {
+		
+		this.levelWidth = levelWidth;
+		this.levelHeight = levelHeight;
+		
+		this.levelNum = levelNum;
+		
+		this.roomArray = roomArray;
+
+		this.player = player;
+		this.currentRoomPoint = currentRoomPoint;
+		this.currentRoom = this.roomAt(this.currentRoomPoint);
+		this.currentRoom.addEntity(this.player);
+		
+	}
+	
 	/*
 	 * 
 	 * METHODS

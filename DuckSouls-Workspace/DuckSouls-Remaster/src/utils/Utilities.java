@@ -2,6 +2,12 @@ package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -116,6 +122,33 @@ public class Utilities {
 		
 		// If nothing was read, return an empty string array
 		return new String[0];
+		
+	}
+	
+	/**
+	 * Writes lines from a String array to a specified file.
+	 * 
+	 * @param fileName
+	 *            The file to write to.
+	 * @param lines
+	 *            The lines to write to the file.
+	 */
+	public static void writeFile(String fileName, ArrayList<String> lines) {
+		
+		// Create a path object to the file
+		Path file = Paths.get(fileName);
+		
+		// Try to write to the file in UTF-8, creating a file if it doesn't exist.
+		try {
+			
+			Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+			
+		} catch (IOException e) { // If something goes wrong whilst writing the file
+			
+			System.out.println("Cannot write to file [" + fileName + "], IO Exception.");
+			e.printStackTrace();
+			
+		}
 		
 	}
 	

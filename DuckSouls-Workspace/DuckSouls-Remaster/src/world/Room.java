@@ -506,8 +506,8 @@ public class Room {
 		return this.enemyList;
 	}
 	
-	public void setLevelNum(int levelNum) {
-		this.levelNum = levelNum;
+	public Player getPlayer() {
+		return this.player;
 	}
 	
 }
