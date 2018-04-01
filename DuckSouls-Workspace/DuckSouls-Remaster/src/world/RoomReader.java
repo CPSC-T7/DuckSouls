@@ -19,31 +19,35 @@ public class RoomReader {
 	
 	/*
 	 * 
-	 * CONSTANTS
-	 * 
-	 */
-	
-	/*
-	 * 
 	 * METHODS
 	 * 
 	 */
 	
 	/**
+	 * Builds a room from a text file.
 	 * 
 	 * @param fileName
-	 * @return
+	 *            The name of the file which contains the room data.
+	 * @param levelNum
+	 *            The level number to scale the entities with.
+	 * @return A room built from the data.
 	 */
 	public Room loadRoomFromTextFile(String fileName, int levelNum) {
 		
+		// Read the lines from the file
 		String[] fileLines = Utilities.readLines(fileName);
 		
+		// Container variables
 		String[] lineBits;
-		String line, str;
+		String line;
+		String str;
+		
+		// Arrays to fill
 		ArrayList<ArrayList<Tile>> tileList = new ArrayList<ArrayList<Tile>>();
 		Tile[][] tileArray = null;
 		Item[][] itemArray = null;
 		
+		// Entity containers
 		Player player = null;
 		ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
 		
@@ -55,11 +59,11 @@ public class RoomReader {
 		 */
 		int section = 0;
 		
+		// For each file in the line
 		for (int y = 0; y < fileLines.length; y++) {
 			
 			/*
-			 * WE HAVE COMMENTS INTEGRATED!
-			 * WOO!
+			 * WE HAVE COMMENTS INTEGRATED! WOO!
 			 * (But only on whole lines...)
 			 * (Also, blank line are ignored!)
 			 */
@@ -68,23 +72,28 @@ public class RoomReader {
 			}
 			
 			/*
-			 * Breaks the array into 3 sections.
-			 * The separator is 12 '=' on a line.
+			 * Breaks the array into 3 sections. The separator is 12 '=' on a line.
 			 */
 			if (fileLines[y].equals("============")) {
 				
+				/*
+				 * When moving from the tile section to the item section, finalize the tile
+				 * list into an array.
+				 */
 				if (section == 0) {
-					
 					tileArray = tileList.toArray(tileArray);
 					itemArray = new Item[tileArray.length][tileArray[0].length];
 				}
 				
 				section++;
 				continue;
+				
 			}
 			
+			// Remove the spaces
 			line = fileLines[y].replaceAll(" ", "");
 			
+			// Depending on the section...
 			switch (section) {
 				
 				/*
@@ -94,6 +103,7 @@ public class RoomReader {
 					
 					lineBits = line.split(",");
 					tileList.add(new ArrayList<Tile>());
+					
 					for (int x = 0; x < lineBits.length; x++) {
 						
 						str = lineBits[x];
@@ -132,6 +142,7 @@ public class RoomReader {
 				case 1:
 					
 					lineBits = line.split(",");
+					
 					for (int x = 0; x < lineBits.length; x++) {
 						
 						str = lineBits[x];
@@ -176,13 +187,21 @@ public class RoomReader {
 					position.y = Integer.parseInt(params[1]);
 					
 					if (line.charAt(0) == 'P') {
+						
 						player = new Player(position);
+						
 					} else if (line.charAt(0) == 'E') {
+						
 						if (params.length == 2) {
+							
 							enemyList.add(new Enemy(position, levelNum));
+							
 						} else if (params.length == 3) {
+							
 							enemyList.add(new Enemy(position, Integer.parseInt(params[2])));
+							
 						}
+						
 					}
 					
 					break;
