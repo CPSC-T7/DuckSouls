@@ -11,6 +11,7 @@ import ui.RoomDrawer;
 import utils.GameEventQue;
 import utils.Orientation;
 import world.Level;
+import world.LevelBuilder;
 import battle.Loop;
 
 public class TextGame implements Controller {
@@ -49,15 +50,11 @@ public class TextGame implements Controller {
 	public TextGame(boolean isStory) {
 		
 		TextGame.isStory = isStory;
+		player = new Player(new Point(1, 1));
 		
 		if (TextGame.isStory) {
-			// TODO: Load story level.
-			/*
-			 * "Levels" are folders with rooms as text files, and a level data .txt file.
-			 * "Rooms" are .txt files with the naming scheme of "room-X-Y.txt"
-			 */
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
 		} else {
-			player = new Player(new Point(1, 1));
 			currentLevel = new Level(levelNum, player, new Point(0, 0));
 		}
 		
@@ -162,7 +159,7 @@ public class TextGame implements Controller {
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		// TODO: Run Battle
-		Loop.battleLoop(player, enemyToBattle, isGUI); //Still under works
+		Loop.battleLoop(player, enemyToBattle, isGUI); // Still under works
 		
 	}
 	
@@ -172,11 +169,7 @@ public class TextGame implements Controller {
 		levelNum++;
 		
 		if (isStory) {
-			// TODO: Load story level.
-			/*
-			 * "Levels" are folders with rooms as text files, and a level data .txt file.
-			 * "Rooms" are .txt files with the naming scheme of "Room-X-Y.txt"
-			 */
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		} else {
 			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());
 		}
