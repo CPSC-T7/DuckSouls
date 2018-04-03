@@ -1,6 +1,6 @@
 import controllers.TextGame;
 
-public class Test {
+public class TextTest {
 	
 	public static void main(String[] args) {
 		TextGame tg = new TextGame(false);

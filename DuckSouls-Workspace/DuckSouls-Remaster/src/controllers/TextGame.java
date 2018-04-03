@@ -58,7 +58,7 @@ public class TextGame implements Controller {
 			currentLevel = new Level(levelNum, player, new Point(0, 0));
 		}
 		
-	}
+	}// End of TextGame
 	
 	@Override
 	public void mainLoop() {
@@ -154,14 +154,14 @@ public class TextGame implements Controller {
 			handleAllEvents();
 			
 		}
-	}
+	}// End of mainLoop
 	
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		// TODO: Run Battle
 		Loop.battleLoop(player, enemyToBattle, isGUI); // Still under works
 		
-	}
+	}// End of handleBattleEvent
 	
 	@Override
 	public void handleLevelChangeEvent() {
@@ -174,7 +174,7 @@ public class TextGame implements Controller {
 			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());
 		}
 		
-	}
+	}// End of handleLevelChangeEvent
 	
 	@Override
 	public void handleAllEvents() {
@@ -189,7 +189,5 @@ public class TextGame implements Controller {
 					break;
 			}
 		}
-		
-	}
-	
+	}// End of handleAllEvents
 }
