@@ -209,6 +209,7 @@ public class GUIGame extends Application implements Controller {
 			// Move the player
 			if (plyrMoveDirection != null) {
 				currentLevel.movePlayer(plyrMoveDirection);
+				plyrMoveDirection = null;
 			}
 			
 			// Handle the events
