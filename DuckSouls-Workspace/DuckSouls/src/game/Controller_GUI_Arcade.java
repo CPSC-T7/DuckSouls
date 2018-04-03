@@ -78,7 +78,7 @@ public class Controller_GUI_Arcade extends Application {
 			public void handle(long now) {
 				
 				// Update depending on the selected screen
-				if (inTitle == true) {
+				if (inTitle) {
 					updateTitle();
 					
 				} else if (inBattle == false) {

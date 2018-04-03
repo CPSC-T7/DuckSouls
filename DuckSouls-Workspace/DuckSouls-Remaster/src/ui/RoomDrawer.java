@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Image;
+
 import world.Room;
 
 public class RoomDrawer {
@@ -8,7 +10,6 @@ public class RoomDrawer {
 		
 		if (isGUI) {
 			
-			// TODO: Draw GUI Room.
 			
 		} else {
 			

@@ -31,6 +31,7 @@ import utils.Utilities;
  * between the battle engine and the overworld engines in GUI form
  * 
  * @author Colin Au Yeung
+ * @author Wylee McAndrews
  *
  */
 public class OverWorld extends Application {
@@ -45,55 +46,11 @@ public class OverWorld extends Application {
 	
 	//GameWorld
 	private GameWorld		world			= new Level();
-	private Event			event			= new Event(Event_type.NOEVENT);
-	DuckObject				battlePlayer	= new DuckObject(20, 15, 5, 5, 5, 78, 16, 'G');
-	EnemyObject				battleEnemy		= new EnemyObject("Rat", 10, 15, 5, 5, 5, 70, 16, 'G');
 	private static boolean	inBattle		= false;
 	private static boolean	inTitle			= true;
 	// The current BattleWorld
 	private BattleWorld	battleWorld;
 	
-	// The title screen
-	private TitleScreen		titleScreen;
-	
-	@Override
-	public void start(Stage window) throws Exception {
-		
-		//JavaFx setup
-		final int windowSize = 64 * 9;
-		Group root = new Group();
-		Scene scene = new Scene(root);
-		Canvas canvas = new Canvas(windowSize, windowSize);
-		root.getChildren().add(canvas);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		titleScreen = new TitleScreen(window);
-		window.setTitle("DuckSouls");
-		window.setScene(scene);
-		window.show();
-		
-		// Update based on frame rate
-		AnimationTimer timer = new AnimationTimer() {
-			
-			@Override
-			public void handle(long now) {
-				
-				// Update depending on the selected screen
-				if (inTitle == true) {
-					updateTitle();
-					
-				} else if (inBattle == false) {
-					mainloop(window, gc, scene);
-					window.setScene(scene);
-					
-					// If in battle: update battleWorld
-				} else {
-					updateBattle(battlePlayer, battleEnemy);
-				}
-			}
-		};
-		timer.start();
-		
-	}
 	
 	/**
 	 * Runs through a loop, where it displays the room and asks for input
@@ -124,14 +81,6 @@ public class OverWorld extends Application {
 					event.setEvent(world.runTurn(key.getCode().toString()));
 					// Redraws the map
 					this.drawMap(gc, world.getImageSprites(mapsize));
-					break;
-				
-				case I:
-					Utilities.clearConsole();
-					System.out.println("Player Inventory:\n");
-					for (Item item : world.getInventory()) {
-						System.out.println(item.getName());
-					}
 					break;
 				
 				case E:
@@ -225,22 +174,4 @@ public class OverWorld extends Application {
 		}
 	}// End of drawMap
 	
-	/**
-	 * Update the world in which the player fights an enemy.
-	 */
-	public void updateBattle(DuckObject battlePlayer, EnemyObject battleEnemy) {
-		
-		this.inBattle = this.battleWorld.update(battlePlayer, battleEnemy, this.world.getPlayerWeapon(),
-				
-				this.world.getPlayerArmour());
-	}
-	
-	/**
-	 * Update the world with the title screen
-	 */
-	public void updateTitle() {
-		
-		this.inTitle = this.titleScreen.update();
-		
-	}
 }

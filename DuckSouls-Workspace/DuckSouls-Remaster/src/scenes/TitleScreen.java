@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.Utilities;
 
@@ -54,6 +55,8 @@ public class TitleScreen {
 	private Stage window;
 	private Scene scene = new Scene(root);
 	
+	private Pane groupPane = new Pane(titleBackgroundImageView);
+	
 	/**
 	 * TitleScreen constructor for the GUI game.
 	 * 
@@ -67,8 +70,8 @@ public class TitleScreen {
 	    root.getChildren().add(titleBackgroundImageView);
 	    
 	    //Set the scene and show it on the window
-	    window.setScene(scene);
-		window.show();
+	    this.window.setScene(scene);
+		this.window.show();
 	}
 	
 	/**
@@ -107,12 +110,11 @@ public class TitleScreen {
 	public boolean update() {
 		
 		// Set the scene to the title scene
-		window.setScene(scene);
+		this.window.setScene(scene);
 		
 		// Check for key presses
 		this.scene.setOnKeyPressed(key -> {
 			if (key.getCode() == KeyCode.ENTER) { // On ENTER key press
-				
 				// Tell the loop that the scene should no longer be the title
 				this.inTitle = false;
 			}
