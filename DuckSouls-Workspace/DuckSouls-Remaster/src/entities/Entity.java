@@ -115,13 +115,21 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 		} else {
 			return damage;
 		}
-		
 	}
 	
 	@Override
 	public double receiveAttack(double damage) {
-		this.health = this.health - damage - this.defence;
-		return (damage - this.defence);
+		if (damage == 0) {
+			return 0;
+		}
+		else {
+			damage = Math.round(damage - this.defence);
+			if (damage < 1) {
+				damage = 1;
+			}
+			this.health = this.health - damage;
+			return (damage);
+		}
 	}
 	
 	@Override

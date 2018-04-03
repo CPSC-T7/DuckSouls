@@ -90,10 +90,14 @@ public class Player extends Entity {
 	
 	@Override
 	public double receiveAttack(double damage) {
-		damage = super.receiveAttack(damage);
-		this.health = this.health + this.armour.getDefense(); // Placeholder
-		return (damage + this.armour.getDefense());
-		
+		if (damage == 0) {
+			return 0;
+		}
+		else {
+			damage = damage + this.armour.getDefense();
+			damage = super.receiveAttack(damage);
+			return (damage);
+		}
 	}
 	
 	@Override

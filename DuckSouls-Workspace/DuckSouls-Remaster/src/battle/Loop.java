@@ -53,17 +53,19 @@ public class Loop {
 		
 		switch (command) {
 		case 0:
-			double damage = attacker.sendAttack();
+			double damage;
+			damage = attacker.sendAttack();
 			damage = defender.receiveAttack(damage);
-			if (isGUI) {
-				//TODO: make gui text
+			if (damage == 0) {
+				PrintBattleText.missedText(attacker, isGUI);
 			}
 			else {
-				PrintBattleText.damageText(attacker, damage);
+				PrintBattleText.damageText(attacker, damage, isGUI);
 			}
 			break;
 		case 1:
 			defender.taunted();
+			PrintBattleText.tauntedText(attacker, isGUI);
 			break;
 		case 2:
 			//item
