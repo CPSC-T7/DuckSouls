@@ -8,6 +8,17 @@
 ; Anyway, onto the code!
 
 
+; --- SECTION 0 : ROOM DATA ---
+
+; Here is where we define room size as two integers (x then y) separated with a comma
+
+7,7
+
+; Now that the tiles have been defined, it is time to let the program know to advance the section.
+; To do this, we need to write EXACTLY 12 '=' characters on a line.
+
+============
+
 ; --- SECTION 1 : TILES ---
 
 ; Each tile has a specific string representing said tile in text files.
@@ -21,8 +32,7 @@ WTL, WT, WT, DT, WT, WT, WTR
  WL,   ,   ,   ,   ,   , WR
 WBL, WB, WB, DB, WB, WB, WBR
 
-; Now that the tiles have been defined, it is time to let the program know to advance the section.
-; To do this, we need to write EXACTLY 12 '=' characters on a line.
+; Again, we need to write EXACTLY 12 '=' characters on a line to advance the section.
 
 ============
 

@@ -13,7 +13,7 @@ public class LevelBuilder {
 	 * 
 	 */
 	
-	public static final String WORLD_FOLDER_PATH = "../LevelFiles/";
+	public static final String WORLD_FOLDER_PATH = "../Levels/";
 	
 	/*
 	 * 
@@ -35,7 +35,7 @@ public class LevelBuilder {
 		for (File roomFile : new File(WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/").listFiles()) {
 			
 			int roomX = Integer.parseInt(roomFile.getName().split("-")[1]);
-			int roomY = Integer.parseInt(roomFile.getName().split("-")[2]);
+			int roomY = Integer.parseInt(roomFile.getName().split("-")[2].replace(".txt", ""));
 			
 			if (roomX > maxX) {
 				maxX = roomX;
@@ -51,7 +51,7 @@ public class LevelBuilder {
 		for (File roomFile : new File(WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/").listFiles()) {
 			
 			int roomX = Integer.parseInt(roomFile.getName().split("-")[1]);
-			int roomY = Integer.parseInt(roomFile.getName().split("-")[2]);
+			int roomY = Integer.parseInt(roomFile.getName().split("-")[2].replace(".txt", ""));
 			
 			roomArray[roomX][roomY] = RoomIO.loadStoryRoom(levelNum, new Point(roomX, roomY));
 			

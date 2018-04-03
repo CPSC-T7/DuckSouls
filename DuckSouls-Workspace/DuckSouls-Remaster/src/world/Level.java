@@ -249,6 +249,10 @@ public class Level {
 		
 		if (!(this.currentRoom.tileAt(this.player.getPosition()) instanceof Door)) {
 			PositionTests.testPointInRoom(this.currentRoom, newPlayerPoint);
+		}		
+		
+		if (this.currentRoom.tileAt(this.player.getPosition()) == GeneralTile.FLOOR) {
+			this.currentRoom.setTile(this.player.getPosition(), GeneralTile.PATH);
 		}
 		
 		boolean movedRooms = false;

@@ -23,7 +23,7 @@ public class RoomIO {
 	 * 
 	 */
 	
-	public static final String WORLD_FOLDER_PATH = "../LevelFiles/";
+	public static final String WORLD_FOLDER_PATH = "../Levels/";
 	
 	/*
 	 * 
@@ -49,9 +49,11 @@ public class RoomIO {
 		String[] lineBits;
 		String line;
 		String str;
+		int width = 0;
+		int height = 0;
+		int y = 0;
 		
 		// Arrays to fill
-		ArrayList<ArrayList<Tile>> tileList = new ArrayList<ArrayList<Tile>>();
 		Tile[][] tileArray = null;
 		Item[][] itemArray = null;
 		
@@ -61,21 +63,25 @@ public class RoomIO {
 		
 		/*
 		 * Sections:
-		 * 0 --> Tiles
-		 * 1 --> Items
-		 * 2 --> Entities
+		 * 0 --> Room Data
+		 * 1 --> Tiles
+		 * 2 --> Items
+		 * 3 --> Entities
 		 */
 		int section = 0;
 		
 		// For each file in the line
-		for (int y = 0; y < fileLines.length; y++) {
+		for (int lineNum = 0; lineNum < fileLines.length; lineNum++) {
+			
+			// Remove the spaces
+			line = fileLines[y].replaceAll(" ", "");
 			
 			/*
 			 * WE HAVE COMMENTS INTEGRATED! WOO!
 			 * (But only on whole lines...)
 			 * (Also, blank line are ignored!)
 			 */
-			if (fileLines[y].charAt(0) == ';' || fileLines[y].equals("")) {
+			if (fileLines[y].length() == 0 || fileLines[y].charAt(0) == ';') {
 				continue;
 			}
 			
@@ -83,43 +89,48 @@ public class RoomIO {
 			 * Breaks the array into 3 sections. The separator is 12 '=' on a line.
 			 */
 			if (fileLines[y].equals("============")) {
-				
-				/*
-				 * When moving from the tile section to the item section, finalize the tile
-				 * list into an array.
-				 */
-				if (section == 0) {
-					tileArray = tileList.toArray(tileArray);
-					itemArray = new Item[tileArray.length][tileArray[0].length];
-				}
-				
 				section++;
+				y = 0;
 				continue;
-				
 			}
 			
-			// Remove the spaces
-			line = fileLines[y].replaceAll(" ", "");
+			System.out.println("Parsing line : [" + line + "]");
+			y++;
 			
 			// Depending on the section...
 			switch (section) {
 				
 				/*
-				 * Tiles
+				 * Room Data
 				 */
+				
 				case 0:
 					
 					lineBits = line.split(",");
-					tileList.add(new ArrayList<Tile>());
+					width = Integer.parseInt(lineBits[0]);
+					height = Integer.parseInt(lineBits[1]);
 					
-					for (int x = 0; x < lineBits.length; x++) {
+					tileArray = new Tile[width][height];
+					itemArray = new Item[width][height];
+					
+					break;
+				
+				/*
+				 * Tiles
+				 */
+				case 1:
+					
+					lineBits = line.split(",");
+					
+					for (int x = 0; x < width; x++) {
 						
+						System.out.println(x);
 						str = lineBits[x];
 						
 						// Search for walls
 						for (Wall wall : Wall.values()) {
 							if (str.equals(wall.getFileString())) {
-								tileList.get(x).add(wall);
+								tileArray[x][y] = wall;
 								break;
 							}
 						}
@@ -127,7 +138,7 @@ public class RoomIO {
 						// Search for general tiles
 						for (GeneralTile tile : GeneralTile.values()) {
 							if (str.equals(tile.getFileString())) {
-								tileList.get(x).add(tile);
+								tileArray[x][y] = tile;
 								break;
 							}
 						}
@@ -135,7 +146,7 @@ public class RoomIO {
 						// Search for doors
 						for (Door door : Door.values()) {
 							if (str.equals(door.getFileString())) {
-								tileList.get(x).add(door);
+								tileArray[x][y] = door;
 								break;
 							}
 						}
@@ -147,11 +158,11 @@ public class RoomIO {
 				/*
 				 * Items
 				 */
-				case 1:
+				case 2:
 					
 					lineBits = line.split(",");
 					
-					for (int x = 0; x < lineBits.length; x++) {
+					for (int x = 0; x < width; x++) {
 						
 						str = lineBits[x];
 						
@@ -186,7 +197,7 @@ public class RoomIO {
 				/*
 				 * Entities
 				 */
-				case 2:
+				case 3:
 					
 					String[] params = line.split(":")[1].split(",");
 					
@@ -218,7 +229,7 @@ public class RoomIO {
 			
 		}
 		
-		return new Room(tileArray, itemArray, player, enemyList, levelNum);
+		return new Room(width, height, tileArray, itemArray, player, enemyList, levelNum);
 		
 	}
 	
