@@ -11,7 +11,7 @@ public interface Drawable {
 	 * 
 	 */
 	
-	public static final String SPRITE_FOLDER_PATH = "file:///" + Utilities.parentDir + "Sprites/";
+	public static final String SPRITE_FOLDER_PATH = "file:///" + Utilities.parentDir + "/Sprites/";
 	
 	/*
 	 * 

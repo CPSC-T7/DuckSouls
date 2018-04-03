@@ -10,7 +10,7 @@ public interface Tile extends Drawable {
 	 * 
 	 */
 	
-	public static final String TILE_SPRITE_FOLDER_PATH = SPRITE_FOLDER_PATH + "Tiles/";
+	public static final String TILE_SPRITE_FOLDER_PATH = SPRITE_FOLDER_PATH + "Tiles/Sewer/";
 	
 	/*
 	 * 
