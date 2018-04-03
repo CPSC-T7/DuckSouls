@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import world.Room;
 
 public class RoomDrawer {
-	
+
 	/*
 	 * 
 	 * CONSTANTS
@@ -16,65 +16,61 @@ public class RoomDrawer {
 	private static final int TILES = 0;
 	private static final int ITEMS = 1;
 	private static final int ENTITIES = 2;
-	
-	/*
-	 * 
-	 * VARIABLES
-	 * 
-	 */
-	
-	private static GraphicsContext gc;
-	
+	private static final int TILESIZE = 64;
+
 	/*
 	 * 
 	 * METHODS
 	 * 
 	 */
-	
-	public static void setGraphicsContext(GraphicsContext gc) {
-		RoomDrawer.gc = gc;
-	}
-	
-	public static void drawRoom(Room room, boolean isGUI) {
-		
-		if (isGUI) {
-			
-			Image[][][] sprites = room.getAllImageSprites();
-			
-			for (int x = 0; x < sprites.length; x++) {
-				for (int y = 0; y < sprites[0].length; y++) {
-					
-					/*
-					 * sprites[x][y][TILES] --> tile @ (x, y)
-					 * sprites[x][y][ITEMS] --> item @ (x, y)
-					 * sprites[x][y][ENTITIES] --> entity @ (x, y)
-					 */
-					
+
+	public static void drawGUIRoom(Room room, GraphicsContext gc) {
+
+		Image[][][] sprites = room.getAllImageSprites();
+
+		for (int x = 0; x < sprites.length; x++) {
+			for (int y = 0; y < sprites[0].length; y++) {
+
+				if (sprites[x][y][TILES] != null) {
+					// System.out.println("TILE");
+					gc.drawImage(sprites[x][y][TILES], x * TILESIZE, y * TILESIZE);
+
+				}
+
+				if (sprites[x][y][ITEMS] != null) {
+					// System.out.println("ITEMS");
+					gc.drawImage(sprites[x][y][ITEMS], x * TILESIZE, y * TILESIZE);
+
+				}
+				if (sprites[x][y][ENTITIES] != null) {
+					// System.out.println("ENTITES");
+					gc.drawImage(sprites[x][y][ENTITIES], x * TILESIZE, y * TILESIZE);
+
 				}
 			}
-			
-		} else {
-			
-			// Grab the sprites (Strings)
-			String[][] sprites = room.getAllTextSprites();
-			
-			// Print the room
-			for (String[] rows : sprites) {
-				
-				for (String sprite : rows) {
-					
-					// Print the individual tile sprite
-					System.out.print(sprite);
-					
-				}
-				
-				// Wrap the line
-				System.out.println();
-				
-			}
-			
 		}
-		
 	}
-	
+
+	public static void drawTextRoom(Room room) {
+
+		// Grab the sprites (Strings)
+		String[][] sprites = room.getAllTextSprites();
+
+		// Print the room
+		for (String[] rows : sprites) {
+
+			for (String sprite : rows) {
+
+				// Print the individual tile sprite
+				System.out.print(sprite);
+
+			}
+
+			// Wrap the line
+			System.out.println();
+
+		}
+
+	}
+
 }

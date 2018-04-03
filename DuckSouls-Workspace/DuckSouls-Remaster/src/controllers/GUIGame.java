@@ -68,6 +68,8 @@ public class GUIGame extends Application implements Controller {
 	// Overworld Scene
 	private Scene scene;
 	
+	private GraphicsContext gc;
+	
 	@Override
 	public void start(Stage window) throws Exception {
 		
@@ -87,7 +89,10 @@ public class GUIGame extends Application implements Controller {
 		scene = new Scene(root);
 		Canvas canvas = new Canvas(windowSize, windowSize);
 		root.getChildren().add(canvas);
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
+		this.gc = gc;
+		
 		titleScreen = new TitleScreen(window);
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
@@ -149,9 +154,7 @@ public class GUIGame extends Application implements Controller {
 	public void mainLoop() {
 
 		// Draw the room
-		//RoomDrawer.drawRoom(currentLevel.currentRoom, isGUI);
-		
-		this.drawMap(gc, world.getImageSprites);
+		RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
 		
 		scene.setOnKeyPressed(key -> {
 			switch (key.getCode()) {
@@ -222,53 +225,6 @@ public class GUIGame extends Application implements Controller {
 		// Handle the events
 		handleAllEvents();
 	}
-
-	/**
-	 * Draw the sprite to the screen at a position (x,y)
-	 * 
-	 * @param gc
-	 *            Graphics Context
-	 * @param position
-	 *            Entity Position
-	 * @param image
-	 *            the path for the image to be drawn
-	 *
-	 */
-	public void drawSprite(GraphicsContext gc, int[] position, Image image) {
-		
-		gc.drawImage(image, position[0], position[1]);
-		
-	}// End of drawSprite
-	
-	/**
-	 * Draw all the sprite in the map to the screen at a position (x,y)
-	 * 
-	 * @param gc
-	 *            Graphics Context
-	 * @param Map
-	 *            A 3D arraylist containing sprites
-	 *
-	 * 
-	 */
-	public void drawMap(GraphicsContext gc, ArrayList<ArrayList<ArrayList<Image>>> Map) {
-		
-		// For each column...
-		for (int y = 0; y < Map.size(); y++) {
-			
-			// For each row...
-			for (int x = 0; x < Map.get(y).size(); x++) {
-				
-				// Set the current position to that row and column
-				int[] position = new int[] { x * 64, y * 64 };
-				
-				// Draw each sprite in that row and column on top of each other
-				for (int i = 0; i < Map.get(y).get(x).size(); i++) {
-					this.drawSprite(gc, position, Map.get(y).get(x).get(i));
-				}
-			}
-		}
-	}// End of drawMap
-	
 	
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
