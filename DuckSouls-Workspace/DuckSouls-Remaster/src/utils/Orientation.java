@@ -48,10 +48,10 @@ public enum Orientation {
 				return new Point(position.x, position.y + 1);
 			
 			case EAST:
-				return new Point(position.x - 1, position.y);
+				return new Point(position.x + 1, position.y);
 			
 			case WEST:
-				return new Point(position.x + 1, position.y);
+				return new Point(position.x - 1, position.y);
 			
 			default:
 				return position;
