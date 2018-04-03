@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ui.MenuButton;
+import animation.SpriteAnimation;
+import animation.BattleSprite;
 import utils.Utilities;
 
 import items.Item;
@@ -132,15 +134,11 @@ public class BattleWorld {
 		menuArray[menuButtonX][menuButtonY].animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(40);
 		
-	} // End of start()
-	
-	/**
-	 * Set and show the scene on the window.
-	 */
-	public void setScene() {
+		// Set the scene
 		window.setScene(scene);
 		window.show();
-	}
+		
+	} // End of start()
 	
 	/**
 	 * Update the scene based on user input: -Select moves (attack, taunt, etc)
@@ -153,19 +151,7 @@ public class BattleWorld {
 	 * @param menuArray
 	 *            A 2D array of menu buttons used to make moves against an enemy.
 	 */
-	public boolean update(DuckObject Player, EnemyObject Enemy, Item wep, Item arm) {
-		
-		// System.out.print(wep);
-		// System.out.print(arm);
-		// Utilities.waitMilliseconds(5000);
-		
-		// Add stats from weapon and armour before the battle, it gets reset at the end
-		Player.setStats("attackPoints", (Player.getStats("attackPoints") + wep.getExtraStats("attack")));
-		Player.setStats("accuracyPoints", (Player.getStats("accuracyPoints") + wep.getExtraStats("accuracy")));
-		Player.setStats("speedPoints", (Player.getStats("speedPoints") + wep.getExtraStats("speed")));
-		Player.setStats("criticalHitPoints", (Player.getStats("criticalHitPoints") + wep.getExtraStats("critChance")));
-		
-		Player.setStats("defencePoints", (Player.getStats("defencePoints") + arm.getExtraStats("defense")));
+	public boolean update() {
 		
 		// If an animation is playing, do not take key inputs.
 		if (this.inAnimation) {
@@ -244,11 +230,10 @@ public class BattleWorld {
 						if (this.menuButtonType == "Attack") {
 							this.inAnimation = true;
 							this.playerTurn = true;
-							this.inBattle = Player.playerMove(Enemy, this.menuButtonType);
+							this.inBattle = true;
 							
 							// If the enemy survives, do its turn.
 							if (this.inBattle) {
-								this.inBattle = Enemy.enemyMove(Player, 2);
 								this.enemyAttacks = true;
 							} else {
 								this.enemyAttacks = false;

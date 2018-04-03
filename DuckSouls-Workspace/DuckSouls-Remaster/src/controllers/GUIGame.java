@@ -64,10 +64,10 @@ public class GUIGame extends Application implements Controller {
 	private TitleScreen		titleScreen;
 	
 	// The current BattleWorld
-	private BattleWorld	battleWorldScreen;
+	private BattleWorld		battleWorldScreen;
 	
 	// The current OverWorld
-	private OverWorld overWorldScreen;
+	private OverWorld 		overWorldScreen;
 	
 	/**
 	 * The GUIGame constructor.
@@ -123,14 +123,22 @@ public class GUIGame extends Application implements Controller {
 	public void mainLoop() {
 
 		if (inTitle) {
-			inTitle = titleScreen.update();
+			updateTitle();
 		}else if (inBattle) {
-			inBattle = battleWorldScreen.update();
+			this.inBattle = battleWorldScreen.update();
 		}else {
 			
 		}
 		
 	}// End of mainLoop
+	
+	/**
+	 * 
+	 */
+	public void updateTitle() {
+		
+		this.inTitle = this.titleScreen.update();
+	}
 
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {

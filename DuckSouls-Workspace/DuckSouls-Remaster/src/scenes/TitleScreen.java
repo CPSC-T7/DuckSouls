@@ -39,7 +39,7 @@ public class TitleScreen {
 	
 	
 	// GUI Game variables:
-	
+
 	// If the TitleScreen should continue to be shown
 	private boolean inTitle = true;
 	
