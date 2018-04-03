@@ -121,8 +121,8 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public void run() {
-		//TODO
+	public boolean run() {
+		return true;
 	}
 	
 	public void addExperiece(int xp) {

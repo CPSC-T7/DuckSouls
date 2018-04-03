@@ -52,7 +52,7 @@ public interface Battleable {
 	/**
 	 * Ends the battle immediately without gaining score or xp
 	 */
-	public abstract void run();
+	public abstract boolean run();
 	
 	/**
 	 * Chooses which battle command to use
