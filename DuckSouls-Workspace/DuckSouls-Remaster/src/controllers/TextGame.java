@@ -65,7 +65,7 @@ public class TextGame implements Controller {
 		
 		while (true) {
 			
-			Utilities.clearConsole();
+//			Utilities.clearConsole();
 			
 			// Print out the level number
 			System.out.println("Level : " + levelNum + "\n");

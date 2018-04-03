@@ -74,28 +74,28 @@ public class RoomIO {
 		for (int lineNum = 0; lineNum < fileLines.length; lineNum++) {
 			
 			// Remove the spaces
-			line = fileLines[y].replaceAll(" ", "");
+			line = fileLines[lineNum].replaceAll(" ", "");
 			
 			/*
 			 * WE HAVE COMMENTS INTEGRATED! WOO!
 			 * (But only on whole lines...)
 			 * (Also, blank line are ignored!)
 			 */
-			if (fileLines[y].length() == 0 || fileLines[y].charAt(0) == ';') {
+			if (line.length() == 0 || line.charAt(0) == ';') {
 				continue;
 			}
 			
 			/*
 			 * Breaks the array into 3 sections. The separator is 12 '=' on a line.
 			 */
-			if (fileLines[y].equals("============")) {
+			if (line.equals("============")) {
+				System.out.println("------ SECTION ADVANCE ------");
 				section++;
 				y = 0;
 				continue;
 			}
 			
-			System.out.println("Parsing line : [" + line + "]");
-			y++;
+			System.out.println("Parsing line #" + y + " : [" + line + "]");
 			
 			// Depending on the section...
 			switch (section) {
@@ -120,11 +120,10 @@ public class RoomIO {
 				 */
 				case 1:
 					
-					lineBits = line.split(",");
+					lineBits = line.split(",", -1);
 					
 					for (int x = 0; x < width; x++) {
 						
-						System.out.println(x);
 						str = lineBits[x];
 						
 						// Search for walls
@@ -160,11 +159,12 @@ public class RoomIO {
 				 */
 				case 2:
 					
-					lineBits = line.split(",");
+					lineBits = line.split(",", -1);
 					
 					for (int x = 0; x < width; x++) {
 						
 						str = lineBits[x];
+						
 						
 						// Search for consumables
 						for (Consumable consumable : Consumable.values()) {
@@ -227,7 +227,17 @@ public class RoomIO {
 				
 			}
 			
+			y++;
+			
 		}
+		
+		System.out.println(width);		
+		System.out.println(height);		
+		System.out.println(tileArray);		
+		System.out.println(itemArray);		
+		System.out.println(player);		
+		System.out.println(enemyList);		
+		System.out.println(levelNum);
 		
 		return new Room(width, height, tileArray, itemArray, player, enemyList, levelNum);
 		
