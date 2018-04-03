@@ -74,10 +74,11 @@ public class Room {
 		
 	}
 	
-	public Room(Tile[][] tileArray, Item[][] itemArray, Player player, ArrayList<Enemy> enemyList, int levelNum) {
+	public Room(int width, int height, Tile[][] tileArray, Item[][] itemArray, Player player,
+			ArrayList<Enemy> enemyList, int levelNum) {
 		
-		this.internalWidth = tileArray.length - 2;
-		this.internalHeight = tileArray[0].length - 2;
+		this.internalWidth = width - 2;
+		this.internalHeight = height - 2;
 		this.levelNum = levelNum;
 		this.enemySpawnChance = 0;
 		

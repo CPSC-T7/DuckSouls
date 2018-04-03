@@ -143,7 +143,8 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public void run() {
+	public boolean run() {
+		return false;
 	}
 	
 	@Override

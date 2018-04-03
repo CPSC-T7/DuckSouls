@@ -5,6 +5,9 @@ import entities.Player;
 
 public class PrintBattleText {
 	
+	//TODO: TURN INTO ABSTRACT MAYBE LATER
+	// TEXTTEXT AND GUITEXT EXTENDS
+	
 	public static void attackingText() {
 		
 	}
