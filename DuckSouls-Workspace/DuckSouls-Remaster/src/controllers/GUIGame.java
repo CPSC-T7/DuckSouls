@@ -3,18 +3,21 @@ package controllers;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import battle.Loop;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import entities.Enemy;
 import entities.Player;
 import items.Item;
+import ui.InventoryDrawer;
 import ui.RoomDrawer;
 
 import utils.GameEventQue;
@@ -58,6 +61,7 @@ public class GUIGame extends Application implements Controller {
 
 	private static boolean	inBattle		= false;
 	private static boolean	inTitle			= true;
+	private static boolean 	inInventory		= false;
 	
 	// The current BattleWorld
 	private BattleWorld		battleWorld;
@@ -119,7 +123,7 @@ public class GUIGame extends Application implements Controller {
 		};
 		timer.start();
 		
-	}
+	}// End of start
 	
 	
 	/**
@@ -128,7 +132,8 @@ public class GUIGame extends Application implements Controller {
 	public void updateBattle() {
 		
 		inBattle = battleWorld.update();
-	}
+		
+	}// End of updateBattle
 	
 	/**
 	 * Update the world with the title screen
@@ -137,7 +142,7 @@ public class GUIGame extends Application implements Controller {
 		
 		inTitle = titleScreen.update();
 		
-	}
+	}// End of updateTitle
 
 	/**
 	 * Update the world in which the player moves around
@@ -145,16 +150,23 @@ public class GUIGame extends Application implements Controller {
 	 */
 	public void updateWorld() {
 		mainLoop();
-	}
+		
+	}// End of updateWorld
 
 	/**
 	 * Game's main loop
 	 */
 	@Override
 	public void mainLoop() {
-
-		// Draw the room
-		RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
+		
+		if (inInventory) {
+			//Draw the inventory
+			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
+			InventoryDrawer.drawInventory(gc);
+		}else {
+			// Draw the room
+			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
+		}
 		
 		scene.setOnKeyPressed(key -> {
 			switch (key.getCode()) {
@@ -176,15 +188,17 @@ public class GUIGame extends Application implements Controller {
 				 * STATS
 				 */
 				
-				case I:
+				case E:
+					if(inInventory) {
+						inInventory = false;
+					}else {
+						inInventory = true;
+					}
+					
 					System.out.println("Player Inventory:\n");
 					player.getInventory().forEach((item, quantity) -> {
 						System.out.println(quantity + "x : " + item.getName());
 					});
-
-					break;
-				
-				case E:
 					System.out.println("Player Equipment:\n");
 					System.out.println("Weapon : " + player.getWeapon().getName());
 					System.out.println("Armour : " + player.getArmour().getName());
@@ -216,25 +230,45 @@ public class GUIGame extends Application implements Controller {
 		
 		// Handle the events
 		handleAllEvents();
-	}
+		
+	}// End of mainLoop
 	
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
-		// TODO Auto-generated method stub
+		Loop.battleLoop(player, enemyToBattle, isGUI); // Still under works
 		
-	}
+	}// End of handleBattleEvent
 
 
 	@Override
 	public void handleLevelChangeEvent() {
-		// TODO Auto-generated method stub
 		
-	}
+		levelNum++;
+		
+		if (isStory) {
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
+		} else {
+			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());
+		}
+		
+	}// End of handleLevelChangeEvent
 
 
 	@Override
 	public void handleAllEvents() {
-		// TODO Auto-generated method stub
+
+		while (GameEventQue.hasEvent()) {
+			switch (GameEventQue.handleNextEvent()) {
+				case BATTLE:
+					handleBattleEvent(currentLevel.currentRoom.enemyAt(player.getPosition()));
+					break;
+				case LEVEL_CHANGE:
+					handleLevelChangeEvent();
+					break;
+			}
+		}
 		
-	}
+	}// End of handleAllEvents
+	
+	
 }
