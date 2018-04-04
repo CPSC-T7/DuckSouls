@@ -12,7 +12,7 @@ public enum GeneralTile implements Tile {
 	
 	// EMPTY("XXX", "Empty.png", false),
 	FLOOR("   ", "Floor.png", true),
-	PATH(" . ", "Path.png", true),
+	PATH(" . ", "Floor.png", true),
 	STAIRS("/=/", "Stairs.png", true);
 	
 	/*
