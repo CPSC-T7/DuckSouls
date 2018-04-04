@@ -18,7 +18,7 @@ import utils.Utilities;
  * 
  * @author Wylee McAndrews
  */
-public class TitleScreen {
+public class TitleScene {
 	
 	// The awesome tile ASCII art from
 	// http://patorjk.com/software/taag/#p=display&f=Bloody&t=Duck%20Souls
@@ -63,7 +63,7 @@ public class TitleScreen {
 	 * @param window
 	 * 				The stage to draw the TitleScreen scene to.
 	 */
-	public TitleScreen(Stage window) {
+	public TitleScene(Stage window) {
 		this.window = window;
 		
 		//Add all layers to the main group
@@ -78,7 +78,7 @@ public class TitleScreen {
 	 * TitleScreen constructor for the Text game.
 	 * Takes no arguments.
 	 */
-	public TitleScreen() {
+	public TitleScene() {
 	}
 
 	/**

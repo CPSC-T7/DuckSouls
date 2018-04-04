@@ -105,7 +105,7 @@ public class Player extends Entity {
 		
 		//TODO: @Wylee can you do the code for choosing le gui options for battle
 		//Give option to player
-		int move = 0; //temporary, make it int move;
+		int move = a;
 		//if attack, move == 0
 		//if taunt, move == 1
 		//if item, move == 4

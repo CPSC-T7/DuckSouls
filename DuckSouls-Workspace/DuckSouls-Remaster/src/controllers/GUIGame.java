@@ -27,8 +27,8 @@ import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
 
-import scenes.TitleScreen;
-import scenes.BattleWorld;
+import scenes.TitleScene;
+import scenes.BattleScene;
 
 public class GUIGame extends Application implements Controller {
 
@@ -63,10 +63,10 @@ public class GUIGame extends Application implements Controller {
 	private static boolean inInventory = false;
 
 	// The current BattleWorld
-	private BattleWorld battleWorld;
+	private BattleScene battleWorld;
 
 	// The title screen
-	private TitleScreen titleScreen;
+	private TitleScene titleScreen;
 
 	// Overworld Scene
 	private Scene scene;
@@ -99,7 +99,7 @@ public class GUIGame extends Application implements Controller {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		this.gc = gc;
 
-		titleScreen = new TitleScreen(this.window);
+		titleScreen = new TitleScene(this.window);
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();
@@ -237,7 +237,7 @@ public class GUIGame extends Application implements Controller {
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		Loop.battleLoop(player, enemyToBattle, isGUI); // Still under works
 		this.inBattle = true;
-		this.battleWorld = new BattleWorld(this.window);
+		this.battleWorld = new BattleScene(this.window);
 
 	}// End of handleBattleEvent
 
