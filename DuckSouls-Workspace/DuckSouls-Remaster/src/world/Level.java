@@ -235,6 +235,24 @@ public class Level {
 			
 		}
 		
+		if (direction == Orientation.NORTH || direction == Orientation.SOUTH) {
+			for (int x = 1; x <= this.currentRoom.getInternalWidth(); x++) {
+				Point pos = new Point (x, newPlayerPoint.y);
+				if (this.currentRoom.tileAt(pos) instanceof Door) {
+					newPlayerPoint = pos;
+					break;
+				}
+			}
+		} else {
+			for (int y = 1; y <= this.currentRoom.getInternalHeight(); y++) {
+				Point pos = new Point (newPlayerPoint.x, y);
+				if (this.currentRoom.tileAt(pos) instanceof Door) {
+					newPlayerPoint = pos;
+					break;
+				}
+			}
+		}
+		
 		// Place the player at the new position in the new room
 		this.player.setPosition(newPlayerPoint);
 		this.player.setOrientation(direction);

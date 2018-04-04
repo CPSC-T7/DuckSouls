@@ -1,0 +1,36 @@
+
+; --- SECTION 0 : ROOM DATA ---
+
+9,9
+
+============
+
+; --- SECTION 1 : TILES ---
+
+   ,   ,   ,WTL, DT,WTR,   ,   ,   
+   ,   ,WTL,WBR,   ,WBL,WTR,   ,   
+   ,WTL,WBR,   ,   ,   ,WBL,WTR,   
+WTL,WBR,   ,   ,   ,   ,   ,WBL,WTR
+ DL,   ,   ,   ,   ,   ,   ,   , DR
+WBL,WTR,   ,   ,   ,   ,   ,WTL,WBR
+   ,WBL,WTR,   ,   ,   ,WTL,WBR,   
+   ,   ,WBL,WTR,   ,WTL,WBR,   ,   
+   ,   ,   ,WBL, DB,WBR,   ,   ,   
+
+============
+
+; --- SECTION 2 : ITEMS ---
+
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   
+
+============
+
+; --- SECTION 3 : ENTITIES ---

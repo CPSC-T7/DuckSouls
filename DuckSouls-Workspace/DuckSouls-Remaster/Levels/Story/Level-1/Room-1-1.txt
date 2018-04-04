@@ -7,7 +7,7 @@
 
 ; --- SECTION 1 : TILES ---
 
-WTL, WT, WT, DT, WT, WT, WT, WT, WTR
+WTL, WT, WT, WT, WT, DT, WT, WT, WTR
  WL,   ,   ,   ,   ,   ,   ,   , WR
  WL,   ,   ,   ,   ,   ,   ,   , WR
  WL,   ,   ,   ,   ,   ,   ,   , WR
