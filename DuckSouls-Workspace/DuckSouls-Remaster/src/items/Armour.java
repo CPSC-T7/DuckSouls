@@ -15,7 +15,7 @@ public enum Armour implements Item {
 	CLOTH_ARMOUR("A Torn Sack", " CA", "ClothArmour.png", 8, 5),
 	LEATHER_ARMOUR("An Old Leather Tunic", " LA", "LeatherArmour.png", 6, 10),
 	METAL_ARMOUR("A Broken Washing Machine", " MA", "MetalArmour.png", 4, 20),
-	NONE("My Soft Feathers", null, null, 0, 0);
+	NONE("My Soft Feathers", "", "", 0, 0);
 	
 	/*
 	 * 
