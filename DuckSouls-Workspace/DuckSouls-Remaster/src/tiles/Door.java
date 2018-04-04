@@ -10,10 +10,10 @@ public enum Door implements Tile {
 	 * 
 	 */
 	
-	DOOR_T(" D ", "DT", "Door-Top"),
-	DOOR_B(" D ", "DB", "Door-Bottom"),
-	DOOR_L(" D ", "DL", "Door-Left"),
-	DOOR_R(" D ", "DR", "Door-Right");
+	DOOR_T(" D ", "DT", "Door-Up.png"),
+	DOOR_B(" D ", "DB", "Door-Down.png"),
+	DOOR_L(" D ", "DL", "Door-Left.png"),
+	DOOR_R(" D ", "DR", "Door-Right.png");
 	
 	/*
 	 * 

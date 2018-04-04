@@ -36,7 +36,6 @@ public class RoomDrawer {
 					gc.drawImage(sprites[x][y][TILES], x * TILESIZE, y * TILESIZE);
 
 				}
-
 				if (sprites[x][y][ITEMS] != null) {
 					// System.out.println("ITEMS");
 					gc.drawImage(sprites[x][y][ITEMS], x * TILESIZE, y * TILESIZE);

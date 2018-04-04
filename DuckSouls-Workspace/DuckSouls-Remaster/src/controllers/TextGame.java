@@ -71,7 +71,7 @@ public class TextGame implements Controller {
 			System.out.println("Level : " + levelNum + "\n");
 			
 			// Draw the room
-			RoomDrawer.drawRoom(currentLevel.currentRoom, isGUI);
+			RoomDrawer.drawTextRoom(currentLevel.currentRoom);
 			
 			// Prompt the user for input and clear the old value
 			usrInput = consoleIn.nextLine();
