@@ -149,6 +149,7 @@ public class Player extends Entity {
 		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
 		
 	}
+
 	
 	public void pickupItem(Item item) {
 		
