@@ -57,6 +57,10 @@ public class LevelBuilder {
 			
 		}
 		
+		if (levelNum == 1) {
+			player = roomArray[currentRoomPoint.x][currentRoomPoint.y].getPlayer();
+		}
+		
 		return new Level(roomArray.length, roomArray[0].length, roomArray, levelNum, player, currentRoomPoint);
 		
 	}

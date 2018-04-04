@@ -126,10 +126,6 @@ public class RoomIO {
 						
 						str = lineBits[x];
 						
-						if (str == null || str.equals("")) {
-							continue;
-						}
-						
 						// Search for walls
 						for (Wall wall : Wall.values()) {
 							if (str.equals(wall.getFileString())) {
@@ -168,8 +164,6 @@ public class RoomIO {
 					for (int x = 0; x < width; x++) {
 						
 						str = lineBits[x];
-						
-						System.out.println("'" + str + "'");
 						
 						if (str == null || str.equals("")) {
 							continue;
@@ -239,15 +233,7 @@ public class RoomIO {
 			y++;
 			
 		}
-		
-		System.out.println(width);
-		System.out.println(height);
-		System.out.println(tileArray);
-		System.out.println(itemArray);
-		System.out.println(player);
-		System.out.println(enemyList);
-		System.out.println(levelNum);
-		
+
 		return new Room(width, height, tileArray, itemArray, player, enemyList, levelNum);
 		
 	}

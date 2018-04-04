@@ -9,7 +9,7 @@
 
 WTL, WT, WT, WT, WT, WT, WTR
  WL,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   , DR
  WL,   ,   ,   ,   ,   , WR
  WL,   ,   ,   ,   ,   , WR
  WL,   ,   ,   ,   ,   , WR

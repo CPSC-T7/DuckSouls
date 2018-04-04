@@ -49,7 +49,7 @@ public class Enemy extends Entity {
 	
 	public Enemy(Point position, int level) {
 		
-		super(STRING_REPR, (BASE_HEALTH + (HEALTH_PER_LEVEL * (level - 1))),
+		super(STRING_REPR, position, (BASE_HEALTH + (HEALTH_PER_LEVEL * (level - 1))),
 				(BASE_ATTACK + (ATTACK_PER_LEVEL * (level - 1))), (BASE_DEFENCE + (DEFENCE_PER_LEVEL * (level - 1))),
 				(BASE_SPEED + (SPEED_PER_LEVEL * (level - 1))), (BASE_ACCURACY + (ACCURACY_PER_LEVEL * (level - 1))),
 				(BASE_CRIT + (CRIT_PER_LEVEL * (level - 1))));

@@ -3,13 +3,12 @@ package controllers;
 import java.awt.Point;
 import java.util.Scanner;
 
-import utils.Utilities;
-
 import entities.Enemy;
 import entities.Player;
 import ui.RoomDrawer;
 import utils.GameEventQue;
 import utils.Orientation;
+import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
 import battle.Loop;
@@ -50,13 +49,14 @@ public class TextGame implements Controller {
 	public TextGame(boolean isStory) {
 		
 		TextGame.isStory = isStory;
-		player = new Player(new Point(1, 1));
 		
 		if (TextGame.isStory) {
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, null, new Point(0, 0));
 		} else {
-			currentLevel = new Level(levelNum, player, new Point(0, 0));
+			currentLevel = new Level(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
 		}
+		
+		player = currentLevel.currentRoom.getPlayer();
 		
 	}// End of TextGame
 	
@@ -65,13 +65,13 @@ public class TextGame implements Controller {
 		
 		while (true) {
 			
-//			Utilities.clearConsole();
+			 Utilities.clearConsole();
 			
 			// Print out the level number
 			System.out.println("Level : " + levelNum + "\n");
 			
 			// Draw the room
-			RoomDrawer.drawRoom(currentLevel.currentRoom, isGUI);
+			RoomDrawer.drawTextRoom(currentLevel.currentRoom);
 			
 			// Prompt the user for input and clear the old value
 			usrInput = consoleIn.nextLine();
@@ -94,12 +94,12 @@ public class TextGame implements Controller {
 					plyrMoveDirection = Orientation.SOUTH;
 					break;
 				
-				case "A":
+				case "D":
 				case "EAST":
 					plyrMoveDirection = Orientation.EAST;
 					break;
 				
-				case "D":
+				case "A":
 				case "WEST":
 					plyrMoveDirection = Orientation.WEST;
 					break;
@@ -148,6 +148,7 @@ public class TextGame implements Controller {
 			// Move the player
 			if (plyrMoveDirection != null) {
 				currentLevel.movePlayer(plyrMoveDirection);
+				plyrMoveDirection = null;
 			}
 			
 			// Handle the events

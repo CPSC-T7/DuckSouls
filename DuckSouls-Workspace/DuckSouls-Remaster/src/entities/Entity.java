@@ -29,31 +29,12 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	
 	/*
 	 * 
-	 * CONSTRUCTORS
-	 * 
-	 */
-	
-	protected Entity(String stringRepr, double health, double attack, double defence, double speed, double accuracy,
-			double crit) {
-		
-		this.stringRepr = stringRepr;
-		this.health = health;
-		this.attack = attack;
-		this.defence = defence;
-		this.speed = speed;
-		this.accuracy = accuracy;
-		this.crit = crit;
-		
-	}
-	
-	/*
-	 * 
 	 * INSTANCE VARIABLES
 	 * 
 	 */
 	
 	protected String		stringRepr;
-	protected Point			position	= new Point(1, 1);
+	protected Point			position;
 	protected Orientation	orientation	= Orientation.SOUTH;
 	protected double		health;
 	protected double		attack;
@@ -62,6 +43,26 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	protected double		accuracy;
 	protected double		crit;
 	
+	
+	/*
+	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+	
+	protected Entity(String stringRepr, Point position, double health, double attack, double defence, double speed, double accuracy,
+			double crit) {
+		
+		this.stringRepr = stringRepr;
+		this.position = position;
+		this.health = health;
+		this.attack = attack;
+		this.defence = defence;
+		this.speed = speed;
+		this.accuracy = accuracy;
+		this.crit = crit;
+		
+	}
 	/*
 	 * 
 	 * METHODS

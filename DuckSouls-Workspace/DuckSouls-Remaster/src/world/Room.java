@@ -105,10 +105,10 @@ public class Room {
 	 */
 	public String[][] getAllTextSprites() {
 		
-		String[][] textSprites = new String[this.internalWidth + 2][this.internalHeight + 2];
+		String[][] textSprites = new String[this.internalHeight + 2][this.internalWidth + 2];
 		
 		for (int x = 0; x < this.internalWidth + 2; x++) {
-			for (int y = 0; y < this.internalWidth + 2; y++) {
+			for (int y = 0; y < this.internalHeight + 2; y++) {
 				
 				// Tiles
 				textSprites[y][x] = this.tileArray[x][y].getStringRepr();

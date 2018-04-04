@@ -211,11 +211,14 @@ public class Level {
 		// Remove the player from the old room
 		this.currentRoom.removeEntity(this.player);
 		
+		this.currentRoomPoint = Orientation.pointAtDirection(this.currentRoomPoint, direction);
+		this.currentRoom = roomAt(this.currentRoomPoint);
+		
 		// Depending on the direction...
 		switch (direction) {
 			
 			case NORTH:
-				newPlayerPoint.y = this.roomSize + 1;
+				newPlayerPoint.y = this.currentRoom.getInternalHeight() + 1;
 				break;
 			
 			case SOUTH:
@@ -223,17 +226,14 @@ public class Level {
 				break;
 			
 			case EAST:
-				newPlayerPoint.x = this.roomSize + 1;
-				break;
-			
-			case WEST:
 				newPlayerPoint.x = 0;
 				break;
 			
+			case WEST:
+				newPlayerPoint.x = this.currentRoom.getInternalWidth() + 1;
+				break;
+			
 		}
-		
-		this.currentRoomPoint = Orientation.pointAtDirection(this.currentRoomPoint, direction);
-		this.currentRoom = roomAt(this.currentRoomPoint);
 		
 		// Place the player at the new position in the new room
 		this.player.setPosition(newPlayerPoint);
@@ -274,15 +274,14 @@ public class Level {
 				break;
 			
 			case EAST:
-				if (newPlayerPoint.x == -1) {
+				if (newPlayerPoint.x == this.currentRoom.getInternalWidth() + 2) {
 					this.moveRoom_Direction(direction);
 					movedRooms = true;
 				}
 				break;
 			
 			case WEST:
-				if (newPlayerPoint.x == this.currentRoom.getInternalWidth() + 2) {
-					System.out.println("BING");
+				if (newPlayerPoint.x == -1) {
 					this.moveRoom_Direction(direction);
 					movedRooms = true;
 				}

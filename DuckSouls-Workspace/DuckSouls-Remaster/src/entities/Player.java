@@ -57,7 +57,7 @@ public class Player extends Entity {
 	
 	public Player(Point position) {
 		
-		super(STRING_REPR, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED, BASE_ACCURACY, BASE_CRIT);
+		super(STRING_REPR, position, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED, BASE_ACCURACY, BASE_CRIT);
 		
 		this.experience = 0;
 		this.level = 1;
