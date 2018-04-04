@@ -126,6 +126,10 @@ public class RoomIO {
 						
 						str = lineBits[x];
 						
+						if (str == null || str.equals("")) {
+							continue;
+						}
+						
 						// Search for walls
 						for (Wall wall : Wall.values()) {
 							if (str.equals(wall.getFileString())) {
@@ -165,10 +169,15 @@ public class RoomIO {
 						
 						str = lineBits[x];
 						
+						System.out.println("'" + str + "'");
+						
+						if (str == null || str.equals("")) {
+							continue;
+						}
 						
 						// Search for consumables
 						for (Consumable consumable : Consumable.values()) {
-							if (str.equals(consumable.getFileString())) {
+							if (consumable.getFileString() != null && str.equals(consumable.getFileString())) {
 								itemArray[x][y] = consumable;
 								break;
 							}
@@ -176,7 +185,7 @@ public class RoomIO {
 						
 						// Search for weapons
 						for (Weapon weapon : Weapon.values()) {
-							if (str.equals(weapon.getFileString())) {
+							if (weapon.getFileString() != null && str.equals(weapon.getFileString())) {
 								itemArray[x][y] = weapon;
 								break;
 							}
@@ -184,7 +193,7 @@ public class RoomIO {
 						
 						// Search for armour
 						for (Armour armour : Armour.values()) {
-							if (str.equals(armour.getFileString())) {
+							if (armour.getFileString() != null && str.equals(armour.getFileString())) {
 								itemArray[x][y] = armour;
 								break;
 							}
@@ -231,12 +240,12 @@ public class RoomIO {
 			
 		}
 		
-		System.out.println(width);		
-		System.out.println(height);		
-		System.out.println(tileArray);		
-		System.out.println(itemArray);		
-		System.out.println(player);		
-		System.out.println(enemyList);		
+		System.out.println(width);
+		System.out.println(height);
+		System.out.println(tileArray);
+		System.out.println(itemArray);
+		System.out.println(player);
+		System.out.println(enemyList);
 		System.out.println(levelNum);
 		
 		return new Room(width, height, tileArray, itemArray, player, enemyList, levelNum);
