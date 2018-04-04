@@ -153,6 +153,8 @@ public class BattleWorld {
 	 */
 	public boolean update() {
 		
+		window.setScene(scene);
+		
 		// If an animation is playing, do not take key inputs.
 		if (this.inAnimation) {
 			this.currentStep += 2;
