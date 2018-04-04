@@ -204,23 +204,14 @@ public class GUIGame extends Application implements Controller {
 					System.out.println(("Crit Chance : " + player.getCrit()));
 					
 					break;
-			}
-			
-			// Move the player
-			if (plyrMoveDirection != null) {
-				currentLevel.movePlayer(plyrMoveDirection);
-				plyrMoveDirection = null;
-			}
-			
-			// Handle the events
-			handleAllEvents();
-						
+			}			
 		
 		});
 		
 		// Move the player
 		if (plyrMoveDirection != null) {
 			currentLevel.movePlayer(plyrMoveDirection);
+			plyrMoveDirection = null;
 		}
 		
 		// Handle the events
