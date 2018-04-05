@@ -28,19 +28,18 @@ public class Loop {
 			if(startingPerson == 1) {
 				command = player.choice(0);
 				run = runCommand(command, startingPerson, player, enemy, isGUI, run);
-				inBattle = checkDeath(enemy);
+				inBattle = checkDeath(enemy, isGUI, run);
 				startingPerson ++;
 			}
 			
 			else {
 				command = enemy.choice(0);
 				runCommand(command, startingPerson, player, enemy, isGUI, run);
-				inBattle = checkDeath(player);
+				inBattle = checkDeath(player, isGUI, run);
 				startingPerson --;
 			}			
 		}
-		if (run)
-		postBattle(startingPerson, player, enemy);
+		postBattle(startingPerson, player, enemy, isGUI, run);
 
 		
 		
@@ -50,6 +49,7 @@ public class Loop {
 			boolean run) {
 		Entity attacker = player;
 		Entity defender = enemy;
+		
 		if (startingPerson == 2) {
 			attacker = enemy;
 			defender = player;
@@ -57,6 +57,7 @@ public class Loop {
 		
 		switch (command) {
 		case 0:
+			PrintBattleText.attackingText(attacker, isGUI);
 			double damage;
 			damage = attacker.sendAttack();
 			damage = defender.receiveAttack(damage);
@@ -75,13 +76,17 @@ public class Loop {
 			//item
 			break;
 		case 3:
+			defender.setHealth(0);
 			return attacker.run();
 		}
 		return false;
 	}
 	
-	private static boolean checkDeath(Entity entity) {
+	private static boolean checkDeath(Entity entity, boolean isGUI, boolean run) {
 		if (entity.getHealth() <= 0) {
+			if (!run) {
+				PrintBattleText.slainEntity(entity, isGUI);
+			}
 			return false;
 		}
 		else {
@@ -89,8 +94,10 @@ public class Loop {
 		}
 	}
 	
-	private static void postBattle(int startingPerson, Player player, Enemy enemy) {	
+	private static void postBattle(int startingPerson, Player player, Enemy enemy,
+			boolean isGUI, boolean run) {	
 		if (startingPerson == 1) {
+			PrintBattleText.gameOver(isGUI);
 			System.exit(0);
 		}
 		else {

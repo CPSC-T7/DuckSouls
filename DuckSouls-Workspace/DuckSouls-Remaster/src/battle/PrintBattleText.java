@@ -5,11 +5,23 @@ import entities.Player;
 
 public class PrintBattleText {
 	
-	//TODO: TURN INTO ABSTRACT MAYBE LATER
-	// TEXTTEXT AND GUITEXT EXTENDS
+	//TODO: ADD WAIT MILLISECONDS UTILITIES FOR TEXT VERSION and maybe gui
 	
-	public static void attackingText() {
+	public static void attackingText(Entity attacker, boolean isGUI) {
+		String text = "";
+		if (attacker instanceof Player) {
+			text = "You attacked the enemy!";
+		}
+		else {
+			text = "The enemy attacked you!";
+		}
 		
+		if (isGUI) {
+			//TODO: GUI BANANA
+		}
+		else {
+			System.out.println(text);
+		}
 	}
 	
 	public static void damageText(Entity attacker, double damage, boolean isGUI) {
@@ -79,5 +91,35 @@ public class PrintBattleText {
 		else {
 			System.out.println(text);
 		}
-	}	
+	}
+	
+	public static void slainEntity(Entity attacker, boolean isGUI) {
+		String text = "";
+		if (attacker instanceof Player) {
+			text = "The enemy slained you!";
+		}
+		else {
+			text = "You have slained the enemy!";
+		}
+		
+		if (isGUI) {
+			//TODO: GUI BANANA
+		}
+		else {
+			System.out.println(text);
+		}
+	}
+	
+	public static void gameOver(boolean isGUI) {
+		String text = "You have died..."
+				+ "\n The light is slowly fading away..."
+				+ "\n You lost your conscienceness...";
+		
+		if (isGUI) {
+			//TODO WYLEEEEEE
+		}
+		else {
+			System.out.println(text);
+		}
+	}
 }
