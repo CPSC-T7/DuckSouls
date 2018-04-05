@@ -162,7 +162,7 @@ public class GUIGame extends Application implements Controller {
 		if (inInventory) {
 			// Draw the inventory
 			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
-			InventoryDrawer.drawInventory(gc);
+			InventoryDrawer.drawInventory(gc, player);
 		} else {
 			// Draw the room
 			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
