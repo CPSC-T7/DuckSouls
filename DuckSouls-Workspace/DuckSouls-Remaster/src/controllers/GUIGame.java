@@ -168,56 +168,47 @@ public class GUIGame extends Application implements Controller {
 			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
 		}
 
+		// Check for key input
 		scene.setOnKeyPressed(key -> {
 			switch (key.getCode()) {
 
-			case W:
-				plyrMoveDirection = Orientation.NORTH;
-				break;
-			case A:
-				plyrMoveDirection = Orientation.WEST;
-				break;
-			case S:
-				plyrMoveDirection = Orientation.SOUTH;
-				break;
-			case D:
-				plyrMoveDirection = Orientation.EAST;
-				break;
-
-			/*
-			 * STATS
-			 */
-
-			case E:
-				if (inInventory) {
-					inInventory = false;
-				} else {
-					inInventory = true;
-				}
-
-				System.out.println("Player Inventory:\n");
-				player.getInventory().forEach((item, quantity) -> {
-					System.out.println(quantity + "x : " + item.getName());
-				});
-				System.out.println("Player Equipment:\n");
-				System.out.println("Weapon : " + player.getWeapon().getName());
-				System.out.println("Armour : " + player.getArmour().getName());
-
-				break;
-
-			case C:
-				System.out.println("Player Status:\n");
-				System.out.println(("Health Points : " + player.getHealth()));
-				System.out.println(("Points : " + player.getScore()));
-				System.out.println(("Experience : " + player.getExperience()));
-				System.out.println("\nPlayer Stats:\n");
-				System.out.println(("Attack : " + player.getAttack()));
-				System.out.println(("Defence : " + player.getDefence()));
-				System.out.println(("Speed : " + player.getSpeed()));
-				System.out.println(("Accuracy : " + player.getAccuracy()));
-				System.out.println(("Crit Chance : " + player.getCrit()));
-
-				break;
+				// Move the player in a direction
+				case W:
+					plyrMoveDirection = Orientation.NORTH;
+					break;
+				case A:
+					plyrMoveDirection = Orientation.WEST;
+					break;
+				case S:
+					plyrMoveDirection = Orientation.SOUTH;
+					break;
+				case D:
+					plyrMoveDirection = Orientation.EAST;
+					break;
+	
+				case E:	// Display the player inventory
+					
+					if (inInventory) {
+						inInventory = false;
+					} else {
+						inInventory = true;
+					}
+					
+					break;
+	
+				case C:
+					System.out.println("Player Status:\n");
+					System.out.println(("Health Points : " + player.getHealth()));
+					System.out.println(("Points : " + player.getScore()));
+					System.out.println(("Experience : " + player.getExperience()));
+					System.out.println("\nPlayer Stats:\n");
+					System.out.println(("Attack : " + player.getAttack()));
+					System.out.println(("Defence : " + player.getDefence()));
+					System.out.println(("Speed : " + player.getSpeed()));
+					System.out.println(("Accuracy : " + player.getAccuracy()));
+					System.out.println(("Crit Chance : " + player.getCrit()));
+	
+					break;
 			}
 
 		});
