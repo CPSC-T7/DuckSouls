@@ -13,14 +13,26 @@ import javafx.util.Duration;
  *
  */
 public class BattleSprite extends Pane{
+	
+	//Constants   
+	
+	private final int width = 128;		//Width of each frame
+    private final int height = 128;		//Height of each frame
+    private final int count = 2;			//Number of total images per animation
+    private final int columns = 2;		//Number of columns in the spritesheet
+    
+	public final int IDLE_POSITION = 0;
+	public final int RUN_RIGHT_POSITION = 1 * width;
+	public final int RUN_LEFT_POSITION = 2 * width;
+	public final int ATTACK_POSITION = 3 * width;
+	public final int HURT_POSITION = 4 * width;
+	public final int DEAD_POSITION = 5 * width;
 
+	// Sprite animation attributes
     private ImageView imageView; 	//The sprite sheet object for the animation
-    private int count = 2;			//Number of total images per animation
-    private int columns = 2;		//Number of columns in the spritesheet
     private int offsetX = 0;		//ImageView x offset
     private int offsetY = 0;		//ImageView y offset
-    private int width = 128;		//Width of each frame
-    private int height = 128;		//Height of each frame
+
     
     //Set the Y translation to 3 tiles down from the top of the screen for all battle sprites.
     private final int spriteYTranslation = 64*3;

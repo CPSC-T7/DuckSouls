@@ -116,7 +116,7 @@ public class BattleScene {
 	 * Start the JavaFX stage
 	 */
 	public BattleScene(Stage window) {
-
+		
 		this.window = window;
 
 		// Add all layers to the main group
@@ -299,19 +299,19 @@ public class BattleScene {
 			this.currentStep = 0;
 			this.playerTurn = false;
 			playerAnimation.animation.play();
-			playerAnimation.animation.setOffsetY(0);
+			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
 			return (false);
 
 			// Run towards the enemy
 		} else if (this.currentStep <= this.runDistance) {
-			playerAnimation.animation.setOffsetY(128);
+			playerAnimation.animation.setOffsetY(playerAnimation.RUN_RIGHT_POSITION);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(this.stepSize);
 			return (true);
 
 			// Run away from the enemy
 		} else if (this.currentStep <= animationLength) {
-			playerAnimation.animation.setOffsetY(256);
+			playerAnimation.animation.setOffsetY(playerAnimation.RUN_LEFT_POSITION);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(-this.stepSize);
 			return (true);
@@ -333,20 +333,20 @@ public class BattleScene {
 		// End the enemy's turn
 		if (this.currentStep == animationLength + 2) {
 			this.currentStep = 0;
-			enemyAnimation.animation.setOffsetY(0);
+			enemyAnimation.animation.setOffsetY(enemyAnimation.IDLE_POSITION);
 			enemyAnimation.animation.play();
 			return (false);
 
 			// Run towards the player
 		} else if (this.currentStep <= this.runDistance) {
-			enemyAnimation.animation.setOffsetY(128);
+			enemyAnimation.animation.setOffsetY(enemyAnimation.RUN_LEFT_POSITION);
 			enemyAnimation.animation.play();
 			enemyAnimation.moveX(-this.stepSize);
 			return (true);
 
 			// Run away from the player
 		} else if (this.currentStep <= animationLength) {
-			enemyAnimation.animation.setOffsetY(256);
+			enemyAnimation.animation.setOffsetY(enemyAnimation.RUN_RIGHT_POSITION);
 			enemyAnimation.animation.play();
 			enemyAnimation.moveX(this.stepSize);
 			return (true);

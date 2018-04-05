@@ -40,8 +40,6 @@ public class Loop {
 			}			
 		}
 		postBattle(startingPerson, player, enemy, isGUI, run);
-
-		
 		
 	}
 	

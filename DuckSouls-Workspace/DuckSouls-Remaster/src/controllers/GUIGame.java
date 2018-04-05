@@ -226,6 +226,7 @@ public class GUIGame extends Application implements Controller {
 
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
+		
 		Loop.battleLoop(player, enemyToBattle, isGUI); // Still under works
 		this.inBattle = true;
 		this.battleWorld = new BattleScene(this.window);
