@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class StatisticTests {
+public final class StatisticTests {
 	
 	/*
 	 * 
@@ -19,10 +19,11 @@ public class StatisticTests {
 	 *            The statistic to test.
 	 */
 	@Test
-	public static void testIntStatRange(String name, int stat) {
+	public static final void testIntStatRange(String name, int stat) {
 		
 //		assertTrue("Statistic out of range: " + name + " should be between 0 and 100. Got " + stat + ".",
 //				stat >= 0 && stat <= 100);
+		
 		assert stat >= 0 && stat <= 100;
 		
 	}

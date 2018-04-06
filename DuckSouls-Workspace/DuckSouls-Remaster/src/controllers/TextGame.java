@@ -17,21 +17,11 @@ public class TextGame implements Controller {
 	
 	/*
 	 * 
-	 * CONSTANTS
-	 * 
-	 */
-	
-	public static final boolean	isGUI		= false;
-	
-	/*
-	 * 
 	 * VARIABLES
 	 * 
 	 */
 	
 	private static Scanner		consoleIn	= new Scanner(System.in);
-	
-	private static boolean		isStory;
 	
 	private static int			levelNum	= 1;
 	private static Player		player;
@@ -46,11 +36,9 @@ public class TextGame implements Controller {
 	 * 
 	 */
 	
-	public TextGame(boolean isStory) {
+	public TextGame() {
 		
-		TextGame.isStory = isStory;
-		
-		if (TextGame.isStory) {
+		if (GameData.IS_STORY) {
 			currentLevel = LevelBuilder.buildStoryLevel(levelNum, null, new Point(0, 0));
 		} else {
 			currentLevel = new Level(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
@@ -160,7 +148,7 @@ public class TextGame implements Controller {
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		// TODO: Run Battle
-		Loop.battleLoop(player, enemyToBattle, isGUI); // Still under works
+		Loop.battleLoop(player, enemyToBattle); // Still under works
 		
 	}// End of handleBattleEvent
 	
@@ -169,7 +157,7 @@ public class TextGame implements Controller {
 		
 		levelNum++;
 		
-		if (isStory) {
+		if (GameData.IS_STORY) {
 			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		} else {
 			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());

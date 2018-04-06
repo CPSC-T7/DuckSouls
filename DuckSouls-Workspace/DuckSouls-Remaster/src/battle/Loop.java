@@ -4,14 +4,14 @@ import entities.Player;
 import entities.Enemy;
 import entities.Entity;
 import battle.PrintBattleText;
+import controllers.GameData;
 
 public class Loop {
 	
-
-	public static void battleLoop(Player player, Enemy enemy, boolean isGUI) {
+	public static void battleLoop(Player player, Enemy enemy) {
 		
-		//TODO Create texts saying things that happened during the battle
-	
+		// TODO Create texts saying things that happened during the battle
+		
 		boolean inBattle = true;
 		boolean choiceEnd = false;
 		boolean run = false;
@@ -28,23 +28,23 @@ public class Loop {
 			reChoice = 2;
 		}
 		
-		while (inBattle) {	
+		while (inBattle) {
 			
-			playerCommand = player.choice(0, isGUI);
-			enemyCommand = enemy.choice(0, isGUI);
+			playerCommand = player.choice(0, GameData.IS_GUI);
+			enemyCommand = enemy.choice(0, GameData.IS_GUI);
 			
 			while (choiceEnd) {
 				
-				if(startingPerson == 1) {
-					run = runCommand(playerCommand, player, enemy, isGUI, run);
-					inBattle = checkDeath(enemy, playerCommand, isGUI, run);
-					startingPerson ++;
+				if (startingPerson == 1) {
+					run = runCommand(playerCommand, player, enemy, run);
+					inBattle = checkDeath(enemy, playerCommand, run);
+					startingPerson++;
 				}
 				
 				else {
-					runCommand(enemyCommand, enemy, player, isGUI);
-					inBattle = checkDeath(player, playerCommand, isGUI, run);
-					startingPerson --;
+					runCommand(enemyCommand, enemy, player);
+					inBattle = checkDeath(player, playerCommand, run);
+					startingPerson--;
 				}
 				
 				if (startingPerson == reChoice) {
@@ -52,89 +52,82 @@ public class Loop {
 				}
 				
 			}
-
-		
+			
 		}
-		postBattle(startingPerson, player, enemy, isGUI, run);
+		postBattle(startingPerson, player, enemy, run);
 		
 	}
 	
-	private static boolean runCommand(int command, Player player, Enemy enemy, boolean isGUI, boolean run) {
+	private static boolean runCommand(int command, Player player, Enemy enemy, boolean run) {
 		switch (command) {
-		case 0:
-			PrintBattleText.attackingText(true, isGUI);
-			double damage;
-			damage = player.sendAttack();
-			damage = player.receiveAttack(damage);
-			if (damage == 0) {
-				PrintBattleText.missedText(true, isGUI);
-			}
-			else {
-				PrintBattleText.damageText(true, damage, isGUI);
-			}
-			break;
-		case 1:
-			enemy.taunted();
-			PrintBattleText.tauntedText(true, isGUI);
-			break;
-		case 2:
-			//item
-			break;
-		case 3:
-			enemy.setHealth(0);
-			return player.run();
+			case 0:
+				PrintBattleText.attackingText(true, GameData.IS_GUI);
+				double damage;
+				damage = player.sendAttack();
+				damage = player.receiveAttack(damage);
+				if (damage == 0) {
+					PrintBattleText.missedText(true, GameData.IS_GUI);
+				} else {
+					PrintBattleText.damageText(true, damage, GameData.IS_GUI);
+				}
+				break;
+			case 1:
+				enemy.taunted();
+				PrintBattleText.tauntedText(true, GameData.IS_GUI);
+				break;
+			case 2:
+				// item
+				break;
+			case 3:
+				enemy.setHealth(0);
+				return player.run();
 		}
 		return false;
 	}
 	
-	private static void runCommand(int command, Enemy enemy, Player player,  boolean isGUI) {
+	private static void runCommand(int command, Enemy enemy, Player player) {
 		switch (command) {
-		case 0:
-			PrintBattleText.attackingText(false, isGUI);
-			double damage;
-			damage = enemy.sendAttack();
-			damage = player.receiveAttack(damage);
-			if (damage == 0) {
-				PrintBattleText.missedText(false, isGUI);
-			}
-			else {
-				PrintBattleText.damageText(false, damage, isGUI);
-			}
-			break;
-		case 1:
-			player.taunted();
-			PrintBattleText.tauntedText(false, isGUI);
-			break;
+			case 0:
+				PrintBattleText.attackingText(false, GameData.IS_GUI);
+				double damage;
+				damage = enemy.sendAttack();
+				damage = player.receiveAttack(damage);
+				if (damage == 0) {
+					PrintBattleText.missedText(false, GameData.IS_GUI);
+				} else {
+					PrintBattleText.damageText(false, damage, GameData.IS_GUI);
+				}
+				break;
+			case 1:
+				player.taunted();
+				PrintBattleText.tauntedText(false, GameData.IS_GUI);
+				break;
 		}
 	}
 	
-	private static boolean checkDeath(Entity entity, int startingPerson, boolean isGUI, boolean run) {
+	private static boolean checkDeath(Entity entity, int startingPerson, boolean run) {
 		if (entity.getHealth() <= 0) {
 			if (!run) {
 				if (startingPerson == 1) {
-					PrintBattleText.slainEntity(true, isGUI);
+					PrintBattleText.slainEntity(true, GameData.IS_GUI);
+				} else {
+					PrintBattleText.slainEntity(false, GameData.IS_GUI);
 				}
-				else {
-					PrintBattleText.slainEntity(false, isGUI);
-				}
-
+				
 			}
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
 	
-	private static void postBattle(int startingPerson, Player player, Enemy enemy,
-			boolean isGUI, boolean run) {	
+	private static void postBattle(int startingPerson, Player player, Enemy enemy, boolean run) {
 		if (startingPerson == 1) {
-			PrintBattleText.gameOver(isGUI);
+			PrintBattleText.gameOver(GameData.IS_GUI);
 			System.exit(0);
-		}
-		else {
+		} else {
 			player.addExperiece(enemy.getExperienceGiven());
 			player.setScore(enemy.getScore());
-		}		
+		}
 	}
 }

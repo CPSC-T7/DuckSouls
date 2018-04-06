@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import world.Room;
 
-public class PositionTests {
+public final class PositionTests {
 	
 	/*
 	 * 
@@ -25,7 +25,7 @@ public class PositionTests {
 	 *            The point to test.
 	 */
 	@Test
-	public static void testPointInRoom(Room room, Point point) {
+	public static final void testPointInRoom(Room room, Point point) {
 		
 		int maxX = room.getInternalWidth() + 1;
 		int maxY = room.getInternalHeight() + 1;
