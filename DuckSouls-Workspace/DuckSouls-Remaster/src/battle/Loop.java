@@ -26,14 +26,14 @@ public class Loop {
 		while (inBattle) {			
 
 			if(startingPerson == 1) {
-				command = player.choice(0);
+				command = player.choice(0, isGUI);
 				run = runCommand(command, startingPerson, player, enemy, isGUI, run);
 				inBattle = checkDeath(enemy, isGUI, run);
 				startingPerson ++;
 			}
 			
 			else {
-				command = enemy.choice(0);
+				command = enemy.choice(0, isGUI);
 				runCommand(command, startingPerson, player, enemy, isGUI, run);
 				inBattle = checkDeath(player, isGUI, run);
 				startingPerson --;

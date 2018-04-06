@@ -60,6 +60,6 @@ public interface Battleable {
 	 * 				the int value of the chosen command
 	 * @return the int value of the chosen command
 	 */
-	public abstract int choice(int move);
+	public abstract int choice(int move, boolean isGUI);
 	
 }

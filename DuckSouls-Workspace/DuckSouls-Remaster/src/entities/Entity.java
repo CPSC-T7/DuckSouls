@@ -149,7 +149,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public int choice(int move) {
+	public int choice(int move, boolean isGUI) {
 				
 		if (move == 0 || move == 2 || move == 3) {
 			return 0;

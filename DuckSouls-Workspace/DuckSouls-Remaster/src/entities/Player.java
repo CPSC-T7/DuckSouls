@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import items.Armour;
 import items.Item;
@@ -48,6 +49,7 @@ public class Player extends Entity {
 	private int									experience;
 	private int									experienceForNextLevel;
 	private int									score;
+	private static Scanner						scanner				= new Scanner(System.in);	// Scanner to get user input
 	
 	/*
 	 * 
@@ -101,17 +103,39 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public int choice(int a) {
+	public int choice(int a, boolean isGUI) {
 		
 		//TODO: @Wylee can you do the code for choosing le gui options for battle
 		//Give option to player
-		int move = a;
+		String moveCommand;
+		int move = 0;
+		if(isGUI) {
+			
+		}
+		else {
+			System.out.print("\nEnter a move: ");
+			moveCommand = scanner.nextLine().toLowerCase();	
+			switch (moveCommand) {
+			case "attack":
+				move = 0;
+				break;
+			case "taunt":
+				move = 1;
+				break;	
+			case "item":
+				move = 4;
+				break;
+			case "run":
+				move = 5;
+				break;
+			}
+		}
 		//if attack, move == 0
 		//if taunt, move == 1
 		//if item, move == 4
 		//if run away, move == 5
 		
-		int command = super.choice(move);
+		int command = super.choice(move, isGUI);
 		return command;
 	}
 	
