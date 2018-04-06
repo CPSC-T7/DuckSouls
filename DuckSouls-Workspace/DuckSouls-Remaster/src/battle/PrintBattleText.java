@@ -94,10 +94,10 @@ public class PrintBattleText {
 	public static void slainEntity(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
 		if (thisIsPlayer) {
-			text = "The enemy slained you!";
+			text = "You have slained the enemy!";
 		}
 		else {
-			text = "You have slained the enemy!";
+			text = "The enemy slained you!";
 		}
 		
 		if (isGUI) {

@@ -1,6 +1,7 @@
 package battle;
 
 import entities.Player;
+import utils.Utilities;
 import entities.Enemy;
 import entities.Entity;
 import battle.PrintBattleText;
@@ -40,12 +41,18 @@ public class Loop {
 					run = runCommand(playerCommand, player, enemy, run);
 					inBattle = checkDeath(enemy, playerCommand, run);
 					startingPerson++;
+					if (!inBattle) {
+						choiceEnd = false;
+					}
 				}
 				
 				else {
 					runCommand(enemyCommand, enemy, player);
 					inBattle = checkDeath(player, playerCommand, run);
 					startingPerson--;
+					if (!inBattle) {
+						choiceEnd = false;
+					}
 				}
 				
 				if (startingPerson == reChoice) {
@@ -56,6 +63,7 @@ public class Loop {
 			
 		}
 		postBattle(startingPerson, player, enemy, run);
+		Utilities.waitMilliseconds(2000);
 		
 	}
 	
@@ -65,7 +73,7 @@ public class Loop {
 				PrintBattleText.attackingText(true, GameData.IS_GUI);
 				double damage;
 				damage = player.sendAttack();
-				damage = player.receiveAttack(damage);
+				damage = enemy.receiveAttack(damage);
 				if (damage == 0) {
 					PrintBattleText.missedText(true, GameData.IS_GUI);
 				} else {
@@ -107,6 +115,7 @@ public class Loop {
 	}
 	
 	private static boolean checkDeath(Entity entity, int startingPerson, boolean run) {
+		System.out.println(entity.getHealth());
 		if (entity.getHealth() <= 0) {
 			if (!run) {
 				if (startingPerson == 1) {
@@ -126,7 +135,11 @@ public class Loop {
 		if (startingPerson == 1) {
 			PrintBattleText.gameOver(GameData.IS_GUI);
 			System.exit(0);
-		} else {
+		}
+		else if (run){
+			
+		}
+		else {
 			player.addExperiece(enemy.getExperienceGiven());
 			player.setScore(enemy.getScore());
 		}

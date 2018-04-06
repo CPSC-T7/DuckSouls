@@ -96,7 +96,7 @@ public class Player extends Entity {
 			return 0;
 		}
 		else {
-			damage = damage + this.armour.getDefense();
+			damage = damage - this.armour.getDefense();
 			damage = super.receiveAttack(damage);
 			return (damage);
 		}
