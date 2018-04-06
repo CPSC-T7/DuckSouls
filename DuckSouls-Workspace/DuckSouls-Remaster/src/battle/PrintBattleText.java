@@ -1,15 +1,13 @@
 package battle;
 
-import entities.Entity;
-import entities.Player;
 
 public class PrintBattleText {
 	
 	//TODO: ADD WAIT MILLISECONDS UTILITIES FOR TEXT VERSION and maybe gui
 	
-	public static void attackingText(Entity attacker, boolean isGUI) {
+	public static void attackingText(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
-		if (attacker instanceof Player) {
+		if (thisIsPlayer) {
 			text = "You attacked the enemy!";
 		}
 		else {
@@ -24,9 +22,9 @@ public class PrintBattleText {
 		}
 	}
 	
-	public static void damageText(Entity attacker, double damage, boolean isGUI) {
+	public static void damageText(boolean thisIsPlayer, double damage, boolean isGUI) {
 		String text = "";
-		if (attacker instanceof Player) {
+		if (thisIsPlayer) {
 			text = "You dealt " + Math.round(damage) + " damage to the enemy!";
 		}
 		else {
@@ -41,9 +39,9 @@ public class PrintBattleText {
 		}
 	}
 	
-	public static void critText(Entity attacker, boolean isGUI) {
+	public static void critText(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
-		if (attacker instanceof Player) {
+		if (thisIsPlayer) {
 			text = "You dealt a critical hit!";
 		}
 		else {
@@ -58,9 +56,9 @@ public class PrintBattleText {
 		}
 	}
 	
-	public static void missedText(Entity attacker, boolean isGUI) {
+	public static void missedText(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
-		if (attacker instanceof Player) {
+		if (thisIsPlayer) {
 			text = "You missed the enemy!";
 		}
 		else {
@@ -75,10 +73,10 @@ public class PrintBattleText {
 		}
 	}
 	
-	public static void tauntedText(Entity attacker, boolean isGUI) {
+	public static void tauntedText(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
 		String text2 = "attack has been increased and defence decreased!";
-		if (attacker instanceof Player) {
+		if (thisIsPlayer) {
 			text = "You taunted the enemy! \n Their" + text2;
 		}
 		else {
@@ -93,9 +91,9 @@ public class PrintBattleText {
 		}
 	}
 	
-	public static void slainEntity(Entity attacker, boolean isGUI) {
+	public static void slainEntity(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
-		if (attacker instanceof Player) {
+		if (thisIsPlayer) {
 			text = "The enemy slained you!";
 		}
 		else {
