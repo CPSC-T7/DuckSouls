@@ -13,7 +13,7 @@ public class Loop {
 		// TODO Create texts saying things that happened during the battle
 		
 		boolean inBattle = true;
-		boolean choiceEnd = false;
+		boolean choiceEnd = true;
 		boolean run = false;
 		int startingPerson = 1;
 		int reChoice = 1;
@@ -32,6 +32,7 @@ public class Loop {
 			
 			playerCommand = player.choice(0, GameData.IS_GUI);
 			enemyCommand = enemy.choice(0, GameData.IS_GUI);
+			choiceEnd = true;
 			
 			while (choiceEnd) {
 				
