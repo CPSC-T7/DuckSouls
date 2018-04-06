@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ui.MenuButton;
 import animation.SpriteAnimation;
 import animation.BattleSprite;
@@ -28,7 +29,7 @@ public class BattleScene {
 	private String menuButtonType;
 
 	// The distance that the player runs to hit the enemy, and vice versa
-	private final int runDistance = 64 * 2;
+	private final int runDistance = 80 * 2;
 	// The step size per frame
 	private final int stepSize = 4;
 	// The current step of the animation
@@ -194,7 +195,7 @@ public class BattleScene {
 	
 						if (menuButtonY == 1) {
 							// Move the button Y position to 0
-							selectButton('V', 0);
+							selectMenuButton('V', 0);
 						}
 	
 						break;
@@ -203,7 +204,7 @@ public class BattleScene {
 	
 						if (menuButtonX == 1) {
 							// Move the button X position to 0
-							selectButton('H', 0);
+							selectMenuButton('H', 0);
 						}
 	
 						break;
@@ -212,7 +213,7 @@ public class BattleScene {
 	
 						if (menuButtonY == 0) {
 							// Move the button Y position to 1
-							selectButton('V', 1);
+							selectMenuButton('V', 1);
 						}
 	
 						break;
@@ -221,7 +222,7 @@ public class BattleScene {
 	
 						if (menuButtonX == 0) {
 							// Move the button X position to 1
-							selectButton('H', 1);
+							selectMenuButton('H', 1);
 						}
 	
 						break;
@@ -266,7 +267,7 @@ public class BattleScene {
 	 * @param button
 	 *            The button to move to on the 'direction' plane
 	 */
-	public void selectButton(char direction, int button) {
+	public void selectMenuButton(char direction, int button) {
 		menuArray[menuButtonX][menuButtonY].animation.play();
 		menuArray[menuButtonX][menuButtonY].animation.setOffsetY(0);
 		if (direction == 'H') {
@@ -292,7 +293,7 @@ public class BattleScene {
 	 */
 	public boolean playerAttackAnimation() {
 
-		int animationLength = this.runDistance * 2;
+		int animationLength = this.runDistance * 2  + 100;
 
 		// End the player's turn
 		if (this.currentStep == animationLength + 2) {
@@ -302,17 +303,27 @@ public class BattleScene {
 			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
 			return (false);
 
-			// Run towards the enemy
+		// Run towards the enemy
 		} else if (this.currentStep <= this.runDistance) {
 			playerAnimation.animation.setOffsetY(playerAnimation.RUN_RIGHT_POSITION);
 			playerAnimation.animation.play();
 			playerAnimation.moveX(this.stepSize);
 			return (true);
 
-			// Run away from the enemy
+		// Attack the enemy
+		} else if (this.currentStep <= this.runDistance + 100) {
+			playerAnimation.animation.setOffsetY(playerAnimation.ATTACK_POSITION);
+			playerAnimation.animation.play();
+			enemyAnimation.animation.setOffsetY(enemyAnimation.HURT_POSITION);
+			enemyAnimation.animation.play();
+			return (true);
+
+		// Run away from the enemy
 		} else if (this.currentStep <= animationLength) {
 			playerAnimation.animation.setOffsetY(playerAnimation.RUN_LEFT_POSITION);
 			playerAnimation.animation.play();
+			enemyAnimation.animation.setOffsetY(enemyAnimation.IDLE_POSITION);
+			enemyAnimation.animation.play();
 			playerAnimation.moveX(-this.stepSize);
 			return (true);
 		}
@@ -328,7 +339,7 @@ public class BattleScene {
 	 */
 	public boolean enemyAttackAnimation() {
 
-		int animationLength = this.runDistance * 2;
+		int animationLength = this.runDistance * 2 + 100;
 
 		// End the enemy's turn
 		if (this.currentStep == animationLength + 2) {
@@ -337,17 +348,27 @@ public class BattleScene {
 			enemyAnimation.animation.play();
 			return (false);
 
-			// Run towards the player
+		// Run towards the player
 		} else if (this.currentStep <= this.runDistance) {
 			enemyAnimation.animation.setOffsetY(enemyAnimation.RUN_LEFT_POSITION);
 			enemyAnimation.animation.play();
 			enemyAnimation.moveX(-this.stepSize);
 			return (true);
 
-			// Run away from the player
+		// Attack the player
+		} else if (this.currentStep <= this.runDistance + 100) {
+			enemyAnimation.animation.setOffsetY(enemyAnimation.ATTACK_POSITION);
+			enemyAnimation.animation.play();
+			playerAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
+			playerAnimation.animation.play();
+			return (true);
+
+		// Run away from the player
 		} else if (this.currentStep <= animationLength) {
 			enemyAnimation.animation.setOffsetY(enemyAnimation.RUN_RIGHT_POSITION);
 			enemyAnimation.animation.play();
+			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
+			playerAnimation.animation.play();
 			enemyAnimation.moveX(this.stepSize);
 			return (true);
 		}
