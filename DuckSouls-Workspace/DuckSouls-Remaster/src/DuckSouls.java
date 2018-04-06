@@ -38,17 +38,9 @@ public class DuckSouls {
 		initialize(args);
 		System.out.println("Intitialization Done.");
 		
-		System.out.println("Pre-Loop Starting...");
-		preLoop();
-		System.out.println("Pre-Loop Done.");
-		
 		System.out.println("Game Loop Starting...");
 		loop();
 		System.out.println("Game Loop Done.");
-		
-		System.out.println("Post-Loop Starting...");
-		postLoop();
-		System.out.println("Post-Loop Done.");
 		
 		System.out.println("Cleanup Starting...");
 		cleanup();
@@ -69,19 +61,6 @@ public class DuckSouls {
 	}
 	
 	/**
-	 * Runs what needs to run before the game loop.
-	 */
-	private static void preLoop() {
-		
-		// TODO: Pre Main Game Loop
-		
-		/*
-		 * TITLE SCREEN
-		 */
-		
-	}
-	
-	/**
 	 * Runs what needs to be continuously run for the game to work.
 	 */
 	private static void loop() {
@@ -92,15 +71,6 @@ public class DuckSouls {
 			TextGame tg = new TextGame();
 			tg.mainLoop();
 		}
-		
-	}
-	
-	/**
-	 * Runs what needs to be run after the loop.
-	 */
-	private static void postLoop() {
-		
-		// TODO: Game Ending
 		
 	}
 	
