@@ -152,7 +152,7 @@ public class Room {
 		Image[][][] imageSprites = new Image[this.internalWidth + 2][this.internalHeight + 2][3];
 		
 		for (int x = 0; x < this.internalWidth + 2; x++) {
-			for (int y = 0; y < this.internalWidth + 2; y++) {
+			for (int y = 0; y < this.internalHeight + 2; y++) {
 				
 				// Tiles
 				imageSprites[x][y][0] = this.tileArray[x][y].getImage();

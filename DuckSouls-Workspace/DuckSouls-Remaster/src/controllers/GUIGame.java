@@ -48,8 +48,6 @@ public class GUIGame extends Application implements Controller {
 	 * 
 	 */
 	
-	private static boolean		isStory		= false;
-	
 	private static int			levelNum	= 1;
 	private static Player		player;
 	private static Level		currentLevel;
@@ -240,7 +238,7 @@ public class GUIGame extends Application implements Controller {
 		
 		levelNum++;
 		
-		if (isStory) {
+		if (GameData.IS_STORY) {
 			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		} else {
 			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
