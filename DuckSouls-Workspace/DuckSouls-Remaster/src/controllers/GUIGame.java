@@ -31,92 +31,93 @@ import scenes.TitleScene;
 import scenes.BattleScene;
 
 public class GUIGame extends Application implements Controller {
-
+	
 	/*
 	 * 
 	 * CONSTANTS
 	 * 
 	 */
-
-	public static final boolean isGUI = true;
-	public static final int mapsize = 7;
-	public static final int tileSize = 64;
-
+	
+	public static final boolean	isGUI		= true;
+	public static final int		mapsize		= 7;
+	public static final int		tileSize	= 64;
+	
 	/*
 	 * 
 	 * VARIABLES
 	 * 
 	 */
-
-	private static boolean isStory = false;
-
-	private static int levelNum = 1;
-	private static Player player;
-	private static Level currentLevel;
-
-	private static String usrInput;
-	private static Orientation plyrMoveDirection;
+	
+	private static boolean		isStory		= false;
+	
+	private static int			levelNum	= 1;
+	private static Player		player;
+	private static Level		currentLevel;
+	
+	private static String		usrInput;
+	private static Orientation	plyrMoveDirection;
 	// GameWorld
-
-	private static boolean inBattle = false;
-	private static boolean inTitle = true;
-	private static boolean inInventory = false;
-
+	
+	private static boolean		inBattle	= false;
+	private static boolean		inTitle		= true;
+	private static boolean		inInventory	= false;
+	
 	// The current BattleWorld
-	private BattleScene battleWorld;
-
+	private BattleScene			battleWorld;
+	
 	// The title screen
-	private TitleScene titleScreen;
-
+	private TitleScene			titleScreen;
+	
 	// Overworld Scene
-	private Scene scene;
+	private Scene				scene;
 	
 	// Game window
-	private Stage window;
-
-	private GraphicsContext gc;
-
+	private Stage				window;
+	
+	private GraphicsContext		gc;
+	
 	@Override
 	public void start(Stage window) throws Exception {
-
+		
 		// Game setup
 		this.player = new Player(new Point(1, 1));
 		this.window = window;
-
-		if (GUIGame.isStory) {
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
+		
+		if (GameData.IS_STORY) {
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, null, new Point(0, 0));
 		} else {
-			currentLevel = new Level(levelNum, player, new Point(0, 0));
+			currentLevel = LevelBuilder.buildArcadeLevel(levelNum,
+					new Player(new Point(mapsize / 2 + 1, mapsize / 2 + 1)), new Point(0, 0));
 		}
-
+		
 		// JavaFx setup
 		final int windowSize = 64 * 9;
 		Group root = new Group();
 		scene = new Scene(root);
 		Canvas canvas = new Canvas(windowSize, windowSize);
 		root.getChildren().add(canvas);
-
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		this.gc = gc;
-
+		
 		titleScreen = new TitleScene(this.window);
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();
-
+		
 		// Update based on frame rate
 		AnimationTimer timer = new AnimationTimer() {
-
+			
 			@Override
 			public void handle(long now) {
-
+				
 				// Update depending on the selected screen
 				if (inTitle) {
 					updateTitle();
-
+					
 				} else if (inBattle) {
 					updateBattle();
-
+					
 				} else {
 					updateWorld();
 					window.setScene(scene);
@@ -124,41 +125,42 @@ public class GUIGame extends Application implements Controller {
 			}
 		};
 		timer.start();
-
+		
 	}// End of start
-
+	
 	/**
 	 * Update the world in which the player fights an enemy.
 	 */
 	public void updateBattle() {
-
+		
 		inBattle = battleWorld.update();
-
+		
 	}// End of updateBattle
-
+	
 	/**
 	 * Update the world with the title screen
 	 */
 	public void updateTitle() {
-
+		
 		inTitle = titleScreen.update();
-
+		
 	}// End of updateTitle
-
+	
 	/**
 	 * Update the world in which the player moves around and collects items.
 	 */
 	public void updateWorld() {
+		
 		mainLoop();
-
+		
 	}// End of updateWorld
-
+	
 	/**
 	 * Game's main loop
 	 */
 	@Override
 	public void mainLoop() {
-
+		
 		if (inInventory) {
 			// Draw the inventory
 			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
@@ -167,11 +169,11 @@ public class GUIGame extends Application implements Controller {
 			// Draw the room
 			RoomDrawer.drawGUIRoom(currentLevel.currentRoom, gc);
 		}
-
+		
 		// Check for key input
 		scene.setOnKeyPressed(key -> {
 			switch (key.getCode()) {
-
+				
 				// Move the player in a direction
 				case W:
 					plyrMoveDirection = Orientation.NORTH;
@@ -185,8 +187,8 @@ public class GUIGame extends Application implements Controller {
 				case D:
 					plyrMoveDirection = Orientation.EAST;
 					break;
-	
-				case E:	// Display the player inventory
+				
+				case E: // Display the player inventory
 					
 					if (inInventory) {
 						inInventory = false;
@@ -195,7 +197,7 @@ public class GUIGame extends Application implements Controller {
 					}
 					
 					break;
-	
+				
 				case C:
 					System.out.println("Player Status:\n");
 					System.out.println(("Health Points : " + player.getHealth()));
@@ -207,62 +209,62 @@ public class GUIGame extends Application implements Controller {
 					System.out.println(("Speed : " + player.getSpeed()));
 					System.out.println(("Accuracy : " + player.getAccuracy()));
 					System.out.println(("Crit Chance : " + player.getCrit()));
-	
+					
 					break;
 			}
-
+			
 		});
-
+		
 		// Move the player
 		if (plyrMoveDirection != null) {
 			currentLevel.movePlayer(plyrMoveDirection);
 			plyrMoveDirection = null;
 		}
-
+		
 		// Handle the events
 		handleAllEvents();
-
+		
 	}// End of mainLoop
-
+	
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		
 		Loop.battleLoop(player, enemyToBattle); // Still under works
 		this.inBattle = true;
 		this.battleWorld = new BattleScene(this.window);
-
+		
 	}// End of handleBattleEvent
-
+	
 	@Override
 	public void handleLevelChangeEvent() {
-
+		
 		levelNum++;
-
+		
 		if (isStory) {
 			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		} else {
-			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());
+			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		}
-
+		
 	}// End of handleLevelChangeEvent
-
+	
 	@Override
 	public void handleAllEvents() {
-
+		
 		while (GameEventQue.hasEvent()) {
-
+			
 			switch (GameEventQue.handleNextEvent()) {
-
+				
 				case BATTLE:
 					handleBattleEvent(currentLevel.currentRoom.enemyAt(player.getPosition()));
 					break;
-	
+				
 				case LEVEL_CHANGE:
 					handleLevelChangeEvent();
 					break;
 			}
 		}
-
+		
 	}// End of handleAllEvents
-
+	
 }

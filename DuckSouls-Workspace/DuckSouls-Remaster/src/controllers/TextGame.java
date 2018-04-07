@@ -41,7 +41,7 @@ public class TextGame implements Controller {
 		if (GameData.IS_STORY) {
 			currentLevel = LevelBuilder.buildStoryLevel(levelNum, null, new Point(0, 0));
 		} else {
-			currentLevel = new Level(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
+			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, new Player(new Point(4, 4)), new Point(0, 0));
 		}
 		
 		player = currentLevel.currentRoom.getPlayer();
@@ -53,7 +53,7 @@ public class TextGame implements Controller {
 		
 		while (true) {
 			
-			 Utilities.clearConsole();
+			Utilities.clearConsole();
 			
 			// Print out the level number
 			System.out.println("Level : " + levelNum + "\n");
@@ -160,7 +160,7 @@ public class TextGame implements Controller {
 		if (GameData.IS_STORY) {
 			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		} else {
-			currentLevel = new Level(levelNum, player, currentLevel.getCurrentRoomPoint());
+			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		}
 		
 	}// End of handleLevelChangeEvent
