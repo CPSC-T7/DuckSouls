@@ -21,7 +21,7 @@ public class Player extends Entity {
 	private static final double					BASE_ATTACK			= 6;
 	private static final double					BASE_DEFENCE		= 5;
 	private static final double					BASE_SPEED			= 5;
-	private static final double					BASE_ACCURACY		= 71;
+	private static final double					BASE_ACCURACY		= 90;
 	private static final double					BASE_CRIT			= 16;
 	private static final int					BASE_NEEDED_XP		= 20;
 	
@@ -105,14 +105,10 @@ public class Player extends Entity {
 	@Override
 	public int choice(int a, boolean isGUI) {
 		
-		//TODO: @Wylee can you do the code for choosing le gui options for battle
-		//Give option to player
+		//Give option to player (text version)
 		String moveCommand;
 		int move = 0;
-		if(isGUI) {
-			
-		}
-		else {
+		if(!isGUI) {
 			System.out.print("\nEnter a move: ");
 			moveCommand = scanner.nextLine().toLowerCase();	
 			switch (moveCommand) {

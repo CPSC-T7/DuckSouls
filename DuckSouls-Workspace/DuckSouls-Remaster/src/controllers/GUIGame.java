@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import battle.Loop;
+import battle.TestBattleScripts;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -61,7 +62,7 @@ public class GUIGame extends Application implements Controller {
 	private static boolean		inInventory	= false;
 	
 	// The current BattleWorld
-	private BattleScene			battleWorld;
+	private BattleScene			battleScreen;
 	
 	// The title screen
 	private TitleScene			titleScreen;
@@ -131,7 +132,7 @@ public class GUIGame extends Application implements Controller {
 	 */
 	public void updateBattle() {
 		
-		inBattle = battleWorld.update();
+		inBattle = battleScreen.update();
 		
 	}// End of updateBattle
 	
@@ -227,9 +228,10 @@ public class GUIGame extends Application implements Controller {
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		
-		Loop.battleLoop(player, enemyToBattle); // Still under works
+		//Loop.battleLoop(player, enemyToBattle); // Still under works
+		TestBattleScripts newBattle = new TestBattleScripts(player, enemyToBattle);
 		this.inBattle = true;
-		this.battleWorld = new BattleScene(this.window);
+		this.battleScreen = new BattleScene(this.window, newBattle);
 		
 	}// End of handleBattleEvent
 	

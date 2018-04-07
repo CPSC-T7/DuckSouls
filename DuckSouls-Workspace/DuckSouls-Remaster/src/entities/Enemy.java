@@ -13,8 +13,8 @@ public class Enemy extends Entity {
 	 * 
 	 */
 	
-	private static final double	BASE_HEALTH			= 20;
-	private static final double	BASE_ATTACK			= 6;
+	private static final double	BASE_HEALTH			= 15;
+	private static final double	BASE_ATTACK			= 3;
 	private static final double	BASE_DEFENCE		= 5;
 	private static final double	BASE_SPEED			= 5;
 	private static final double	BASE_ACCURACY		= 71;
