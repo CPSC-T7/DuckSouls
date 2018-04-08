@@ -155,19 +155,33 @@ public class Player extends Entity {
 		
 	}
 	
+	/**
+	 * When player levels up the stats are increased. It similarly has the same
+	 * code as the setStatsForLevel method hence why it gets called here
+	 */
 	private void levelUp() {
 		
 		this.experience -= this.experienceForNextLevel;
 		
 		this.level++;
 		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
+		this.setStatsForLevel();
+		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
+		
+	}
+	
+	/**
+	 * This is used for after battle, to reset the stats back to what it should
+	 * be after being altered by a move, e.g. taunt
+	 * 
+	 * health not included as you have to use items to heal yourself
+	 */
+	public void setStatsForLevel() {
 		this.attack = BASE_ATTACK + (ATTACK_PER_LEVEL * this.level);
 		this.defence = BASE_DEFENCE + (DEFENCE_PER_LEVEL * this.level);
 		this.speed = BASE_SPEED + (SPEED_PER_LEVEL * this.level);
 		this.accuracy = BASE_ACCURACY + (ACCURACY_PER_LEVEL * this.level);
 		this.crit = BASE_CRIT + (CRIT_PER_LEVEL * this.level);
-		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
-		
 	}
 
 	

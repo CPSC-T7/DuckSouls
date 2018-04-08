@@ -1,5 +1,7 @@
 package battle;
 
+import entities.Enemy;
+import entities.Player;
 
 public class PrintBattleText {
 	
@@ -77,10 +79,10 @@ public class PrintBattleText {
 		String text = "";
 		String text2 = "attack has been increased and defence decreased!";
 		if (thisIsPlayer) {
-			text = "You taunted the enemy! \n Their" + text2;
+			text = "You taunted the enemy! \nTheir" + text2;
 		}
 		else {
-			text = "The enemy taunted you! \n Your" + text2;
+			text = "The enemy taunted you! \nYour" + text2;
 		}
 		
 		if (isGUI) {
@@ -93,7 +95,7 @@ public class PrintBattleText {
 	
 	public static void slainEntity(boolean thisIsPlayer, boolean isGUI) {
 		String text = "";
-		if (thisIsPlayer) {
+		if (!thisIsPlayer) {
 			text = "You have slained the enemy!";
 		}
 		else {
@@ -108,11 +110,32 @@ public class PrintBattleText {
 		}
 	}
 	
+	public static void xpGain(Enemy enemy, boolean isGUI) {
+		String text = "You have gained " + enemy.getExperienceGiven() + " experience!";
+		
+		if (isGUI) {
+			//TODO WYLEEEEEE
+		}
+		else {
+			System.out.println(text);
+		}
+	}
+	
 	public static void gameOver(boolean isGUI) {
 		String text = "You have died..."
-				+ "\n The light is slowly fading away..."
-				+ "\n You lost your conscienceness...";
+				+ "\nThe light is slowly fading away..."
+				+ "\nYou lost your conscienceness...";
 		
+		if (isGUI) {
+			//TODO WYLEEEEEE
+		}
+		else {
+			System.out.println(text);
+		}
+	}
+	
+	public static void levelUp(Player player, boolean isGUI) {
+		String text = "You have leveled up!" + "\nYou are now level " + player.getLevel() +"!";
 		if (isGUI) {
 			//TODO WYLEEEEEE
 		}
