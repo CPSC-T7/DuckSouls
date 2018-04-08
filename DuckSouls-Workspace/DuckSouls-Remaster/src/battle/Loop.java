@@ -7,6 +7,12 @@ import entities.Entity;
 import battle.PrintBattleText;
 import controllers.GameData;
 
+/**
+ * 
+ * @author Wylee McAndrews
+ * @author Nadhif Satriana
+ *
+ */
 public class Loop {
 	
 	public static void battleLoop(Player player, Enemy enemy) {

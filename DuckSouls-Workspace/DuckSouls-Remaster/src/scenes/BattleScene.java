@@ -25,9 +25,6 @@ import items.Item;
  *
  */
 public class BattleScene {
-	
-	// Keep track of/ run battle logic
-	//private TestBattleScripts battleLogic;
 
 	// Keep track of the currently selected button
 	private int[] menuButton = new int[] {0,0};
