@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import ui.MenuButton;
 import animation.SpriteAnimation;
-import battle.TestBattleScripts;
+import battle.Loop;
+import entities.Enemy;
+import entities.Player;
 import animation.BattleSprite;
 import utils.Utilities;
 
@@ -25,7 +27,7 @@ import items.Item;
 public class BattleScene {
 	
 	// Keep track of/ run battle logic
-	private TestBattleScripts battleLogic;
+	//private TestBattleScripts battleLogic;
 
 	// Keep track of the currently selected button
 	private int[] menuButton = new int[] {0,0};
@@ -47,6 +49,10 @@ public class BattleScene {
 
 	// If the battle has ended
 	private boolean inBattle = true;
+	
+	//The entities
+	private Player player;
+	private Enemy enemy;
 
 	/*
 	 * 
@@ -132,10 +138,12 @@ public class BattleScene {
 	 * @param battleLogic
 	 * 				The logic behind entity moves
 	 */
-	public BattleScene(Stage window, TestBattleScripts battleLogic) {
+	public BattleScene(Stage window/*, TestBattleScripts battleLogic*/, Player player, Enemy enemy) {
 		
 		this.window = window;
-		this.battleLogic = battleLogic;
+		//this.battleLogic = battleLogic;
+		this.player = player;
+		this.enemy = enemy;
 
 		// Add all layers to the main group
 		root.getChildren().add(groupPane);
@@ -176,17 +184,17 @@ public class BattleScene {
 			
 			// If the player goes first:
 			// Run the player animation then finish with the enemy animation
-			if (this.battleLogic.playerFirst()) {
+			if (Loop.playerFirst(this.player, this.enemy)) {
 				if(this.playerTurn) {
 					if (this.menuButtonType == "Attack") {
 						this.playerTurn = this.playerAttackAnimation();
 					}
 					
 				// If the enemy is not dead run it's move
-				}else if (!this.battleLogic.isDead(false)){
+				}else if (!Loop.checkDeath(this.enemy, false, false)){
 					
 					// If the player dies run the enemy move, then player death animation
-					if (this.battleLogic.isDead(true)) {
+					if (Loop.checkDeath(this.player, true, false)) {
 						
 						if (!this.endGame){
 							this.endGame = !this.enemyAttackAnimation();
@@ -213,11 +221,11 @@ public class BattleScene {
 					this.playerTurn = !this.enemyAttackAnimation();
 					
 				// If the player is not dead run their animation
-				}else if (!this.battleLogic.isDead(true)){
+				}else if (!Loop.checkDeath(this.player, true, false)){
 					if (this.menuButtonType == "Attack") {
 						
 						// If the enemy dies run the player move, then enemy death animation
-						if (this.battleLogic.isDead(false)) {
+						if (Loop.checkDeath(this.enemy, false, false)) {
 							
 							if (!this.endGame){
 								this.endGame = !this.playerAttackAnimation();
@@ -295,9 +303,9 @@ public class BattleScene {
 						this.menuButtonType = menuArray[menuButton[0]][menuButton[1]].getButtonType();
 						
 						// If the player goes first
-						if (this.battleLogic.playerFirst()) {
+						if (Loop.playerFirst(this.player, this.enemy)) {
 							
-							this.battleLogic.executeMove(true, this.menuButtonType);
+							Loop.executeMove(true, this.menuButtonType, this.player, this.enemy);
 							this.inAnimation = true;
 							this.playerTurn = true;
 							
@@ -305,16 +313,16 @@ public class BattleScene {
 							this.inBattle = true;
 	
 							// If the enemy survives, do its turn.
-							if (this.battleLogic.isDead(false)) {
+							if (Loop.checkDeath(this.enemy, false, false)) {
 								System.out.println("Player Wins!");
 
 								
 							}else {
 								
-								this.battleLogic.executeMove(false, "Attack");
+								Loop.executeMove(false, "Attack", this.player, this.enemy);
 								
 								// If the player dies
-								if (this.battleLogic.isDead(true)) {
+								if (Loop.checkDeath(this.player, true, false)) {
 									System.out.println("Enemy Wins");
 
 								}
@@ -323,7 +331,7 @@ public class BattleScene {
 						// If the enemy goes first
 						}else {
 
-							this.battleLogic.executeMove(false, "Attack");
+							Loop.executeMove(false, "Attack", this.player, this.enemy);
 							this.inAnimation = true;
 							this.playerTurn = false;
 							
@@ -331,15 +339,15 @@ public class BattleScene {
 							this.inBattle = true;
 	
 							// If the player survives, do their turn.
-							if (this.battleLogic.isDead(true)) {
+							if (Loop.checkDeath(this.player, true, false)) {
 								System.out.println("Enemy Wins");
 
 							}else {
 								
-								this.battleLogic.executeMove(true, this.menuButtonType);
+								Loop.executeMove(true, this.menuButtonType, this.player, this.enemy);
 								
 								// If the enemy dies
-								if (this.battleLogic.isDead(false)) {
+								if (Loop.checkDeath(this.enemy, false, false)) {
 									System.out.println("Player Wins");
 
 								}
@@ -432,7 +440,7 @@ public class BattleScene {
 		
 		// If the death animation is over return false
 		if (this.currentStep >= animationLength) {
-			this.battleLogic.postBattle();
+			Loop.postBattle(true, this.player, this.enemy, false);
 			return (false);
 		}else {
 			playerAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
@@ -500,7 +508,7 @@ public class BattleScene {
 		
 		// If the death animation is over return false
 		if (this.currentStep >= animationLength) {
-			this.battleLogic.postBattle();
+			Loop.postBattle(false, this.player, this.enemy, false);
 			return (false);
 		}else {
 			enemyAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);

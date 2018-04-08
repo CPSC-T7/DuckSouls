@@ -7,6 +7,8 @@ import entities.Entity;
 import battle.PrintBattleText;
 import controllers.GameData;
 
+//TODO Keep this incase nadhif fucks up as always
+
 public class TestBattleScripts {
 	
 	private Player player;

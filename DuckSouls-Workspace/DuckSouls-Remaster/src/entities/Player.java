@@ -103,7 +103,7 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public int choice(int a, boolean isGUI) {
+	public String choice(int a, boolean isGUI) {
 		
 		//Give option to player (text version)
 		String moveCommand;
@@ -131,7 +131,7 @@ public class Player extends Entity {
 		//if item, move == 4
 		//if run away, move == 5
 		
-		int command = super.choice(move, isGUI);
+		String command = super.choice(move, isGUI);
 		return command;
 	}
 	

@@ -70,11 +70,11 @@ public class Enemy extends Entity {
 	}
 	
 	@Override
-	public int choice(int a, boolean isGUI) {
+	public String choice(int a, boolean isGUI) {
 		Random random = new Random();
 		int move = random.nextInt(4);
 		
-		int command = super.choice(move, isGUI);
+		String command = super.choice(move, isGUI);
 		return command;
 	}
 	

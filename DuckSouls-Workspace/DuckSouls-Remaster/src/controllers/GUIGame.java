@@ -229,9 +229,9 @@ public class GUIGame extends Application implements Controller {
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		
 		//Loop.battleLoop(player, enemyToBattle); // Still under works
-		TestBattleScripts newBattle = new TestBattleScripts(player, enemyToBattle);
+		//TestBattleScripts newBattle = new TestBattleScripts(player, enemyToBattle);
 		this.inBattle = true;
-		this.battleScreen = new BattleScene(this.window, newBattle);
+		this.battleScreen = new BattleScene(this.window/*, newBattle*/, player, enemyToBattle);
 		
 	}// End of handleBattleEvent
 	
