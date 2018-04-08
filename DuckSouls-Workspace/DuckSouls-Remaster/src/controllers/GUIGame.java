@@ -187,7 +187,7 @@ public class GUIGame extends Application implements Controller {
 					plyrMoveDirection = Orientation.EAST;
 					break;
 				
-				case E: // Display the player inventory
+				case E: // Display or hide the player inventory
 					
 					if (inInventory) {
 						inInventory = false;
@@ -228,10 +228,9 @@ public class GUIGame extends Application implements Controller {
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		
-		//Loop.battleLoop(player, enemyToBattle); // Still under works
-		//TestBattleScripts newBattle = new TestBattleScripts(player, enemyToBattle);
-		this.inBattle = true;
-		this.battleScreen = new BattleScene(this.window/*, newBattle*/, player, enemyToBattle);
+		inBattle = true;
+		battleScreen = new BattleScene(this.window/*, newBattle*/, player, enemyToBattle);
+		currentLevel.currentRoom.removeEnemy(player.getPosition());
 		
 	}// End of handleBattleEvent
 	

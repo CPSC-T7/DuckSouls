@@ -16,8 +16,6 @@ import controllers.GameData;
 public class Loop {
 	
 	
-	
-	
 	/**
 	 * A battle loop for the text version
 	 * 
@@ -189,7 +187,7 @@ public class Loop {
 	 */
 	public static boolean checkDeath(Entity entity, boolean isPlayer, boolean run) {
 		if (entity.getHealth() <= 0) {
-			if (!run) {
+			if (!run && !GameData.IS_GUI) {
 				if (isPlayer) {
 					PrintBattleText.slainEntity(true, !GameData.IS_GUI);
 				} else {

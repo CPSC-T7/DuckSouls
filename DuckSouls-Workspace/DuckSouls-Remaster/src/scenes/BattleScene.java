@@ -183,9 +183,22 @@ public class BattleScene {
 			// Run the player animation then finish with the enemy animation
 			if (Loop.playerFirst(this.player, this.enemy)) {
 				if(this.playerTurn) {
-					if (this.menuButtonType == "Attack") {
-						this.playerTurn = this.playerAttackAnimation();
+					//Change animation depending on move
+					switch(this.menuButtonType) {
+					
+						case "Attack":
+							this.playerTurn = this.playerAttackAnimation();
+							break;
+							
+						case "Taunt":
+							this.playerTurn = this.playerTauntAnimation();
+							break;
+							
+						case "Fly":
+							//this.playerTurn = this.playerFlyAnimation();
+							break;
 					}
+
 					
 				// If the enemy is not dead run it's move
 				}else if (!Loop.checkDeath(this.enemy, false, false)){
@@ -219,23 +232,36 @@ public class BattleScene {
 					
 				// If the player is not dead run their animation
 				}else if (!Loop.checkDeath(this.player, true, false)){
-					if (this.menuButtonType == "Attack") {
-						
-						// If the enemy dies run the player move, then enemy death animation
-						if (Loop.checkDeath(this.enemy, false, false)) {
-							
-							if (!this.endGame){
-								this.endGame = !this.playerAttackAnimation();
-								this.playerTurn = true;
+					
+					//Change animation depending on move
+					switch(this.menuButtonType) {
+					
+						case "Attack":
+							// If the enemy dies run the player move, then enemy death animation
+							if (Loop.checkDeath(this.enemy, false, false)) {
 								
-							}else{
-								this.inBattle = this.enemyDeathAnimation(); 
+								if (!this.endGame){
+									this.endGame = !this.playerAttackAnimation();
+									this.playerTurn = true;
+									
+								}else{
+									this.inBattle = this.enemyDeathAnimation(); 
+								}
+								
+							// If the enemy does not die end the animation after player move
+							}else {
+								this.inAnimation = this.playerAttackAnimation();
 							}
+							break;
 							
-						// If the player does not die end the animation after enemy move
-						}else {
-							this.inAnimation = this.playerAttackAnimation();
-						}
+						case "Taunt":
+							this.inAnimation = this.playerTauntAnimation();
+							break;
+							
+						case "Fly":
+							//this.playerTurn = this.playerFlyAnimation();
+							break;
+							
 					}
 					
 				// If the player is dead run their death animation
@@ -306,7 +332,6 @@ public class BattleScene {
 							this.inAnimation = true;
 							this.playerTurn = true;
 							
-							//TODO: cange battle outcome based on moves
 							this.inBattle = true;
 	
 							// If the enemy survives, do its turn.
@@ -392,7 +417,6 @@ public class BattleScene {
 		// End the player's turn
 		if (this.currentStep >= animationLength + 2) {
 			this.currentStep = 0;
-			this.playerTurn = false;
 			playerAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
 			return (false);
@@ -426,6 +450,32 @@ public class BattleScene {
 	}// End of playerAttackAnimation
 	
 	/**
+	 * Player taunt animation
+	 * 
+	 * @return
+	 * True if the animation is going, False if it is over
+	 */
+	public boolean playerTauntAnimation() {
+		
+		int animationLength = 100;
+		
+		// If the death animation is over return false
+		if (this.currentStep >= animationLength) {
+			this.currentStep = 0;
+			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
+			playerAnimation.animation.play();
+			return (false);
+		}else {
+			playerAnimation.animation.setOffsetY(playerAnimation.ATTACK_POSITION);
+			playerAnimation.animation.play();
+			enemyAnimation.animation.setOffsetY(enemyAnimation.HURT_POSITION);
+			enemyAnimation.animation.play();
+			return (true);
+		}
+	}// End of playerTauntAnimation
+	
+	
+	/**
 	 * Player death animation
 	 * 
 	 * @return
@@ -437,6 +487,7 @@ public class BattleScene {
 		
 		// If the death animation is over return false
 		if (this.currentStep >= animationLength) {
+			this.currentStep = 0;
 			Loop.postBattle(true, this.player, this.enemy, false);
 			return (false);
 		}else {
@@ -493,6 +544,33 @@ public class BattleScene {
 
 	}// End of enemyAttackAnimation
 	
+	
+	/**
+	 * Enemy taunt animation
+	 * 
+	 * @return
+	 * True if the animation is going, False if it is over
+	 */
+	public boolean enemyTauntAnimation() {
+		
+		int animationLength = 100;
+		
+		// If the death animation is over return false
+		if (this.currentStep >= animationLength) {
+			this.currentStep = 0;
+			enemyAnimation.animation.setOffsetY(enemyAnimation.IDLE_POSITION);
+			enemyAnimation.animation.play();
+			return (false);
+		}else {
+			enemyAnimation.animation.setOffsetY(enemyAnimation.ATTACK_POSITION);
+			enemyAnimation.animation.play();
+			playerAnimation.animation.setOffsetY(playerAnimation.HURT_POSITION);
+			playerAnimation.animation.play();
+			return (true);
+		}
+	}// End of enemyTauntAnimation
+	
+	
 	/**
 	 * Enemy death animation
 	 * 
@@ -505,6 +583,7 @@ public class BattleScene {
 		
 		// If the death animation is over return false
 		if (this.currentStep >= animationLength) {
+			this.currentStep = 0;
 			Loop.postBattle(false, this.player, this.enemy, false);
 			return (false);
 		}else {
