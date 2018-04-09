@@ -26,9 +26,15 @@ import items.Item;
  */
 public class BattleScene {
 
-	// Keep track of the currently selected button
+	// Keep track of the currently selected Menu button
 	private int[] menuButton = new int[] {0,0};
 	private String menuButtonType;
+	
+	// Keep track of the currently selected Item button
+	private int[] itemButton = new int[] {0,0};
+	
+	// If the player is selecting an item or not
+	private boolean itemSelection = false;
 
 	// The distance that the player runs to hit the enemy, and vice versa
 	private final int runDistance = 80 * 2;
@@ -77,7 +83,10 @@ public class BattleScene {
 	// Enemy sprite class
 	private BattleSprite enemyAnimation = new BattleSprite(enemyImageView, 64 * 6);
 
-	/* Battle menu buttons */
+	/*
+	 *  Battle menu buttons 
+	 *  
+	 */
 	// Attack button image and viewer
 	private final Image attackButtonImage = new Image(
 			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Attack.png");
@@ -98,6 +107,31 @@ public class BattleScene {
 	private ImageView itemButtonImageView = new ImageView(itemButtonImage);
 	
 	/*
+	 *  Battle item buttons 
+	 *  
+	 */
+	
+	// Bugs button image and viewer
+	private final Image bugsButtonImage = new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Bugs.png");
+	private ImageView bugsButtonImageView = new ImageView(bugsButtonImage);
+
+	// Cruton button image and viewer
+	private final Image crutonButtonImage = new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Cruton.png");
+	private ImageView crutonButtonImageView = new ImageView(crutonButtonImage);
+
+	// Goo button image and viewer
+	private final Image gooButtonImage = new Image("file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Goo.png");
+	private ImageView gooButtonImageView = new ImageView(gooButtonImage);
+
+	// Fish button image and viewer
+	private final Image fishButtonImage = new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Fish.png");
+	private ImageView fishButtonImageView = new ImageView(fishButtonImage);
+
+	
+	/*
 	 * 
 	 * Groups, Stages, Scenes, Panes
 	 * 
@@ -106,14 +140,19 @@ public class BattleScene {
 	// Root group will separate all layers
 	private Group root = new Group();
 
-	// Background, menu, and player layers (drawn in order of appearance)
+	// Background Layer
 	private Pane backgroundLayer = new Pane();
+	// Menu Layer
 	private Pane menuLayer = new Pane(attackButtonImageView, tauntButtonImageView, flyButtonImageView,
 			itemButtonImageView);
+	// Item Menu Layer
+	private Pane itemLayer = new Pane(bugsButtonImageView, crutonButtonImageView, gooButtonImageView,
+			fishButtonImageView);
+	// Player/Enemy Layer
 	private Pane playerLayer = new Pane();
 
 	// Add all sprites to draw in order
-	private Pane groupPane = new Pane(backgroundLayer, menuLayer, playerLayer);
+	private Pane groupPane = new Pane(backgroundLayer, menuLayer, itemLayer, playerLayer);
 
 	// 2D array of menu buttons [rows][columns]
 	private MenuButton[][] menuArray = new MenuButton[][] {
@@ -122,6 +161,14 @@ public class BattleScene {
 
 			{ new MenuButton(flyButtonImageView, "Fly", 160, 64 * 6),
 					new MenuButton(itemButtonImageView, "Item", 160, 64 * 6 + 50) } };
+					
+	// 2D array of Item menu buttons [rows][columns]
+	private MenuButton[][] itemArray = new MenuButton[][] {
+			{ new MenuButton(bugsButtonImageView, "Bugs", 10, 64 * 6),
+					new MenuButton(crutonButtonImageView, "Cruton", 10, 64 * 6 + 50) },
+
+			{ new MenuButton(gooButtonImageView, "Goo", 160, 64 * 6),
+					new MenuButton(fishButtonImageView, "Fish", 160, 64 * 6 + 50) } };
 
 	// The BattleGUI Stage and Scene
 	private Stage window;
@@ -138,7 +185,7 @@ public class BattleScene {
 	public BattleScene(Stage window/*, TestBattleScripts battleLogic*/, Player player, Enemy enemy) {
 		
 		this.window = window;
-		//this.battleLogic = battleLogic;
+		//battleLogic = battleLogic;
 		this.player = player;
 		this.enemy = enemy;
 
@@ -147,10 +194,14 @@ public class BattleScene {
 
 		// Add nodes of the background and player to their respective layers
 		backgroundLayer.getChildren().add(battleBackgroundImageView);
-		playerLayer.getChildren().addAll(this.playerAnimation, this.enemyAnimation);
+		playerLayer.getChildren().addAll(playerAnimation, enemyAnimation);
 
 		// Add 2d array of menu buttons to menuLayer
 		menuLayer.getChildren().addAll(menuArray[0][0], menuArray[0][1], menuArray[1][0], menuArray[1][1]);
+		
+		// Add 2d array of Item menu buttons to itemLayer
+		itemLayer.getChildren().addAll(itemArray[0][0], itemArray[0][1], itemArray[1][0], itemArray[1][1]);
+		itemLayer.setVisible(false); // Make it invisible at the start of the battle.
 
 		// Start the player, enemy and button animations (background has none)
 		playerAnimation.animation.play();
@@ -159,8 +210,8 @@ public class BattleScene {
 		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
 
 		// Set the scene
-		window.setScene(scene);
-		window.show();
+		this.window.setScene(scene);
+		this.window.show();
 
 	} // End of BattleScene
 
@@ -176,175 +227,222 @@ public class BattleScene {
 		window.setScene(scene);
 
 		// If a move animation is playing:
-		if (this.inAnimation) {
-			this.currentStep += 2;
+		if (inAnimation) {
+			currentStep += 2;
 			
 			// If the player goes first:
 			// Run the player animation then finish with the enemy animation
-			if (Loop.playerFirst(this.player, this.enemy)) {
-				if(this.playerTurn) {
+			if (Loop.playerFirst(player, enemy)) {
+				if(playerTurn) {
 					//Change animation depending on move
-					switch(this.menuButtonType) {
+					switch(menuButtonType) {
 					
 						case "Attack":
-							this.playerTurn = this.playerAttackAnimation();
+							playerTurn = playerAttackAnimation();
 							break;
 							
 						case "Taunt":
-							this.playerTurn = this.playerTauntAnimation();
+							playerTurn = playerTauntAnimation();
 							break;
 							
 						case "Fly":
-							//this.playerTurn = this.playerFlyAnimation();
+							//playerTurn = playerFlyAnimation();
+							break;
+						default:
+							playerTurn = false;
 							break;
 					}
 
 					
 				// If the enemy is not dead run it's move
-				}else if (!Loop.checkDeath(this.enemy, false, false)){
+				}else if (!Loop.checkDeath(enemy, false, false)){
 					
 					// If the player dies run the enemy move, then player death animation
-					if (Loop.checkDeath(this.player, true, false)) {
+					if (Loop.checkDeath(player, true, false)) {
 						
-						if (!this.endGame){
-							this.endGame = !this.enemyAttackAnimation();
-							this.playerTurn = false;
+						if (!endGame){
+							endGame = !enemyAttackAnimation();
+							playerTurn = false;
 							
 						}else{
-							this.inBattle = this.playerDeathAnimation(); 
+							inBattle = playerDeathAnimation(); 
 						}
 						
 					// If the player does not die end the animation after enemy move
 					}else {
-						this.inAnimation = this.enemyAttackAnimation();
+						inAnimation = enemyAttackAnimation();
 					}
 					
 				// If the enemy is dead run it's death animation
 				}else {
-					this.inBattle = enemyDeathAnimation();
+					inBattle = enemyDeathAnimation();
 				}
 				
 			// If the enemy goes first:
 			// Run the enemy animation then finish with the player animation
 			}else {
-				if(!this.playerTurn) {
-					this.playerTurn = !this.enemyAttackAnimation();
+				if(!playerTurn) {
+					playerTurn = !enemyAttackAnimation();
 					
 				// If the player is not dead run their animation
-				}else if (!Loop.checkDeath(this.player, true, false)){
+				}else if (!Loop.checkDeath(player, true, false)){
 					
 					//Change animation depending on move
-					switch(this.menuButtonType) {
+					switch(menuButtonType) {
 					
 						case "Attack":
 							// If the enemy dies run the player move, then enemy death animation
-							if (Loop.checkDeath(this.enemy, false, false)) {
+							if (Loop.checkDeath(enemy, false, false)) {
 								
-								if (!this.endGame){
-									this.endGame = !this.playerAttackAnimation();
-									this.playerTurn = true;
+								if (!endGame){
+									endGame = !playerAttackAnimation();
+									playerTurn = true;
 									
 								}else{
-									this.inBattle = this.enemyDeathAnimation(); 
+									inBattle = enemyDeathAnimation(); 
 								}
 								
 							// If the enemy does not die end the animation after player move
 							}else {
-								this.inAnimation = this.playerAttackAnimation();
+								inAnimation = playerAttackAnimation();
 							}
 							break;
 							
 						case "Taunt":
-							this.inAnimation = this.playerTauntAnimation();
+							inAnimation = playerTauntAnimation();
 							break;
 							
 						case "Fly":
-							//this.playerTurn = this.playerFlyAnimation();
+							//playerTurn = playerFlyAnimation();
+							break;
+						default:
+							inAnimation = false;
 							break;
 							
 					}
 					
 				// If the player is dead run their death animation
 				}else {
-					this.inBattle = playerDeathAnimation();
+					inBattle = playerDeathAnimation();
 				}
 			}
 
 		// If there is no move animation running
-		} else if (!this.inAnimation) {
+		} else if (!inAnimation) {
 
 			// reset animation frames
-			this.currentStep = 0;
+			currentStep = 0;
 		}
 
 		// Do the action inputed by the user
 		scene.setOnKeyPressed(key -> {
 
 			// Don't take input while a priority animation is playing
-			if (!this.inAnimation) {
-
+			if (!inAnimation) {
 				switch (key.getCode()) {
 
 					case W:
 	
-						if (menuButton[1] == 1) {
-							// Move the button Y position to 0
-							selectMenuButton('V', 0);
+						if (itemSelection) {
+							if (itemButton[1] == 1) {
+								// Move the button Y position to 0
+								selectItemButton('V', 0);
+							}
+						}else {
+							if (menuButton[1] == 1) {
+								// Move the button Y position to 0
+								selectMenuButton('V', 0);
+							}
 						}
 	
 						break;
 	
 					case A:
 	
-						if (menuButton[0] == 1) {
-							// Move the button X position to 0
-							selectMenuButton('H', 0);
+						if (itemSelection) {
+							if (itemButton[0] == 1) {
+								// Move the button Y position to 0
+								selectItemButton('H', 0);
+							}
+						}else {
+							if (menuButton[0] == 1) {
+								// Move the button Y position to 0
+								selectMenuButton('H', 0);
+							}
 						}
 	
 						break;
 	
 					case S:
 	
-						if (menuButton[1] == 0) {
-							// Move the button Y position to 1
-							selectMenuButton('V', 1);
+						if (itemSelection) {
+							if (itemButton[1] == 0) {
+								// Move the button Y position to 0
+								selectItemButton('V', 1);
+							}
+						}else {
+							if (menuButton[1] == 0) {
+								// Move the button Y position to 0
+								selectMenuButton('V', 1);
+							}
 						}
 	
 						break;
 	
 					case D:
 	
-						if (menuButton[0] == 0) {
-							// Move the button X position to 1
-							selectMenuButton('H', 1);
+						if (itemSelection) {
+							if (itemButton[0] == 0) {
+								// Move the button Y position to 0
+								selectItemButton('H', 1);
+							}
+						}else {
+							if (menuButton[0] == 0) {
+								// Move the button Y position to 0
+								selectMenuButton('H', 1);
+							}
 						}
 	
 						break;
 	
 					case ENTER:
 	
-						this.menuButtonType = menuArray[menuButton[0]][menuButton[1]].getButtonType();
+						// Select the item to use
+						if (itemSelection) {
+							menuButtonType = itemArray[itemButton[0]][itemButton[1]].getButtonType();
+							itemSelection = false;
+							itemLayer.setVisible(false);
+						}
+						// Select a move to make
+						else menuButtonType = menuArray[menuButton[0]][menuButton[1]].getButtonType();
 						
+						// Let the player select an item
+						if (menuButtonType == "Item") {
+							itemSelection = true;
+							itemLayer.setVisible(true);
+						}
+						// Run the player's move
+						else {
 						// If the player goes first
-						if (Loop.playerFirst(this.player, this.enemy)) {
+						if (Loop.playerFirst(player, enemy)) {
 							
-							Loop.executeMove(true, this.menuButtonType, this.player, this.enemy);
-							this.inAnimation = true;
-							this.playerTurn = true;
+							Loop.executeMove(true, menuButtonType, player, enemy);
+							inAnimation = true;
+							playerTurn = true;
 							
-							this.inBattle = true;
+							inBattle = true;
 	
 							// If the enemy survives, do its turn.
-							if (Loop.checkDeath(this.enemy, false, false)) {
+							if (Loop.checkDeath(enemy, false, false)) {
 								System.out.println("Player Wins!");
 
 								
 							}else {
 								
-								Loop.executeMove(false, "Attack", this.player, this.enemy);
+								Loop.executeMove(false, "Attack", player, enemy);
 								
 								// If the player dies
-								if (Loop.checkDeath(this.player, true, false)) {
+								if (Loop.checkDeath(player, true, false)) {
 									System.out.println("Enemy Wins");
 
 								}
@@ -353,33 +451,34 @@ public class BattleScene {
 						// If the enemy goes first
 						}else {
 
-							Loop.executeMove(false, "Attack", this.player, this.enemy);
-							this.inAnimation = true;
-							this.playerTurn = false;
+							Loop.executeMove(false, "Attack", player, enemy);
+							inAnimation = true;
+							playerTurn = false;
 							
 							//TODO: Change battle outcome based on moves
-							this.inBattle = true;
+							inBattle = true;
 	
 							// If the player survives, do their turn.
-							if (Loop.checkDeath(this.player, true, false)) {
+							if (Loop.checkDeath(player, true, false)) {
 								System.out.println("Enemy Wins");
 
 							}else {
 								
-								Loop.executeMove(true, this.menuButtonType, this.player, this.enemy);
+								Loop.executeMove(true, menuButtonType, player, enemy);
 								
 								// If the enemy dies
-								if (Loop.checkDeath(this.enemy, false, false)) {
+								if (Loop.checkDeath(enemy, false, false)) {
 									System.out.println("Player Wins");
 
 								}
 							}
 						}
+					}
 				}// End of Switch
 			}
 		}); // End of keyPressEvents
 
-		return (this.inBattle);
+		return (inBattle);
 
 	}// End of Update
 
@@ -402,34 +501,53 @@ public class BattleScene {
 		menuArray[menuButton[0]][menuButton[1]].animation.play();
 		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
 	}
+	
+	/**
+	 * Select one of the Item menu buttons based on direction
+	 * 
+	 * @param direction
+	 *            The plane to move on (Horizontal / Vertical)
+	 * @param button
+	 *            The button to move to on the 'direction' plane
+	 */
+	public void selectItemButton(char direction, int button) {
+		itemArray[itemButton[0]][itemButton[1]].animation.play();
+		itemArray[itemButton[0]][itemButton[1]].animation.setOffsetY(0);
+		if (direction == 'H') {
+			itemButton[0] = button;
+		} else {
+			itemButton[1] = button;
+		}
+		itemArray[itemButton[0]][itemButton[1]].animation.play();
+		itemArray[itemButton[0]][itemButton[1]].animation.setOffsetY(40);
+	}
 
 	/**
-	 * This will be called when the attack button is selected and the enter key is
-	 * pressed. Plays an animation of the player attacking the enemy.
+	 * Plays an animation of the player attacking the enemy.
 	 * 
 	 * @return 
 	 * True if the animation is going, False if it is over
 	 */
 	public boolean playerAttackAnimation() {
 
-		int animationLength = this.runDistance * 2  + 100;
+		int animationLength = runDistance * 2  + 100;
 
 		// End the player's turn
-		if (this.currentStep >= animationLength + 2) {
-			this.currentStep = 0;
+		if (currentStep >= animationLength + 2) {
+			currentStep = 0;
 			playerAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
 			return (false);
 
 		// Run towards the enemy
-		} else if (this.currentStep <= this.runDistance) {
+		} else if (currentStep <= runDistance) {
 			playerAnimation.animation.setOffsetY(playerAnimation.RUN_RIGHT_POSITION);
 			playerAnimation.animation.play();
-			playerAnimation.moveX(this.stepSize);
+			playerAnimation.moveX(stepSize);
 			return (true);
 
 		// Attack the enemy
-		} else if (this.currentStep <= this.runDistance + 100) {
+		} else if (currentStep <= runDistance + 100) {
 			playerAnimation.animation.setOffsetY(playerAnimation.ATTACK_POSITION);
 			playerAnimation.animation.play();
 			enemyAnimation.animation.setOffsetY(enemyAnimation.HURT_POSITION);
@@ -437,12 +555,12 @@ public class BattleScene {
 			return (true);
 
 		// Run away from the enemy
-		} else if (this.currentStep <= animationLength) {
+		} else if (currentStep <= animationLength) {
 			playerAnimation.animation.setOffsetY(playerAnimation.RUN_LEFT_POSITION);
 			playerAnimation.animation.play();
 			enemyAnimation.animation.setOffsetY(enemyAnimation.IDLE_POSITION);
 			enemyAnimation.animation.play();
-			playerAnimation.moveX(-this.stepSize);
+			playerAnimation.moveX(-stepSize);
 			return (true);
 		}
 		return (false);
@@ -460,8 +578,8 @@ public class BattleScene {
 		int animationLength = 100;
 		
 		// If the death animation is over return false
-		if (this.currentStep >= animationLength) {
-			this.currentStep = 0;
+		if (currentStep >= animationLength) {
+			currentStep = 0;
 			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
 			playerAnimation.animation.play();
 			return (false);
@@ -483,12 +601,12 @@ public class BattleScene {
 	 */
 	public boolean playerDeathAnimation() {
 		
-		int animationLength = this.runDistance*2;
+		int animationLength = runDistance*2;
 		
 		// If the death animation is over return false
-		if (this.currentStep >= animationLength) {
-			this.currentStep = 0;
-			Loop.postBattle(true, this.player, this.enemy, false);
+		if (currentStep >= animationLength) {
+			currentStep = 0;
+			Loop.postBattle(true, player, enemy, false);
 			return (false);
 		}else {
 			playerAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
@@ -507,24 +625,24 @@ public class BattleScene {
 	 */
 	public boolean enemyAttackAnimation() {
 
-		int animationLength = this.runDistance * 2 + 100;
+		int animationLength = runDistance * 2 + 100;
 
 		// End the enemy's turn
-		if (this.currentStep >= animationLength + 2) {
-			this.currentStep = 0;
+		if (currentStep >= animationLength + 2) {
+			currentStep = 0;
 			enemyAnimation.animation.setOffsetY(enemyAnimation.IDLE_POSITION);
 			enemyAnimation.animation.play();
 			return (false);
 
 		// Run towards the player
-		} else if (this.currentStep <= this.runDistance) {
+		} else if (currentStep <= runDistance) {
 			enemyAnimation.animation.setOffsetY(enemyAnimation.RUN_LEFT_POSITION);
 			enemyAnimation.animation.play();
-			enemyAnimation.moveX(-this.stepSize);
+			enemyAnimation.moveX(-stepSize);
 			return (true);
 
 		// Attack the player
-		} else if (this.currentStep <= this.runDistance + 100) {
+		} else if (currentStep <= runDistance + 100) {
 			enemyAnimation.animation.setOffsetY(enemyAnimation.ATTACK_POSITION);
 			enemyAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
@@ -532,12 +650,12 @@ public class BattleScene {
 			return (true);
 
 		// Run away from the player
-		} else if (this.currentStep <= animationLength) {
+		} else if (currentStep <= animationLength) {
 			enemyAnimation.animation.setOffsetY(enemyAnimation.RUN_RIGHT_POSITION);
 			enemyAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(playerAnimation.IDLE_POSITION);
 			playerAnimation.animation.play();
-			enemyAnimation.moveX(this.stepSize);
+			enemyAnimation.moveX(stepSize);
 			return (true);
 		}
 		return (false);
@@ -556,8 +674,8 @@ public class BattleScene {
 		int animationLength = 100;
 		
 		// If the death animation is over return false
-		if (this.currentStep >= animationLength) {
-			this.currentStep = 0;
+		if (currentStep >= animationLength) {
+			currentStep = 0;
 			enemyAnimation.animation.setOffsetY(enemyAnimation.IDLE_POSITION);
 			enemyAnimation.animation.play();
 			return (false);
@@ -579,12 +697,12 @@ public class BattleScene {
 	 */
 	public boolean enemyDeathAnimation() {
 		
-		int animationLength = this.runDistance*2;
+		int animationLength = runDistance*2;
 		
 		// If the death animation is over return false
-		if (this.currentStep >= animationLength) {
-			this.currentStep = 0;
-			Loop.postBattle(false, this.player, this.enemy, false);
+		if (currentStep >= animationLength) {
+			currentStep = 0;
+			Loop.postBattle(false, player, enemy, false);
 			return (false);
 		}else {
 			enemyAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
