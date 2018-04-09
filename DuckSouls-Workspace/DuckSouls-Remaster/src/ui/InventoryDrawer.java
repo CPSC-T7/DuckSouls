@@ -24,7 +24,6 @@ public class InventoryDrawer implements Drawable{
 	 * 
 	 */
 
-	private static final int ITEMS 				= 4;
 	private static final int TILESIZE 			= 64;
 	private static final int NUMBER_SIZE		= 16;
 	
@@ -67,7 +66,7 @@ public class InventoryDrawer implements Drawable{
 		
 		// Display the number of each item
 		player.getInventory().forEach((item, quantity) -> {
-			
+
 			switch(item.getStringRepr()) {
 			
 				case(" G "): //Goo
