@@ -3,7 +3,6 @@ package items;
 import java.util.Random;
 
 import javafx.scene.image.Image;
-import tests.StatisticTests;
 
 public enum Consumable implements Item {
 	
@@ -63,8 +62,6 @@ public enum Consumable implements Item {
 	 *            The mana modifier of the consumable.
 	 */
 	private Consumable(String name, String stringRepr, String imageName, int spawnChance, int healthMod) {
-		
-		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
 		
 		this.NAME = name;
 		this.STRING_REPR = stringRepr;

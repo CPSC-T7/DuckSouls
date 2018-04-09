@@ -2,7 +2,6 @@ package items;
 
 import javafx.scene.image.Image;
 import java.util.Random;
-import tests.StatisticTests;
 
 public enum Armour implements Item {
 	
@@ -61,8 +60,6 @@ public enum Armour implements Item {
 	 */
 	private Armour(String name, String stringRepr, String imageName, int spawnChance, int defense) {
 		
-		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
-		
 		this.NAME = name;
 		this.STRING_REPR = stringRepr;
 		this.IMAGE_NAME = imageName;
@@ -105,7 +102,7 @@ public enum Armour implements Item {
 	public int getDefense() {
 		return this.DEFENSE;
 	}
-
+	
 	@Override
 	public String getFileString() {
 		return this.STRING_REPR.replaceAll(" ", "");

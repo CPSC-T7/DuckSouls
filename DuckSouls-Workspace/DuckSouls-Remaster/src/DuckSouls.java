@@ -2,12 +2,9 @@ import controllers.GUIGame;
 import controllers.GameData;
 import controllers.TextGame;
 import javafx.application.Application;
-import tests.ParameterTests;
 
 /**
  * The main class to play DuckSouls.
- *
- * TODO: Fill in JavaDoc
  *
  * @author Matthew Allwright
  * @author Wylee McAndrews
@@ -27,10 +24,12 @@ public class DuckSouls {
 	/**
 	 * Plays DuckSouls.
 	 *
-	 * TODO: Fill in JavaDoc
-	 *
 	 * @param args
-	 *            Not used.
+	 *            The list of arguments for which version of DuckSouls to play. The
+	 *            first argument sets whether the game is running in GUI mode or
+	 *            Text mode ("1" for GUI and "0" for Text). The second argument sets
+	 *            whether the game is running in Story mode or Arcade mode ("1" for
+	 *            Story and "0" for Arcade).
 	 */
 	public static void main(String[] args) {
 		
@@ -50,11 +49,16 @@ public class DuckSouls {
 	
 	/**
 	 * Initializes all game components.
+	 * 
+	 * @param args
+	 *            The list of arguments for which version of DuckSouls to play. The
+	 *            first argument sets whether the game is running in GUI mode or
+	 *            Text mode ("1" for GUI and "0" for Text). The second argument sets
+	 *            whether the game is running in Story mode or Arcade mode ("1" for
+	 *            Story and "0" for Arcade).
 	 */
 	private static void initialize(String[] args) {
-
-		ParameterTests.assertTwoParams(args);
-
+		
 		GameData.IS_GUI = (args[0].equals("1"));
 		GameData.IS_STORY = (args[1].equals("1"));
 		
@@ -64,7 +68,7 @@ public class DuckSouls {
 	 * Runs what needs to be continuously run for the game to work.
 	 */
 	private static void loop() {
-
+		
 		if (GameData.IS_GUI) {
 			Application.launch(GUIGame.class);
 		} else {

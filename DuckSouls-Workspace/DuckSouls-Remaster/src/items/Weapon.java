@@ -1,7 +1,6 @@
 package items;
 
 import javafx.scene.image.Image;
-import tests.StatisticTests;
 import java.util.Random;
 
 public enum Weapon implements Item {
@@ -62,9 +61,6 @@ public enum Weapon implements Item {
 	 *            The speed of the weapon's use. Must be 0-100.
 	 */
 	private Weapon(String name, String stringRepr, String imageName, int spawnChance, int damage, int speed) {
-		
-		StatisticTests.testIntStatRange("Spawn Chance", spawnChance);
-		StatisticTests.testIntStatRange("Speed", speed);
 		
 		this.NAME = name;
 		this.STRING_REPR = stringRepr;

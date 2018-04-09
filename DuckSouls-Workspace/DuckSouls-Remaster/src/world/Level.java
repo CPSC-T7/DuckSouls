@@ -6,7 +6,6 @@ import java.util.Random;
 import entities.Enemy;
 import entities.Player;
 import javafx.scene.image.Image;
-import tests.PositionTests;
 import tiles.Door;
 import tiles.GeneralTile;
 import utils.GameEvent;
@@ -264,10 +263,6 @@ public class Level {
 		
 		Point newPlayerPoint = Orientation.pointAtDirection(this.player.getPosition(), direction);
 		this.player.setOrientation(direction);
-		
-		if (!(this.currentRoom.tileAt(this.player.getPosition()) instanceof Door)) {
-			PositionTests.testPointInRoom(this.currentRoom, newPlayerPoint);
-		}		
 		
 		if (this.currentRoom.tileAt(this.player.getPosition()) == GeneralTile.FLOOR) {
 			this.currentRoom.setTile(this.player.getPosition(), GeneralTile.PATH);

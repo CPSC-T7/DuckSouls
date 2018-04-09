@@ -12,7 +12,6 @@ import items.Consumable;
 import items.Item;
 import items.Weapon;
 import javafx.scene.image.Image;
-import tests.StatisticTests;
 import tiles.Door;
 import tiles.GeneralTile;
 import tiles.Tile;
@@ -60,8 +59,6 @@ public class Room {
 	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
 	public Room(int size, int levelNum, int enemySpawnChance) {
-		
-		StatisticTests.testIntStatRange("Enemy Spawn Chance", enemySpawnChance);
 		
 		this.internalWidth = size;
 		this.internalHeight = size;
