@@ -79,14 +79,15 @@ public class GUIGame extends Application implements Controller {
 	public void start(Stage window) throws Exception {
 		
 		// Game setup
-		this.player = new Player(new Point(1, 1));
 		this.window = window;
 		
 		if (GameData.IS_STORY) {
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, null, new Point(0, 0));
+			this.player = new Player(new Point(1, 1));
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, this.player, new Point(0, 0));
 		} else {
+			this.player = new Player(new Point(mapsize / 2 + 1, mapsize / 2 + 1));
 			currentLevel = LevelBuilder.buildArcadeLevel(levelNum,
-					new Player(new Point(mapsize / 2 + 1, mapsize / 2 + 1)), new Point(0, 0));
+					this.player, new Point(0, 0));
 		}
 		
 		// JavaFx setup
