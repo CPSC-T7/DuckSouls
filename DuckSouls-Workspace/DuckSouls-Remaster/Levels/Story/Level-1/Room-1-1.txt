@@ -8,13 +8,13 @@
 ; --- SECTION 1 : TILES ---
 
 WTL, WT, WT, WT, WT, DT, WT, WT, WTR
+ WL,   ,   ,   ,   ,   , WR,   , WR
+ WL,   , WB, WB, WB, WB,WBR,   , WR
  WL,   ,   ,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,WTL,   ,   , WR
- WL,   ,   ,   ,   , WR,   ,   , WR
- WL,   ,   ,   ,   , WR,   ,   , WR
- WL,   ,   ,   ,   , WR,   ,   , WR
+ WL, WT, WT, WT,WTR,   , WT, WT, WR
+ WL,   ,   ,   , WR,   ,   ,   , WR
+ WL,   , WT,   , WB, WR,   ,   , WR
+ WL,   , WR,   ,   ,   ,   ,   , WR
 WBL, WB, WB, WB, WB,WBL, WB, WB, WBR
 
 ============
@@ -34,3 +34,4 @@ WBL, WB, WB, WB, WB,WBL, WB, WB, WBR
 ============
 
 ; --- SECTION 3 : ENTITIES ---
+E: 0,7

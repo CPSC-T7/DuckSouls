@@ -187,6 +187,8 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 			
 		}
 		
+		this.setOrientation(direction);
+		
 	}
 	
 	public double attackBonus(double damage) {

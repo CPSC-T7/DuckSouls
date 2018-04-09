@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import entities.Entity;
+import utils.Orientation;
 import world.Room;
 
 public class Path {
@@ -16,6 +17,7 @@ public class Path {
 		Node[][] roomNodes = new Node[room.getInternalWidth() + 2][room.getInternalHeight() + 2];
 		ArrayList<Node> open = new ArrayList<Node>();
 		ArrayList<Node> closed = new ArrayList<Node>();
+		
 		for(int x = 0; x<room.getInternalWidth() + 2; x++) {
 			for(int y = 0; y<room.getInternalHeight() + 2; y++) {
 				roomNodes[x][y] = new Node(new Point(x,y), goal);
@@ -34,10 +36,16 @@ public class Path {
 		
 		roomNodes[start.x][start.y].update(roomNodes[start.x][start.y]);
 		open.add(roomNodes[start.x][start.y]);
+		
+		
 		while(!closed.contains(roomNodes[goal.x][goal.y])) {
+			
+			
 			if(open.size() == 0) {
 				throw new NotAvaliablePathExecption();
 			}
+			
+			
 			int lowest = 0;
 			for(int node = 0; node<open.size(); node++) {
 				if(open.get(node).getF() < open.get(lowest).getF()) lowest = node;
@@ -47,6 +55,7 @@ public class Path {
 					}
 				}
 			}
+			
 			if(open.get(lowest).getPoint().x+1 >= 0 && open.get(lowest).getPoint().x+1 < room.getInternalWidth() + 2) {
 				if(roomNodes[open.get(lowest).getPoint().x+1][open.get(lowest).getPoint().y].isMovable()
 						&& !closed.contains(roomNodes[open.get(lowest).getPoint().x+1][open.get(lowest).getPoint().y])) {
@@ -117,7 +126,8 @@ public class Path {
 				}
 			}
 		}
-		return new Point(path.get(currentdex).getPoint().x, path.get(currentdex).getPoint().y);
+		Point thisPoint = path.get(currentdex).getPoint(); 
+		return thisPoint;
 		
 	}
 }

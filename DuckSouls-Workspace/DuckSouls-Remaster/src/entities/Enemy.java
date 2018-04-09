@@ -98,6 +98,23 @@ public class Enemy extends Entity {
 	public void move(Room room, Point playerPoint) {
 		try {
 			Path path = new Path(room, this.getPosition(), playerPoint);
+			Point thisPoint = path.getNext(); 
+			if(thisPoint.x > this.getPosition().x) {
+				this.setOrientation(Orientation.EAST);
+			}
+			else {
+				if(thisPoint.x < this.getPosition().x) {
+					this.setOrientation(Orientation.WEST);
+				}
+				else {
+					if(thisPoint.y > this.getPosition().y) {
+						this.setOrientation(Orientation.SOUTH);
+					}
+					else {
+						this.setOrientation(Orientation.NORTH);
+					}
+				}
+			}
 			this.setPosition(path.getNext());
 		} catch (NotAvaliablePathExecption e) {
 			Random rand = new Random();
