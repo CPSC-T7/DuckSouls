@@ -3,7 +3,11 @@ package entities;
 import java.awt.Point;
 import java.util.Random;
 
+import ai.NotAvaliablePathExecption;
+import ai.Path;
 import javafx.scene.image.Image;
+import utils.Orientation;
+import world.Room;
 
 public class Enemy extends Entity {
 	
@@ -89,6 +93,24 @@ public class Enemy extends Entity {
 	@Override
 	public int getLevel() {
 		return this.level;
+	}
+	
+	public void move(Room room, Point playerPoint) {
+		try {
+			Path path = new Path(room, this.getPosition(), playerPoint);
+			this.setPosition(path.getNext());
+		} catch (NotAvaliablePathExecption e) {
+			Random rand = new Random();
+			int R = rand.nextInt(4);
+			switch(R) {
+				case 0: this.setOrientation(Orientation.NORTH); break;
+				case 1: this.setOrientation(Orientation.SOUTH); break;
+				case 2: this.setOrientation(Orientation.EAST); break;
+				case 4: this.setOrientation(Orientation.WEST); break;
+			}
+		}
+		System.out.println(this.position.x + "," + this.position.y);
+		
 	}
 	
 }
