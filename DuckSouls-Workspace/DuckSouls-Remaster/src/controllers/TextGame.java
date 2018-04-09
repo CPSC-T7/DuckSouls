@@ -39,7 +39,7 @@ public class TextGame implements Controller {
 	public TextGame() {
 		
 		if (GameData.IS_STORY) {
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, null, new Point(0, 0));
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
 		} else {
 			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, new Player(new Point(4, 4)), new Point(0, 0));
 		}

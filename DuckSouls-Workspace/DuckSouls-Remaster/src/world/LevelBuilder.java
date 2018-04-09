@@ -58,7 +58,7 @@ public class LevelBuilder {
 		}
 		
 		if (levelNum == 1) {
-			player = roomArray[currentRoomPoint.x][currentRoomPoint.y].getPlayer();
+			player.setPosition(roomArray[currentRoomPoint.x][currentRoomPoint.y].getPlayer().getPosition());
 		}
 		
 		return new Level(roomArray.length, roomArray[0].length, roomArray, levelNum, player, currentRoomPoint);
