@@ -16,6 +16,9 @@ import animation.BattleSprite;
 import utils.Utilities;
 
 import items.Item;
+//TODO: Seperate animations from this class 
+//		so that people don't get Carpal Tunnel 
+//		from scrolling through all the lines
 
 /**
  * 
@@ -162,6 +165,8 @@ public class BattleScene {
 			{ new MenuButton(flyButtonImageView, "Fly", 160, 64 * 6),
 					new MenuButton(itemButtonImageView, "Item", 160, 64 * 6 + 50) } };
 					
+					
+	//TODO: add a back button
 	// 2D array of Item menu buttons [rows][columns]
 	private MenuButton[][] itemArray = new MenuButton[][] {
 			{ new MenuButton(bugsButtonImageView, "Bugs", 10, 64 * 6),
