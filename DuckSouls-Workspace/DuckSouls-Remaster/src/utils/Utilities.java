@@ -147,6 +147,8 @@ public class Utilities {
 			
 			System.out.println("Cannot write to file [" + fileName + "], IO Exception.");
 			e.printStackTrace();
+			java.util.Scanner s = new java.util.Scanner(System.in);
+			s.nextLine();
 			
 		}
 		

@@ -11,6 +11,7 @@ import utils.Orientation;
 import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
+import world.RoomIO;
 import battle.Loop;
 
 public class TextGame implements Controller {
@@ -131,6 +132,15 @@ public class TextGame implements Controller {
 					consoleIn.nextLine();
 					break;
 				
+				/*
+				 * DATA
+				 */
+				
+				case ";":
+					if (GameData.IS_STORY) {
+						RoomIO.saveStoryRoom(currentLevel.currentRoom, levelNum, currentLevel.getCurrentRoomPoint());
+					}
+					
 			}
 			
 			// Move the player

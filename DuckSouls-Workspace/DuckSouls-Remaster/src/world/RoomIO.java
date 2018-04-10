@@ -242,7 +242,7 @@ public class RoomIO {
 			y++;
 			
 		}
-
+		
 		return new Room(width, height, tileArray, itemArray, player, enemyList, levelNum);
 		
 	}
@@ -280,7 +280,8 @@ public class RoomIO {
 			for (int x = 0; x < room.getInternalWidth() + 2; x++) {
 				position.x = x;
 				tilesLine = tilesLine + room.tileAt(position).getFileString() + ",";
-				itemsLine = itemsLine + room.itemAt(position).getFileString() + ",";
+				itemsLine = itemsLine + (room.itemAt(position) != null ? room.itemAt(position).getFileString() : "");
+				itemsLine = itemsLine + ",";
 			}
 			tilesLines.add(tilesLine.substring(0, tilesLine.length() - 1));
 			itemsLines.add(itemsLine.substring(0, itemsLine.length() - 1));
