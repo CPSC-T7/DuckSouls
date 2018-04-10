@@ -56,7 +56,7 @@ public class Loop {
 					run = executeMove(true,  playerCommand,  player,  enemy);
 					battleEnd = checkDeath(enemy, false, run);
 					playerFirst = false;
-					if (!battleEnd) {
+					if (battleEnd) {
 						choiceEnd = false;
 					}
 				}
@@ -65,7 +65,7 @@ public class Loop {
 					executeMove(false,  enemyCommand,  player,  enemy);
 					battleEnd = checkDeath(player, true, run);
 					playerFirst = true;
-					if (!battleEnd) {
+					if (battleEnd) {
 						choiceEnd = false;
 					}
 				}
@@ -118,41 +118,45 @@ public class Loop {
 	 */
 	public static boolean executeMove(boolean isPlayer, String move, Player player, Enemy enemy) {
 		//TODO: Set GameData to true for GUI (Currently false for testing)
-		
+		double healed;
 		if(isPlayer) {
 			switch (move) {
 				case "Attack":
-					PrintBattleText.attackingText(true, !GameData.IS_GUI);
+					PrintBattleText.attackingText(true, GameData.IS_GUI);
 					
 					double damage = player.sendAttack();
 					damage = enemy.receiveAttack(damage);
 					
 					if (damage == 0) {
-						PrintBattleText.missedText(true, !GameData.IS_GUI);
+						PrintBattleText.missedText(true, GameData.IS_GUI);
 					} else {
-						PrintBattleText.damageText(true, damage, !GameData.IS_GUI);
+						PrintBattleText.damageText(true, damage, GameData.IS_GUI);
 					}
 					break;
 					
 				case "Taunt":
 					enemy.taunted();
-					PrintBattleText.tauntedText(true, !GameData.IS_GUI);
+					PrintBattleText.tauntedText(true, GameData.IS_GUI);
 					break;
 					
 				case "Crouton":
-					player.itemUse(Consumable.CROUTON);
+					healed = player.itemUse(Consumable.CROUTON);
+					PrintBattleText.itemText(Consumable.CROUTON, GameData.IS_GUI, healed);
 					break;
 				
 				case "Goo":
-					player.itemUse(Consumable.CROUTON);
+					healed = player.itemUse(Consumable.GOO);
+					PrintBattleText.itemText(Consumable.GOO, GameData.IS_GUI, healed);
 					break;
 
 				case "Fish":
-					// item
+					healed = player.itemUse(Consumable.FISH);
+					PrintBattleText.itemText(Consumable.FISH, GameData.IS_GUI, healed);
 					break;
 
 				case "Bugs":
-					// item
+					healed = player.itemUse(Consumable.BUGS);
+					PrintBattleText.itemText(Consumable.BUGS, GameData.IS_GUI, healed);
 					break;
 					
 				case "Run":
@@ -165,22 +169,22 @@ public class Loop {
 			switch (move) {
 				case "Attack":
 					
-					PrintBattleText.attackingText(false, !GameData.IS_GUI);
+					PrintBattleText.attackingText(false, GameData.IS_GUI);
 					
 					double damage = enemy.sendAttack();
 					damage = player.receiveAttack(damage);
 					
 					if (damage == 0) {
-						PrintBattleText.missedText(false, !GameData.IS_GUI);
+						PrintBattleText.missedText(false, GameData.IS_GUI);
 					} else {
-						PrintBattleText.damageText(false, damage, !GameData.IS_GUI);
+						PrintBattleText.damageText(false, damage, GameData.IS_GUI);
 					}
 					break;
 					
 				case "Taunt":
 					
 					player.taunted();
-					PrintBattleText.tauntedText(false, !GameData.IS_GUI);
+					PrintBattleText.tauntedText(false, GameData.IS_GUI);
 					break;
 			}
 			
@@ -203,11 +207,11 @@ public class Loop {
 	 */
 	public static boolean checkDeath(Entity entity, boolean isPlayer, boolean run) {
 		if (entity.getHealth() <= 0) {
-			if (!run && !GameData.IS_GUI) {
+			if (!run && GameData.IS_GUI) {
 				if (isPlayer) {
-					PrintBattleText.slainEntity(true, !GameData.IS_GUI);
+					PrintBattleText.slainEntity(true, GameData.IS_GUI);
 				} else {
-					PrintBattleText.slainEntity(false, !GameData.IS_GUI);
+					PrintBattleText.slainEntity(false, GameData.IS_GUI);
 				}
 				
 			}
@@ -234,7 +238,7 @@ public class Loop {
 	
 	public static void postBattle(boolean isPlayer, Player player, Enemy enemy, boolean run) {
 		if (isPlayer) {
-			PrintBattleText.gameOver(!GameData.IS_GUI);
+			PrintBattleText.gameOver(GameData.IS_GUI);
 			System.exit(0);
 		}
 		else if (run){
@@ -243,10 +247,10 @@ public class Loop {
 		else {
 			player.setStatsForLevel();
 			int currentLevel = player.getLevel() + 0;
-			PrintBattleText.xpGain(enemy, !GameData.IS_GUI);
+			PrintBattleText.xpGain(enemy, GameData.IS_GUI);
 			player.addExperiece(enemy.getExperienceGiven());
 			if (currentLevel != player.getLevel()) {
-				PrintBattleText.levelUp(player, !GameData.IS_GUI);
+				PrintBattleText.levelUp(player, GameData.IS_GUI);
 			}
 
 			player.setScore(enemy.getScore());

@@ -108,24 +108,34 @@ public class Player extends Entity {
 		
 		//Give option to player (text version)
 		String moveCommand;
+		boolean choose = true;
 		int move = 0;
 		if(!isGUI) {
-			System.out.print("\nEnter a move: ");
-			moveCommand = scanner.nextLine().toLowerCase();	
-			switch (moveCommand) {
-			case "attack":
-				move = 0;
-				break;
-			case "taunt":
-				move = 1;
-				break;	
-			case "item":
-				move = 4;
-				break;
-			case "run":
-				move = 5;
-				break;
+			while (choose) {
+				System.out.print("\nEnter a move: ");
+				moveCommand = scanner.nextLine().toLowerCase();	
+				switch (moveCommand) {
+				case "attack":
+					choose = false;
+					move = 0;
+					break;
+				case "taunt":
+					move = 1;
+					choose = false;
+					break;	
+				case "item":
+					move = 4;
+					choose = false;
+					break;
+				case "run":
+					move = 5;
+					choose = false;
+					break;
+				default:
+					System.out.println("That is not a command!");
+				}
 			}
+
 		}
 		
 		String command = super.choice(move, isGUI);
@@ -206,9 +216,9 @@ public class Player extends Entity {
 		this.experience -= this.experienceForNextLevel;
 		
 		this.level++;
-		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
+		this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1));
 		this.setStatsForLevel();
-		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * this.level);
+		this.experienceForNextLevel = BASE_NEEDED_XP + (NEEDED_XP_PER_LEVEL * (this.level - 1));
 		
 	}
 	
@@ -219,11 +229,11 @@ public class Player extends Entity {
 	 * health not included as you have to use items to heal yourself
 	 */
 	public void setStatsForLevel() {
-		this.attack = BASE_ATTACK + (ATTACK_PER_LEVEL * this.level);
-		this.defence = BASE_DEFENCE + (DEFENCE_PER_LEVEL * this.level);
-		this.speed = BASE_SPEED + (SPEED_PER_LEVEL * this.level);
-		this.accuracy = BASE_ACCURACY + (ACCURACY_PER_LEVEL * this.level);
-		this.crit = BASE_CRIT + (CRIT_PER_LEVEL * this.level);
+		this.attack = BASE_ATTACK + (ATTACK_PER_LEVEL * (this.level - 1));
+		this.defence = BASE_DEFENCE + (DEFENCE_PER_LEVEL * (this.level - 1));
+		this.speed = BASE_SPEED + (SPEED_PER_LEVEL * (this.level - 1));
+		this.accuracy = BASE_ACCURACY + (ACCURACY_PER_LEVEL * (this.level - 1));
+		this.crit = BASE_CRIT + (CRIT_PER_LEVEL * (this.level - 1));
 	}
 
 	
@@ -263,12 +273,15 @@ public class Player extends Entity {
 		return this.inventory;
 	}
 	
-	public void itemUse(Consumable item) {
+	public double itemUse(Consumable item) {
+		double healthHealed = this.health + 0;
 		this.inventory.put(item, this.inventory.get(item) - 1);
 		this.health = this.health + item.getHealthMod();
-		if(this.health > (BASE_HEALTH + (HEALTH_PER_LEVEL * this.level))) {
-			this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
+		if(this.health > (BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1)))) {
+			this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1));
 		}
+		healthHealed = this.health - healthHealed;
+		return healthHealed;
 	}
 	
 	public Weapon getWeapon() {

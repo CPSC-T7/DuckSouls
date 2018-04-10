@@ -2,6 +2,7 @@ package battle;
 
 import entities.Enemy;
 import entities.Player;
+import items.Item;
 
 public class PrintBattleText {
 	
@@ -136,6 +137,16 @@ public class PrintBattleText {
 	
 	public static void levelUp(Player player, boolean isGUI) {
 		String text = "You have leveled up!" + "\nYou are now level " + player.getLevel() +"!";
+		if (isGUI) {
+			//TODO WYLEEEEEE
+		}
+		else {
+			System.out.println(text);
+		}
+	}
+	
+	public static void itemText(Item item, boolean isGUI, double healed) {
+		String text = "You used the " + item.getName() + "! \nYou healed " + healed + " health!";
 		if (isGUI) {
 			//TODO WYLEEEEEE
 		}
