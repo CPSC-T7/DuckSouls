@@ -140,7 +140,8 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public void useItem() {	
+	public String useItem(boolean isGUI) {	
+		return "Bananas";
 	}
 	
 	@Override

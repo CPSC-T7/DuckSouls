@@ -1,6 +1,7 @@
 package battle;
 
 import entities.Player;
+import items.Consumable;
 import utils.Utilities;
 import entities.Enemy;
 import entities.Entity;
@@ -43,6 +44,9 @@ public class Loop {
 		while (!battleEnd) {
 			
 			playerCommand = player.choice(0, GameData.IS_GUI);
+			if (playerCommand.equals("Item")) {
+				playerCommand = player.useItem(GameData.IS_GUI);
+			}
 			enemyCommand = enemy.choice(0, GameData.IS_GUI);
 			choiceEnd = true;
 			
@@ -135,7 +139,19 @@ public class Loop {
 					PrintBattleText.tauntedText(true, !GameData.IS_GUI);
 					break;
 					
-				case "Item":
+				case "Crouton":
+					player.itemUse(Consumable.CROUTON);
+					break;
+				
+				case "Goo":
+					player.itemUse(Consumable.CROUTON);
+					break;
+
+				case "Fish":
+					// item
+					break;
+
+				case "Bugs":
 					// item
 					break;
 					

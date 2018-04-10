@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import battle.Loop;
-import battle.TestBattleScripts;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;

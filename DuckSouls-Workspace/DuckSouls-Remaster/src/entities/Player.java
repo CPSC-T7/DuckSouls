@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import items.Armour;
+import items.Consumable;
 import items.Item;
 import items.Weapon;
 import javafx.scene.image.Image;
@@ -126,18 +127,59 @@ public class Player extends Entity {
 				break;
 			}
 		}
-		//if attack, move == 0
-		//if taunt, move == 1
-		//if item, move == 4
-		//if run away, move == 5
 		
 		String command = super.choice(move, isGUI);
 		return command;
 	}
 	
 	@Override
-	public void useItem() {
-		//TODO
+	public String useItem(boolean isGUI) {
+		String item = "";
+		System.out.println(this.inventory);
+		if(!isGUI) {
+			while (true) {
+				try {
+					System.out.print("\nWhich item do you want to use?");
+					item = scanner.nextLine().toLowerCase();	
+					switch (item) {
+					case "crouton":
+						if(this.inventory.get(Consumable.CROUTON) != null && this.inventory.get(Consumable.CROUTON) != 0) {
+							return "Crouton";
+						}
+						else {
+							throw new Exception("Bad");
+						}
+					case "goo":
+						if(this.inventory.get(Consumable.GOO) != null && this.inventory.get(Consumable.GOO) != 0) {
+							return "Goo";
+						}
+						else {
+							throw new Exception("Bad");
+						}
+					case "fish":
+						if(this.inventory.get(Consumable.FISH) != null && this.inventory.get(Consumable.FISH) != 0) {
+							return "Fish";
+						}
+						else {
+							throw new Exception("Bad");
+						}
+					case "bugs":
+						if(this.inventory.get(Consumable.BUGS) != null && this.inventory.get(Consumable.BUGS) != 0) {
+							return "Bugs";
+						}
+						else {
+							throw new Exception("Bad");
+						}
+					default:
+						throw new Exception("Bad");
+					}
+				} 
+				catch (Exception e) {
+					System.out.print("\nYou don't have that item!");
+				}
+			}
+		}
+		return "APE";
 	}
 	
 	@Override
@@ -219,6 +261,14 @@ public class Player extends Entity {
 	
 	public HashMap<Item, Integer> getInventory() {
 		return this.inventory;
+	}
+	
+	public void itemUse(Consumable item) {
+		this.inventory.put(item, this.inventory.get(item) - 1);
+		this.health = this.health + item.getHealthMod();
+		if(this.health > (BASE_HEALTH + (HEALTH_PER_LEVEL * this.level))) {
+			this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * this.level);
+		}
 	}
 	
 	public Weapon getWeapon() {
