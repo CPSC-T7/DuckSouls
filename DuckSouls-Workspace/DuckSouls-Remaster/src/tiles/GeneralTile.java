@@ -13,18 +13,7 @@ public enum GeneralTile implements Tile {
 	EMPTY("XXX", "Empty.png", false),
 	FLOOR("   ", "Floor.png", true),
 	PATH(" . ", "Floor.png", true),
-	STAIRS("/=/", "Stairs.png", true),
-	
-	// Water
-
-	WATER_T("###", "Water-Top.png", false),
-	WATER_B("###", "Water-Bottom.png", false),
-	WATER_L(" ##", "Water-Left.png", false),
-	WATER_R("## ", "Water-Right.png", false),
-	WATER_TL(" ##", "Water-Top-Left.png", false),
-	WATER_TR("## ", "Water-Top-Right.png", false),
-	WATER_BL(" ##", "Water-Bottom-Left.png", false),
-	WATER_BR("## ", "Water-Bottom-Right.png", false);
+	STAIRS("/=/", "Stairs.png", true);
 	
 	/*
 	 * 
