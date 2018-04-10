@@ -13,6 +13,7 @@ import tiles.Door;
 import tiles.GeneralTile;
 import tiles.Tile;
 import tiles.Wall;
+import tiles.Water;
 import utils.Utilities;
 
 public class RoomIO {
@@ -146,6 +147,14 @@ public class RoomIO {
 						for (Door door : Door.values()) {
 							if (str.equals(door.getFileString())) {
 								tileArray[x][y] = door;
+								break;
+							}
+						}
+						
+						// Search for doors
+						for (Water water : Water.values()) {
+							if (str.equals(water.getFileString())) {
+								tileArray[x][y] = water;
 								break;
 							}
 						}

@@ -14,14 +14,18 @@ public enum Water implements Tile {
 	WATER_IB("###", "SIB", "Water-Intersection-Bottom.png", false),
 	WATER_IL(" ##", "SIL", "Water-Intersection-Left.png", false),
 	WATER_IR("## ", "SIR", "Water-Intersection-Right.png", false),
-	WATER_TL(" **", "STL", "Water-Top-Left.png", false),
-	WATER_TR("** ", "STR", "Water-Top-Right.png", false),
-	WATER_BL(" **", "SBL", "Water-Bottom-Left.png", false),
-	WATER_BR("** ", "SBR", "Water-Bottom-Right.png", false),
-	WATER_H("***", "SH", "Water-Horizontal.png", false),
+	WATER_TL(" ##", "STL", "Water-Top-Left.png", false),
+	WATER_TR("## ", "STR", "Water-Top-Right.png", false),
+	WATER_BL(" ##", "SBL", "Water-Bottom-Left.png", false),
+	WATER_BR("## ", "SBR", "Water-Bottom-Right.png", false),
+	WATER_H("###", "SH", "Water-Horizontal.png", false),
 	WATER_V(" # ", "SV", "Water-Verticle.png", false),
-	WATER_BV("* *", "SBV", "Bridge-Verticle.png", true),
-	WATER_BH("* *", "SBH", "Bridge-Horizontal.png", true);
+	WATER_CT(" # ", "SCT", "Water-Cap-Top.png", false),
+	WATER_CB(" # ", "SCB", "Water-Cap-Bottom.png", false),
+	WATER_CL("###", "SCL", "Water-Cap-Left.png", false),
+	WATER_CR("###", "SCR", "Water-Cap-Right.png", false),
+	WATER_BV("# #", "SBV", "Bridge-Verticle.png", true),
+	WATER_BH("# #", "SBH", "Bridge-Horizontal.png", true);
 	
 	/*
 	 * 
@@ -32,7 +36,7 @@ public enum Water implements Tile {
 	private final String	STRING_REPR;
 	private final String	FILE_STRING;
 	private final String	IMAGE_NAME;
-	private final boolean	CAN_WALK_ON	= false;
+	private boolean	CAN_WALK_ON;
 	
 	/*
 	 * 
@@ -55,6 +59,7 @@ public enum Water implements Tile {
 		this.STRING_REPR = stringRepr;
 		this.FILE_STRING = fileString;
 		this.IMAGE_NAME = imageName;
+		this.CAN_WALK_ON = canWalkOn;
 		
 	}
 	

@@ -8,13 +8,13 @@
 ; --- SECTION 1 : TILES ---
 
 WTL, WT, WT, WT, WT, DT, WT, WT, WTR
- WL,   ,   ,   ,   ,   , WR,   , WR
- WL,   , WB, WB, WB, WB,WBR,   , WR
+ WL,   ,   ,   ,   ,   ,SCT,   , WR
+ WL,   ,SCL, SH, SH, SH,SBR,   , WR
  WL,   ,   ,   ,   ,   ,   ,   , WR
- WL, WT, WT, WT,WTR,   , WT, WT, WR
- WL,   ,   ,   , WR,   ,   ,   , WR
- WL,   , WT,   , WB, WR,   ,   , WR
- WL,   , WR,   ,   ,   ,   ,   , WR
+ WL,SCL, SH, SH,STR,   ,SCL,SCR, WR
+ WL,   ,   ,   , SV,   ,   ,   , WR
+ WL,   ,SCT,   ,SBL,SCR,   ,   , WR
+ WL,   ,SCB,   ,   ,   ,   ,   , WR
 WBL, WB, WB, WB, WB,WBL, WB, WB, WBR
 
 ============

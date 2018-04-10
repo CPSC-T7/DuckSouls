@@ -126,7 +126,6 @@ public class Enemy extends Entity {
 				case 4: this.setOrientation(Orientation.WEST); break;
 			}
 		}
-		System.out.println(this.position.x + "," + this.position.y);
 		
 	}
 	

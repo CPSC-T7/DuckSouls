@@ -7,16 +7,15 @@
 
 ; --- SECTION 1 : TILES ---
 
-   ,   ,   ,WTL, DT,WTR,   ,   ,   
-   ,   ,WTL,WBR,   ,WBL,WTR,   ,   
-   ,WTL,WBR,   ,   ,   ,WBL,WTR,   
-WTL,WBR,   ,   ,   ,   ,   ,WBL,WTR
- DL,   ,   ,   ,   ,   ,   ,   , DR
-WBL,WTR,   ,   ,   ,   ,   ,WTL,WBR
-   ,WBL,WTR,   ,   ,   ,WTL,WBR,   
-   ,   ,WBL,WTR,   ,WTL,WBR,   ,   
-   ,   ,   ,WBL, DB,WBR,   ,   ,   
-
+ WTL, WT, WT,WT, DT, WT, WT, WT,WTR
+ WL,   ,STL,SCR,   ,SCL,STR,   , WR
+ WL,STL,SBR,   ,   ,   ,SBL,STR, WR
+ WL,SCB,   ,STL,SBH,STR,   ,SCB, WR
+ DL,   ,   ,SBV,   ,SBV,   ,   , DR
+ WL,SCT,   ,SBL,SBH,SBR,   ,SCT, WR
+ WL,SBL,STR,   ,   ,   ,STL,SBR, WR
+ WL,   ,SBL,SCR,   ,SCL,SBR,   , WR
+WBL, WB, WB, WB, DB, WB, WB, WB,WBR
 ============
 
 ; --- SECTION 2 : ITEMS ---
@@ -34,3 +33,4 @@ WBL,WTR,   ,   ,   ,   ,   ,WTL,WBR
 ============
 
 ; --- SECTION 3 : ENTITIES ---
+E: 1,1
