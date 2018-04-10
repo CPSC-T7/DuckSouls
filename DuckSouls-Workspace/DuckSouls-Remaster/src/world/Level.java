@@ -316,6 +316,7 @@ public class Level {
 		}
 		
 		for (Enemy enemy : this.currentRoom.getEnemyList()) {
+			enemy.move(this.currentRoom, player.getPosition());
 			if (enemy.getPosition().equals(this.player.getPosition())) {
 				GameEventQue.addEvent(GameEvent.BATTLE);
 			}

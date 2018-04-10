@@ -9,9 +9,9 @@
 
 WTL, WT, WT, WT, WT, WT, WTR
  WL,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,   , WR
- WL,   ,   ,   ,   ,   , WR
+ WL,   ,   , WT,   ,   , WR
+ WL,   , WL,   , WR,   , WR
+ WL,   ,   , WB,   ,   , WR
  WL,   ,   ,   ,   ,   , DR
 WBL, WB, WB, WB, WB, WB, WBR
 
@@ -23,14 +23,14 @@ WBL, WB, WB, WB, WB, WB, WBR
    ,   ,   ,   , CA, LA,
    ,   ,   ,   ,   , MA,
    ,   ,   ,   ,   ,   ,
-   ,  C,  F,   ,   ,  S,
-   ,  B,  G,   ,   ,  K,
+   ,  C,   ,   ,   ,  S,
+   ,  B,   ,   ,   ,  K,
    ,   ,   ,   ,   ,   ,
 
 ============
 
 ; --- SECTION 3 : ENTITIES ---
 
-P : 3,3
+P : 5,5
 E : 1,1
 E : 2,1,10
