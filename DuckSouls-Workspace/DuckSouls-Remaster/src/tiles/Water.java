@@ -10,22 +10,22 @@ public enum Water implements Tile {
 	 * 
 	 */
 	
-	WATER_IT("###", "SIT", "Water-Intersection-Top.png", false),
-	WATER_IB("###", "SIB", "Water-Intersection-Bottom.png", false),
-	WATER_IL(" ##", "SIL", "Water-Intersection-Left.png", false),
-	WATER_IR("## ", "SIR", "Water-Intersection-Right.png", false),
-	WATER_TL(" ##", "STL", "Water-Top-Left.png", false),
-	WATER_TR("## ", "STR", "Water-Top-Right.png", false),
-	WATER_BL(" ##", "SBL", "Water-Bottom-Left.png", false),
-	WATER_BR("## ", "SBR", "Water-Bottom-Right.png", false),
-	WATER_H("###", "SH", "Water-Horizontal.png", false),
-	WATER_V(" # ", "SV", "Water-Verticle.png", false),
-	WATER_CT(" # ", "SCT", "Water-Cap-Top.png", false),
-	WATER_CB(" # ", "SCB", "Water-Cap-Bottom.png", false),
-	WATER_CL("###", "SCL", "Water-Cap-Left.png", false),
-	WATER_CR("###", "SCR", "Water-Cap-Right.png", false),
-	WATER_BV("# #", "SBV", "Bridge-Verticle.png", true),
-	WATER_BH("# #", "SBH", "Bridge-Horizontal.png", true);
+	WATER_IT("~~~", "SIT", "Water-Intersection-Top.png", false),
+	WATER_IB("~~~", "SIB", "Water-Intersection-Bottom.png", false),
+	WATER_IL(" ~~", "SIL", "Water-Intersection-Left.png", false),
+	WATER_IR("~~ ", "SIR", "Water-Intersection-Right.png", false),
+	WATER_TL(" ~~", "STL", "Water-Top-Left.png", false),
+	WATER_TR("~~ ", "STR", "Water-Top-Right.png", false),
+	WATER_BL(" ~~", "SBL", "Water-Bottom-Left.png", false),
+	WATER_BR("~~ ", "SBR", "Water-Bottom-Right.png", false),
+	WATER_H("~~~", "SH", "Water-Horizontal.png", false),
+	WATER_V(" ~ ", "SV", "Water-Verticle.png", false),
+	WATER_CT(" ~ ", "SCT", "Water-Cap-Top.png", false),
+	WATER_CB(" ~ ", "SCB", "Water-Cap-Bottom.png", false),
+	WATER_CL("~~~", "SCL", "Water-Cap-Left.png", false),
+	WATER_CR("~~~", "SCR", "Water-Cap-Right.png", false),
+	BRIDGE_V("| |", "SBV", "Bridge-Verticle.png", true),
+	BRIDGE_H("| |", "SBH", "Bridge-Horizontal.png", true);
 	
 	/*
 	 * 

@@ -64,6 +64,8 @@ public class Player extends Entity implements Serializable {
 	 * 
 	 */
 	
+	public Player() {}
+	
 	public Player(Point position) {
 		
 		super(STRING_REPR, position, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED, BASE_ACCURACY, BASE_CRIT);

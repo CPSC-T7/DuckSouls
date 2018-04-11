@@ -25,7 +25,7 @@ public class LevelBuilder {
 	
 	public static Level buildStoryLevel(int levelNum, Player player, Point currentRoomPoint) {
 		
-		return LevelIO.loadLevelFromDir("../Levels/Story", levelNum, player, currentRoomPoint);
+		return LevelIO.loadLevelFromDir(false, "../Levels/Story", levelNum, player, currentRoomPoint);
 		
 	}
 	
@@ -37,7 +37,7 @@ public class LevelBuilder {
 		for (File levelFile : new File("../Levels/Saves").listFiles()) {
 			
 			try {
-				Integer.parseInt(levelFile.getName().split("-")[1]);
+				fileNum = Integer.parseInt(levelFile.getName().split("-")[1]);
 			} catch (Exception e) {
 				continue;
 			}
@@ -57,7 +57,7 @@ public class LevelBuilder {
 		Player player = null;
 		Point currentRoomPoint = null;
 		
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveDir))) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveDir + "/storyDat.bin"))) {
 			
 			player = (Player) ois.readObject();
 			currentRoomPoint = (Point) ois.readObject();
@@ -78,7 +78,7 @@ public class LevelBuilder {
 			System.exit(1);
 		}
 		
-		return LevelIO.loadLevelFromDir("../Levels/Saves", levelNum, player, currentRoomPoint);
+		return LevelIO.loadLevelFromDir(true, "../Levels/Saves", levelNum, player, currentRoomPoint);
 		
 	}
 	
