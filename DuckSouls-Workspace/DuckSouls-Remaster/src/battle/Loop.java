@@ -159,7 +159,7 @@ public class Loop {
 					PrintBattleText.itemText(Consumable.BUGS, GameData.IS_GUI, healed);
 					break;
 					
-				case "Run":
+				case "Fly":
 					enemy.setHealth(0);
 					return player.run();
 			}
