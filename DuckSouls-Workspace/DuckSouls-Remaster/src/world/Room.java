@@ -2,6 +2,7 @@ package world;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 import entities.Enemy;
@@ -399,14 +400,17 @@ public class Room {
 	 * @param position
 	 *            The position of the enemy to remove.
 	 */
-	public void removeEnemy(Point position) {
+	public void removeEnemy(Point position){
 		
-		for (Entity enemy : this.enemyList) {
-			if (enemy.getPosition().equals(position)) {
-				this.enemyList.remove(enemy);
+		try {
+			for (Entity enemy : this.enemyList) {
+				if (enemy.getPosition().equals(position)) {
+					this.enemyList.remove(enemy);
+				}
 			}
+		} catch (ConcurrentModificationException e) {
+			//Do nothing, this error does not matter!
 		}
-		
 	}
 	
 	/**

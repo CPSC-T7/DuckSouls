@@ -1,6 +1,8 @@
 package controllers;
 
 import java.awt.Point;
+import java.util.ConcurrentModificationException;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -217,11 +219,12 @@ public class GUIGame extends Application implements Controller {
 	}// End of mainLoop
 	
 	@Override
-	public void handleBattleEvent(Enemy enemyToBattle) {
+	public void handleBattleEvent(Enemy enemyToBattle) throws ConcurrentModificationException {
 		
 		inBattle = true;
 		battleScreen = new BattleScene(this.window/* , newBattle */, player, enemyToBattle);
 		currentLevel.currentRoom.removeEnemy(player.getPosition());
+
 		
 	}// End of handleBattleEvent
 	
