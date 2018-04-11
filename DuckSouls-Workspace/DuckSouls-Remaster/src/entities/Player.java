@@ -143,10 +143,10 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public String useItem(boolean isGUI) {
+	public String chooseItem() {
 		String item = "";
 		System.out.println(this.inventory);
-		if(!isGUI) {
+		if(!GameData.IS_GUI) {
 			while (true) {
 				try {
 					System.out.print("\nWhich item do you want to use?");

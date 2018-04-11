@@ -45,7 +45,7 @@ public class Loop {
 			
 			playerCommand = player.choice(0);
 			if (playerCommand.equals("Item")) {
-				playerCommand = player.useItem(GameData.IS_GUI);
+				playerCommand = player.chooseItem();
 			}
 			enemyCommand = enemy.choice(0);
 			choiceEnd = true;
