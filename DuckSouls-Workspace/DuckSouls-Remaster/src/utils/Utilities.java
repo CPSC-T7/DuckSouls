@@ -1,13 +1,10 @@
 package utils;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -133,24 +130,52 @@ public class Utilities {
 	 * @param lines
 	 *            The lines to write to the file.
 	 */
+	@SuppressWarnings("resource")
 	public static void writeFile(String fileName, ArrayList<String> lines) {
 		
-		// Create a path object to the file
-		Path file = Paths.get(fileName);
+		ensureDirsForFileExist(fileName);
 		
-		// Try to write to the file in UTF-8, creating a file if it doesn't exist.
-		try {
+		// Try to write the file
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 			
-			Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+			// Write each line
+			for (String line : lines) {
+				bw.write(line);
+				bw.newLine();
+			}
 			
-		} catch (IOException e) { // If something goes wrong whilst writing the file
+		} catch (IOException ioe) {
 			
 			System.out.println("Cannot write to file [" + fileName + "], IO Exception.");
-			e.printStackTrace();
-			java.util.Scanner s = new java.util.Scanner(System.in);
-			s.nextLine();
+			ioe.printStackTrace();
+			
+			// For debugging
+			new java.util.Scanner(System.in).nextLine();
 			
 		}
+		
+	}
+	
+	/**
+	 * Given a path to a file, this method ensures that the directories leading to
+	 * the file exist, and creates them if they do not exist.
+	 * 
+	 * @param fileName
+	 *            The path to the file you intend to write to.
+	 */
+	public static void ensureDirsForFileExist(String fileName) {
+		
+		// Containers
+		String filePath = "";
+		String[] pathBits = fileName.split("/");
+		
+		// Build the path up to and including the last directory
+		for (int i = 0; i < pathBits.length - 1; i++) {
+			filePath = filePath + pathBits[i] + "/";
+		}
+		
+		// Make the directories if they don't exist
+		new File(filePath).mkdirs();
 		
 	}
 	

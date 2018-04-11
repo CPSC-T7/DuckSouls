@@ -342,5 +342,9 @@ public class Level {
 	public Point getCurrentRoomPoint() {
 		return new Point(this.currentRoomPoint);
 	}
+
+	public Room[][] getRoomArray() {
+		return this.roomArray;
+	}
 	
 }
