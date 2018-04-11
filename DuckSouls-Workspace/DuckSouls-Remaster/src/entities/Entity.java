@@ -140,7 +140,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public String useItem(boolean isGUI) {	
+	public String chooseItem() {	
 		return "Bananas";
 	}
 	
@@ -150,7 +150,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public String choice(int move, boolean isGUI) {
+	public String choice(int move) {
 				
 		if (move == 0 || move == 2 || move == 3) {
 			return "Attack";

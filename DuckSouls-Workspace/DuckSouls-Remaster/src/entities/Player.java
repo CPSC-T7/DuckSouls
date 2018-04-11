@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Scanner;
-
+import controllers.GameData;
 import items.Armour;
 import items.Consumable;
 import items.Item;
@@ -109,13 +109,13 @@ public class Player extends Entity implements Serializable {
 	}
 	
 	@Override
-	public String choice(int a, boolean isGUI) {
+	public String choice(int a) {
 		
 		// Give option to player (text version)
 		String moveCommand;
 		boolean choose = true;
 		int move = 0;
-		if (!isGUI) {
+		if(!GameData.IS_GUI) {
 			while (choose) {
 				System.out.print("\nEnter a move: ");
 				moveCommand = scanner.nextLine().toLowerCase();
@@ -143,15 +143,15 @@ public class Player extends Entity implements Serializable {
 			
 		}
 		
-		String command = super.choice(move, isGUI);
+		String command = super.choice(move);
 		return command;
 	}
 	
 	@Override
-	public String useItem(boolean isGUI) {
+	public String chooseItem() {
 		String item = "";
 		System.out.println(this.inventory);
-		if (!isGUI) {
+		if(!GameData.IS_GUI) {
 			while (true) {
 				try {
 					System.out.print("\nWhich item do you want to use?");

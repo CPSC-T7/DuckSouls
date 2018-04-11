@@ -47,7 +47,7 @@ public interface Battleable {
 	/**
 	 * Deals with utilisation of items
 	 */
-	public abstract String useItem(boolean isGUI);
+	public abstract String chooseItem();
 	
 	/**
 	 * Ends the battle immediately without gaining score or xp
@@ -60,6 +60,6 @@ public interface Battleable {
 	 * 				the int value of the chosen command
 	 * @return the int value of the chosen command
 	 */
-	public abstract String choice(int move, boolean isGUI);
+	public abstract String choice(int move);
 	
 }
