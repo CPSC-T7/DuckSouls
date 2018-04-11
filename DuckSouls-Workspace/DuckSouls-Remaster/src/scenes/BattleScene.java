@@ -6,16 +6,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import ui.MenuButton;
-import animation.SpriteAnimation;
 import battle.Loop;
 import entities.Enemy;
 import entities.Player;
 import animation.BattleSprite;
 import utils.Utilities;
 
-import items.Item;
 //TODO: Seperate animations from this class 
 //		so that people don't get Carpal Tunnel 
 //		from scrolling through all the lines

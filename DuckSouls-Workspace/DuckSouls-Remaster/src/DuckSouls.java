@@ -2,6 +2,7 @@ import controllers.GUIGame;
 import controllers.GameData;
 import controllers.TextGame;
 import javafx.application.Application;
+import scenes.TitleScene;
 
 /**
  * The main class to play DuckSouls.
@@ -73,6 +74,7 @@ public class DuckSouls {
 			Application.launch(GUIGame.class);
 		} else {
 			TextGame tg = new TextGame();
+			TitleScene.displayMenu();
 			tg.mainLoop();
 		}
 		

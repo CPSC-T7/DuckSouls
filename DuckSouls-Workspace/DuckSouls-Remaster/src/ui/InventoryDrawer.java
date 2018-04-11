@@ -1,14 +1,9 @@
 package ui;
 
-import java.util.HashMap;
-
 import entities.Player;
 import genericInterfaces.Drawable;
-import items.Item;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
-import world.Room;
 
 /**
  * Draws the player inventory.

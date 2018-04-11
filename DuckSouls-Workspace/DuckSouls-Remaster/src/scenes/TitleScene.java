@@ -7,10 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.Utilities;
-
 
 /**
  * Stores and runs the game's title screen, which disappears after you press
@@ -22,8 +20,7 @@ public class TitleScene {
 	
 	// The awesome tile ASCII art from
 	// http://patorjk.com/software/taag/#p=display&f=Bloody&t=Duck%20Souls
-	private static String	duckSoulsTitle	= 
-			"\n\n"
+	private static String	duckSoulsTitle				= "\n\n"
 			+ "\t\t\t\t\t\t\t █████▄  █   ██  ▄████▄   ██ ▄█▀     ██████  ▒█████   █    ██  ██▓      ██████  \r\n"
 			+ "\t\t\t\t\t\t\t ██   ██ ██  ▓██▒▒██▀ ▀█   ██▄█▒    ░██    ▒ ░██▒  ██▒ ██  ▓██▒▓██▒    ▒██    ▒ \r\n"
 			+ "\t\t\t\t\t\t\t ██   ██░██  ▒██░▒██    ▄ ░███▄░    ░ ▓██▄   ░██░  ██▒▓██  ▒██░▒██░    ░ ▓██▄   \r\n"
@@ -34,43 +31,44 @@ public class TitleScene {
 			+ "\t\t\t\t\t\t\t ░ ░  ░  ░░░ ░ ░ ░        ░ ░░ ░    ░  ░  ░  ░ ░ ░ ▒   ░░░ ░ ░   ░ ░   ░  ░  ░  \r\n"
 			+ "\t\t\t\t\t\t\t   ░       ░     ░ ░      ░  ░            ░      ░ ░     ░         ░  ░      ░  \r\n"
 			+ "\t\t\t\t\t\t\t ░               ░                                                              \r\n";
-
-	// Get user input from console
-	private static Scanner scanner = new Scanner(System.in);
 	
+	// Get user input from console
+	private static Scanner	scanner						= new Scanner(System.in);
 	
 	// GUI Game variables:
-
+	
 	// If the TitleScreen should continue to be shown
-	private boolean inTitle = true;
+	private boolean			inTitle						= true;
 	
 	// Group to add to the scene
-	private Group root = new Group();
+	private Group			root						= new Group();
 	
-    // Menu Background Image (temporary)
-	private Image titleBackgroundImage = new Image("file:///" + Utilities.parentDir + "/Sprites/Menus/Main/TitleScreen.png");
-	private ImageView titleBackgroundImageView = new ImageView(titleBackgroundImage);
+	// Menu Background Image (temporary)
+	private Image			titleBackgroundImage		= new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Main/TitleScreen.png");
+	private ImageView		titleBackgroundImageView	= new ImageView(titleBackgroundImage);
 	
 	// Game stage and new scene
-	private Stage window;
-	private Scene scene = new Scene(root);
+	private Stage			window;
+	private Scene			scene						= new Scene(root);
 	
-	private Pane groupPane = new Pane(titleBackgroundImageView);
+	// private Pane groupPane = new Pane(titleBackgroundImageView);
+	// TODO: Apparently wasn't used?????????
 	
 	/**
 	 * TitleScreen constructor for the GUI game.
 	 * 
 	 * @param window
-	 * 				The stage to draw the TitleScreen scene to.
+	 *            The stage to draw the TitleScreen scene to.
 	 */
 	public TitleScene(Stage window) {
 		this.window = window;
 		
-		//Add all layers to the main group
-	    root.getChildren().add(titleBackgroundImageView);
-	    
-	    //Set the scene and show it on the window
-	    this.window.setScene(scene);
+		// Add all layers to the main group
+		root.getChildren().add(titleBackgroundImageView);
+		
+		// Set the scene and show it on the window
+		this.window.setScene(scene);
 		this.window.show();
 	}
 	
@@ -80,7 +78,7 @@ public class TitleScene {
 	 */
 	public TitleScene() {
 	}
-
+	
 	/**
 	 * Display's the game's menu, clearing it when the user presses enter.
 	 * Text version only.
@@ -120,7 +118,7 @@ public class TitleScene {
 			}
 		});
 		// Return the title status
-		return(inTitle);
+		return (inTitle);
 	}
 	
 	public static void cleanup() {

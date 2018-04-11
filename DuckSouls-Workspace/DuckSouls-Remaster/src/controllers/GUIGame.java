@@ -1,28 +1,20 @@
 package controllers;
 
 import java.awt.Point;
-import java.util.ArrayList;
-
-import battle.Loop;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import entities.Enemy;
 import entities.Player;
-import items.Item;
 import ui.InventoryDrawer;
 import ui.RoomDrawer;
 
 import utils.GameEventQue;
 import utils.Orientation;
-import utils.Utilities;
 
 import world.Level;
 import world.LevelBuilder;
@@ -81,12 +73,11 @@ public class GUIGame extends Application implements Controller {
 		this.window = window;
 		
 		if (GameData.IS_STORY) {
-			this.player = new Player(new Point(1, 1));
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, this.player, new Point(0, 0));
+			player = new Player(new Point(1, 1));
+			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
 		} else {
-			this.player = new Player(new Point(mapsize / 2 + 1, mapsize / 2 + 1));
-			currentLevel = LevelBuilder.buildArcadeLevel(levelNum,
-					this.player, new Point(0, 0));
+			player = new Player(new Point(mapsize / 2 + 1, mapsize / 2 + 1));
+			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, player, new Point(0, 0));
 		}
 		
 		// JavaFx setup
@@ -229,7 +220,7 @@ public class GUIGame extends Application implements Controller {
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		
 		inBattle = true;
-		battleScreen = new BattleScene(this.window/*, newBattle*/, player, enemyToBattle);
+		battleScreen = new BattleScene(this.window/* , newBattle */, player, enemyToBattle);
 		currentLevel.currentRoom.removeEnemy(player.getPosition());
 		
 	}// End of handleBattleEvent

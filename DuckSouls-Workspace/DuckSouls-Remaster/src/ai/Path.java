@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import entities.Entity;
-import utils.Orientation;
 import world.Room;
 
 public class Path {
