@@ -3,7 +3,7 @@ package entities;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Scanner;
-
+import controllers.GameData;
 import items.Armour;
 import items.Consumable;
 import items.Item;
@@ -104,13 +104,13 @@ public class Player extends Entity {
 	}
 	
 	@Override
-	public String choice(int a, boolean isGUI) {
+	public String choice(int a) {
 		
 		//Give option to player (text version)
 		String moveCommand;
 		boolean choose = true;
 		int move = 0;
-		if(!isGUI) {
+		if(!GameData.IS_GUI) {
 			while (choose) {
 				System.out.print("\nEnter a move: ");
 				moveCommand = scanner.nextLine().toLowerCase();	
@@ -138,7 +138,7 @@ public class Player extends Entity {
 
 		}
 		
-		String command = super.choice(move, isGUI);
+		String command = super.choice(move);
 		return command;
 	}
 	
