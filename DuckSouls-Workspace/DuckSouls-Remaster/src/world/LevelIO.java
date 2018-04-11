@@ -2,6 +2,10 @@ package world;
 
 import java.awt.Point;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import entities.Player;
 
@@ -45,21 +49,38 @@ public final class LevelIO {
 		
 	}
 	
-	public static void saveLevelToDir(Level level, int levelNum, String pathDir) {
+	public static void saveLevelToDir(Level level, String pathDir) {
 		
 		Room[][] roomArray = level.getRoomArray();
 		
 		for (int x = 0; x < roomArray.length; x++) {
 			for (int y = 0; y < roomArray[0].length; y++) {
-				RoomIO.saveRoomToTextFile(pathDir + "/Level-" + levelNum + "/Room-" + x + "-" + y + ".txt",
+				RoomIO.saveRoomToTextFile(pathDir + "/Level-" + level.getLevelNum() + "/Room-" + x + "-" + y + ".txt",
 						roomArray[x][y]);
 			}
 		}
 		
 	}
 	
-	public static void saveStoryLevel(Level level, int levelNum) {
-		saveLevelToDir(level, levelNum, "../Levels/Saves");
+	public static void saveStoryLevel(Level level) {
+		
+		saveLevelToDir(level, "../Levels/Saves");
+		
+		String storyDataFileName = "../Level/Saves/Level-" + level.getLevelNum() + "/storyDat.bin";
+		
+		try (ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(storyDataFileName))) {
+			
+			oos.writeObject(level.currentRoom.getPlayer());
+			oos.writeObject(level.getCurrentRoomPoint());
+			
+		} catch (FileNotFoundException fnfe) {
+			// TODO Auto-generated catch block
+			fnfe.printStackTrace();
+		} catch (IOException ioe) {
+			// TODO Auto-generated catch block
+			ioe.printStackTrace();
+		}
+		
 	}
 	
 }

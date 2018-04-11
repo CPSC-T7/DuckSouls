@@ -1,6 +1,7 @@
 package entities;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ import items.Item;
 import items.Weapon;
 import javafx.scene.image.Image;
 
-public class Player extends Entity {
+public class Player extends Entity implements Serializable {
 	
 	/*
 	 * 
@@ -18,23 +19,28 @@ public class Player extends Entity {
 	 * 
 	 */
 	
-	private static final double					BASE_HEALTH			= 20;
-	private static final double					BASE_ATTACK			= 6;
-	private static final double					BASE_DEFENCE		= 5;
-	private static final double					BASE_SPEED			= 5;
-	private static final double					BASE_ACCURACY		= 90;
-	private static final double					BASE_CRIT			= 16;
-	private static final int					BASE_NEEDED_XP		= 20;
+	/**
+	 * Generated Serializable ID.
+	 */
+	private static final long		serialVersionUID	= -3620928756620061024L;
 	
-	private static final int					HEALTH_PER_LEVEL	= 2;
-	private static final int					ATTACK_PER_LEVEL	= 1;
-	private static final int					DEFENCE_PER_LEVEL	= 2;
-	private static final int					SPEED_PER_LEVEL		= 1;
-	private static final int					ACCURACY_PER_LEVEL	= 2;
-	private static final int					CRIT_PER_LEVEL		= 2;
-	private static final int					NEEDED_XP_PER_LEVEL	= 10;
+	private static final double		BASE_HEALTH			= 20;
+	private static final double		BASE_ATTACK			= 6;
+	private static final double		BASE_DEFENCE		= 5;
+	private static final double		BASE_SPEED			= 5;
+	private static final double		BASE_ACCURACY		= 90;
+	private static final double		BASE_CRIT			= 16;
+	private static final int		BASE_NEEDED_XP		= 20;
 	
-	private static final String					STRING_REPR			= " @ ";
+	private static final int		HEALTH_PER_LEVEL	= 2;
+	private static final int		ATTACK_PER_LEVEL	= 1;
+	private static final int		DEFENCE_PER_LEVEL	= 2;
+	private static final int		SPEED_PER_LEVEL		= 1;
+	private static final int		ACCURACY_PER_LEVEL	= 2;
+	private static final int		CRIT_PER_LEVEL		= 2;
+	private static final int		NEEDED_XP_PER_LEVEL	= 10;
+	
+	private static final String		STRING_REPR			= " @ ";
 	
 	/*
 	 * 
@@ -42,15 +48,15 @@ public class Player extends Entity {
 	 * 
 	 */
 	
-	private Weapon								weapon				= Weapon.NONE;
-	private Armour								armour				= Armour.NONE;
-	private HashMap<Item, Integer>				inventory			= new HashMap<Item, Integer>();
+	private Weapon					weapon				= Weapon.NONE;
+	private Armour					armour				= Armour.NONE;
+	private HashMap<Item, Integer>	inventory			= new HashMap<Item, Integer>();
 	
-	private int									level;
-	private int									experience;
-	private int									experienceForNextLevel;
-	private int									score;
-	private static Scanner						scanner				= new Scanner(System.in);	// Scanner to get user input
+	private int						level;
+	private int						experience;
+	private int						experienceForNextLevel;
+	private int						score;
+	private static Scanner			scanner				= new Scanner(System.in);		// Scanner to get user input
 	
 	/*
 	 * 
@@ -95,8 +101,7 @@ public class Player extends Entity {
 	public double receiveAttack(double damage) {
 		if (damage == 0) {
 			return 0;
-		}
-		else {
+		} else {
 			damage = damage - this.armour.getDefense();
 			damage = super.receiveAttack(damage);
 			return (damage);
@@ -106,36 +111,36 @@ public class Player extends Entity {
 	@Override
 	public String choice(int a, boolean isGUI) {
 		
-		//Give option to player (text version)
+		// Give option to player (text version)
 		String moveCommand;
 		boolean choose = true;
 		int move = 0;
-		if(!isGUI) {
+		if (!isGUI) {
 			while (choose) {
 				System.out.print("\nEnter a move: ");
-				moveCommand = scanner.nextLine().toLowerCase();	
+				moveCommand = scanner.nextLine().toLowerCase();
 				switch (moveCommand) {
-				case "attack":
-					choose = false;
-					move = 0;
-					break;
-				case "taunt":
-					move = 1;
-					choose = false;
-					break;	
-				case "item":
-					move = 4;
-					choose = false;
-					break;
-				case "run":
-					move = 5;
-					choose = false;
-					break;
-				default:
-					System.out.println("That is not a command!");
+					case "attack":
+						choose = false;
+						move = 0;
+						break;
+					case "taunt":
+						move = 1;
+						choose = false;
+						break;
+					case "item":
+						move = 4;
+						choose = false;
+						break;
+					case "run":
+						move = 5;
+						choose = false;
+						break;
+					default:
+						System.out.println("That is not a command!");
 				}
 			}
-
+			
 		}
 		
 		String command = super.choice(move, isGUI);
@@ -146,45 +151,43 @@ public class Player extends Entity {
 	public String useItem(boolean isGUI) {
 		String item = "";
 		System.out.println(this.inventory);
-		if(!isGUI) {
+		if (!isGUI) {
 			while (true) {
 				try {
 					System.out.print("\nWhich item do you want to use?");
-					item = scanner.nextLine().toLowerCase();	
+					item = scanner.nextLine().toLowerCase();
 					switch (item) {
-					case "crouton":
-						if(this.inventory.get(Consumable.CROUTON) != null && this.inventory.get(Consumable.CROUTON) != 0) {
-							return "Crouton";
-						}
-						else {
+						case "crouton":
+							if (this.inventory.get(Consumable.CROUTON) != null
+									&& this.inventory.get(Consumable.CROUTON) != 0) {
+								return "Crouton";
+							} else {
+								throw new Exception("Bad");
+							}
+						case "goo":
+							if (this.inventory.get(Consumable.GOO) != null && this.inventory.get(Consumable.GOO) != 0) {
+								return "Goo";
+							} else {
+								throw new Exception("Bad");
+							}
+						case "fish":
+							if (this.inventory.get(Consumable.FISH) != null
+									&& this.inventory.get(Consumable.FISH) != 0) {
+								return "Fish";
+							} else {
+								throw new Exception("Bad");
+							}
+						case "bugs":
+							if (this.inventory.get(Consumable.BUGS) != null
+									&& this.inventory.get(Consumable.BUGS) != 0) {
+								return "Bugs";
+							} else {
+								throw new Exception("Bad");
+							}
+						default:
 							throw new Exception("Bad");
-						}
-					case "goo":
-						if(this.inventory.get(Consumable.GOO) != null && this.inventory.get(Consumable.GOO) != 0) {
-							return "Goo";
-						}
-						else {
-							throw new Exception("Bad");
-						}
-					case "fish":
-						if(this.inventory.get(Consumable.FISH) != null && this.inventory.get(Consumable.FISH) != 0) {
-							return "Fish";
-						}
-						else {
-							throw new Exception("Bad");
-						}
-					case "bugs":
-						if(this.inventory.get(Consumable.BUGS) != null && this.inventory.get(Consumable.BUGS) != 0) {
-							return "Bugs";
-						}
-						else {
-							throw new Exception("Bad");
-						}
-					default:
-						throw new Exception("Bad");
 					}
-				} 
-				catch (Exception e) {
+				} catch (Exception e) {
 					System.out.print("\nYou don't have that item!");
 				}
 			}
@@ -235,7 +238,6 @@ public class Player extends Entity {
 		this.accuracy = BASE_ACCURACY + (ACCURACY_PER_LEVEL * (this.level - 1));
 		this.crit = BASE_CRIT + (CRIT_PER_LEVEL * (this.level - 1));
 	}
-
 	
 	public void pickupItem(Item item) {
 		
@@ -277,7 +279,7 @@ public class Player extends Entity {
 		double healthHealed = this.health + 0;
 		this.inventory.put(item, this.inventory.get(item) - 1);
 		this.health = this.health + item.getHealthMod();
-		if(this.health > (BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1)))) {
+		if (this.health > (BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1)))) {
 			this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1));
 		}
 		healthHealed = this.health - healthHealed;
@@ -295,7 +297,7 @@ public class Player extends Entity {
 	public int getExperience() {
 		return this.experience;
 	}
-
+	
 	@Override
 	public int getLevel() {
 		return this.level;

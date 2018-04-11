@@ -44,7 +44,7 @@ public class RoomIO {
 	public static Room loadRoomFromTextFile(String fileName, int levelNum) {
 		
 		// Read the lines from the file
-		String[] fileLines = Utilities.readLines(fileName);
+		String[] fileLines = Utilities.readTextFile(fileName);
 		
 		// Container variables
 		String[] lineBits;
@@ -303,7 +303,7 @@ public class RoomIO {
 		totalLines.add("============");
 		totalLines.addAll(entitiesLines);
 		
-		Utilities.writeFile(fileName, totalLines);
+		Utilities.writeTextFile(fileName, totalLines);
 		
 	}
 	

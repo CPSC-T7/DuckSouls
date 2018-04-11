@@ -11,7 +11,7 @@ import utils.Orientation;
 import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
-import world.RoomIO;
+import world.LevelIO;
 import battle.Loop;
 
 public class TextGame implements Controller {
@@ -40,7 +40,10 @@ public class TextGame implements Controller {
 	public TextGame() {
 		
 		if (GameData.IS_STORY) {
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
+			if (GameData.LOAD_GAME) {
+			} else {
+				currentLevel = LevelBuilder.buildStoryLevel(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
+			}
 		} else {
 			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, new Player(new Point(4, 4)), new Point(0, 0));
 		}
@@ -138,7 +141,7 @@ public class TextGame implements Controller {
 				
 				case ";":
 					if (GameData.IS_STORY) {
-						RoomIO.saveStoryRoom(currentLevel.currentRoom, levelNum, currentLevel.getCurrentRoomPoint());
+						LevelIO.saveStoryLevel(currentLevel);
 					}
 					
 			}

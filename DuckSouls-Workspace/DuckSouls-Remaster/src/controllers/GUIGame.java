@@ -46,7 +46,6 @@ public class GUIGame extends Application implements Controller {
 	private static Player		player;
 	private static Level		currentLevel;
 	
-	private static String		usrInput;
 	private static Orientation	plyrMoveDirection;
 	// GameWorld
 	
@@ -150,6 +149,7 @@ public class GUIGame extends Application implements Controller {
 	/**
 	 * Game's main loop
 	 */
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void mainLoop() {
 		
