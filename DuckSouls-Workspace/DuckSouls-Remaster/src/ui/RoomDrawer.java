@@ -31,7 +31,7 @@ public class RoomDrawer {
 		gc.setFill(Color.BLANCHEDALMOND);
 		gc.fillRect(0, 0, (GUIGame.mapsize + 2) * GUIGame.tileSize, (GUIGame.mapsize + 2) * GUIGame.tileSize);
 		
-		Image[][][] sprites = room.getAllImageSprites();
+		Image[][][] sprites = room.getImageSprites();
 		
 		for (int x = 0; x < sprites.length; x++) {
 			for (int y = 0; y < sprites[0].length; y++) {

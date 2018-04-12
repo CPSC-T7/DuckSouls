@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import entities.Entity;
 import world.Room;
 
+/**
+ * Represents a path between two points in a Room
+ * @author colinauyeung
+ *
+ */
 public class Path {
 	
 	/*
@@ -20,6 +25,23 @@ public class Path {
 	 * 
 	 * Constructors 
 	 * 
+	 */
+	
+	/**
+	 * 
+	 * Creates a path between two given points in a room
+	 * 
+	 * @param room
+	 * 		Room - the room where the path in 
+	 * 
+	 * @param start
+	 * 		Point = the start point of the path
+	 * 
+	 * @param goal
+	 * 		Point = The end point of the path
+	 * 
+	 * @throws NotAvaliablePathExecption
+	 * 		Throws if there is no path between top points 
 	 */
 	public Path(Room room, Point start, Point goal) throws NotAvaliablePathExecption {
 		
@@ -144,17 +166,7 @@ public class Path {
 		}
 	
 		//Generate the path
-		this.path = generatePath(roomNodes[goal.x][goal.y]);
-		
-		
-		for(Node[] column: roomNodes) {
-			for(Node node: column) {
-				System.out.println(node.getPoint().x + "," + node.getPoint().y + "," + node.getF());
-			}
-		}
-		System.out.println();
-
-		
+		this.path = generatePath(roomNodes[goal.x][goal.y]);	
 		
 	}//End of constructor
 	
