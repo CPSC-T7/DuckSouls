@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 import entities.Enemy;
 import entities.Player;
+import events.GameEventQueue;
 import ui.RoomDrawer;
-import utils.GameEventQueue;
 import utils.Orientation;
 import utils.Utilities;
 import world.Level;

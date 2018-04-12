@@ -5,10 +5,10 @@ import java.util.Random;
 
 import entities.Enemy;
 import entities.Player;
+import events.GameEvent;
+import events.GameEventQueue;
 import tiles.Door;
 import tiles.GeneralTile;
-import utils.GameEvent;
-import utils.GameEventQueue;
 import utils.Orientation;
 
 /**

@@ -11,10 +11,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import entities.Enemy;
 import entities.Player;
+import events.GameEventQueue;
 import ui.InventoryDrawer;
 import ui.RoomDrawer;
-
-import utils.GameEventQueue;
 import utils.Orientation;
 
 import world.Level;
