@@ -8,7 +8,7 @@ import entities.Player;
 import tiles.Door;
 import tiles.GeneralTile;
 import utils.GameEvent;
-import utils.GameEventQue;
+import utils.GameEventQueue;
 import utils.Orientation;
 
 /**
@@ -358,13 +358,13 @@ public class Level {
 		for (Enemy enemy : this.currentRoom.getEnemyList()) {
 			enemy.move(this.currentRoom, player.getPosition());
 			if (enemy.getPosition().equals(this.player.getPosition())) {
-				GameEventQue.addEvent(GameEvent.BATTLE);
+				GameEventQueue.addEvent(GameEvent.BATTLE);
 			}
 		}
 		
 		// Check for a level change
 		if (this.currentRoom.tileAt(this.player.getPosition()) == GeneralTile.STAIRS) {
-			GameEventQue.addEvent(GameEvent.LEVEL_CHANGE);
+			GameEventQueue.addEvent(GameEvent.LEVEL_CHANGE);
 		}
 		
 	}

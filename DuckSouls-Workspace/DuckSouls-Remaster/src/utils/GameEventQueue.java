@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-public class GameEventQue {
+public class GameEventQueue {
 	
 	private static ArrayList<GameEvent> eventQue = new ArrayList<GameEvent>();
 	
