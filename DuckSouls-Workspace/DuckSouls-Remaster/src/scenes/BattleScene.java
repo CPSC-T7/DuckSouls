@@ -2,11 +2,14 @@ package scenes;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ui.MenuButton;
+import ui.NumberSprite;
 import battle.Loop;
 import entities.Enemy;
 import entities.Player;
@@ -77,11 +80,21 @@ public class BattleScene {
 	private BattleSprite playerAnimation = new BattleSprite(playerImageView, 0);
 
 	// Enemy image and viewer
-	private Image enemyImage = new Image("file:///" + Utilities.parentDir + "/Sprites/Entities/Rat/Battle/Rat.png");
+	private Image enemyImage = new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Entities/Rat/Battle/Rat.png");
 	private ImageView enemyImageView = new ImageView(enemyImage);
 
 	// Enemy sprite class
 	private BattleSprite enemyAnimation = new BattleSprite(enemyImageView, 64 * 6);
+	
+	// Player Health image and viewer
+	private final Image playerHealthImage = new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/HP.png");
+	private final ImageView playerHealthImageView = new ImageView(playerHealthImage);
+	
+	// Numbers image and viewer
+	private final String numbersImageURL =
+			"file:///" + Utilities.parentDir + "/Sprites/Numbers/Numbers.png";
 
 	/*
 	 * Battle menu buttons
@@ -134,6 +147,7 @@ public class BattleScene {
 	private final Image backButtonImage = new Image(
 			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Back.png");
 	private ImageView backButtonImageView = new ImageView(backButtonImage);
+	
 
 	/*
 	 * 
@@ -154,9 +168,12 @@ public class BattleScene {
 			fishButtonImageView, backButtonImageView);
 	// Player/Enemy Layer
 	private Pane playerLayer = new Pane();
-
+	
+	// Battle message layer
+	private Pane messageLayer = new Pane();
+	
 	// Add all sprites to draw in order
-	private Pane groupPane = new Pane(backgroundLayer, menuLayer, itemLayer, playerLayer);
+	private Pane groupPane = new Pane(backgroundLayer, menuLayer, itemLayer, playerLayer, messageLayer);
 
 	// 2D array of menu buttons [rows][columns]
 	private MenuButton[][] menuArray = new MenuButton[][] {
@@ -166,7 +183,6 @@ public class BattleScene {
 			{ new MenuButton(flyButtonImageView, "Fly", 160, 64 * 6),
 					new MenuButton(itemButtonImageView, "Item", 160, 64 * 6 + 50) } };
 
-	// TODO: add a back button
 	// 2D array of Item menu buttons [rows][columns]
 	private MenuButton[][] itemArray = new MenuButton[][] {
 			{ new MenuButton(bugsButtonImageView, "Bugs", 10, 64 * 6),
@@ -176,6 +192,12 @@ public class BattleScene {
 					new MenuButton(fishButtonImageView, "Fish", 160, 64 * 6 + 50) },
 
 			{ new MenuButton(backButtonImageView, "Back", 310, 64 * 6) } };
+			
+	// 2D array of player health digits
+	private NumberSprite[] playerHealth = new NumberSprite[] {
+			new NumberSprite(new ImageView(new Image(numbersImageURL)), 460, 64 * 6), 
+			new NumberSprite(new ImageView(new Image(numbersImageURL)), 476, 64 * 6)
+	};
 
 	// The BattleGUI Stage and Scene
 	private Stage window;
@@ -186,10 +208,12 @@ public class BattleScene {
 	 * 
 	 * @param window
 	 *            The Stage to draw the battle scene to
-	 * @param battleLogic
-	 *            The logic behind entity moves
+	 * @param player
+	 * 			  The player object
+	 * @param enemy
+	 * 			  The enemy object
 	 */
-	public BattleScene(Stage window/* , TestBattleScripts battleLogic */, Player player, Enemy enemy) {
+	public BattleScene(Stage window, Player player, Enemy enemy) {
 
 		this.window = window;
 		// battleLogic = battleLogic;
@@ -210,13 +234,18 @@ public class BattleScene {
 		itemLayer.getChildren().addAll(itemArray[0][0], itemArray[0][1], itemArray[1][0], itemArray[1][1],
 				itemArray[2][0]);
 		itemLayer.setVisible(false); // Make it invisible at the start of the battle.
+		
+		messageLayer.getChildren().addAll(playerHealth[0]);
+		messageLayer.getChildren().add(playerHealth[1]);
 
 		// Start the player, enemy and button animations (background has none)
 		playerAnimation.animation.play();
 		enemyAnimation.animation.play();
 		menuArray[menuButton[0]][menuButton[1]].animation.play();
 		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
-
+		playerHealth[0].animation.play();
+		playerHealth[1].animation.play();
+		
 		// Set the scene
 		this.window.setScene(scene);
 		this.window.show();
@@ -229,8 +258,10 @@ public class BattleScene {
 	 * @return If the battle is over: false If the battle is going: true
 	 */
 	public boolean update() {
-
+		
 		window.setScene(scene);
+		
+		drawPlayerHealth();
 
 		// If a move animation is playing:
 		if (inAnimation) {
@@ -467,6 +498,13 @@ public class BattleScene {
 		return (inBattle);
 
 	}// End of Update
+	
+	
+	public void drawPlayerHealth() {
+		int currentHealth = (int) player.getHealth();
+		this.playerHealth[0].setNumber(currentHealth / 10);
+		this.playerHealth[1].setNumber(currentHealth % 10);
+	}
 
 	/**
 	 * Select one of the menu buttons based on direction

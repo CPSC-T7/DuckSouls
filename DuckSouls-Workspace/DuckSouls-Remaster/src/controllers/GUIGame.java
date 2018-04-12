@@ -219,10 +219,10 @@ public class GUIGame extends Application implements Controller {
 	}// End of mainLoop
 	
 	@Override
-	public void handleBattleEvent(Enemy enemyToBattle) throws ConcurrentModificationException {
+	public void handleBattleEvent(Enemy enemyToBattle){
 		
 		inBattle = true;
-		battleScreen = new BattleScene(this.window/* , newBattle */, player, enemyToBattle);
+		battleScreen = new BattleScene(window, player, enemyToBattle);
 		currentLevel.currentRoom.removeEnemy(player.getPosition());
 
 		
