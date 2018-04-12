@@ -276,6 +276,7 @@ public class RoomIO {
 		
 	}
 	
+	
 	public static Room loadTestRoom(int testNum) {
 		
 		String dir = WORLD_FOLDER_PATH + "Test/";
@@ -285,6 +286,15 @@ public class RoomIO {
 		
 	}
 	
+
+	/**
+	 * Saves a room to a text file.
+	 * 
+	 * @param fileName
+	 *            The name of the file to save the room to.
+	 * @param room
+	 *            The room to save.
+	 */
 	public static void saveRoomToTextFile(String fileName, Room room) {
 		
 		// Don't save a room that doesn't exit

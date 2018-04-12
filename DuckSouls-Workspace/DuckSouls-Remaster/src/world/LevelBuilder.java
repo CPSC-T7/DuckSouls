@@ -48,7 +48,6 @@ public class LevelBuilder {
 	 *            The point of the current room in the room array.
 	 * @return The next story level.
 	 */
-
 	public static Level buildStoryLevel(int levelNum, Player player, Point currentRoomPoint) {
 		
 		return LevelIO.loadLevelFromDir(false, "../Levels/Story", levelNum, player, currentRoomPoint);
