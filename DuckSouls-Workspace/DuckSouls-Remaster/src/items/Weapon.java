@@ -13,7 +13,7 @@ public enum Weapon implements Item {
 	
 	SWORD("A Cool Sword", " S ", "Sword.png", 1, 20, 80),
 	KNIFE("A Dull Butter Knife", " K ", "Knife.png", 3, 10, 90),
-	NONE("My Bare Wings", "", "", 0, 1, 95);
+	NONE("My Bare Wings", "   ", "", 0, 1, 95);
 	
 	/*
 	 * 
@@ -118,6 +118,11 @@ public enum Weapon implements Item {
 	@Override
 	public String getFileString() {
 		return this.STRING_REPR.replaceAll(" ", "");
+	}
+
+	@Override
+	public int getSpawnChance() {
+		return this.SPAWN_CHANCE;
 	}
 	
 }

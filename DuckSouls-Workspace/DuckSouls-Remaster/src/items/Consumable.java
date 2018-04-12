@@ -58,8 +58,6 @@ public enum Consumable implements Item {
 	 *            The spawn chance of the consumable. Must be 0-100.
 	 * @param healthMod
 	 *            The health modifier of the consumable.
-	 * @param manaMod
-	 *            The mana modifier of the consumable.
 	 */
 	private Consumable(String name, String stringRepr, String imageName, int spawnChance, int healthMod) {
 		
@@ -109,6 +107,11 @@ public enum Consumable implements Item {
 	@Override
 	public String getFileString() {
 		return this.STRING_REPR.replaceAll(" ", "");
+	}
+
+	@Override
+	public int getSpawnChance() {
+		return this.SPAWN_CHANCE;
 	}
 	
 }
