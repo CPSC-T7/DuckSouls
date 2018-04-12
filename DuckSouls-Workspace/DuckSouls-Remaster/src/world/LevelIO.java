@@ -11,7 +11,8 @@ import entities.Player;
 
 public final class LevelIO {
 	
-	public static Level loadLevelFromDir(boolean loadFromSave, String pathToDir, int levelNum, Player player, Point currentRoomPoint) {
+	public static Level loadLevelFromDir(boolean loadFromSave, String pathToDir, int levelNum, Player player,
+			Point currentRoomPoint) {
 		
 		int maxX = 0;
 		int maxY = 0;
@@ -46,7 +47,7 @@ public final class LevelIO {
 			int roomY = Integer.parseInt(roomFile.getName().split("-")[2].replace(".txt", ""));
 			
 			roomArray[roomX][roomY] = RoomIO.loadStoryRoom(loadFromSave, levelNum, new Point(roomX, roomY));
-				
+			
 		}
 		
 		if (levelNum == 1) {
@@ -74,11 +75,13 @@ public final class LevelIO {
 	
 	public static void saveStoryLevel(Level level) {
 		
+		deletePreviousSaves();
+		
 		saveLevelToDir(level, "../Levels/Saves");
 		
 		String storyDataFileName = "../Levels/Saves/Level-" + level.getLevelNum() + "/storyDat.bin";
 		try {
-			File f = new File (storyDataFileName);
+			File f = new File(storyDataFileName);
 			f.getParentFile().mkdirs();
 			f.createNewFile();
 		} catch (IOException ioe) {
@@ -97,6 +100,19 @@ public final class LevelIO {
 		} catch (IOException ioe) {
 			// TODO Auto-generated catch block
 			ioe.printStackTrace();
+		}
+		
+	}
+	
+	public static void deletePreviousSaves() {
+		
+		File saveDir = new File("../Levels/Saves");
+		
+		for (File levelDir : saveDir.listFiles()) {
+			for (File file : levelDir.listFiles()) {
+				file.delete();
+			}
+			levelDir.delete();
 		}
 		
 	}

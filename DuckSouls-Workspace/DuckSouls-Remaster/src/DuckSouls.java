@@ -57,23 +57,23 @@ public class DuckSouls {
 	 *            <li>The first argument sets whether the game is running in GUI
 	 *            mode or Text mode
 	 *            <br>
-	 * 			("1" for GUI and "0" for Text).
+	 *            ("1" for GUI and "0" for Text).
 	 *            <li>The second argument sets whether the game is running in Story
 	 *            mode or Arcade mode
 	 *            <br>
-	 * 			("1" for Story and "0" for Arcade).
+	 *            ("1" for Story and "0" for Arcade).
 	 *            <li>The third argument is only necessary when running story mode
 	 *            (ignored in arcade mode), and decides if the game should be loaded
 	 *            from the saved state, or if it should generate a new save state
 	 *            <br>
-	 * 			("1" to load the state and "0" to make a new state).
+	 *            ("1" to load the state and "0" to make a new state).
 	 *            </ol>
 	 */
 	private static void initialize(String[] args) {
 		
 		GameData.IS_GUI = (args[0].equals("1"));
 		GameData.IS_STORY = (args[1].equals("1"));
-		GameData.LOAD_GAME = (args[2	].equals("1"));
+		GameData.LOAD_GAME = (args[2].equals("1"));
 		
 	}
 	

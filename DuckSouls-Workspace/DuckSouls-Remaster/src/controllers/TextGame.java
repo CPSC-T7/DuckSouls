@@ -142,7 +142,16 @@ public class TextGame implements Controller {
 				
 				case ";":
 					if (GameData.IS_STORY) {
-						LevelIO.saveStoryLevel(currentLevel);
+						System.out.print("THIS WILL DELETE THE PREVIOUS SAVE. CONTINUE? (Y/N) : ");
+						
+						String input = consoleIn.nextLine();
+						if (input.length() > 0 && input.toUpperCase().charAt(0) == 'Y') {
+							LevelIO.saveStoryLevel(currentLevel);
+							System.out.println("Level Saved!");
+						} else {
+							System.out.println("Aborting...");
+						}
+						Utilities.waitMilliseconds(1000);
 					}
 					
 			}
