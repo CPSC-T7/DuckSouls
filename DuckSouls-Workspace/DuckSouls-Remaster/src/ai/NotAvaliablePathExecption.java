@@ -1,5 +1,10 @@
 package ai;
 
+/**
+ * An exception to be thrown when there are no paths available between two points
+ * @author colinauyeung
+ *
+ */
 public class NotAvaliablePathExecption extends Exception {
 
 	/**
