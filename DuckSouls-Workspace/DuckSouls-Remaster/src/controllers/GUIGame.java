@@ -82,7 +82,13 @@ public class GUIGame extends Application implements Controller {
 		
 		if (GameData.IS_STORY) {
 			player = new Player(new Point(1, 1));
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
+			if (GameData.LOAD_GAME) {
+				// Load the saved game
+				currentLevel = LevelBuilder.buildSavedStoryLevel();
+			} else {
+				// Load the first story level
+				currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
+			}
 		} else {
 			player = new Player(new Point(mapsize / 2 + 1, mapsize / 2 + 1));
 			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, player, new Point(0, 0));
@@ -116,7 +122,7 @@ public class GUIGame extends Application implements Controller {
 				} else if (inBattle) {
 					updateBattle();
 					
-				} else if (paused){
+				} else if (paused) {
 					updatePause();
 					
 				} else {
@@ -164,6 +170,15 @@ public class GUIGame extends Application implements Controller {
 		mainLoop();
 		
 	}// End of updateWorld
+	
+	/**
+	 * Returns the current level.
+	 * 
+	 * @return The current level.
+	 */
+	public static Level getCurrentLevel() {
+		return currentLevel;
+	}
 	
 	/**
 	 * Game's main loop
@@ -222,13 +237,13 @@ public class GUIGame extends Application implements Controller {
 					System.out.println(("Crit Chance : " + player.getCrit()));
 					
 					break;
-					
+				
 				// Enter the pause menu
 				case ESCAPE:
 					if (!paused) {
 						paused = true;
 						pauseScreen = new PauseScene(window);
-					}	
+					}
 					
 			}// End of switch
 			
@@ -246,12 +261,11 @@ public class GUIGame extends Application implements Controller {
 	}// End of mainLoop
 	
 	@Override
-	public void handleBattleEvent(Enemy enemyToBattle){
+	public void handleBattleEvent(Enemy enemyToBattle) {
 		
 		inBattle = true;
 		battleScreen = new BattleScene(window, player, enemyToBattle);
 		currentLevel.currentRoom.removeEnemy(player.getPosition());
-
 		
 	}// End of handleBattleEvent
 	
