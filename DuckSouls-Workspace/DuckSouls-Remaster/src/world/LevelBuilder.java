@@ -9,6 +9,9 @@ import java.io.ObjectInputStream;
 
 import entities.Player;
 
+/**
+ * This class contains methods for building levels.
+ */
 public class LevelBuilder {
 	
 	/*
@@ -17,23 +20,51 @@ public class LevelBuilder {
 	 * 
 	 */
 	
+	/**
+	 * Builds a new arcade level.
+	 * 
+	 * @param levelNum
+	 *            The number of the level.
+	 * @param player
+	 *            The player of the level.
+	 * @param currentRoomPoint
+	 *            The point of the current room in the room array.
+	 * @return A new arcade level.
+	 */
 	public static Level buildArcadeLevel(int levelNum, Player player, Point currentRoomPoint) {
 		
 		return new Level(levelNum, player, currentRoomPoint);
 		
 	}
 	
+	/**
+	 * Builds the next story level.
+	 * 
+	 * @param levelNum
+	 *            The number of the level.
+	 * @param player
+	 *            The player of the level.
+	 * @param currentRoomPoint
+	 *            The point of the current room in the room array.
+	 * @return The next story level.
+	 */
 	public static Level buildStoryLevel(int levelNum, Player player, Point currentRoomPoint) {
 		
 		return LevelIO.loadLevelFromDir(false, "../Levels/Story", levelNum, player, currentRoomPoint);
 		
 	}
 	
+	/**
+	 * Builds the saved story level.
+	 * 
+	 * @return The saved story level.
+	 */
 	public static Level buildSavedStoryLevel() {
 		
 		int fileNum = -2;
 		int levelNum = -1;
 		
+		// Grab the highest level number of the levels stored in the saves folder
 		for (File levelFile : new File("../Levels/Saves").listFiles()) {
 			
 			try {
@@ -48,6 +79,7 @@ public class LevelBuilder {
 			
 		}
 		
+		// Make sure a level number was found
 		if (levelNum < 1) {
 			System.out.println("Could not read saved state. LevelNum Err.");
 			System.exit(1);
@@ -57,22 +89,21 @@ public class LevelBuilder {
 		Player player = null;
 		Point currentRoomPoint = null;
 		
+		// Read the player and current room point
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveDir + "/storyDat.bin"))) {
 			
 			player = (Player) ois.readObject();
 			currentRoomPoint = (Point) ois.readObject();
 			
 		} catch (FileNotFoundException fnfe) {
-			// TODO Auto-generated catch block
 			fnfe.printStackTrace();
 		} catch (IOException ioe) {
-			// TODO Auto-generated catch block
 			ioe.printStackTrace();
 		} catch (ClassNotFoundException cnfe) {
-			// TODO Auto-generated catch block
 			cnfe.printStackTrace();
 		}
 		
+		// Make sure a player and point were read
 		if (player == null || currentRoomPoint == null) {
 			System.out.println("Could not read saved state. Player / CRP Err.");
 			System.exit(1);

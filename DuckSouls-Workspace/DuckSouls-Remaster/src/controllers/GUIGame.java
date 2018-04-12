@@ -14,7 +14,7 @@ import entities.Player;
 import ui.InventoryDrawer;
 import ui.RoomDrawer;
 
-import utils.GameEventQue;
+import utils.GameEventQueue;
 import utils.Orientation;
 
 import world.Level;
@@ -24,6 +24,9 @@ import scenes.TitleScene;
 import scenes.BattleScene;
 import scenes.PauseScene;
 
+/**
+ * This class is the controller for the GUI version of DuckSouls.
+ */
 public class GUIGame extends Application implements Controller {
 	
 	/*
@@ -268,9 +271,9 @@ public class GUIGame extends Application implements Controller {
 	@Override
 	public void handleAllEvents() {
 		
-		while (GameEventQue.hasEvent()) {
+		while (GameEventQueue.hasEvent()) {
 			
-			switch (GameEventQue.handleNextEvent()) {
+			switch (GameEventQueue.handleNextEvent()) {
 				
 				case BATTLE:
 					handleBattleEvent(currentLevel.currentRoom.enemyAt(player.getPosition()));

@@ -18,6 +18,10 @@ import tiles.GeneralTile;
 import tiles.Tile;
 import tiles.Wall;
 
+/**
+ * This class represents a room object for DuckSouls. Each room has a 2D array
+ * for tiles, and for items, a list of enemies, and a player.
+ */
 public class Room {
 	
 	/*
@@ -52,10 +56,13 @@ public class Room {
 	 */
 	
 	/**
-	 * Creates a square room of set size with scattered items and enemies.
+	 * Creates a square room of set size with scattered items and enemies. Used for
+	 * generating arcade rooms.
 	 * 
 	 * @param size
 	 *            Width and height of the room.
+	 * @param levelNum
+	 *            The level number.
 	 * @param enemySpawnChance
 	 *            The spawn chance of enemies for a level. Must be from 0 to 100.
 	 */
@@ -72,6 +79,24 @@ public class Room {
 		
 	}
 	
+	/**
+	 * Creates a room with all set parameters. Used for reading story rooms.
+	 * 
+	 * @param width
+	 *            Width of the room.
+	 * @param height
+	 *            Height of the room.
+	 * @param tileArray
+	 *            The 2D array of tiles for the room.
+	 * @param itemArray
+	 *            The 2D array of items for the room.
+	 * @param player
+	 *            The player for the room.
+	 * @param enemyList
+	 *            The list of enemies in the room.
+	 * @param levelNum
+	 *            The number of the level.
+	 */
 	public Room(int width, int height, Tile[][] tileArray, Item[][] itemArray, Player player,
 			ArrayList<Enemy> enemyList, int levelNum) {
 		
@@ -97,9 +122,11 @@ public class Room {
 	 */
 	
 	/**
-	 * STRINGS!
+	 * Returns a 2D array of strings for printing the room in the text version of
+	 * the game.
 	 * 
-	 * @return
+	 * @return A 2D array of strings for printing the room in the text version of
+	 *         the game.
 	 */
 	public String[][] getAllTextSprites() {
 		
@@ -134,7 +161,8 @@ public class Room {
 	}
 	
 	/**
-	 * IMAGES! <br>
+	 * Returns a 3D array of images for drawing the room in the GUI version of the
+	 * game. <br>
 	 * <br>
 	 * Third Array Indexing:
 	 * <ul>
@@ -143,7 +171,8 @@ public class Room {
 	 * <li>2 --> Entities (Player > Enemy)
 	 * </ul>
 	 * 
-	 * @return
+	 * @return A 3D array of images for drawing the room in the GUI version of the
+	 *         game.
 	 */
 	public Image[][][] getAllImageSprites() {
 		
@@ -400,7 +429,7 @@ public class Room {
 	 * @param position
 	 *            The position of the enemy to remove.
 	 */
-	public void removeEnemy(Point position){
+	public void removeEnemy(Point position) {
 		
 		try {
 			for (Entity enemy : this.enemyList) {
@@ -409,7 +438,7 @@ public class Room {
 				}
 			}
 		} catch (ConcurrentModificationException e) {
-			//Do nothing, this error does not matter!
+			// Do nothing, this error does not matter!
 		}
 	}
 	
@@ -496,20 +525,48 @@ public class Room {
 		
 	}
 	
+	/**
+	 * Returns the internal width of the room.
+	 * 
+	 * @return The internal width of the room.
+	 */
 	public int getInternalWidth() {
+		
 		return this.internalWidth;
+		
 	}
 	
+	/**
+	 * Returns the internal height of the room.
+	 * 
+	 * @return The internal height of the room.
+	 */
 	public int getInternalHeight() {
+		
 		return this.internalHeight;
+		
 	}
 	
+	/**
+	 * Returns the enemy list of the room.
+	 * 
+	 * @return The enemy list of the room.
+	 */
 	public ArrayList<Enemy> getEnemyList() {
+		
 		return this.enemyList;
+		
 	}
 	
+	/**
+	 * Returns the player of the room.
+	 * 
+	 * @return The player of the room.
+	 */
 	public Player getPlayer() {
+		
 		return this.player;
+		
 	}
 	
 }
