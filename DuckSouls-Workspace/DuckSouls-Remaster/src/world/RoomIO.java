@@ -44,7 +44,7 @@ public class RoomIO {
 	public static Room loadRoomFromTextFile(String fileName, int levelNum) {
 		
 		// Read the lines from the file
-		String[] fileLines = Utilities.readLines(fileName);
+		String[] fileLines = Utilities.readTextFile(fileName);
 		
 		// Container variables
 		String[] lineBits;
@@ -256,9 +256,16 @@ public class RoomIO {
 	 *            The point in the level that the room is located with.
 	 * @return The specified room.
 	 */
-	public static Room loadStoryRoom(int levelNum, Point roomPoint) {
+	public static Room loadStoryRoom(boolean loadFromSave, int levelNum, Point roomPoint) {
 		
-		String dir = WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/";
+		String dir;
+		
+		if (loadFromSave) {
+			dir = WORLD_FOLDER_PATH + "Saves/Level-" + levelNum + "/";
+		} else {
+			dir = WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/";
+		}
+		
 		String fileName = "Room-" + roomPoint.x + "-" + roomPoint.y + ".txt";
 		
 		return loadRoomFromTextFile(dir + fileName, levelNum);
@@ -266,6 +273,10 @@ public class RoomIO {
 	}
 	
 	public static void saveRoomToTextFile(String fileName, Room room) {
+		
+		if (room == null) {
+			return;
+		}
 		
 		ArrayList<String> tilesLines = new ArrayList<String>();
 		ArrayList<String> itemsLines = new ArrayList<String>();
@@ -297,13 +308,15 @@ public class RoomIO {
 			entitiesLines.add("E:" + enemy.getPosition().x + "," + enemy.getPosition().y + "," + enemy.getLevel());
 		}
 		
+		totalLines.add((room.getInternalWidth() + 2) + "," + (room.getInternalHeight() + 2));
+		totalLines.add("============");
 		totalLines.addAll(tilesLines);
 		totalLines.add("============");
 		totalLines.addAll(itemsLines);
 		totalLines.add("============");
 		totalLines.addAll(entitiesLines);
 		
-		Utilities.writeFile(fileName, totalLines);
+		Utilities.writeTextFile(fileName, totalLines);
 		
 	}
 	

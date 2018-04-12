@@ -91,7 +91,7 @@ public class Utilities {
 	 *            The file to read from.
 	 * @return A String array of all the lines in the file.
 	 */
-	public static String[] readLines(String fileName) {
+	public static String[] readTextFile(String fileName) {
 		
 		// Locate the file to read
 		File fileToRead = new File(fileName);
@@ -131,7 +131,7 @@ public class Utilities {
 	 *            The lines to write to the file.
 	 */
 	@SuppressWarnings("resource")
-	public static void writeFile(String fileName, ArrayList<String> lines) {
+	public static void writeTextFile(String fileName, ArrayList<String> lines) {
 		
 		ensureDirsForFileExist(fileName);
 		

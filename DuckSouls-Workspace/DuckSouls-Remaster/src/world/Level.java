@@ -347,4 +347,8 @@ public class Level {
 		return this.roomArray;
 	}
 	
+	public int getLevelNum() {
+		return this.levelNum;
+	}
+	
 }

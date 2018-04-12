@@ -257,6 +257,7 @@ public class BattleScene {
 	 * 
 	 * @return If the battle is over: false If the battle is going: true
 	 */
+	@SuppressWarnings("incomplete-switch")
 	public boolean update() {
 		
 		window.setScene(scene);
