@@ -1,6 +1,7 @@
 package controllers;
 
 import java.awt.Point;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,7 +14,7 @@ import entities.Player;
 import ui.InventoryDrawer;
 import ui.RoomDrawer;
 
-import utils.GameEventQue;
+import utils.GameEventQueue;
 import utils.Orientation;
 
 import world.Level;
@@ -21,7 +22,11 @@ import world.LevelBuilder;
 
 import scenes.TitleScene;
 import scenes.BattleScene;
+import scenes.PauseScene;
 
+/**
+ * This class is the controller for the GUI version of DuckSouls.
+ */
 public class GUIGame extends Application implements Controller {
 	
 	/*
@@ -44,19 +49,22 @@ public class GUIGame extends Application implements Controller {
 	private static Player		player;
 	private static Level		currentLevel;
 	
-	private static String		usrInput;
 	private static Orientation	plyrMoveDirection;
 	// GameWorld
 	
 	private static boolean		inBattle	= false;
 	private static boolean		inTitle		= true;
 	private static boolean		inInventory	= false;
+	private static boolean		paused		= false;
 	
 	// The current BattleWorld
 	private BattleScene			battleScreen;
 	
 	// The title screen
 	private TitleScene			titleScreen;
+	
+	// The pause screen
+	private PauseScene			pauseScreen;
 	
 	// Overworld Scene
 	private Scene				scene;
@@ -108,6 +116,9 @@ public class GUIGame extends Application implements Controller {
 				} else if (inBattle) {
 					updateBattle();
 					
+				} else if (paused){
+					updatePause();
+					
 				} else {
 					updateWorld();
 					window.setScene(scene);
@@ -124,6 +135,15 @@ public class GUIGame extends Application implements Controller {
 	public void updateBattle() {
 		
 		inBattle = battleScreen.update();
+		
+	}// End of updateBattle
+	
+	/**
+	 * Update the pause menu.
+	 */
+	public void updatePause() {
+		
+		paused = pauseScreen.update();
 		
 	}// End of updateBattle
 	
@@ -148,6 +168,7 @@ public class GUIGame extends Application implements Controller {
 	/**
 	 * Game's main loop
 	 */
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void mainLoop() {
 		
@@ -201,7 +222,15 @@ public class GUIGame extends Application implements Controller {
 					System.out.println(("Crit Chance : " + player.getCrit()));
 					
 					break;
-			}
+					
+				// Enter the pause menu
+				case ESCAPE:
+					if (!paused) {
+						paused = true;
+						pauseScreen = new PauseScene(window);
+					}	
+					
+			}// End of switch
 			
 		});
 		
@@ -217,11 +246,12 @@ public class GUIGame extends Application implements Controller {
 	}// End of mainLoop
 	
 	@Override
-	public void handleBattleEvent(Enemy enemyToBattle) {
+	public void handleBattleEvent(Enemy enemyToBattle){
 		
 		inBattle = true;
-		battleScreen = new BattleScene(this.window/* , newBattle */, player, enemyToBattle);
+		battleScreen = new BattleScene(window, player, enemyToBattle);
 		currentLevel.currentRoom.removeEnemy(player.getPosition());
+
 		
 	}// End of handleBattleEvent
 	
@@ -241,9 +271,9 @@ public class GUIGame extends Application implements Controller {
 	@Override
 	public void handleAllEvents() {
 		
-		while (GameEventQue.hasEvent()) {
+		while (GameEventQueue.hasEvent()) {
 			
-			switch (GameEventQue.handleNextEvent()) {
+			switch (GameEventQueue.handleNextEvent()) {
 				
 				case BATTLE:
 					handleBattleEvent(currentLevel.currentRoom.enemyAt(player.getPosition()));

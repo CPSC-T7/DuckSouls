@@ -2,7 +2,6 @@ package entities;
 
 import java.awt.Point;
 import java.util.Random;
-
 import ai.NotAvaliablePathExecption;
 import ai.Path;
 import javafx.scene.image.Image;
@@ -16,6 +15,11 @@ public class Enemy extends Entity {
 	 * STATIC VARIABLES
 	 * 
 	 */
+	
+	/**
+	 * Generated Serializable ID.
+	 */
+	private static final long serialVersionUID = 7835849957805235278L;
 	
 	private static final double	BASE_HEALTH			= 15;
 	private static final double	BASE_ATTACK			= 3;
@@ -74,11 +78,11 @@ public class Enemy extends Entity {
 	}
 	
 	@Override
-	public String choice(int a, boolean isGUI) {
+	public String choice(int a) {
 		Random random = new Random();
 		int move = random.nextInt(4);
 		
-		String command = super.choice(move, isGUI);
+		String command = super.choice(move);
 		return command;
 	}
 	

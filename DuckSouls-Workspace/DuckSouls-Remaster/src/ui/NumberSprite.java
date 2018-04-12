@@ -8,12 +8,12 @@ import javafx.util.Duration;
 
 
 /**
- * Menu HP sprite.
+ * Menu button sprites.
  * 
  * @author Wylee McAndrews
  *
  */
-public class MenuButton extends Pane{
+public class NumberSprite extends Pane{
 	
 	//Button imageView has one column, and two rows.
 	//It only displays one image at a time (is not animated)
@@ -22,7 +22,10 @@ public class MenuButton extends Pane{
     int columns = 1;
     int offsetX = 0;
     int offsetY = 0;
-    private final String buttonType;
+    int width = 64;
+    int height = 64;
+    
+    private int tileSize = 64;
     
     //Use SpriteAnimation to change the state of the button (selected/deselected)
     public SpriteAnimation animation;
@@ -40,10 +43,7 @@ public class MenuButton extends Pane{
      * @param positionY
      * 						The Y position of the button
      */
-    public MenuButton(ImageView imageView, 
-    					String buttonType,
-    					int width,
-    					int height,
+    public NumberSprite(ImageView imageView, 
     					int positionX,
     					int positionY)
     {
@@ -58,21 +58,14 @@ public class MenuButton extends Pane{
        
         getChildren().add(imageView); //Add the imageView to the layer
         
-        this.buttonType = buttonType; //Set the button type
-        
-        this.setTranslateX(positionX); //Translate the button x-y to it's position
+        this.setTranslateX(positionX); //Translate the number x-y to it's position
         this.setTranslateY(positionY);
     }
     
-    /**
-     * Getter method for buttonType.
-     * 
-     * @return 
-     * 			buttonType: String
-     */
-    public String getButtonType() {
-    	
-    	return(this.buttonType);
-    }
+   public void setNumber(int number) {
+	   
+	   animation.setOffsetY(number * tileSize);
+	   
+   }
     
 }

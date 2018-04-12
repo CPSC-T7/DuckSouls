@@ -6,14 +6,17 @@ import java.util.Scanner;
 import entities.Enemy;
 import entities.Player;
 import ui.RoomDrawer;
-import utils.GameEventQue;
+import utils.GameEventQueue;
 import utils.Orientation;
 import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
-import world.RoomIO;
+import world.LevelIO;
 import battle.Loop;
 
+/**
+ * This class is the controller for the text version of DuckSouls.
+ */
 public class TextGame implements Controller {
 	
 	/*
@@ -33,25 +36,52 @@ public class TextGame implements Controller {
 	
 	/*
 	 * 
+	 * CONSTRUCTORS
+	 * 
+	 */
+	
+	/**
+	 * Creates a new text game.
+	 */
+	public TextGame() {
+		
+		/*
+		 * Build the first level.
+		 */
+		
+		if (GameData.IS_STORY) {
+			
+			// Story mode
+			if (GameData.LOAD_GAME) {
+				// Load the saved game
+				currentLevel = LevelBuilder.buildSavedStoryLevel();
+			} else {
+				// Load the first story level
+				currentLevel = LevelBuilder.buildStoryLevel(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
+			}
+			
+		} else {
+			
+			// Arcade mode
+			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, new Player(new Point(4, 4)), new Point(0, 0));
+			
+		}
+		
+		// Grab the player
+		player = currentLevel.currentRoom.getPlayer();
+		
+	}
+	
+	/*
+	 * 
 	 * METHODS
 	 * 
 	 */
 	
-	public TextGame() {
-		
-		if (GameData.IS_STORY) {
-			currentLevel = LevelBuilder.buildStoryLevel(levelNum, new Player(new Point(1, 1)), new Point(0, 0));
-		} else {
-			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, new Player(new Point(4, 4)), new Point(0, 0));
-		}
-		
-		player = currentLevel.currentRoom.getPlayer();
-		
-	}// End of TextGame
-	
 	@Override
 	public void mainLoop() {
 		
+		// Loop
 		while (true) {
 			
 			Utilities.clearConsole();
@@ -136,9 +166,18 @@ public class TextGame implements Controller {
 				 * DATA
 				 */
 				
-				case ";":
+				case ";": // Save the game
 					if (GameData.IS_STORY) {
-						RoomIO.saveStoryRoom(currentLevel.currentRoom, levelNum, currentLevel.getCurrentRoomPoint());
+						System.out.print("THIS WILL DELETE THE PREVIOUS SAVE. CONTINUE? (Y/N) : ");
+						
+						String input = consoleIn.nextLine();
+						if (input.length() > 0 && input.toUpperCase().charAt(0) == 'Y') {
+							LevelIO.saveStoryLevel(currentLevel);
+							System.out.println("Level Saved!");
+						} else {
+							System.out.println("Aborting...");
+						}
+						Utilities.waitMilliseconds(1000);
 					}
 					
 			}
@@ -153,14 +192,14 @@ public class TextGame implements Controller {
 			handleAllEvents();
 			
 		}
-	}// End of mainLoop
+	}
 	
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		// TODO: Run Battle
 		Loop.battleLoop(player, enemyToBattle); // Still under works
 		
-	}// End of handleBattleEvent
+	}
 	
 	@Override
 	public void handleLevelChangeEvent() {
@@ -173,13 +212,13 @@ public class TextGame implements Controller {
 			currentLevel = LevelBuilder.buildArcadeLevel(levelNum, player, currentLevel.getCurrentRoomPoint());
 		}
 		
-	}// End of handleLevelChangeEvent
+	}
 	
 	@Override
 	public void handleAllEvents() {
 		
-		while (GameEventQue.hasEvent()) {
-			switch (GameEventQue.handleNextEvent()) {
+		while (GameEventQueue.hasEvent()) {
+			switch (GameEventQueue.handleNextEvent()) {
 				case BATTLE:
 					handleBattleEvent(currentLevel.currentRoom.enemyAt(player.getPosition()));
 					break;
@@ -188,5 +227,5 @@ public class TextGame implements Controller {
 					break;
 			}
 		}
-	}// End of handleAllEvents
+	}
 }

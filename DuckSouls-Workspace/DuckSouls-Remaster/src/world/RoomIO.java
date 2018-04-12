@@ -1,6 +1,7 @@
 package world;
 
 import java.awt.Point;
+
 import java.util.ArrayList;
 
 import entities.Enemy;
@@ -16,6 +17,9 @@ import tiles.Wall;
 import tiles.Water;
 import utils.Utilities;
 
+/**
+ * This class contains methods used in input and output of room objects.
+ */
 public class RoomIO {
 	
 	/*
@@ -44,7 +48,7 @@ public class RoomIO {
 	public static Room loadRoomFromTextFile(String fileName, int levelNum) {
 		
 		// Read the lines from the file
-		String[] fileLines = Utilities.readLines(fileName);
+		String[] fileLines = Utilities.readTextFile(fileName);
 		
 		// Container variables
 		String[] lineBits;
@@ -256,57 +260,111 @@ public class RoomIO {
 	 *            The point in the level that the room is located with.
 	 * @return The specified room.
 	 */
-	public static Room loadStoryRoom(int levelNum, Point roomPoint) {
+	public static Room loadStoryRoom(boolean loadFromSave, int levelNum, Point roomPoint) {
 		
-		String dir = WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/";
+		String dir;
+		
+		if (loadFromSave) {
+			dir = WORLD_FOLDER_PATH + "Saves/Level-" + levelNum + "/";
+		} else {
+			dir = WORLD_FOLDER_PATH + "Story/Level-" + levelNum + "/";
+		}
+		
 		String fileName = "Room-" + roomPoint.x + "-" + roomPoint.y + ".txt";
 		
 		return loadRoomFromTextFile(dir + fileName, levelNum);
 		
 	}
 	
+	public static Room loadTestRoom(int testNum) {
+		
+		String dir = WORLD_FOLDER_PATH + "Test/";
+		String fileName = "Test-" + testNum + ".txt";
+		
+		return loadRoomFromTextFile(dir + fileName, testNum);
+		
+	}
+	
 	public static void saveRoomToTextFile(String fileName, Room room) {
 		
+		// Don't save a room that doesn't exit
+		if (room == null) {
+			return;
+		}
+		
+		// Line containers
 		ArrayList<String> tilesLines = new ArrayList<String>();
 		ArrayList<String> itemsLines = new ArrayList<String>();
 		ArrayList<String> entitiesLines = new ArrayList<String>();
 		ArrayList<String> totalLines = new ArrayList<String>();
 		String tilesLine = "";
 		String itemsLine = "";
+		
 		Point position = new Point();
 		
+		// For each row the room...
 		for (int y = 0; y < room.getInternalHeight() + 2; y++) {
+			
 			position.y = y;
+			
+			/*
+			 * Format a line for the row
+			 */
+			
+			// For each position in the row
 			for (int x = 0; x < room.getInternalWidth() + 2; x++) {
+				
+				// Add to each line
 				position.x = x;
 				tilesLine = tilesLine + room.tileAt(position).getFileString() + ",";
 				itemsLine = itemsLine + (room.itemAt(position) != null ? room.itemAt(position).getFileString() : "");
 				itemsLine = itemsLine + ",";
 			}
+			
+			// Add each line
 			tilesLines.add(tilesLine.substring(0, tilesLine.length() - 1));
 			itemsLines.add(itemsLine.substring(0, itemsLine.length() - 1));
+			
+			// Refresh the container
 			tilesLine = "";
 			itemsLine = "";
 		}
 		
+		// Format a line for the player
 		Player player = room.getPlayer();
 		if (player != null) {
 			entitiesLines.add("P:" + player.getPosition().x + "," + player.getPosition().y);
 		}
+		
+		// Format a line for each enemy
 		for (Enemy enemy : room.getEnemyList()) {
 			entitiesLines.add("E:" + enemy.getPosition().x + "," + enemy.getPosition().y + "," + enemy.getLevel());
 		}
 		
+		// Order the lines and split them into their sections
+		totalLines.add((room.getInternalWidth() + 2) + "," + (room.getInternalHeight() + 2));
+		totalLines.add("============");
 		totalLines.addAll(tilesLines);
 		totalLines.add("============");
 		totalLines.addAll(itemsLines);
 		totalLines.add("============");
 		totalLines.addAll(entitiesLines);
 		
-		Utilities.writeFile(fileName, totalLines);
+		// Finally, write the file
+		Utilities.writeTextFile(fileName, totalLines);
 		
 	}
 	
+	/**
+	 * Saves a story room to the appropriate location
+	 * 
+	 * @param room
+	 *            The room to save.
+	 * @param levelNum
+	 *            The number of the level that the room is on.
+	 * @param roomPoint
+	 *            The point of the room in the room array.
+	 */
 	public static void saveStoryRoom(Room room, int levelNum, Point roomPoint) {
 		
 		String dir = WORLD_FOLDER_PATH + "Saves/Level-" + levelNum + "/";

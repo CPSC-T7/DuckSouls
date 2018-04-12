@@ -8,8 +8,8 @@ import world.Room;
 
 public class Path {
 	
-	ArrayList<Node> path = null;
-	Point start = null;
+	private ArrayList<Node> path = null;
+	private Point start = null;
 	
 	public Path(Room room, Point start, Point goal) throws NotAvaliablePathExecption {
 		this.start = start;
@@ -92,6 +92,14 @@ public class Path {
 		}
 	
 		this.path = generatePath(roomNodes[goal.x][goal.y]);
+		
+		
+		for(Node[] column: roomNodes) {
+			for(Node node: column) {
+				System.out.println(node.getPoint().x + "," + node.getPoint().y + "," + node.getF());
+			}
+		}
+		System.out.println();
 
 		
 		
@@ -128,5 +136,9 @@ public class Path {
 		Point thisPoint = path.get(currentdex).getPoint(); 
 		return thisPoint;
 		
+	}
+	
+	public int getPathLength() {
+		return this.path.size();
 	}
 }

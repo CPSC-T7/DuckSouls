@@ -1,6 +1,7 @@
 package entities;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.Random;
 
 import genericInterfaces.Battleable;
@@ -9,7 +10,7 @@ import genericInterfaces.Moveable;
 import javafx.scene.image.Image;
 import utils.Orientation;
 
-public abstract class Entity implements Drawable, Moveable, Battleable {
+public abstract class Entity implements Drawable, Moveable, Battleable, Serializable {
 	
 	/*
 	 * 
@@ -17,6 +18,10 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	 * 
 	 */
 	
+	/**
+	 * Generated Serializable ID.
+	 */
+	private static final long serialVersionUID = 96600839716600250L;
 	public static final String ENTITY_SPRITE_FOLDER_PATH = SPRITE_FOLDER_PATH + "Entities/";
 	
 	/*
@@ -49,6 +54,8 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	 * CONSTRUCTORS
 	 * 
 	 */
+	
+	public Entity() {}
 	
 	protected Entity(String stringRepr, Point position, double health, double attack, double defence, double speed, double accuracy,
 			double crit) {
@@ -140,7 +147,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public String useItem(boolean isGUI) {	
+	public String chooseItem() {	
 		return "Bananas";
 	}
 	
@@ -150,7 +157,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable {
 	}
 	
 	@Override
-	public String choice(int move, boolean isGUI) {
+	public String choice(int move) {
 				
 		if (move == 0 || move == 2 || move == 3) {
 			return "Attack";
