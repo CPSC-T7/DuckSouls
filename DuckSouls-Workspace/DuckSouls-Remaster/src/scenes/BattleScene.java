@@ -175,21 +175,21 @@ public class BattleScene {
 
 	// 2D array of menu buttons [rows][columns]
 	private MenuButton[][] menuArray = new MenuButton[][] {
-			{ new MenuButton(attackButtonImageView, "Attack", 10, 64 * 6),
-					new MenuButton(tauntButtonImageView, "Taunt", 10, 64 * 6 + 50) },
+			{ new MenuButton(attackButtonImageView, "Attack", 120, 40, 10, 64 * 6),
+					new MenuButton(tauntButtonImageView, "Taunt", 120, 40,  10, 64 * 6 + 50) },
 
-			{ new MenuButton(flyButtonImageView, "Fly", 160, 64 * 6),
-					new MenuButton(itemButtonImageView, "Item", 160, 64 * 6 + 50) } };
+			{ new MenuButton(flyButtonImageView, "Fly", 120, 40,  160, 64 * 6),
+					new MenuButton(itemButtonImageView, "Item", 120, 40,  160, 64 * 6 + 50) } };
 
 	// 2D array of Item menu buttons [rows][columns]
 	private MenuButton[][] itemArray = new MenuButton[][] {
-			{ new MenuButton(bugsButtonImageView, "Bugs", 10, 64 * 6),
-					new MenuButton(crutonButtonImageView, "Cruton", 10, 64 * 6 + 50) },
+			{ new MenuButton(bugsButtonImageView, "Bugs", 120, 40,  10, 64 * 6),
+					new MenuButton(crutonButtonImageView, "Cruton", 120, 40,  10, 64 * 6 + 50) },
 
-			{ new MenuButton(gooButtonImageView, "Goo", 160, 64 * 6),
-					new MenuButton(fishButtonImageView, "Fish", 160, 64 * 6 + 50) },
+			{ new MenuButton(gooButtonImageView, "Goo", 120, 40,  160, 64 * 6),
+					new MenuButton(fishButtonImageView, "Fish", 120, 40,  160, 64 * 6 + 50) },
 
-			{ new MenuButton(backButtonImageView, "Back", 310, 64 * 6) } };
+			{ new MenuButton(backButtonImageView, "Back", 120, 40,  310, 64 * 6) } };
 			
 	// 2D array of player health digits
 	private NumberSprite[] playerHealth = new NumberSprite[] {

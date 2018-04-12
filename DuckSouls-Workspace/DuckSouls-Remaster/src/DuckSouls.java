@@ -73,7 +73,9 @@ public class DuckSouls {
 		
 		GameData.IS_GUI = (args[0].equals("1"));
 		GameData.IS_STORY = (args[1].equals("1"));
-		GameData.LOAD_GAME = (args[2].equals("1"));
+		if (args[1].equals("1")) {
+			GameData.LOAD_GAME = (args[2].equals("1"));
+		}
 		
 	}
 	

@@ -22,8 +22,6 @@ public class MenuButton extends Pane{
     int columns = 1;
     int offsetX = 0;
     int offsetY = 0;
-    int width = 120;
-    int height = 40;
     private final String buttonType;
     
     //Use SpriteAnimation to change the state of the button (selected/deselected)
@@ -44,6 +42,8 @@ public class MenuButton extends Pane{
      */
     public MenuButton(ImageView imageView, 
     					String buttonType,
+    					int width,
+    					int height,
     					int positionX,
     					int positionY)
     {

@@ -22,6 +22,7 @@ import world.LevelBuilder;
 
 import scenes.TitleScene;
 import scenes.BattleScene;
+import scenes.PauseScene;
 
 public class GUIGame extends Application implements Controller {
 	
@@ -51,12 +52,16 @@ public class GUIGame extends Application implements Controller {
 	private static boolean		inBattle	= false;
 	private static boolean		inTitle		= true;
 	private static boolean		inInventory	= false;
+	private static boolean		paused		= false;
 	
 	// The current BattleWorld
 	private BattleScene			battleScreen;
 	
 	// The title screen
 	private TitleScene			titleScreen;
+	
+	// The pause screen
+	private PauseScene			pauseScreen;
 	
 	// Overworld Scene
 	private Scene				scene;
@@ -108,6 +113,9 @@ public class GUIGame extends Application implements Controller {
 				} else if (inBattle) {
 					updateBattle();
 					
+				} else if (paused){
+					updatePause();
+					
 				} else {
 					updateWorld();
 					window.setScene(scene);
@@ -124,6 +132,15 @@ public class GUIGame extends Application implements Controller {
 	public void updateBattle() {
 		
 		inBattle = battleScreen.update();
+		
+	}// End of updateBattle
+	
+	/**
+	 * Update the pause menu.
+	 */
+	public void updatePause() {
+		
+		paused = pauseScreen.update();
 		
 	}// End of updateBattle
 	
@@ -202,7 +219,15 @@ public class GUIGame extends Application implements Controller {
 					System.out.println(("Crit Chance : " + player.getCrit()));
 					
 					break;
-			}
+					
+				// Enter the pause menu
+				case ESCAPE:
+					if (!paused) {
+						paused = true;
+						pauseScreen = new PauseScene(window);
+					}	
+					
+			}// End of switch
 			
 		});
 		
