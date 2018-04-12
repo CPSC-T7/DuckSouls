@@ -1,7 +1,6 @@
 package controllers;
 
 import java.awt.Point;
-import java.util.ConcurrentModificationException;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

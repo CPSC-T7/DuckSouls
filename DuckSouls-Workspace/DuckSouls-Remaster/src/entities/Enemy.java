@@ -16,6 +16,11 @@ public class Enemy extends Entity {
 	 * 
 	 */
 	
+	/**
+	 * Generated Serializable ID.
+	 */
+	private static final long serialVersionUID = 7835849957805235278L;
+	
 	private static final double	BASE_HEALTH			= 15;
 	private static final double	BASE_ATTACK			= 3;
 	private static final double	BASE_DEFENCE		= 5;
