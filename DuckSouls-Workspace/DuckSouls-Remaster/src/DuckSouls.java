@@ -26,11 +26,22 @@ public class DuckSouls {
 	 * Plays DuckSouls.
 	 *
 	 * @param args
-	 *            The list of arguments for which version of DuckSouls to play. The
-	 *            first argument sets whether the game is running in GUI mode or
-	 *            Text mode ("1" for GUI and "0" for Text). The second argument sets
-	 *            whether the game is running in Story mode or Arcade mode ("1" for
-	 *            Story and "0" for Arcade).
+	 *            The list of arguments for which version of DuckSouls to play.
+	 *            <ol>
+	 *            <li>The first argument sets whether the game is running in GUI
+	 *            mode or Text mode
+	 *            <br>
+	 *            ("1" for GUI and "0" for Text).
+	 *            <li>The second argument sets whether the game is running in Story
+	 *            mode or Arcade mode
+	 *            <br>
+	 *            ("1" for Story and "0" for Arcade).
+	 *            <li>The third argument is only necessary when running story mode
+	 *            (ignored in arcade mode), and decides if the game should be loaded
+	 *            from the saved state, or if it should generate a new save state
+	 *            <br>
+	 *            ("1" to load the state and "0" to make a new state).
+	 *            </ol>
 	 */
 	public static void main(String[] args) {
 		

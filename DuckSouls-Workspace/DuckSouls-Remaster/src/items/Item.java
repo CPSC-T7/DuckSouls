@@ -33,6 +33,13 @@ public interface Item extends Drawable {
 	public abstract boolean tryToSpawn();
 	
 	/**
+	 * Returns the spawn chance of the item.
+	 * 
+	 * @return The spawn chance of the item.
+	 */
+	public abstract int getSpawnChance();
+	
+	/**
 	 * Returns the string used to read/write the tile to text files.
 	 * 
 	 * @return The string used to read/write the tile to text files.
