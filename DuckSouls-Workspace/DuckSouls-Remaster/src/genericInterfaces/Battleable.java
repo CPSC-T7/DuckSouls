@@ -64,7 +64,7 @@ public interface Battleable {
 	 * 
 	 * @param move
 	 *            The int value of the chosen command
-	 * @return The int value of the chosen command
+	 * @return The string value of the chosen command
 	 */
 	public abstract String choice(int move);
 	

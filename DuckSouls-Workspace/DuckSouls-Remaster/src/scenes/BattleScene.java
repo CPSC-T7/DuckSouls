@@ -28,15 +28,9 @@ import utils.Utilities;
  */
 public class BattleScene {
 
-	// Keep track of the currently selected Menu button
-	private int[] menuButton = new int[] { 0, 0 };
-	private String menuButtonType;
 
-	// Keep track of the currently selected Item button
-	private int[] itemButton = new int[] { 0, 0 };
+	
 
-	// If the player is selecting an item or not
-	private boolean itemSelection = false;
 
 	// The distance that the player runs to hit the enemy, and vice versa
 	private final int runDistance = 80 * 2;
@@ -44,7 +38,10 @@ public class BattleScene {
 	private final int stepSize = 4;
 	// The current step of the animation
 	private int currentStep = 0;
-
+	
+	
+	// If the player is selecting an item or not
+	private boolean itemSelection = false;
 	// Whether or not an animation is playing
 	private boolean inAnimation = false;
 	private boolean endGame = false;
@@ -96,56 +93,59 @@ public class BattleScene {
 			"file:///" + Utilities.parentDir + "/Sprites/Numbers/Numbers.png";
 
 	/*
-	 * Battle menu buttons
-	 * 
-	 */
-	// Attack button image and viewer
-	private final Image attackButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Attack.png");
-	private ImageView attackButtonImageView = new ImageView(attackButtonImage);
-
-	// Taunt button image and viewer
-	private final Image tauntButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Taunt.png");
-	private ImageView tauntButtonImageView = new ImageView(tauntButtonImage);
-
-	// Quack button image and viewer
-	private final Image flyButtonImage = new Image("file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Fly.png");
-	private ImageView flyButtonImageView = new ImageView(flyButtonImage);
-
-	// Item button image and viewer
-	private final Image itemButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Item.png");
-	private ImageView itemButtonImageView = new ImageView(itemButtonImage);
-
-	/*
-	 * Battle item buttons
+	 * Battle Menu and Item buttons
 	 * 
 	 */
 
-	// Bugs button image and viewer
-	private final Image bugsButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Bugs.png");
-	private ImageView bugsButtonImageView = new ImageView(bugsButtonImage);
+	// Button Data Variables:
+	
+	// Keep track of the currently selected Menu button
+	private int[] menuButton = new int[] { 0, 0 };
+	
+	// Keep track of the currently selected Item button
+	private int[] itemButton = new int[] { 0, 0 };
+	
+	private String buttonType; // String rep of any button type
+	
+	// Move Button ImageViews:
+	
+	// Attack button ImageView
+	private ImageView attackButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Attack.png"));
 
-	// Crouton button image and viewer
-	private final Image croutonButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Crouton.png");
-	private ImageView croutonButtonImageView = new ImageView(croutonButtonImage);
+	// Taunt button ImageView
+	private ImageView tauntButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Taunt.png"));
 
-	// Goo button image and viewer
-	private final Image gooButtonImage = new Image("file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Goo.png");
-	private ImageView gooButtonImageView = new ImageView(gooButtonImage);
+	// Quack button ImageView
+	private ImageView flyButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Fly.png"));
 
-	// Fish button image and viewer
-	private final Image fishButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Fish.png");
-	private ImageView fishButtonImageView = new ImageView(fishButtonImage);
+	// Item button ImageView
+	private ImageView itemButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Item.png"));
+
+	// Item Button ImageViews:
+
+	// Bugs button ImageView
+	private ImageView bugsButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Bugs.png"));
+
+	// Crouton button ImageView
+	private ImageView croutonButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Crouton.png"));
+
+	// Goo button ImageView
+	private ImageView gooButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Goo.png"));
+
+	// Fish button ImageView
+	private ImageView fishButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Fish.png"));
 
 	// Back button image and viewer
-	private final Image backButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Back.png");
-	private ImageView backButtonImageView = new ImageView(backButtonImage);
+	private ImageView backButtonImageView = new ImageView(new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Back.png"));
 	
 
 	/*
@@ -174,8 +174,8 @@ public class BattleScene {
 	// Add all sprites to draw in order
 	private Pane groupPane = new Pane(backgroundLayer, menuLayer, itemLayer, playerLayer, messageLayer);
 
-	// 2D array of menu buttons [rows][columns]
-	private MenuButton[][] menuArray = new MenuButton[][] {
+	// 2D array of Move menu buttons [rows][columns]
+	private MenuButton[][] moveArray = new MenuButton[][] {
 			{ new MenuButton(attackButtonImageView, "Attack", 120, 40, 10, 64 * 6),
 					new MenuButton(tauntButtonImageView, "Taunt", 120, 40,  10, 64 * 6 + 50) },
 
@@ -235,7 +235,7 @@ public class BattleScene {
 		playerLayer.getChildren().addAll(playerAnimation, enemyAnimation);
 
 		// Add 2d array of menu buttons to menuLayer
-		menuLayer.getChildren().addAll(menuArray[0][0], menuArray[0][1], menuArray[1][0], menuArray[1][1]);
+		menuLayer.getChildren().addAll(moveArray[0][0], moveArray[0][1], moveArray[1][0], moveArray[1][1]);
 
 		// Add 2d array of Item menu buttons to itemLayer
 		itemLayer.getChildren().addAll(itemArray[0][0], itemArray[0][1], itemArray[1][0], itemArray[1][1],
@@ -247,8 +247,8 @@ public class BattleScene {
 		// Start the player, enemy and button animations (background has none)
 		playerAnimation.animation.play();
 		enemyAnimation.animation.play();
-		menuArray[menuButton[0]][menuButton[1]].animation.play();
-		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
+		moveArray[menuButton[0]][menuButton[1]].animation.play();
+		moveArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
 		itemArray[menuButton[0]][menuButton[1]].animation.play();
 		itemArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
 		playerHealth[0].animation.play();
@@ -281,7 +281,7 @@ public class BattleScene {
 			if (BattleLoop.playerFirst(player, enemy)) {
 				if (playerTurn) {
 					// Change animation depending on move
-					switch (menuButtonType) {
+					switch (buttonType) {
 
 					case "Attack":
 						playerTurn = playerAttackAnimation();
@@ -333,7 +333,7 @@ public class BattleScene {
 				} else if (!BattleLoop.checkDeath(player, true, false)) {
 
 					// Change animation depending on move
-					switch (menuButtonType) {
+					switch (buttonType) {
 
 						case "Attack":
 							// If the enemy dies run the player move, then enemy death animation
@@ -454,10 +454,10 @@ public class BattleScene {
 	
 						// Select the item to use
 						if (itemSelection) {
-							menuButtonType = itemArray[itemButton[0]][itemButton[1]].getButtonType();
+							buttonType = itemArray[itemButton[0]][itemButton[1]].getButtonType();
 							
 							// If the player has the item, or wants to go back to the move menu
-							if (player.hasItem(menuButtonType) || menuButtonType == "Back") {
+							if (player.hasItem(buttonType) || buttonType == "Back") {
 								itemSelection = false;
 								itemLayer.setVisible(false);
 								messageLayer.setVisible(true);
@@ -469,15 +469,15 @@ public class BattleScene {
 						
 						// Select a move to make
 						}else {
-							menuButtonType = menuArray[menuButton[0]][menuButton[1]].getButtonType();
+							buttonType = moveArray[menuButton[0]][menuButton[1]].getButtonType();
 						}
 	
 						// Let the player switch between battle/item menu
-						if (menuButtonType == "Item") {
+						if (buttonType == "Item") {
 							itemSelection = true;
 							itemLayer.setVisible(true);
 							messageLayer.setVisible(false);
-						} else if (menuButtonType == "Back") {
+						} else if (buttonType == "Back") {
 							itemLayer.setVisible(false);
 							messageLayer.setVisible(true);
 						
@@ -485,7 +485,7 @@ public class BattleScene {
 						}else{
 							// If the player goes first
 							if (BattleLoop.playerFirst(player, enemy)) {
-								BattleLoop.executeMove(true, menuButtonType, player, enemy);
+								BattleLoop.executeMove(true, buttonType, player, enemy);
 								inAnimation = true;
 								playerTurn = true;
 								inBattle = true;
@@ -504,7 +504,7 @@ public class BattleScene {
 	
 								// If the player survives, do their turn.
 								if (!BattleLoop.checkDeath(player, true, false)) {
-									BattleLoop.executeMove(true, menuButtonType, player, enemy);
+									BattleLoop.executeMove(true, buttonType, player, enemy);
 	
 								}
 							}
@@ -536,15 +536,15 @@ public class BattleScene {
 	 *            The button to move to on the 'direction' plane
 	 */
 	public void selectMenuButton(char direction, int button) {
-		menuArray[menuButton[0]][menuButton[1]].animation.play();
-		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(0);
+		moveArray[menuButton[0]][menuButton[1]].animation.play();
+		moveArray[menuButton[0]][menuButton[1]].animation.setOffsetY(0);
 		if (direction == 'H') {
 			menuButton[0] = button;
 		} else {
 			menuButton[1] = button;
 		}
-		menuArray[menuButton[0]][menuButton[1]].animation.play();
-		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
+		moveArray[menuButton[0]][menuButton[1]].animation.play();
+		moveArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
 	}
 
 	/**
