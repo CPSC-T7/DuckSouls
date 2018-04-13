@@ -57,7 +57,7 @@ public final class ItemTests {
 	 * Tests that all items have a string representation.
 	 */
 	@Test
-	private static final void testAll_HasStringRepr() {
+	public static final void testAll_HasStringRepr() {
 		
 		for (Item item : allItems) {
 			assertNotNull("Item must have non-null string representation. Failed on " + item, item.getStringRepr());
@@ -69,7 +69,7 @@ public final class ItemTests {
 	 * Tests that all items' string representation is 3 characters long.
 	 */
 	@Test
-	private static final void testAll_StringReprLength() {
+	public static final void testAll_StringReprLength() {
 		
 		for (Item item : allItems) {
 			assertEquals("Item file string must be 3 characters long. Failed on " + item, 3,
@@ -82,7 +82,7 @@ public final class ItemTests {
 	 * Tests that all items have a file string.
 	 */
 	@Test
-	private static final void testAll_HasFileString() {
+	public static final void testAll_HasFileString() {
 		
 		for (Item item : allItems) {
 			assertNotNull("Item must have non-null file string. Failed on " + item, item.getFileString());
@@ -94,7 +94,7 @@ public final class ItemTests {
 	 * Tests that all items have a name.
 	 */
 	@Test
-	private static final void testAll_HasName() {
+	public static final void testAll_HasName() {
 		
 		for (Item item : allItems) {
 			assertNotNull("Item must have name. Failed on " + item, item.getName());
@@ -107,7 +107,7 @@ public final class ItemTests {
 	 * Tests that all items have a spawn chance between 0 and 100 inclusive.
 	 */
 	@Test
-	private static final void testAll_SpawnChanceWithinRange() {
+	public static final void testAll_SpawnChanceWithinRange() {
 		
 		for (Item item : allItems) {
 			assertTrue("Item must have spawn chance from 0 to 100. Failed on " + item,
@@ -120,7 +120,7 @@ public final class ItemTests {
 	 * Tests that all weapons have a speed statistic between 0 and 100 inclusive.
 	 */
 	@Test
-	private static final void testWeapons_SpeedWithinRange() {
+	public static final void testWeapons_SpeedWithinRange() {
 		
 		for (Weapon weapon : allWeapons) {
 			assertTrue("Weapon must have speed value from 0 to 100. Failed on " + weapon,

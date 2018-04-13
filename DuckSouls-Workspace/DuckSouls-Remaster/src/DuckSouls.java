@@ -53,10 +53,6 @@ public class DuckSouls {
 		loop();
 		System.out.println("Game Loop Done.");
 		
-		System.out.println("Cleanup Starting...");
-		cleanup();
-		System.out.println("Cleanup Done.");
-		
 	}
 	
 	/**
@@ -102,15 +98,6 @@ public class DuckSouls {
 			TitleScene.displayMenu();
 			tg.mainLoop();
 		}
-		
-	}
-	
-	/**
-	 * Cleans up any resources.
-	 */
-	private static void cleanup() {
-		
-		// TODO: Cleanup
 		
 	}
 	
