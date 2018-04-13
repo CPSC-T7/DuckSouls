@@ -224,6 +224,7 @@ public class BattleLoop {
 			if (!run && GameData.IS_GUI) {
 				if (isPlayer) { // Print player death
 					PrintBattleText.slainEntity(true);
+					entity.setDead(true);
 				} else {		// Print enemy death
 					PrintBattleText.slainEntity(false);
 				}
@@ -252,7 +253,6 @@ public class BattleLoop {
 	public static void postBattle(boolean isPlayer, Player player, Enemy enemy, boolean run) {
 		if (isPlayer) {
 			PrintBattleText.gameOver();
-			System.exit(0);
 		}
 		else if (run){
 			

@@ -63,6 +63,7 @@ public class Player extends Entity implements Serializable {
 	private int						experienceForNextLevel;
 	private int						score;
 	private static Scanner			scanner				= new Scanner(System.in);		// Scanner to get user input
+
 	
 	/*
 	 * 
@@ -408,5 +409,6 @@ public class Player extends Entity implements Serializable {
 	public int getLevel() {
 		return this.level;
 	}
+
 	
 }

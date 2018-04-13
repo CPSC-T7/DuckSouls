@@ -133,6 +133,7 @@ public class PrintBattleText {
 		}
 		else {
 			System.out.println(text);
+			System.exit(0);
 		}
 	}
 	
