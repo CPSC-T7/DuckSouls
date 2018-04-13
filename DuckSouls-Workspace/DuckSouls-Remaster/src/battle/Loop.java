@@ -210,6 +210,7 @@ public class Loop {
 			if (!run && GameData.IS_GUI) {
 				if (isPlayer) {
 					PrintBattleText.slainEntity(true);
+					entity.setDead(true);
 				} else {
 					PrintBattleText.slainEntity(false);
 				}
@@ -239,7 +240,6 @@ public class Loop {
 	public static void postBattle(boolean isPlayer, Player player, Enemy enemy, boolean run) {
 		if (isPlayer) {
 			PrintBattleText.gameOver();
-			System.exit(0);
 		}
 		else if (run){
 			

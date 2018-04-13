@@ -63,6 +63,7 @@ public class Player extends Entity implements Serializable {
 	private int						experienceForNextLevel;
 	private int						score;
 	private static Scanner			scanner				= new Scanner(System.in);		// Scanner to get user input
+	private boolean                  isDead              = false;
 	
 	/*
 	 * 
@@ -407,6 +408,25 @@ public class Player extends Entity implements Serializable {
 	@Override
 	public int getLevel() {
 		return this.level;
+	}
+
+	/**
+	 * Returns if the player is dead or not
+	 * 
+	 * @return
+	 * 		True if dead, else false
+	 */
+	public boolean isDead() {
+		return isDead;
+	}
+
+	/**
+	 * Set whether the player is dead or not
+	 * 
+	 * @param isDead, true if player is dead, else false
+	 */
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
 	}
 	
 }

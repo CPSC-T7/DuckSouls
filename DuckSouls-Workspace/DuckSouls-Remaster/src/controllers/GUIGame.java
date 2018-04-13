@@ -21,6 +21,7 @@ import world.LevelBuilder;
 
 import scenes.TitleScene;
 import scenes.BattleScene;
+import scenes.DeathScreen;
 import scenes.PauseScene;
 
 /**
@@ -55,6 +56,7 @@ public class GUIGame extends Application implements Controller {
 	private static boolean		inTitle		= true;
 	private static boolean		inInventory	= false;
 	private static boolean		paused		= false;
+	private static boolean 		death 		= false;
 	
 	// The current BattleWorld
 	private BattleScene			battleScreen;
@@ -64,6 +66,9 @@ public class GUIGame extends Application implements Controller {
 	
 	// The pause screen
 	private PauseScene			pauseScreen;
+	
+	//The death screen
+	private DeathScreen 			deathScreen;
 	
 	// Overworld Scene
 	private Scene				scene;
@@ -104,6 +109,7 @@ public class GUIGame extends Application implements Controller {
 		this.gc = gc;
 		
 		titleScreen = new TitleScene(this.window);
+		deathScreen = new DeathScreen(this.window);
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();
@@ -123,6 +129,9 @@ public class GUIGame extends Application implements Controller {
 					
 				} else if (paused) {
 					updatePause();
+					
+				} else if (death || player.isDead()) {
+					updateDeath();
 					
 				} else {
 					updateWorld();
@@ -149,6 +158,15 @@ public class GUIGame extends Application implements Controller {
 	public void updatePause() {
 		
 		paused = pauseScreen.update();
+		
+	}// End of updateBattle
+	
+	/**
+	 * Update the death menu.
+	 */
+	public void updateDeath() {
+		
+		death = deathScreen.update();
 		
 	}// End of updateBattle
 	

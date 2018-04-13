@@ -50,6 +50,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable, Serializ
 	protected double		speed;
 	protected double		accuracy;
 	protected double		crit;
+	protected boolean	isDead              = false;
 	
 	/*
 	 * 
@@ -353,6 +354,25 @@ public abstract class Entity implements Drawable, Moveable, Battleable, Serializ
 	 */
 	public void setCrit(double newVal) {
 		this.crit = newVal;
+	}
+	
+	/**
+	 * Returns if the player is dead or not
+	 * 
+	 * @return
+	 * 		True if dead, else false
+	 */
+	public boolean isDead() {
+		return isDead;
+	}
+
+	/**
+	 * Set whether the player is dead or not
+	 * 
+	 * @param isDead, true if player is dead, else false
+	 */
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
 	}
 	
 }
