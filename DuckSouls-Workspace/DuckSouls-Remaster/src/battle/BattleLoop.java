@@ -5,6 +5,7 @@ import items.Consumable;
 import utils.Utilities;
 import entities.Enemy;
 import entities.Entity;
+import animation.TextAnimations;
 import battle.PrintBattleText;
 import controllers.GameData;
 
@@ -46,6 +47,8 @@ public class BattleLoop {
 		// While the battle is running
 		while (!battleEnd) {
 			// Get the players move
+			Utilities.clearConsole();
+			TextAnimations.initialise();
 			playerCommand = player.choice(0);
 			if (playerCommand.equals("Item")) {
 				playerCommand = player.chooseItem();
@@ -57,6 +60,9 @@ public class BattleLoop {
 			// After the moves are chosen, run them
 			while (choiceEnd) {
 				// Run the player's move, then the enemie's
+				Utilities.waitMilliseconds(1000);
+				Utilities.clearConsole();
+				TextAnimations.initialise();
 				if (playerFirst) {
 					run = executeMove(true,  playerCommand,  player,  enemy);
 					battleEnd = checkDeath(enemy, false, run);
@@ -129,7 +135,9 @@ public class BattleLoop {
 		if(isPlayer) {
 			switch (move) {
 				case "Attack":
+					TextAnimations.attackAnimation();
 					PrintBattleText.attackingText(true);
+					Utilities.waitMilliseconds(1000);
 					
 					double damage = player.sendAttack();
 					damage = enemy.receiveAttack(damage);
@@ -143,7 +151,9 @@ public class BattleLoop {
 					
 				case "Taunt":
 					enemy.taunted();
+					TextAnimations.tauntAnimation();
 					PrintBattleText.tauntedText(true);
+					Utilities.waitMilliseconds(1000);
 					break;
 					
 				case "Fly":
@@ -181,8 +191,9 @@ public class BattleLoop {
 			
 			switch (move) {
 				case "Attack":
-					
+					TextAnimations.enemyAttacAnimation();
 					PrintBattleText.attackingText(false);
+					Utilities.waitMilliseconds(1000);
 					
 					double damage = enemy.sendAttack();
 					damage = player.receiveAttack(damage);
@@ -197,7 +208,9 @@ public class BattleLoop {
 				case "Taunt":
 					
 					player.taunted();
+					TextAnimations.enemyTauntAnimation();
 					PrintBattleText.tauntedText(false);
+					Utilities.waitMilliseconds(1000);
 					break;
 			}
 			
@@ -226,7 +239,9 @@ public class BattleLoop {
 					PrintBattleText.slainEntity(true);
 					entity.setDead(true);
 				} else {		// Print enemy death
+					TextAnimations.deadAnimation();
 					PrintBattleText.slainEntity(false);
+					Utilities.waitMilliseconds(1000);
 				}
 			}
 			return true;

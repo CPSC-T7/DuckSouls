@@ -185,4 +185,61 @@ public class Utilities {
 		
 	}
 	
+	/**
+	 * Reads and prints a sprite from it's text file, with added X and Y padding.
+	 * 
+	 * @param sprite
+	 *            The file path and name of the sprite to print.
+	 * @param xPadding
+	 *            The X padding to add to the left side of each line.
+	 * @param yPadding
+	 *            The Y padding to add to the top line of the sprite.
+	 * @throws FileNotFoundException
+	 *             If the file is not found.
+	 */
+	public static void printSprite(String sprite, String xPadding, String yPadding) {
+		
+		// Locate and read the sprite file in the TextSprites folder above bin
+		String fileName = "../TextSprites/" + sprite + ".txt";
+		String[] lines = readTextFile(fileName);
+		
+		// Pad above the image
+		System.out.print(yPadding);
+		
+		//Print out each line with [adding to the left of it
+		for(String line : lines) {
+			System.out.println(xPadding + line);
+		}
+		
+		
+	}// End of printSprite
+	
+	
+	/**
+	 * Multiply a string by a specified amount.<br>
+	 * 
+	 * i.e: "f"*3 = "fff"
+	 * 
+	 * @param string
+	 *            The string to multiply.
+	 * @param multiple
+	 *            The number of times to multiply the string.
+	 * @return newString The multiplied string.
+	 */
+	public static String multiplyString(String string, int multiple) {
+		
+		// Create a string builder
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		// Append the inputed string to the string builder the desired number of times
+		for (int i = 0; i < multiple; i++) {
+			stringBuilder.append(string);
+		}
+		
+		// Process and return the newly multiplied string
+		String newString = stringBuilder.toString();
+		return (newString);
+		
+	}// End of multiplyString
+	
 }
