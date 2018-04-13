@@ -140,22 +140,22 @@ public class Loop {
 					break;
 					
 				case "Crouton":
-					healed = player.itemUse(Consumable.CROUTON);
+					healed = player.useConsumable(Consumable.CROUTON);
 					PrintBattleText.itemText(Consumable.CROUTON, healed);
 					break;
 				
 				case "Goo":
-					healed = player.itemUse(Consumable.GOO);
+					healed = player.useConsumable(Consumable.GOO);
 					PrintBattleText.itemText(Consumable.GOO, healed);
 					break;
 
 				case "Fish":
-					healed = player.itemUse(Consumable.FISH);
+					healed = player.useConsumable(Consumable.FISH);
 					PrintBattleText.itemText(Consumable.FISH, healed);
 					break;
 
 				case "Bugs":
-					healed = player.itemUse(Consumable.BUGS);
+					healed = player.useConsumable(Consumable.BUGS);
 					PrintBattleText.itemText(Consumable.BUGS, healed);
 					break;
 					
@@ -253,7 +253,7 @@ public class Loop {
 				PrintBattleText.levelUp(player);
 			}
 
-			player.setScore(enemy.getScore());
+			player.addScore(enemy.getScoreGiven());
 		}
 	}//End of postBattle
 }

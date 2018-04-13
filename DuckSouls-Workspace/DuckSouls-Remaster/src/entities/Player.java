@@ -11,6 +11,12 @@ import items.Item;
 import items.Weapon;
 import javafx.scene.image.Image;
 
+/**
+ * This class represents a player object in DuckSouls. The player has a
+ * position, orientation etc. and has the ability to move. The player also has
+ * an inventory where it stores items, an equipped weapon/armour slot, and can
+ * battle enemies.
+ */
 public class Player extends Entity implements Serializable {
 	
 	/*
@@ -64,8 +70,18 @@ public class Player extends Entity implements Serializable {
 	 * 
 	 */
 	
-	public Player() {}
+	/**
+	 * Creates a new player. Only used in serializable reading.
+	 */
+	public Player() {
+	}
 	
+	/**
+	 * Creates a new player.
+	 * 
+	 * @param position
+	 *            The position of the player.
+	 */
 	public Player(Point position) {
 		
 		super(STRING_REPR, position, BASE_HEALTH, BASE_ATTACK, BASE_DEFENCE, BASE_SPEED, BASE_ACCURACY, BASE_CRIT);
@@ -117,7 +133,7 @@ public class Player extends Entity implements Serializable {
 		String moveCommand;
 		boolean choose = true;
 		int move = 0;
-		if(!GameData.IS_GUI) {
+		if (!GameData.IS_GUI) {
 			while (choose) {
 				System.out.print("\nEnter a move: ");
 				moveCommand = scanner.nextLine().toLowerCase();
@@ -153,7 +169,7 @@ public class Player extends Entity implements Serializable {
 	public String chooseItem() {
 		String item = "";
 		System.out.println(this.inventory);
-		if(!GameData.IS_GUI) {
+		if (!GameData.IS_GUI) {
 			while (true) {
 				try {
 					System.out.print("\nWhich item do you want to use?");
@@ -202,6 +218,12 @@ public class Player extends Entity implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * Adds experience points to the player and levels up if necessary.
+	 * 
+	 * @param xp
+	 *            The amount of experience to give the player.
+	 */
 	public void addExperiece(int xp) {
 		
 		this.experience += xp;
@@ -241,6 +263,13 @@ public class Player extends Entity implements Serializable {
 		this.crit = BASE_CRIT + (CRIT_PER_LEVEL * (this.level - 1));
 	}
 	
+	/**
+	 * Picks up an item for the player. If the item is a weapon/armour and better
+	 * than the currently equiped weapon/armour, it is equipped.
+	 * 
+	 * @param item
+	 *            The item to pick up.
+	 */
 	public void pickupItem(Item item) {
 		
 		// TODO: IDEA! Have the user press a button to pick up an item!
@@ -265,22 +294,45 @@ public class Player extends Entity implements Serializable {
 		
 	}
 	
-	public void setScore(int addScore) {
+	/**
+	 * Adds score to the player.
+	 * 
+	 * @param addScore
+	 *            The amount of score to add.
+	 */
+	public void addScore(int addScore) {
 		this.score = this.score + addScore;
 	}
 	
+	/**
+	 * Returns the player's score.
+	 * 
+	 * @return The player's score.
+	 */
 	public int getScore() {
 		return this.score;
 	}
 	
+	/**
+	 * Returns the player's inventory.
+	 * 
+	 * @return The player's inventory.
+	 */
 	public HashMap<Item, Integer> getInventory() {
 		return this.inventory;
 	}
 	
-	public double itemUse(Consumable item) {
+	/**
+	 * Uses a consumable on the player.
+	 * 
+	 * @param consumable
+	 *            The consumable to use.
+	 * @return The delta in health the consumable provided
+	 */
+	public double useConsumable(Consumable consumable) {
 		double healthHealed = this.health + 0;
-		this.inventory.put(item, this.inventory.get(item) - 1);
-		this.health = this.health + item.getHealthMod();
+		this.inventory.put(consumable, this.inventory.get(consumable) - 1);
+		this.health = this.health + consumable.getHealthMod();
 		if (this.health > (BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1)))) {
 			this.health = BASE_HEALTH + (HEALTH_PER_LEVEL * (this.level - 1));
 		}
@@ -288,14 +340,29 @@ public class Player extends Entity implements Serializable {
 		return healthHealed;
 	}
 	
+	/**
+	 * Returns the player's current weapon.
+	 * 
+	 * @return The player's current weapon.
+	 */
 	public Weapon getWeapon() {
 		return this.weapon;
 	}
 	
+	/**
+	 * Returns the player's current armour.
+	 * 
+	 * @return The player's current armour.
+	 */
 	public Armour getArmour() {
 		return this.armour;
 	}
 	
+	/**
+	 * Returns the player's current xp.
+	 * 
+	 * @return The player's current xp.
+	 */
 	public int getExperience() {
 		return this.experience;
 	}

@@ -2,6 +2,11 @@ package tiles;
 
 import javafx.scene.image.Image;
 
+/**
+ * This enumerator contains constants for different types of tiles.
+ * 
+ * @author Matthew Allwright
+ */
 public enum GeneralTile implements Tile {
 	
 	/*
@@ -31,6 +36,18 @@ public enum GeneralTile implements Tile {
 	 * 
 	 */
 	
+	/**
+	 * Creates a new tile.
+	 * 
+	 * @param stringRepr
+	 *            The 3-character string used to draw the wall in the text version
+	 *            of the game.
+	 * @param imageName
+	 *            The name of the image used to draw the wall in the GUI version of
+	 *            the game.
+	 * @param canWalkOn
+	 *            If the player can walk on the tile or not.
+	 */
 	private GeneralTile(String stringRepr, String imageName, boolean canWalkOn) {
 		
 		this.STRING_REPR = stringRepr;

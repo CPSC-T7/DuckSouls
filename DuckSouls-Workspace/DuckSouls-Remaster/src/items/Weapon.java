@@ -3,6 +3,11 @@ package items;
 import javafx.scene.image.Image;
 import java.util.Random;
 
+/**
+ * This enumerator contains constants for different types of weapon items.
+ * 
+ * @author Matthew Allwright
+ */
 public enum Weapon implements Item {
 	
 	/*
@@ -114,12 +119,12 @@ public enum Weapon implements Item {
 	public int getSpeed() {
 		return this.SPEED;
 	}
-
+	
 	@Override
 	public String getFileString() {
 		return this.STRING_REPR.replaceAll(" ", "");
 	}
-
+	
 	@Override
 	public int getSpawnChance() {
 		return this.SPAWN_CHANCE;

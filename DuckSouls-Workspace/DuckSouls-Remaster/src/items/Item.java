@@ -2,6 +2,11 @@ package items;
 
 import genericInterfaces.Drawable;
 
+/**
+ * This interface contains abstracts and constants for different types of items.
+ * 
+ * @author Matthew Allwright
+ */
 public interface Item extends Drawable {
 	
 	/*

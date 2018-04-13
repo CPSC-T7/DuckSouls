@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class holds methods that do repeated tasks for general purposes.
+ * 
+ * @author Matthew Allwright
+ * @author Wylee McAndrews
+ */
 public class Utilities {
 	
 	/*

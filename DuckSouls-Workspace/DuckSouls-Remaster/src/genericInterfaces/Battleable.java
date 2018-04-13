@@ -2,6 +2,12 @@ package genericInterfaces;
 
 import java.util.Random;
 
+/**
+ * This interface contains abstracts and constants for anything that can battle.
+ * 
+ * @author Matthew Allwright
+ * @author Nadhif Satriana
+ */
 public interface Battleable {
 	
 	/*
@@ -10,9 +16,8 @@ public interface Battleable {
 	 * 
 	 */
 	
-	// public static final String BATTLE_SPRITE_FOLDER_PATH = ??? ; TODO: Fill in.
-	public static final double DAMAGE_RANGE_MOD = 0.1;
-	public static final Random _RANDOM = new Random();
+	public static final double	DAMAGE_RANGE_MOD	= 0.1;
+	public static final Random	_RANDOM				= new Random();
 	
 	/*
 	 * 
@@ -34,7 +39,7 @@ public interface Battleable {
 	 * 
 	 * @param damage
 	 *            The amount of damage the other entity dealt to this enemy.
-	 *            
+	 * 
 	 * @return The actual damage the entity should deal, for display purposes
 	 */
 	public abstract double receiveAttack(double damage);
@@ -45,7 +50,7 @@ public interface Battleable {
 	public abstract void taunted();
 	
 	/**
-	 * Deals with utilisation of items
+	 * Deals with utilization of items
 	 */
 	public abstract String chooseItem();
 	
@@ -56,9 +61,10 @@ public interface Battleable {
 	
 	/**
 	 * Chooses which battle command to use
+	 * 
 	 * @param move
-	 * 				the int value of the chosen command
-	 * @return the int value of the chosen command
+	 *            The int value of the chosen command
+	 * @return The int value of the chosen command
 	 */
 	public abstract String choice(int move);
 	

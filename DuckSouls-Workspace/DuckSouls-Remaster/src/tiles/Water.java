@@ -2,6 +2,11 @@ package tiles;
 
 import javafx.scene.image.Image;
 
+/**
+ * This enumerator contains constants for different types of water tiles.
+ * 
+ * @author Colin Au Yeung
+ */
 public enum Water implements Tile {
 	
 	/*
@@ -36,7 +41,7 @@ public enum Water implements Tile {
 	private final String	STRING_REPR;
 	private final String	FILE_STRING;
 	private final String	IMAGE_NAME;
-	private boolean	CAN_WALK_ON;
+	private boolean			CAN_WALK_ON;
 	
 	/*
 	 * 
@@ -45,14 +50,18 @@ public enum Water implements Tile {
 	 */
 	
 	/**
-	 * Creates a new wall.
+	 * Creates a new water tile.
 	 * 
 	 * @param stringRepr
 	 *            The 3-character string used to draw the wall in the text version
 	 *            of the game.
+	 * @param fileString
+	 *            the string used for I/O of the tile.
 	 * @param imageName
 	 *            The name of the image used to draw the wall in the GUI version of
 	 *            the game.
+	 * @param canWalkOn
+	 *            If the player can walk on the tile or not.
 	 */
 	private Water(String stringRepr, String fileString, String imageName, boolean canWalkOn) {
 		

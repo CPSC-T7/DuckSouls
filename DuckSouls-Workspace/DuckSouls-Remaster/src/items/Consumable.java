@@ -4,6 +4,11 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 
+/**
+ * This enumerator contains constants for different types of consumable items.
+ * 
+ * @author Matthew Allwright
+ */
 public enum Consumable implements Item {
 	
 	/*
@@ -103,12 +108,12 @@ public enum Consumable implements Item {
 	public int getHealthMod() {
 		return this.HEALTH_MOD;
 	}
-
+	
 	@Override
 	public String getFileString() {
 		return this.STRING_REPR.replaceAll(" ", "");
 	}
-
+	
 	@Override
 	public int getSpawnChance() {
 		return this.SPAWN_CHANCE;

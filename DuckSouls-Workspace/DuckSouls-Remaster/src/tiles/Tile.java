@@ -2,6 +2,11 @@ package tiles;
 
 import genericInterfaces.Drawable;
 
+/**
+ * This interface contains abstracts and constants for different types of tiles.
+ * 
+ * @author Matthew Allwright
+ */
 public interface Tile extends Drawable {
 	
 	/*

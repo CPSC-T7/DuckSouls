@@ -3,6 +3,11 @@ package items;
 import javafx.scene.image.Image;
 import java.util.Random;
 
+/**
+ * This enumerator contains constants for different types of armour items.
+ * 
+ * @author Matthew Allwright
+ */
 public enum Armour implements Item {
 	
 	/*
@@ -107,7 +112,7 @@ public enum Armour implements Item {
 	public String getFileString() {
 		return this.STRING_REPR.replaceAll(" ", "");
 	}
-
+	
 	@Override
 	public int getSpawnChance() {
 		return this.SPAWN_CHANCE;

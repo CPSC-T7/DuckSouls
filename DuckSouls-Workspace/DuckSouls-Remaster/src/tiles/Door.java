@@ -2,6 +2,11 @@ package tiles;
 
 import javafx.scene.image.Image;
 
+/**
+ * This enumerator contains constants for different types of door tiles.
+ * 
+ * @author Matthew Allwright
+ */
 public enum Door implements Tile {
 	
 	/*
@@ -38,6 +43,8 @@ public enum Door implements Tile {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the wall in the text version
 	 *            of the game.
+	 * @param fileString
+	 *            the string used for I/O of the tile.
 	 * @param imageName
 	 *            The image used to draw the wall in the GUI version of the game.
 	 */
@@ -69,7 +76,7 @@ public enum Door implements Tile {
 	public boolean getCanWalkOn() {
 		return this.CAN_WALK_ON;
 	}
-
+	
 	@Override
 	public String getFileString() {
 		return this.FILE_STRING;

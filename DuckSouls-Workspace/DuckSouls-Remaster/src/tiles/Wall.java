@@ -2,6 +2,11 @@ package tiles;
 
 import javafx.scene.image.Image;
 
+/**
+ * This enumerator contains constants for different types of wall tiles.
+ * 
+ * @author Matthew Allwright
+ */
 public enum Wall implements Tile {
 	
 	/*
@@ -42,6 +47,8 @@ public enum Wall implements Tile {
 	 * @param stringRepr
 	 *            The 3-character string used to draw the wall in the text version
 	 *            of the game.
+	 * @param fileString
+	 *            the string used for I/O of the tile.
 	 * @param imageName
 	 *            The name of the image used to draw the wall in the GUI version of
 	 *            the game.

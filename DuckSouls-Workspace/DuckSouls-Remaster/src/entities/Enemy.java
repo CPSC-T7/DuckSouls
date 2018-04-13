@@ -8,6 +8,10 @@ import javafx.scene.image.Image;
 import utils.Orientation;
 import world.Room;
 
+/**
+ * This class represents an enemy object. The enemy has a level, moves around,
+ * and can battle the player.
+ */
 public class Enemy extends Entity {
 	
 	/*
@@ -19,7 +23,7 @@ public class Enemy extends Entity {
 	/**
 	 * Generated Serializable ID.
 	 */
-	private static final long serialVersionUID = 7835849957805235278L;
+	private static final long	serialVersionUID	= 7835849957805235278L;
 	
 	private static final double	BASE_HEALTH			= 15;
 	private static final double	BASE_ATTACK			= 3;
@@ -55,6 +59,14 @@ public class Enemy extends Entity {
 	 * 
 	 */
 	
+	/**
+	 * Creates a new enemy.
+	 * 
+	 * @param position
+	 *            The position of the enemy.
+	 * @param level
+	 *            The level of the enemy.
+	 */
 	public Enemy(Point position, int level) {
 		
 		super(STRING_REPR, position, (BASE_HEALTH + (HEALTH_PER_LEVEL * (level - 1))),
@@ -86,11 +98,21 @@ public class Enemy extends Entity {
 		return command;
 	}
 	
+	/**
+	 * Returns the experience given to the entity that defeats this enemy.
+	 * 
+	 * @return The experience given to the entity that defeats this enemy.
+	 */
 	public int getExperienceGiven() {
 		return experienceGiven;
 	}
 	
-	public int getScore() {
+	/**
+	 * Returns the score given to the entity that defeats this enemy.
+	 * 
+	 * @return The score given to the entity that defeats this enemy.
+	 */
+	public int getScoreGiven() {
 		return SCORE;
 	}
 	
@@ -99,36 +121,70 @@ public class Enemy extends Entity {
 		return this.level;
 	}
 	
+	/**
+	 * Paths the enemy towards the player.
+	 * 
+	 * @param room
+	 *            The room the enemy is in.
+	 * @param playerPoint
+	 *            The position of the player.
+	 */
 	public void move(Room room, Point playerPoint) {
+		
 		try {
+			
 			Path path = new Path(room, this.getPosition(), playerPoint);
-			Point thisPoint = path.getNext(); 
-			if(thisPoint.x > this.getPosition().x) {
+			Point thisPoint = path.getNext();
+			
+			if (thisPoint.x > this.getPosition().x) {
+				
 				this.setOrientation(Orientation.EAST);
-			}
-			else {
-				if(thisPoint.x < this.getPosition().x) {
+				
+			} else {
+				
+				if (thisPoint.x < this.getPosition().x) {
+					
 					this.setOrientation(Orientation.WEST);
-				}
-				else {
-					if(thisPoint.y > this.getPosition().y) {
+					
+				} else {
+					
+					if (thisPoint.y > this.getPosition().y) {
 						this.setOrientation(Orientation.SOUTH);
-					}
-					else {
+					} else {
 						this.setOrientation(Orientation.NORTH);
 					}
+					
 				}
+				
 			}
+			
 			this.setPosition(path.getNext());
+			
 		} catch (NotAvaliablePathExecption e) {
+			
 			Random rand = new Random();
 			int R = rand.nextInt(4);
-			switch(R) {
-				case 0: this.setOrientation(Orientation.NORTH); break;
-				case 1: this.setOrientation(Orientation.SOUTH); break;
-				case 2: this.setOrientation(Orientation.EAST); break;
-				case 4: this.setOrientation(Orientation.WEST); break;
+			
+			switch (R) {
+				
+				case 0:
+					this.setOrientation(Orientation.NORTH);
+					break;
+				
+				case 1:
+					this.setOrientation(Orientation.SOUTH);
+					break;
+				
+				case 2:
+					this.setOrientation(Orientation.EAST);
+					break;
+				
+				case 4:
+					this.setOrientation(Orientation.WEST);
+					break;
+				
 			}
+			
 		}
 		
 	}
