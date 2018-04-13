@@ -48,7 +48,7 @@ public class TextAnimations {
 				break;	
 				
 			case ("attack3"):
-				Utilities.printSprite(entity + "/Attack/attack_Three_", xPadding, yPadding);
+				Utilities.printSprite(entity + "/Attack/attack_Three_", + direction, xPadding, yPadding);
 				break;
 			
 			case ("hurt"):
