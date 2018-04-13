@@ -11,8 +11,16 @@ public class TextAnimations {
 	/**
 	 * Gets the required sprite from a text file.
 	 * 
-	 * @param duckSprite
+	 * @param sprite
 	 *            The sprite to print.
+	 * @param entity
+	 * 			whether it is duck or rat
+	 * @param direction
+	 * 			whether it is facing right or left
+	 * @param x
+	 * 			the xCoordinate of the entity
+	 * @param y
+	 * 			the yCoordinate of the entity 
 	 */
 	
 	public static void getSprite(String sprite, String entity, String direction, int x, int y) {
@@ -94,10 +102,10 @@ public class TextAnimations {
 	 * 				The direction to run on the X axis
 	 * @param yDirection
 	 * 				The direction to run on the Y axis
-	 * @param enemy
-	 * 				The enemy to move against
+	 * @param xPosition
+	 * 				the x position of the duck
 	 */
-	public static int run(int numTimes, int xDirection, int yDirection, int xPosition) {
+	public static int playerRun(int numTimes, int xDirection, int yDirection, int xPosition) {
 		String direction;
 		String otherDirection;
 		int yPosition = 0;
@@ -133,10 +141,15 @@ public class TextAnimations {
 		
 	}// End of run
 	
-	public static void attackAnimation() {
+	
+	/**
+	 * method for the attack animation, involves the duck running
+	 * and pecking at the enemy and running back
+	 */
+	public static void playerAttackAnimation() {
 		//Run to the enemy, attack, then run back and turn around
 		int xPosition = 0;
-		xPosition = run(13, +1, 0, xPosition);
+		xPosition = playerRun(13, +1, 0, xPosition);
 		Utilities.clearConsole();
 		getSprite("fight", "Duck", "Right", xPosition, 0);
 		getSprite("stand", "Rat", "Left", 35, 0);
@@ -149,8 +162,8 @@ public class TextAnimations {
 		getSprite("attack2", "Duck", "Right", xPosition, 0);
 		Utilities.waitMilliseconds(400);
 		Utilities.clearConsole();
-		xPosition = run(13, -1, 0, xPosition);
-		xPosition = run(0, +1, 0, xPosition);	
+		xPosition = playerRun(13, -1, 0, xPosition);
+		xPosition = playerRun(0, +1, 0, xPosition);	
 		
 		//Enemy flinches
 		Utilities.clearConsole();
@@ -177,8 +190,10 @@ public class TextAnimations {
 		}
 	}
 	
-	
-	public static void tauntAnimation() {
+	/**
+	 * method for the taunt animation
+	 */
+	public static void playerTauntAnimation() {
 		for (int i = 0; i <= 2; i++) {
 			
 			Utilities.clearConsole();
@@ -196,25 +211,11 @@ public class TextAnimations {
 		}
 	}
 	
-	public static void enemyTauntAnimation() {
-		for (int i = 0; i <= 3; i++) {
-			
-			Utilities.clearConsole();
-			
-			getSprite("fight", "Rat", "Left", 35, 0);
-			getSprite("taunt", "Rat", "Left", 35, 0);
-			getSprite("stand", "Duck", "Right", 0, 0);
-			Utilities.waitMilliseconds(50);
-			Utilities.clearConsole();
-			
-			getSprite("fight", "Rat", "Left", 35, 0);
-			getSprite("taunt", "Rat", "Left", 35, 0);
-			getSprite("stand", "Duck", "Right", 0, 0);
-			Utilities.waitMilliseconds(50);
-		}
-	}
-	
-	public static void deadAnimation() {
+
+	/**
+	 * method for the animation when the player loses and dies
+	 */
+	public static void playerDeadAnimation() {
 		Utilities.clearConsole();
 		getSprite("stand", "Rat", "Left", 35, 0);
 		getSprite("dead", "Duck", "Right", 0, 0);
@@ -224,10 +225,16 @@ public class TextAnimations {
 	
 	/**
 	 * 
+	 * Make the rat run
+	 * 
 	 * @param numTimes
+	 * 				The number of times to run
 	 * @param xDirection
+	 * 				The direction to run on the X axis
 	 * @param yDirection
-	 * @param player
+	 * 				The direction to run on the Y axis
+	 * @param xPosition
+	 * 				the x position of the rat
 	 */
 	public static int enemyRun(int numTimes, int xDirection, int yDirection, int xPosition) {
 		String direction;
@@ -266,7 +273,11 @@ public class TextAnimations {
 	}// End of run
 	
 	
-	public static void enemyAttacAnimation() {
+	/**
+	 * method for the attack animation, involves the rat running
+	 * and swiping at the player and running back
+	 */
+	public static void enemyAttackAnimation() {
 		int xPosition = 35;
 		xPosition = enemyRun(13, -1, 0,xPosition);
 		
@@ -290,6 +301,36 @@ public class TextAnimations {
 		Utilities.waitMilliseconds(100);
 		xPosition = enemyRun(13, +1, 0, xPosition);
 		xPosition = enemyRun(0, -1, 0, xPosition);
+	}
+	
+	/**
+	 * method for the taunt animation
+	 */
+	public static void enemyTauntAnimation() {
+		for (int i = 0; i <= 3; i++) {
+			
+			Utilities.clearConsole();
+			
+			getSprite("fight", "Rat", "Left", 35, 0);
+			getSprite("taunt", "Rat", "Left", 35, 0);
+			getSprite("stand", "Duck", "Right", 0, 0);
+			Utilities.waitMilliseconds(50);
+			Utilities.clearConsole();
+			
+			getSprite("fight", "Rat", "Left", 35, 0);
+			getSprite("taunt", "Rat", "Left", 35, 0);
+			getSprite("stand", "Duck", "Right", 0, 0);
+			Utilities.waitMilliseconds(50);
+		}
+	}
+	
+	/**
+	 * method for the animation when the enemy loses and dies
+	 */
+	public static void enemyDeadAnimation() {
+		Utilities.clearConsole();
+		getSprite("dead", "Rat", "Left", 35, 0);
+		getSprite("stand", "Duck", "Right", 0, 0);
 	}
 	
 	

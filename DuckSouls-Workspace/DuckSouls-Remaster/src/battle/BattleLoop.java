@@ -136,7 +136,7 @@ public class BattleLoop {
 			switch (move) {
 				case "Attack":
 					if(!GameData.IS_GUI) {
-					TextAnimations.attackAnimation();
+					TextAnimations.playerAttackAnimation();
 					PrintBattleText.attackingText(true);
 					Utilities.waitMilliseconds(1000);
 					}
@@ -149,12 +149,15 @@ public class BattleLoop {
 					} else {			// If the attack hit
 						PrintBattleText.damageText(true, damage);
 					}
+					if(!GameData.IS_GUI) {
+						Utilities.waitMilliseconds(1000);
+					}
 					break;
 					
 				case "Taunt":
 					enemy.taunted();
 					if(!GameData.IS_GUI) {
-					TextAnimations.tauntAnimation();
+					TextAnimations.playerTauntAnimation();
 					PrintBattleText.tauntedText(true);
 					Utilities.waitMilliseconds(1000);
 					}
@@ -196,7 +199,7 @@ public class BattleLoop {
 			switch (move) {
 				case "Attack":
 					if(!GameData.IS_GUI) {
-						TextAnimations.enemyAttacAnimation();
+						TextAnimations.enemyAttackAnimation();
 						PrintBattleText.attackingText(false);
 						Utilities.waitMilliseconds(1000);
 					}
@@ -210,8 +213,11 @@ public class BattleLoop {
 					} else {			// If the enemy hits
 						PrintBattleText.damageText(false, damage);
 					}
+					if(!GameData.IS_GUI) {
+						Utilities.waitMilliseconds(1000);
+					}
 					break;
-					
+
 				case "Taunt":
 					if(!GameData.IS_GUI) {
 						TextAnimations.enemyTauntAnimation();
@@ -245,11 +251,15 @@ public class BattleLoop {
 		if (entity.getHealth() <= 0) {
 			if (!run) {
 				if (isPlayer) { // Print player death
+					if(!GameData.IS_GUI) {
+					TextAnimations.playerDeadAnimation();
 					PrintBattleText.slainEntity(true);
+					Utilities.waitMilliseconds(1000);
+					}
 					entity.setDead(true);
 				} else {		// Print enemy death
 					if(!GameData.IS_GUI) {
-					TextAnimations.deadAnimation();
+					TextAnimations.enemyDeadAnimation();
 					PrintBattleText.slainEntity(false);
 					Utilities.waitMilliseconds(1000);
 					}
