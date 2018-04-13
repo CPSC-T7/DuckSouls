@@ -135,9 +135,11 @@ public class BattleLoop {
 		if(isPlayer) {
 			switch (move) {
 				case "Attack":
+					if(!GameData.IS_GUI) {
 					TextAnimations.attackAnimation();
 					PrintBattleText.attackingText(true);
 					Utilities.waitMilliseconds(1000);
+					}
 					
 					double damage = player.sendAttack();
 					damage = enemy.receiveAttack(damage);
@@ -151,9 +153,11 @@ public class BattleLoop {
 					
 				case "Taunt":
 					enemy.taunted();
+					if(!GameData.IS_GUI) {
 					TextAnimations.tauntAnimation();
 					PrintBattleText.tauntedText(true);
 					Utilities.waitMilliseconds(1000);
+					}
 					break;
 					
 				case "Fly":
@@ -191,9 +195,12 @@ public class BattleLoop {
 			
 			switch (move) {
 				case "Attack":
-					TextAnimations.enemyAttacAnimation();
-					PrintBattleText.attackingText(false);
-					Utilities.waitMilliseconds(1000);
+					if(!GameData.IS_GUI) {
+						TextAnimations.enemyAttacAnimation();
+						PrintBattleText.attackingText(false);
+						Utilities.waitMilliseconds(1000);
+					}
+
 					
 					double damage = enemy.sendAttack();
 					damage = player.receiveAttack(damage);
@@ -206,11 +213,13 @@ public class BattleLoop {
 					break;
 					
 				case "Taunt":
-					
+					if(!GameData.IS_GUI) {
+						TextAnimations.enemyTauntAnimation();
+						PrintBattleText.tauntedText(false);
+						Utilities.waitMilliseconds(1000);
+					}
 					player.taunted();
-					TextAnimations.enemyTauntAnimation();
-					PrintBattleText.tauntedText(false);
-					Utilities.waitMilliseconds(1000);
+					
 					break;
 			}
 			
@@ -234,14 +243,16 @@ public class BattleLoop {
 	public static boolean checkDeath(Entity entity, boolean isPlayer, boolean run) {
 		// If the entity health is less than zero
 		if (entity.getHealth() <= 0) {
-			if (!run && GameData.IS_GUI) {
+			if (!run) {
 				if (isPlayer) { // Print player death
 					PrintBattleText.slainEntity(true);
 					entity.setDead(true);
 				} else {		// Print enemy death
+					if(!GameData.IS_GUI) {
 					TextAnimations.deadAnimation();
 					PrintBattleText.slainEntity(false);
 					Utilities.waitMilliseconds(1000);
+					}
 				}
 			}
 			return true;
