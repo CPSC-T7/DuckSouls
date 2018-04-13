@@ -15,7 +15,7 @@ import events.GameEventQueue;
 import ui.InventoryDrawer;
 import ui.RoomDrawer;
 import utils.Orientation;
-
+import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
 
@@ -242,6 +242,7 @@ public class GUIGame extends Application implements Controller {
 					break;
 				
 				case C:
+					Utilities.clearConsole();
 					System.out.println("Player Status:\n");
 					System.out.println(("Health Points : " + player.getHealth()));
 					System.out.println(("Points : " + player.getScore()));

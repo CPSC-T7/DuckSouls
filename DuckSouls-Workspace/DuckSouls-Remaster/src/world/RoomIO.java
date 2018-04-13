@@ -94,13 +94,13 @@ public class RoomIO {
 			 * Breaks the array into 3 sections. The separator is 12 '=' on a line.
 			 */
 			if (line.equals("============")) {
-				System.out.println("------ SECTION ADVANCE ------");
+				// System.out.println("------ SECTION ADVANCE ------");
 				section++;
 				y = 0;
 				continue;
 			}
 			
-			System.out.println("Parsing line #" + y + " : [" + line + "]");
+			// System.out.println("Parsing line #" + y + " : [" + line + "]");
 			
 			// Depending on the section...
 			switch (section) {
@@ -276,7 +276,6 @@ public class RoomIO {
 		
 	}
 	
-	
 	public static Room loadTestRoom(int testNum) {
 		
 		String dir = WORLD_FOLDER_PATH + "Test/";
@@ -286,7 +285,6 @@ public class RoomIO {
 		
 	}
 	
-
 	/**
 	 * Saves a room to a text file.
 	 * 
