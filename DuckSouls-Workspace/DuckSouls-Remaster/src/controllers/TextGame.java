@@ -12,7 +12,7 @@ import utils.Utilities;
 import world.Level;
 import world.LevelBuilder;
 import world.LevelIO;
-import battle.Loop;
+import battle.BattleLoop;
 
 /**
  * This class is the controller for the text version of DuckSouls.
@@ -197,7 +197,7 @@ public class TextGame implements Controller {
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
 		// TODO: Run Battle
-		Loop.battleLoop(player, enemyToBattle); // Still under works
+		BattleLoop.battleLoop(player, enemyToBattle); // Still under works
 		
 	}
 	

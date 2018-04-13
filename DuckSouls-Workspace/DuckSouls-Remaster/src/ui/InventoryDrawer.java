@@ -47,7 +47,9 @@ public class InventoryDrawer implements Drawable{
 	 * armour type, and weapon type.
 	 * 
 	 * @param gc
+	 * 					Graphics Context
 	 * @param player
+	 * 					The player object
 	 */
 	public static void drawInventory(GraphicsContext gc, Player player) {
 		
