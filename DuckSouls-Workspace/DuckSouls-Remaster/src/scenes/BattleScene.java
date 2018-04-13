@@ -12,7 +12,6 @@ import ui.StaticSprite;
 import battle.Loop;
 import entities.Enemy;
 import entities.Player;
-import items.Consumable;
 import animation.BattleSprite;
 import utils.Utilities;
 
