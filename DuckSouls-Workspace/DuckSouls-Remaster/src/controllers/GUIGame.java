@@ -88,6 +88,7 @@ public class GUIGame extends Application implements Controller {
 			if (GameData.LOAD_GAME) {
 				// Load the saved game
 				currentLevel = LevelBuilder.buildSavedStoryLevel();
+				player = currentLevel.roomAt(currentLevel.getCurrentRoomPoint()).getPlayer();
 			} else {
 				// Load the first story level
 				currentLevel = LevelBuilder.buildStoryLevel(levelNum, player, new Point(0, 0));
