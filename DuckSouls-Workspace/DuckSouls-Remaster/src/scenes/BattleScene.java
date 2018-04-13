@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import ui.MenuButton;
 import ui.NumberSprite;
 import ui.StaticSprite;
-import battle.Loop;
+import battle.BattleLoop;
 import entities.Enemy;
 import entities.Player;
 import animation.BattleSprite;
@@ -278,7 +278,7 @@ public class BattleScene {
 
 			// If the player goes first:
 			// Run the player animation then finish with the enemy animation
-			if (Loop.playerFirst(player, enemy)) {
+			if (BattleLoop.playerFirst(player, enemy)) {
 				if (playerTurn) {
 					// Change animation depending on move
 					switch (menuButtonType) {
@@ -300,10 +300,10 @@ public class BattleScene {
 					}
 
 					// If the enemy is not dead run it's move
-				} else if (!Loop.checkDeath(enemy, false, false)) {
+				} else if (!BattleLoop.checkDeath(enemy, false, false)) {
 
 					// If the player dies run the enemy move, then player death animation
-					if (Loop.checkDeath(player, true, false)) {
+					if (BattleLoop.checkDeath(player, true, false)) {
 
 						if (!endGame) {
 							endGame = !enemyAttackAnimation();
@@ -330,14 +330,14 @@ public class BattleScene {
 					playerTurn = !enemyAttackAnimation();
 
 					// If the player is not dead run their animation
-				} else if (!Loop.checkDeath(player, true, false)) {
+				} else if (!BattleLoop.checkDeath(player, true, false)) {
 
 					// Change animation depending on move
 					switch (menuButtonType) {
 
 						case "Attack":
 							// If the enemy dies run the player move, then enemy death animation
-							if (Loop.checkDeath(enemy, false, false)) {
+							if (BattleLoop.checkDeath(enemy, false, false)) {
 	
 								if (!endGame) {
 									endGame = !playerAttackAnimation();
@@ -484,27 +484,27 @@ public class BattleScene {
 						// Run the player's move
 						}else{
 							// If the player goes first
-							if (Loop.playerFirst(player, enemy)) {
-								Loop.executeMove(true, menuButtonType, player, enemy);
+							if (BattleLoop.playerFirst(player, enemy)) {
+								BattleLoop.executeMove(true, menuButtonType, player, enemy);
 								inAnimation = true;
 								playerTurn = true;
 								inBattle = true;
 	
 								// If the enemy survives do it's turn
-								if (!Loop.checkDeath(enemy, false, false)) {
-									Loop.executeMove(false, "Attack", player, enemy);
+								if (!BattleLoop.checkDeath(enemy, false, false)) {
+									BattleLoop.executeMove(false, "Attack", player, enemy);
 								}
 	
 								// If the enemy goes first
 							} else {
-								Loop.executeMove(false, "Attack", player, enemy);
+								BattleLoop.executeMove(false, "Attack", player, enemy);
 								inAnimation = true;
 								playerTurn = false;
 								inBattle = true;
 	
 								// If the player survives, do their turn.
-								if (!Loop.checkDeath(player, true, false)) {
-									Loop.executeMove(true, menuButtonType, player, enemy);
+								if (!BattleLoop.checkDeath(player, true, false)) {
+									BattleLoop.executeMove(true, menuButtonType, player, enemy);
 	
 								}
 							}
@@ -678,7 +678,7 @@ public class BattleScene {
 		// If the death animation is over return false
 		if (currentStep >= animationLength) {
 			currentStep = 0;
-			Loop.postBattle(true, player, enemy, false);
+			BattleLoop.postBattle(true, player, enemy, false);
 			return (false);
 		} else {
 			playerAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
@@ -771,7 +771,7 @@ public class BattleScene {
 		// If the death animation is over return false
 		if (currentStep >= animationLength) {
 			currentStep = 0;
-			Loop.postBattle(false, player, enemy, false);
+			BattleLoop.postBattle(false, player, enemy, false);
 			return (false);
 		} else {
 			enemyAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);

@@ -20,6 +20,10 @@ public class StaticSprite extends Pane{
      * 
      * @param imageView
      * 						The imageView
+     * @param width
+     * 						The image width
+     * @param height
+     * 						The image height
      * @param positionX
      * 						The X position
      * @param positionY

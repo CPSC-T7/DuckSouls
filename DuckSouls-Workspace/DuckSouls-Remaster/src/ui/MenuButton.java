@@ -35,6 +35,10 @@ public class MenuButton extends Pane{
      * 						The button imageView (2 frames)
      * @param buttonType
      * 						The type of button (What it does)
+     * @param width
+     * 						The width of the button image
+     * @param height
+     * 						the height of the button image
      * @param positionX
      * 						The X position of the button
      * @param positionY

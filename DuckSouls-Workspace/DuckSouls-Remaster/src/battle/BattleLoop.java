@@ -9,12 +9,13 @@ import battle.PrintBattleText;
 import controllers.GameData;
 
 /**
+ * Handle all of the battle stats and logic
  * 
  * @author Wylee McAndrews
  * @author Nadhif Satriana
  *
  */
-public class Loop {
+public class BattleLoop {
 	
 	
 	/**
@@ -30,28 +31,32 @@ public class Loop {
 				
 		boolean battleEnd = false;
 		boolean choiceEnd = true;
-		boolean run = false;
+		boolean run = false;		// If the player decides to run
 		boolean playerFirst = true;
-		boolean endsPlayer = true;
+		boolean endsPlayer = true;  // If the player has the last move
 		String playerCommand;
 		String enemyCommand;
 		
+		// Decide who goes first
 		playerFirst = playerFirst(player, enemy);
 		if (!playerFirst) {
 			endsPlayer = false;
 		}
 		
+		// While the battle is running
 		while (!battleEnd) {
-			
+			// Get the players move
 			playerCommand = player.choice(0);
 			if (playerCommand.equals("Item")) {
 				playerCommand = player.chooseItem();
 			}
+			// Get the enemy move
 			enemyCommand = enemy.choice(0);
 			choiceEnd = true;
 			
+			// After the moves are chosen, run them
 			while (choiceEnd) {
-				
+				// Run the player's move, then the enemie's
 				if (playerFirst) {
 					run = executeMove(true,  playerCommand,  player,  enemy);
 					battleEnd = checkDeath(enemy, false, run);
@@ -60,7 +65,7 @@ public class Loop {
 						choiceEnd = false;
 					}
 				}
-				
+				// Run the enemie's move, then the player's
 				else {
 					executeMove(false,  enemyCommand,  player,  enemy);
 					battleEnd = checkDeath(player, true, run);
@@ -69,7 +74,7 @@ public class Loop {
 						choiceEnd = false;
 					}
 				}
-				
+				// Choose the next set of moves
 				if (playerFirst == endsPlayer) {
 					choiceEnd = false;
 				}
@@ -77,6 +82,7 @@ public class Loop {
 			}
 			
 		}
+		// End the battle
 		postBattle(playerFirst, player, enemy, run);
 		Utilities.waitMilliseconds(2000);
 		
@@ -117,8 +123,9 @@ public class Loop {
 	 * 					the enemy entity
 	 */
 	public static boolean executeMove(boolean isPlayer, String move, Player player, Enemy enemy) {
-		//TODO: Set GameData to true for GUI (Currently false for testing)
-		double healed;
+
+		double healed; // If the player has healed or not
+		// Do the player's move
 		if(isPlayer) {
 			switch (move) {
 				case "Attack":
@@ -127,9 +134,9 @@ public class Loop {
 					double damage = player.sendAttack();
 					damage = enemy.receiveAttack(damage);
 					
-					if (damage == 0) {
+					if (damage == 0) { 	// If the attack missed
 						PrintBattleText.missedText(true);
-					} else {
+					} else {			// If the attack hit
 						PrintBattleText.damageText(true, damage);
 					}
 					break;
@@ -139,6 +146,15 @@ public class Loop {
 					PrintBattleText.tauntedText(true);
 					break;
 					
+				case "Fly":
+					enemy.setHealth(0);
+					return player.run();
+					
+				/* 
+				 * The rest of these cases heal the player
+				 * depending on the item they choose.
+				 * 
+				 */	
 				case "Crouton":
 					healed = player.useConsumable(Consumable.CROUTON);
 					PrintBattleText.itemText(Consumable.CROUTON, healed);
@@ -157,14 +173,11 @@ public class Loop {
 				case "Bugs":
 					healed = player.useConsumable(Consumable.BUGS);
 					PrintBattleText.itemText(Consumable.BUGS, healed);
-					break;
-					
-				case "Fly":
-					enemy.setHealth(0);
-					return player.run();
+					break;	
+
 			}
 			
-		}else {
+		}else { // Do the enemy move
 			
 			switch (move) {
 				case "Attack":
@@ -174,9 +187,9 @@ public class Loop {
 					double damage = enemy.sendAttack();
 					damage = player.receiveAttack(damage);
 					
-					if (damage == 0) {
+					if (damage == 0) { 	// If the enemy misses
 						PrintBattleText.missedText(false);
-					} else {
+					} else {			// If the enemy hits
 						PrintBattleText.damageText(false, damage);
 					}
 					break;
@@ -206,15 +219,15 @@ public class Loop {
 	 * 				returns a boolean that ends the battle loop
 	 */
 	public static boolean checkDeath(Entity entity, boolean isPlayer, boolean run) {
+		// If the entity health is less than zero
 		if (entity.getHealth() <= 0) {
 			if (!run && GameData.IS_GUI) {
-				if (isPlayer) {
+				if (isPlayer) { // Print player death
 					PrintBattleText.slainEntity(true);
 					entity.setDead(true);
-				} else {
+				} else {		// Print enemy death
 					PrintBattleText.slainEntity(false);
 				}
-				
 			}
 			return true;
 		} else {
@@ -234,7 +247,7 @@ public class Loop {
 	 * @param enemy
 	 * 					the enemy entity
 	 * @param run
-	 * 					whether or not the player chose the fly command
+	 * 					whether or not the player chose the fly command to exit battle
 	 */
 	
 	public static void postBattle(boolean isPlayer, Player player, Enemy enemy, boolean run) {
@@ -244,7 +257,7 @@ public class Loop {
 		else if (run){
 			
 		}
-		else {
+		else { // Add to the player stats
 			player.setStatsForLevel();
 			int currentLevel = player.getLevel() + 0;
 			PrintBattleText.xpGain(enemy);
