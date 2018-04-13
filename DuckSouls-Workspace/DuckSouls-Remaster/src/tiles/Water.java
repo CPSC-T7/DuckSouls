@@ -15,6 +15,7 @@ public enum Water implements Tile {
 	 * 
 	 */
 	
+	WATER_I("~~~", "SI", "Water-Intersection.png", false),
 	WATER_IT("~~~", "SIT", "Water-Intersection-Top.png", false),
 	WATER_IB("~~~", "SIB", "Water-Intersection-Bottom.png", false),
 	WATER_IL(" ~~", "SIL", "Water-Intersection-Left.png", false),

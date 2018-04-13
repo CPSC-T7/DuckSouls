@@ -1,36 +1,98 @@
 
 ; --- SECTION 0 : ROOM DATA ---
 
-9,9
+23,26
 
 ============
 
 ; --- SECTION 1 : TILES ---
 
- WTL, WT, WT,WT, DT, WT, WT, WT,WTR
- WL,   ,STL,SCR,   ,SCL,STR,   , WR
- WL,STL,SBR,   ,   ,   ,SBL,STR, WR
- WL,SCB,   ,STL,SBH,STR,   ,SCB, WR
- DL,   ,   ,SBV,   ,SBV,   ,   , DR
- WL,SCT,   ,SBL,SBH,SBR,   ,SCT, WR
- WL,SBL,STR,   ,   ,   ,STL,SBR, WR
- WL,   ,SBL,SCR,   ,SCL,SBR,   , WR
-WBL, WB, WB, WB, DB, WB, WB, WB,WBR
+WTL, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, DT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT,WTR
+ WL,   ,   ,   ,   ,   ,SCT,   ,   ,   ,   ,   ,SCT,   ,   ,   ,   ,   ,   ,   ,   ,   ,WR
+ WL,   ,   ,   ,   ,   , SV,   ,STL, SH,SIT, SH, SI,SBH, SH,STR,   ,   ,   ,   ,   ,   ,WR
+ WL,   ,   ,   ,   ,   , SV,   , SV,   ,SBV,   , SV,   ,   , SV,   ,STL, SH,SIT, SH,SCR,WR
+ WL,   ,   ,   ,   ,   ,SBV,   , SV,   ,SBV,   ,SBL,STR,   , SV,   ,SBV,   , SV,   ,   ,DR
+ WL,SCL, SH, SH, SH, SH,SBR,   , SV,   , SV,   ,   , SV,   , SV,   , SV,   ,SBL, SH,SCR,WR
+ WL,   ,   ,   ,   ,   ,   ,   , SV,   , SV,   ,   , SV,   , SV,   , SV,   ,   ,   ,   ,WR
+ WL,   ,STL, SH, SH, SH, SH, SH,SBR,   , SV,   ,   ,SBV,   , SV,   ,SIL, SH, SH,STR,   ,WR
+ WL,   ,SBV,   ,   ,   ,   ,   ,   ,   ,SIL, SH, SH,SIB, SH,SIR,   , SV,   ,   , SV,   ,WR
+ WL,SCL,SIB,STR,   ,   ,   ,   ,   ,   , SV,   ,   ,   ,   , SV,   , SV,   ,   , SV,   ,WR
+ WL,   ,   , SV,   ,   ,   ,   ,   ,   , SV,   ,   ,   ,   , SV,   , SV,   ,   , SV,   ,WR
+ WL,   ,   ,SIL, SH, SH, SH, SH, SH, SH,SIB,STR,   ,   ,   , SV,   , SV,   ,   , SV,   ,WR
+ WL,   ,   , SV,   ,   ,   ,   ,   ,   ,   , SV,   ,   ,   , SV,   , SV,   ,   , SV,   ,WR
+ WL,   ,SCL,SBR,   ,STL, SH, SH, SH, SH, SH,SBR,   ,   ,   ,SBL,SIT,SBR,   ,   , SV,   ,WR
+ WL,   ,   ,   ,   , SV,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,SBV,   ,   ,   , SV,   ,WR
+ WL,   ,STL, SH,SIT,SBR,   ,   ,   ,   ,   ,STL, SH, SH, SH, SH,SIB, SH,STR,   , SV,   ,WR
+ WL,   , SV,   , SV,   ,   ,   ,   ,   ,   , SV,   ,   ,   ,   ,   ,   , SV,   , SV,   ,WR
+ WL,   , SV,   ,SBV,   ,SCL, SH, SH, SH, SH,SIR,   ,   ,   ,   ,   ,   , SV,   , SV,   ,WR
+ WL,   , SV,   , SV,   ,   ,   ,   ,   ,   , SV,   ,   ,   ,   ,   ,   , SV,   , SV,   ,WR
+ WL,   , SV,   , SV,   ,   ,   ,   ,   ,   , SV,   ,   ,   ,   ,   ,   , SV,   , SV,   ,WR
+ WL,   , SV,   ,SBL, SH, SH, SH, SH,STR,   , SV,   ,   ,   ,   ,   ,   , SV,   , SV,   ,WR
+ WL,   ,SBV,   ,   ,   ,   ,   ,   , SV,   ,SBL, SH,SIT,SBH,SIT, SH, SH,SBR,   , SV,   ,WR
+ WL,   ,SBL, SH, SH, SH, SH,STR,   , SV,   ,   ,   , SV,   , SV,   ,   ,   ,   , SV,   ,WR
+ WL,   ,   ,   ,   ,   ,   , SV,   ,SBL, SH, SH, SH,SIB,SBH,SIB, SH, SH, SH, SH,SBR,   ,WR
+ WL,   ,   ,   ,   ,   ,   ,SCB,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,WR
+WBL, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB,WBR
+
 ============
 
 ; --- SECTION 2 : ITEMS ---
 
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
-   ,   ,   ,   ,   ,   ,   ,   ,   
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   , MA,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  S,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  F,  F,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  G,  G,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,  F,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,  F, F ,   ,  G, G ,  G,   ,  F,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,  C,  C,  C,   ,  G,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  G,  G,  G,   ,   ,   ,  F,  F,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,  G,  G,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,  G,  G,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+
 
 ============
 
 ; --- SECTION 3 : ENTITIES ---
-E: 1,1
+E: 2,1
+E: 3,1
+E: 4,1
+E: 1,2
+E: 2,2
+E: 3,2
+E: 4,2
+E: 1,3
+E: 2,3
+E: 3,3
+E: 3,4
+E: 21,1
+E: 20,1
+E: 20,2
+E: 21,2
+E: 18,8
+E: 19,8
+E: 11,9
+E: 12,9
+E: 13,9
+E: 14,9
+E: 11,10
+E: 12,10
+E: 13,10
+E: 14,10
+E: 9,18
+E: 10,18

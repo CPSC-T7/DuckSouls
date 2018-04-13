@@ -1,27 +1,33 @@
 
 ; --- SECTION 0 : ROOM DATA ---
 
-7,5
+12,8
 
 ============
 
 ; --- SECTION 1 : TILES ---
 
-WTL, WT, WT, WT, WT, WT, WTR
- WL,   ,   ,   ,   ,   , WR
- DL,   ,   ,/=/,   ,   , WR
- WL,   ,   ,   ,   ,   , WR
-WBL, WB, WB, DB, WB, WB, WBR
+WTL, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT,WTR
+ WL,   ,   ,   ,   ,   ,   ,   ,   ,   ,   , WR
+ DL,   ,   ,   ,   ,   ,   ,   ,   ,   ,   , DR
+ WL,   ,   ,   ,   ,   ,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   ,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   ,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   ,   ,   ,   ,   ,   , WR
+WBL, WB, WB, WB, WB, DB, WB, WB, WB, WB, WB, WBR
 
 ============
 
 ; --- SECTION 2 : ITEMS ---
 
-   ,   ,   ,   ,   ,   ,
-   ,   ,   ,  F,   ,   ,
-   ,   ,  F,   ,  F,   ,
-   ,   ,   ,  F,   ,   ,
-   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,  C,  C,  C,  C,  C,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,  C,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,  C,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,  C,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,  C,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
 
 ============
 
