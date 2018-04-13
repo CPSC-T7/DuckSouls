@@ -1,6 +1,7 @@
 package scenes;
 
 import controllers.GUIGame;
+import controllers.GameData;
 import genericInterfaces.Drawable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -45,7 +46,7 @@ public class PauseScene implements Drawable {
 			"file:///" + Utilities.parentDir + "/Sprites/Menus/Main/Exit.png");
 	private ImageView			exitImageView		= new ImageView(exitImage);
 	
-	private int					buttonSelected		= 0;
+	private int					buttonSelected		= 1;
 	
 	// Array of menu buttons (Save and Exit)
 	private MenuButton[]		menuArray			= new MenuButton[] {
@@ -54,8 +55,8 @@ public class PauseScene implements Drawable {
 	
 	// Menu Layers
 	private Pane				backgroundLayer		= new Pane(pauseImageView);
-	private Pane				mainMenuLayer		= new Pane(menuArray);
-	private Group				root				= new Group(backgroundLayer, mainMenuLayer);
+	private Pane				menuLayer			= new Pane(menuArray[0], menuArray[1]);
+	private Group				root				= new Group(backgroundLayer, menuLayer);
 	
 	// If the player wishes to exit the pause menu
 	private boolean				paused				= true;
@@ -81,8 +82,11 @@ public class PauseScene implements Drawable {
 		menuArray[1].animation.play();
 		
 		// Select "Save" first
-		menuArray[1].animation.setOffsetY(0);
-		menuArray[0].animation.setOffsetY(100);
+		menuArray[1].animation.setOffsetY(100);
+		menuArray[0].animation.setOffsetY(0);
+		
+		// Don't allow 'Save' in Arcade
+		if (!GameData.IS_STORY) menuArray[0].setVisible(false);
 		
 		window.setScene(scene);
 		window.show();
@@ -102,7 +106,7 @@ public class PauseScene implements Drawable {
 			switch (key.getCode()) {
 				
 				case W: // Select the top button
-					if (buttonSelected == 1) {
+					if (buttonSelected == 1 && GameData.IS_STORY) {
 						menuArray[1].animation.setOffsetY(0);
 						menuArray[0].animation.setOffsetY(100);
 						buttonSelected -= 1;
@@ -110,7 +114,7 @@ public class PauseScene implements Drawable {
 					break;
 				
 				case S:// Select the bottom button
-					if (buttonSelected == 0) {
+					if (buttonSelected == 0 && GameData.IS_STORY) {
 						menuArray[0].animation.setOffsetY(0);
 						menuArray[1].animation.setOffsetY(100);
 						buttonSelected += 1;
@@ -127,7 +131,6 @@ public class PauseScene implements Drawable {
 					break;
 				
 				case ESCAPE: // Leave the pause menu
-					System.out.println("Hit Escape");
 					paused = false;
 					break;
 			}

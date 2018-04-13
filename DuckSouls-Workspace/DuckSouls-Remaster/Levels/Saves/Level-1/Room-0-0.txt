@@ -5,7 +5,7 @@ WL,,,,,,WR
 WL,,,WT,,,WR
 WL,,WL,,WR,,WR
 WL,,,WB,,,WR
-WL,,,,,.,DR
+WL,,,,,,DR
 WBL,WB,WB,WB,WB,WB,WBR
 ============
 ,,,,,,
@@ -16,5 +16,6 @@ WBL,WB,WB,WB,WB,WB,WBR
 ,B,,,,K,
 ,,,,,,
 ============
-E:1,2,1
-E:3,1,10
+P:5,5
+E:1,1,1
+E:2,1,10
