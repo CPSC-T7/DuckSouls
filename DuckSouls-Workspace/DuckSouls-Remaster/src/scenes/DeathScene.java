@@ -1,6 +1,5 @@
 package scenes;
 
-import controllers.GUIGame;
 import genericInterfaces.Drawable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -8,9 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import ui.MenuButton;
-import utils.Utilities;
-import world.LevelIO;
 
 /**
  * Draws the pause menu.
@@ -26,22 +22,22 @@ public class DeathScene implements Drawable {
 	 * 
 	 */
 	
-	private static final int	TILESIZE			= 64;
+	public static final int	TILESIZE		= 64;
 	
 	// Pause background image and imageview
-	private final Image			deathImage			= new Image(SPRITE_FOLDER_PATH + "/Backgrounds/Death.png");
-	private final ImageView		deathImageView		= new ImageView(deathImage);
+	private final Image		deathImage		= new Image(SPRITE_FOLDER_PATH + "/Backgrounds/Death.png");
+	private final ImageView	deathImageView	= new ImageView(deathImage);
 	
 	// Menu Layers
-	private Pane				backgroundLayer		= new Pane(deathImageView);
-	private Group				root				= new Group(backgroundLayer);
+	private Pane			backgroundLayer	= new Pane(deathImageView);
+	private Group			root			= new Group(backgroundLayer);
 	
 	// If the player wishes to exit the pause menu
-	private boolean				dead				= true;
+	private boolean			dead			= true;
 	
 	// The BattleGUI Stage and Scene
-	private Stage				window;
-	private Scene				scene				= new Scene(root);
+	private Stage			window;
+	private Scene			scene			= new Scene(root);
 	
 	/*
 	 * 
@@ -72,9 +68,9 @@ public class DeathScene implements Drawable {
 				case ENTER:
 					
 					System.exit(0);
-
+					
 					break;
-
+				
 			}
 			
 		});
