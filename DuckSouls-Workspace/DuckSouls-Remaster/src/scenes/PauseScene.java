@@ -88,8 +88,8 @@ public class PauseScene implements Drawable {
 		// Don't allow 'Save' in Arcade
 		if (!GameData.IS_STORY) menuArray[0].setVisible(false);
 		
-		window.setScene(scene);
-		window.show();
+		this.window.setScene(scene);
+		this.window.show();
 	}
 	
 	/**

@@ -196,8 +196,9 @@ public class TextGame implements Controller {
 	
 	@Override
 	public void handleBattleEvent(Enemy enemyToBattle) {
-		// TODO: Run Battle
-		BattleLoop.battleLoop(player, enemyToBattle); // Still under works
+
+		BattleLoop.battleLoop(player, enemyToBattle);
+		currentLevel.currentRoom.removeEnemy(player.getPosition());
 		
 	}
 	
