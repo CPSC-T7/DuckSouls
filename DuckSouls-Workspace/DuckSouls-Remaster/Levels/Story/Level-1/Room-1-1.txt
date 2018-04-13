@@ -1,0 +1,48 @@
+
+; --- SECTION 0 : ROOM DATA ---
+
+23,12
+
+============
+
+; --- SECTION 1 : TILES ---
+
+WTL, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT, DT, WT, WT, WT, WT, WT, WT, WT, WT, WT, WT,WTR
+ WL,   ,   ,   ,   ,   ,   ,   ,   ,   ,SCT,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,WR
+ WL,SCL, SH, SH,STR,   ,   ,   ,SCT,   , SV,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,WR
+ WL,   ,   ,   ,SBL, SH,STR,   , SV,   , SV,   ,   ,STL, SH, SH, SH, SH, SH, SH, SH,SCR,WR
+ WL,   ,SCT,   ,   ,   , SV,   , SV,   , SV,   ,   , SV,   ,   ,   ,   ,   ,   ,   ,   ,WR
+ WL,   ,SIL, SH, SH,SBH,SIR,   , SV,   ,SBL,STR,   , SV,   ,   ,   ,   ,   ,   ,   ,   ,WR
+ WL,   , SV,   ,   ,   ,SBV,   , SV,   ,   , SV,   ,SBV,   ,   ,   ,   ,   ,   ,   ,   ,WR
+ WL,   , SV,   ,   ,SCL,SIB, SH,SIB,STR,   , SV,   ,SBL, SH, SH,SIT,SBH, SH, SH, SH,SCR,WR
+ WL,   ,SBV,   ,   ,   ,   ,   ,   , SV,   , SV,   ,   ,   ,   , SV,   ,   ,   ,   ,   ,WR
+ WL,SCL,SIB, SH, SH, SH, SH,SCR,   , SV,   ,SBL, SH, SH, SH, SH,SIB, SH, SH, SH,SCR,   ,WR
+ WL,/=/,   ,   ,   ,   ,   ,   ,   ,SCB,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,WR
+WBL, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB, WB,WBR
+
+============
+
+; --- SECTION 2 : ITEMS ---
+
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,  F,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  F,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  G,  G,
+   , CA,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  G,  G,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  G,  G,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  F,   ,   ,   ,   ,  C,  C,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  C,
+   ,   ,  K,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,  C,  C,
+   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,   ,
+
+============
+
+; --- SECTION 3 : ENTITIES ---
+
+E:2,1
+E:3,6
+E:7,6
+E:3,10
+E:17,5

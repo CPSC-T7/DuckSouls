@@ -1,0 +1,93 @@
+; This is a comment!
+; These lines will be ignored.
+; However, the ';' MUST BE THE FIRST CHARACTER ON THE LINE!!!
+; Also, blank lines are fine, because they will be ignored.
+
+; See?
+; Also, spaces inside the syntax are auto-removed, so they don't matter either.
+; Anyway, onto the code!
+
+
+; --- SECTION 0 : ROOM DATA ---
+
+; Here is where we define room size as two integers (x then y) separated with a comma
+
+7,7
+
+; Now that the tiles have been defined, it is time to let the program know to advance the section.
+; To do this, we need to write EXACTLY 12 '=' characters on a line.
+
+============
+
+; --- SECTION 1 : TILES ---
+
+; Each tile has a specific string representing said tile in text files.
+; Here, we will write strings representing each tile seperated by ','.
+
+WTL, WT, WT, DT, WT, WT, WTR
+ WL,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   , WR
+ DL,   ,   ,   ,   ,   , DR
+ WL,   ,   ,   ,   ,   , WR
+ WL,   ,   ,   ,   ,   , WR
+WBL, WB, WB, DB, WB, WB, WBR
+
+; Again, we need to write EXACTLY 12 '=' characters on a line to advance the section.
+
+============
+
+; --- SECTION 2 : ITEMS ---
+
+; Just like the tiles, each item has a specific string representing said tile in text files.
+; Here, we will write strings representing each tile seperated by ','.
+
+; Now, you must make the lines the same length and amount as the tiles.
+; This means that you can POTENTIALLY put items on the edge of rooms or on walls.
+; Please don't do that.
+; Please.
+
+   ,   ,   ,   ,   ,   ,
+   ,   ,   ,   , CA, LA,
+   ,   ,   ,   ,   , MA,
+   ,   ,   ,   ,   ,   ,
+   ,  C,  F,   ,   ,  S,
+   ,  B,  G,   ,   ,  K,
+   ,   ,   ,   ,   ,   ,
+
+; Again, we need to write EXACTLY 12 '=' characters on a line to advance the section.
+
+============
+
+; --- SECTION 3 : ENTITES ---
+
+; Finally, we have entities. These are a little different.
+; The first character determines the type. 'P' for player, and 'E' for enemy.
+; Writing a player in one of these files creates a BRAND-NEW player, so only do it once, and only in the first room.
+
+; Player
+; The syntax is simple. 
+; 'P' for player,
+; ':' starts listing the parameters for the entity,
+; and then the x and y co-ordinates separated by a comma. These must be integer-parseable.
+
+P : 3,3
+
+; Enemies
+; The syntax is identical to players, but with one cool addition.
+; You can write as many of these as you like, within reason.
+
+; Normal syntax
+E : 1,1
+
+; Cool addition syntax
+E : 2,1,10
+
+; The third integer is actually a level modifier.
+; Without it, the enemy will scale to the level's default enemy scaling.
+; But with this, you can set the enemy's scaling level manually.
+; This means that in the room, the top left corner will have 2 enemies.
+; The left is level 1 (Or whatever level the room is on), and the right is level 10.
+
+; And that's the end of the file!
+; Each room file should have the name "Room-X-Y.txt" with 'X' and 'Y' being the room's co-ordinates in the level.
+; Each level should be a folder called "Level-Z" with 'Z' being the level number, starting from 1.

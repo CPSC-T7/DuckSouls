@@ -1,0 +1,26 @@
+
+; --- SECTION 0 : ROOM DATA ---
+
+5,3
+
+============
+
+; --- SECTION 1 : TILES ---
+
+WTL, WT, WT, WT,WTR
+ DL,   ,   ,   ,WR
+WBL, WB, WB, WB,WBR
+
+============
+
+; --- SECTION 2 : ITEMS ---
+
+   ,   ,   ,   ,
+   ,   ,   , MA,
+   ,   ,   ,   ,
+
+============
+
+; --- SECTION 3 : ENTITIES ---
+
+E : 2,1, 5
