@@ -163,7 +163,7 @@ public class Room {
 	
 	/**
 	 * Returns a 3D array of images for drawing the room in the GUI version of the
-	 * game. <br>
+	 * game. Has the player in the middle of the screen always.<br>
 	 * <br>
 	 * Third Array Indexing:
 	 * <ul>
@@ -177,89 +177,52 @@ public class Room {
 	 */
 	public Image[][][] getAllImageSprites() {
 		
-		Image[][][] imageSprites = new Image[this.internalWidth + 2][this.internalHeight + 2][3];
-		
-		for (int x = 0; x < this.internalWidth + 2; x++) {
-			for (int y = 0; y < this.internalHeight + 2; y++) {
-				
-				// Tiles
-				imageSprites[x][y][0] = this.tileArray[x][y].getImage();
-				
-				// Items
-				if (this.itemArray[x][y] != null) {
-					imageSprites[x][y][1] = this.itemArray[x][y].getImage();
-				}
-				
-			}
-		}
-		
-		// Enemies
-		for (Enemy enemy : this.enemyList) {
-			Point enemyPos = enemy.getPosition();
-			imageSprites[enemyPos.x][enemyPos.y][2] = enemy.getImage();
-		}
-		
-		// Player
-		Point playerPos = this.player.getPosition();
-		imageSprites[playerPos.x][playerPos.y][2] = this.player.getImage();
-		
-		return imageSprites;
-		
-	}
-	
-	/**
-	 * Returns a 3D list of strings containing the path information for the
-	 * game sprites where the player is in the middle of the screen
-	 * 
-	 * @return a 3D list of strings containing paths to the game sprites
-	 */
-	public Image[][][] getImageSprites() {
-		
 		Image[][][] images = new Image[9][9][3];
 		int x = 0;
 		int y = 0;
 		
-		//For each position on within size/2 of the player in the x direction
+		// For each position on within size/2 of the player in the x direction
 		for (int i = this.player.getPosition().x - (9 / 2); i <= this.player.getPosition().x + (9 / 2); i++) {
 			
-			//For each position on within size/2 of the player in the y direction
+			// For each position on within size/2 of the player in the y direction
 			for (int j = this.player.getPosition().y - (9 / 2); j <= this.player.getPosition().y + (9 / 2); j++) {
 				
-				//This position is off the map add an empty image
+				// This position is off the map add an empty image
 				if (i < 0 || i >= this.getInternalWidth() + 2) {
 					images[x][y][0] = new Image("file:///" + Utilities.parentDir + "/Sprites/Tiles/Sewer/Empty.png");
 				}
 				
 				else if (i >= 0 && i < this.getInternalWidth() + 2) {
 					
-					//This position is off the map add an empty image
+					// This position is off the map add an empty image
 					if (j < 0 || j >= this.getInternalHeight() + 2) {
-						images[x][y][0] = new Image("file:///" + Utilities.parentDir + "/Sprites/Tiles/Sewer/Empty.png");
+						images[x][y][0] = new Image(
+								"file:///" + Utilities.parentDir + "/Sprites/Tiles/Sewer/Empty.png");
 						
-					//If the position is on the map, add the tile image
+						// If the position is on the map, add the tile image
 					} else if (j >= 0 && j < this.getInternalHeight() + 2) {
 						images[x][y][0] = this.tileArray[i][j].getImage();
 						
-						//For each item
+						// For each item
 						if (this.itemArray[i][j] != null) {
 							images[x][y][1] = this.itemArray[i][j].getImage();
 						}
 						
-						//For each character
+						// For each character
 						for (Enemy enemy : this.enemyList) {
-							if(enemy.getPosition().x == i && enemy.getPosition().y == j) {
+							if (enemy.getPosition().x == i && enemy.getPosition().y == j) {
 								images[x][y][2] = enemy.getImage();
 							}
 						}
 						
-						//If the player is at the current position, add it's iamge
+						// If the player is at the current position, add it's iamge
 						if (this.player.getPosition().x == i && this.player.getPosition().y == j) {
 							images[x][y][2] = this.player.getImage();
 						}
 						
 					}
 				}
-
+				
 				y += 1;
 			}
 			y = 0;
@@ -268,7 +231,6 @@ public class Room {
 		
 		return images;
 	}
-		
 	
 	/**
 	 * Generates and appends a tile array to the instance. Makes the tile array 2

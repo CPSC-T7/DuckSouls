@@ -34,7 +34,6 @@ public class GUIGame extends Application implements Controller {
 	 * 
 	 */
 	
-	public static final boolean	isGUI		= true;
 	public static final int		mapsize		= 7;
 	public static final int		tileSize	= 64;
 	

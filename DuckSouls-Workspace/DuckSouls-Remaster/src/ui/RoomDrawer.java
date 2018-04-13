@@ -47,7 +47,7 @@ public class RoomDrawer {
 		gc.fillRect(0, 0, (GUIGame.mapsize + 2) * GUIGame.tileSize, (GUIGame.mapsize + 2) * GUIGame.tileSize);
 		
 		// Get the sprites to draw
-		Image[][][] sprites = room.getImageSprites();
+		Image[][][] sprites = room.getAllImageSprites();
 		
 		// For each position...
 		for (int x = 0; x < sprites.length; x++) {
