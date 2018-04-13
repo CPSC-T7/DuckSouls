@@ -160,28 +160,25 @@ public class Player extends Entity implements Serializable {
 					item = scanner.nextLine().toLowerCase();
 					switch (item) {
 						case "crouton":
-							if (this.inventory.get(Consumable.CROUTON) != null
-									&& this.inventory.get(Consumable.CROUTON) != 0) {
+							if (hasItem(item)) {
 								return "Crouton";
 							} else {
 								throw new Exception("Bad");
 							}
 						case "goo":
-							if (this.inventory.get(Consumable.GOO) != null && this.inventory.get(Consumable.GOO) != 0) {
+							if (hasItem(item)) {
 								return "Goo";
 							} else {
 								throw new Exception("Bad");
 							}
 						case "fish":
-							if (this.inventory.get(Consumable.FISH) != null
-									&& this.inventory.get(Consumable.FISH) != 0) {
+							if (hasItem(item)) {
 								return "Fish";
 							} else {
 								throw new Exception("Bad");
 							}
 						case "bugs":
-							if (this.inventory.get(Consumable.BUGS) != null
-									&& this.inventory.get(Consumable.BUGS) != 0) {
+							if (hasItem(item)) {
 								return "Bugs";
 							} else {
 								throw new Exception("Bad");
@@ -286,6 +283,50 @@ public class Player extends Entity implements Serializable {
 		}
 		healthHealed = this.health - healthHealed;
 		return healthHealed;
+	}
+	
+	/**
+	 * If the player has the specified item.
+	 * 
+	 * @param item
+	 * 				The item to check for.
+	 * @return
+	 * 				True if they have it, false if not.
+	 */
+	public boolean hasItem(String item) {
+
+		switch(item.toLowerCase()) {
+		
+		case "crouton":
+			if (this.inventory.get(Consumable.CROUTON) != null
+					&& this.inventory.get(Consumable.CROUTON) != 0) {
+					return true;
+			}
+			break;
+			
+		case "bugs":
+			if (this.inventory.get(Consumable.BUGS) != null
+				&& this.inventory.get(Consumable.BUGS) != 0) {
+				return true;
+			}
+			break;
+			
+		case "fish":
+			if (this.inventory.get(Consumable.FISH) != null
+				&& this.inventory.get(Consumable.FISH) != 0) {
+				return true;
+			}
+			break;
+			
+		case "goo":
+			if (this.inventory.get(Consumable.GOO) != null
+				&& this.inventory.get(Consumable.GOO) != 0) {
+				return true;
+			}
+			break;
+		}
+		return(false); // If they don't have the item
+		
 	}
 	
 	public Weapon getWeapon() {

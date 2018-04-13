@@ -8,9 +8,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import ui.MenuButton;
 import ui.NumberSprite;
+import ui.StaticSprite;
 import battle.Loop;
 import entities.Enemy;
 import entities.Player;
+import items.Consumable;
 import animation.BattleSprite;
 import utils.Utilities;
 
@@ -86,9 +88,9 @@ public class BattleScene {
 	private BattleSprite enemyAnimation = new BattleSprite(enemyImageView, 64 * 6);
 	
 	// Player Health image and viewer
-	private final Image playerHealthImage = new Image(
+	private final Image HPImage = new Image(
 			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/HP.png");
-	private final ImageView playerHealthImageView = new ImageView(playerHealthImage);
+	private final ImageView HPImageView = new ImageView(HPImage);
 	
 	// Numbers image and viewer
 	private final String numbersImageURL =
@@ -127,10 +129,10 @@ public class BattleScene {
 			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Bugs.png");
 	private ImageView bugsButtonImageView = new ImageView(bugsButtonImage);
 
-	// Cruton button image and viewer
-	private final Image crutonButtonImage = new Image(
-			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Cruton.png");
-	private ImageView crutonButtonImageView = new ImageView(crutonButtonImage);
+	// Crouton button image and viewer
+	private final Image croutonButtonImage = new Image(
+			"file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Crouton.png");
+	private ImageView croutonButtonImageView = new ImageView(croutonButtonImage);
 
 	// Goo button image and viewer
 	private final Image gooButtonImage = new Image("file:///" + Utilities.parentDir + "/Sprites/Menus/Battle/Goo.png");
@@ -162,7 +164,7 @@ public class BattleScene {
 	private Pane menuLayer = new Pane(attackButtonImageView, tauntButtonImageView, flyButtonImageView,
 			itemButtonImageView);
 	// Item Menu Layer
-	private Pane itemLayer = new Pane(bugsButtonImageView, crutonButtonImageView, gooButtonImageView,
+	private Pane itemLayer = new Pane(bugsButtonImageView, croutonButtonImageView, gooButtonImageView,
 			fishButtonImageView, backButtonImageView);
 	// Player/Enemy Layer
 	private Pane playerLayer = new Pane();
@@ -184,17 +186,25 @@ public class BattleScene {
 	// 2D array of Item menu buttons [rows][columns]
 	private MenuButton[][] itemArray = new MenuButton[][] {
 			{ new MenuButton(bugsButtonImageView, "Bugs", 120, 40,  10, 64 * 6),
-					new MenuButton(crutonButtonImageView, "Cruton", 120, 40,  10, 64 * 6 + 50) },
+					new MenuButton(croutonButtonImageView, "Crouton", 120, 40,  10, 64 * 6 + 50) },
 
 			{ new MenuButton(gooButtonImageView, "Goo", 120, 40,  160, 64 * 6),
 					new MenuButton(fishButtonImageView, "Fish", 120, 40,  160, 64 * 6 + 50) },
 
 			{ new MenuButton(backButtonImageView, "Back", 120, 40,  310, 64 * 6) } };
 			
+	/*
+	 * Battle Messages
+	 * 
+	 */
+	
+	// Player health section
+	private StaticSprite HP = new StaticSprite(HPImageView, (int) HPImage.getWidth(), (int) HPImage.getHeight(), 310, 64*6);
+			
 	// 2D array of player health digits
 	private NumberSprite[] playerHealth = new NumberSprite[] {
-			new NumberSprite(new ImageView(new Image(numbersImageURL)), 460, 64 * 6), 
-			new NumberSprite(new ImageView(new Image(numbersImageURL)), 476, 64 * 6)
+			new NumberSprite(new ImageView(new Image(numbersImageURL)), 340, 64 * 6 -10), 
+			new NumberSprite(new ImageView(new Image(numbersImageURL)), 356, 64 * 6 -10)
 	};
 
 	// The BattleGUI Stage and Scene
@@ -233,14 +243,15 @@ public class BattleScene {
 				itemArray[2][0]);
 		itemLayer.setVisible(false); // Make it invisible at the start of the battle.
 		
-		messageLayer.getChildren().addAll(playerHealth[0]);
-		messageLayer.getChildren().add(playerHealth[1]);
+		messageLayer.getChildren().addAll(playerHealth[0], playerHealth[1], HP);
 
 		// Start the player, enemy and button animations (background has none)
 		playerAnimation.animation.play();
 		enemyAnimation.animation.play();
 		menuArray[menuButton[0]][menuButton[1]].animation.play();
 		menuArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
+		itemArray[menuButton[0]][menuButton[1]].animation.play();
+		itemArray[menuButton[0]][menuButton[1]].animation.setOffsetY(40);
 		playerHealth[0].animation.play();
 		playerHealth[1].animation.play();
 		
@@ -248,6 +259,8 @@ public class BattleScene {
 		this.window.setScene(scene);
 		this.window.show();
 
+		drawPlayerHealth();
+		
 	} // End of BattleScene
 
 	/**
@@ -259,8 +272,6 @@ public class BattleScene {
 	public boolean update() {
 		
 		window.setScene(scene);
-		
-		drawPlayerHealth();
 
 		// If a move animation is playing:
 		if (inAnimation) {
@@ -445,25 +456,34 @@ public class BattleScene {
 						// Select the item to use
 						if (itemSelection) {
 							menuButtonType = itemArray[itemButton[0]][itemButton[1]].getButtonType();
-							itemSelection = false;
-							itemLayer.setVisible(false);
-						}
-	
+							
+							// If the player has the item, or wants to go back to the move menu
+							if (player.hasItem(menuButtonType) || menuButtonType == "Back") {
+								itemSelection = false;
+								itemLayer.setVisible(false);
+								messageLayer.setVisible(true);
+							
+							// If the player doesn't have the item, don't register a move.
+							} else {
+								break;
+							}
+						
 						// Select a move to make
-						else
+						}else {
 							menuButtonType = menuArray[menuButton[0]][menuButton[1]].getButtonType();
+						}
 	
 						// Let the player switch between battle/item menu
 						if (menuButtonType == "Item") {
 							itemSelection = true;
 							itemLayer.setVisible(true);
+							messageLayer.setVisible(false);
 						} else if (menuButtonType == "Back") {
 							itemLayer.setVisible(false);
-						}
-	
+							messageLayer.setVisible(true);
+						
 						// Run the player's move
-						else {
-	
+						}else{
 							// If the player goes first
 							if (Loop.playerFirst(player, enemy)) {
 								Loop.executeMove(true, menuButtonType, player, enemy);
@@ -490,6 +510,7 @@ public class BattleScene {
 								}
 							}
 						}
+						
 				}// End of Switch
 			}
 		}); // End of keyPressEvents
@@ -498,7 +519,9 @@ public class BattleScene {
 
 	}// End of Update
 	
-	
+	/**
+	 * Update the player's health
+	 */
 	public void drawPlayerHealth() {
 		int currentHealth = (int) player.getHealth();
 		this.playerHealth[0].setNumber(currentHealth / 10);
@@ -544,6 +567,11 @@ public class BattleScene {
 		itemArray[itemButton[0]][itemButton[1]].animation.play();
 		itemArray[itemButton[0]][itemButton[1]].animation.setOffsetY(40);
 	}
+	
+	/*
+	 * Animations
+	 * 
+	 */
 
 	/**
 	 * Plays an animation of the player attacking the enemy.
@@ -691,6 +719,8 @@ public class BattleScene {
 			enemyAnimation.animation.play();
 			playerAnimation.animation.setOffsetY(playerAnimation.DEAD_POSITION);
 			playerAnimation.animation.play();
+			
+			drawPlayerHealth();
 			return (true);
 
 			// Run away from the player
