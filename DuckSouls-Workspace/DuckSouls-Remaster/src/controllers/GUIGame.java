@@ -21,7 +21,7 @@ import world.LevelBuilder;
 
 import scenes.TitleScene;
 import scenes.BattleScene;
-import scenes.DeathScreen;
+import scenes.DeathScene;
 import scenes.PauseScene;
 
 /**
@@ -67,7 +67,7 @@ public class GUIGame extends Application implements Controller {
 	private PauseScene			pauseScreen;
 	
 	//The death screen
-	private DeathScreen 			deathScreen;
+	private DeathScene 			deathScreen;
 	
 	// Overworld Scene
 	private Scene				scene;
@@ -108,7 +108,7 @@ public class GUIGame extends Application implements Controller {
 		this.gc = gc;
 		
 		titleScreen = new TitleScene(this.window);
-		deathScreen = new DeathScreen(this.window);
+		deathScreen = new DeathScene(this.window);
 		window.setTitle("DuckSouls");
 		window.setScene(scene);
 		window.show();

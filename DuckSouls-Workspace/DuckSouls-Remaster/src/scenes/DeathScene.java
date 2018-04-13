@@ -18,7 +18,7 @@ import world.LevelIO;
  * @author Wylee McAndrews
  *
  */
-public class DeathScreen implements Drawable {
+public class DeathScene implements Drawable {
 	
 	/*
 	 * 
@@ -52,7 +52,7 @@ public class DeathScreen implements Drawable {
 	/**
 	 * DeathScreen constructor
 	 */
-	public DeathScreen(Stage window) {
+	public DeathScene(Stage window) {
 		this.window = window;
 		window.setScene(scene);
 		window.show();
@@ -60,9 +60,6 @@ public class DeathScreen implements Drawable {
 	
 	/**
 	 * Updates the death menu
-	 * 
-	 * @return dead
-	 *         Whether or not the player should still be in the menu.
 	 */
 	@SuppressWarnings("incomplete-switch")
 	public boolean update() {
@@ -72,7 +69,7 @@ public class DeathScreen implements Drawable {
 		scene.setOnKeyPressed(key -> {
 			switch (key.getCode()) {
 				
-				case ENTER: // Choose the selected button
+				case ENTER:
 					
 					System.exit(0);
 
