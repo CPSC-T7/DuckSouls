@@ -136,7 +136,7 @@ public class TextAnimations {
 	public static void attackAnimation() {
 		//Run to the enemy, attack, then run back and turn around
 		int xPosition = 0;
-		xPosition = run(13, +1, xPosition, 0);
+		xPosition = run(13, +1, 0, xPosition);
 		Utilities.clearConsole();
 		getSprite("fight", "Duck", "Right", xPosition, 0);
 		getSprite("stand", "Rat", "Left", 35, 0);
@@ -149,8 +149,8 @@ public class TextAnimations {
 		getSprite("attack2", "Duck", "Right", xPosition, 0);
 		Utilities.waitMilliseconds(400);
 		Utilities.clearConsole();
-		xPosition = run(13, -1, xPosition, 0);
-		xPosition = run(0, +1, xPosition, 0);	
+		xPosition = run(13, -1, 0, xPosition);
+		xPosition = run(0, +1, 0, xPosition);	
 		
 		//Enemy flinches
 		Utilities.clearConsole();
