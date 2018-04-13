@@ -31,7 +31,8 @@ public class PathTests {
 			test = new Path(roomArray[2], roomArray[2].getEnemyList().get(0).getPosition(), roomArray[2].getPlayer().getPosition());
 			assertEquals("Path length should be 80", 80, test.getPathLength());
 			
-			/*This is known to fail, current algorithm has the issue where if two paths to the goal they have points that for
+			/**
+			 * This is known to fail, current algorithm has the issue where if two paths to the goal they have points that for
 			 * some time have the same H cost and F cost and both only move closer to the goal from this point on,
 			 * then the algorithm will pick one of these paths and not check the other.
 			 * 
