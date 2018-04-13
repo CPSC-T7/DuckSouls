@@ -7,27 +7,27 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
- * Menu button sprites.
+ * Number sprite.
  * 
  * @author Wylee McAndrews
  *
  */
 public class NumberSprite extends Pane {
 	
-	// Button imageView has one column, and two rows.
+	// Number imageView has one column and ten rows 0-9.
 	// It only displays one image at a time (is not animated)
-	ImageView				imageView;
-	int						count		= 1;
-	int						columns		= 1;
-	int						offsetX		= 0;
-	int						offsetY		= 0;
-	int						width		= 64;
-	int						height		= 64;
+	ImageView					imageView;
+	int							count		= 1;
+	int							columns		= 1;
+	int							offsetX		= 0;
+	int							offsetY		= 0;
+	int							width		= 64;
+	int							height		= 64;
 	
-	private int				tileSize	= 64;
+	private static final int	tileSize	= 64;
 	
 	// Use SpriteAnimation to change the state of the button (selected/deselected)
-	public SpriteAnimation	animation;
+	public SpriteAnimation		animation;
 	
 	/**
 	 * MenuButton constructor.
@@ -48,16 +48,22 @@ public class NumberSprite extends Pane {
 		// Set the viewport to the first frame
 		this.imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 		
-		// The SpriteAnimation class will help with changing visual button states.
+		// The SpriteAnimation class will help with changing the viewed number
 		animation = new SpriteAnimation(imageView, Duration.millis(300), count, columns, offsetX, offsetY, width,
 				height);
 		
 		getChildren().add(imageView); // Add the imageView to the layer
 		
-		this.setTranslateX(positionX); // Translate the number x-y to it's position
+		this.setTranslateX(positionX); // Translate the number to it's x-y position
 		this.setTranslateY(positionY);
 	}
 	
+	/**
+	 * Set which number is displayed on the imageView
+	 * 
+	 * @param number
+	 *            The number to display
+	 */
 	public void setNumber(int number) {
 		
 		animation.setOffsetY(number * tileSize);
