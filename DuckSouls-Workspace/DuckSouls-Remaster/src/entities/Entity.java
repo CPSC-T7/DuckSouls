@@ -191,7 +191,7 @@ public abstract class Entity implements Drawable, Moveable, Battleable, Serializ
 		} else if (move == 4) {
 			return "Item";
 		} else {
-			return "Run";
+			return "Fly";
 		}
 	}
 	

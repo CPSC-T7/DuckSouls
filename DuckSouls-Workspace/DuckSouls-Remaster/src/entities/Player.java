@@ -151,7 +151,7 @@ public class Player extends Entity implements Serializable {
 						move = 4;
 						choose = false;
 						break;
-					case "run":
+					case "fly":
 						move = 5;
 						choose = false;
 						break;
